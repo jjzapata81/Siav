@@ -1,0 +1,361 @@
+//reset
+body, html {
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	height: 100%;
+	line-height: 18px;
+	font-family: "VAGregular";
+	font-size: 12px;
+	color: @color-text;
+}
+ul, li, h1, h2, h3, h4, br {
+	margin: 0;
+	padding: 0;
+	line-height: inherit;
+	list-style: none;
+}
+input, select {
+	border: 1px solid #D4D1D1;
+	height: 30px;
+	padding-left: 8px;
+	font-family: arial;
+	border-radius: 3px;
+	color: #ABABAB;
+	width: 100%;
+}
+textarea {
+	border: 1px solid #D4D1D1;
+	width: 100%;
+	padding-left: 8px;
+}
+a, button {
+	&:focus {
+		outline:0px;
+	}
+}
+img {
+	width: 100%;
+}
+.checkbox {
+	margin: 0;
+}
+.clear {
+	clear: both;
+}
+.nav, .pagination, .carousel, .panel-title a {
+	cursor: pointer;
+}
+.container-fluid {
+	padding: 0 30px;
+}
+.lical {
+	width: 14%;
+}
+.cal {
+	border: 1px solid #D4D1D1;
+	border-radius: 3px;
+	button {
+		float: left;
+		background: #fff!important;
+		color: #ABABAB!important;
+		padding: 0 1px 0 12px!important;
+		.fa {
+			font-size: 19px;
+		}
+	}
+	input {
+		float: left;
+		border: none;
+		width: 72%;
+	}
+}
+.seccion_fijo {
+	.navegacion {
+		width: 100%;
+		position: fixed;
+		top: 0;
+		left: 0;
+		background: #666;
+		transition: background-color 0.3s ease;
+		border-bottom: 1px solid #ddd;
+		z-index: 10;
+		margin-top: 0!important;
+		padding: 0 30px;
+		.nuevo {
+			margin-top: 10px;
+			a {
+				color: #fff;
+			}
+		}
+		.info {
+			color: #fff;
+			border: none;
+		}
+	}
+	.digitacion {
+		transition: all 0.3s ease;
+		padding-top: 220px;
+	}
+}
+.top {
+	width: 100%;
+	min-height: 88px;
+	line-height: 88px;
+	background: #e6e6e5;
+	.logo {
+		float: left;
+		padding: 0 30px;
+		width: 150px;
+		background: url("../images/sepaTop.png")no-repeat right center;
+	}
+	h1 {
+		float: left;
+		font-size: 16px;
+		padding-left: 30px;
+		font-weight: 600;
+	}
+}
+.paquete {
+	margin-top: 30px;
+	label	{
+		display: block;
+		font-weight: 100;
+		font-size: 14px;
+		margin-bottom: 10px;
+	}
+	ul {
+		li {
+			padding: 0 5px;
+			&:first-child {
+				padding-left: 0;
+			}
+			button {
+				.btn-principal;
+				height: 30px;
+			}
+		}
+	}
+}
+.navegacion {
+	margin-top: 20px;
+	.nuevo {
+		border-bottom: 1px solid #ccc;
+		padding-bottom: 8px;
+		ul {
+			li {
+				border-right: 1px solid #ccc;
+				padding-right: 10px;
+				margin-right: 10px;
+				&:last-child {
+					border: none;
+				}
+				a {
+					display: block;
+					color: @color-text;
+					font-size: 13px;
+					&:hover, &:active, &:focus {
+						text-decoration: none;
+					}
+					.fa {
+						color: @btn-principal;
+						font-size: 25px;
+						margin: 0 5px 0 0;
+					}
+					span {
+						position: relative;
+    				top: -4px;
+					}
+				}
+			}
+		}
+	}
+	.info {
+		font-family: arial;
+		border-bottom: 1px solid #ccc;
+		padding-bottom: 8px;
+		margin-top: 10px;
+		font-size: 13px;
+		label {
+			margin-right: 5px;
+		}
+		ul {
+			float: left;
+			margin-top: 4px;
+			li {
+				padding: 0 10px;
+				border-right: 1px solid #ccc;
+				&:first-child {
+					padding-left: 0;
+				}
+				&:last-child {
+					border: none;
+				}
+			}
+		}
+		.fecha {
+			float: right;
+			margin-top: 4px;
+		}
+		button {
+			float: right;
+			.btn-principal;
+			height: 25px;
+			background: @color-succes;
+			margin-left: 20px;
+		}
+	}
+}
+.filtro {
+	margin-top: 20px;
+	padding-bottom: 15px;
+	border-bottom: 1px solid #ccc;
+	label {
+		font-weight: 100;
+		font-size: 13px;
+	}
+	ul {
+		li {
+			padding: 0 5px;
+			&:first-child {
+				padding-left: 0;
+			}
+		}
+		button {
+			.btn-principal;
+			height: 30px;
+		}
+	}
+}
+.resultados {
+	margin-top: 20px;
+	font-family: arial;
+	button {
+		.btn-principal;
+		height: 30px;
+		background: @btn-secundario;
+	}
+	.items {
+		margin-top: 10px;
+		.cont {
+			li {
+				margin: 0 15px 10px 0;
+			}
+		}
+		.cliente {
+			padding: 12px;
+			background: #f3f3f3;
+			border: 1px solid #dcdcdc;
+			color: #727070;
+			label {
+				width: 125px;
+			}
+			li {
+				margin: 0;
+			}
+			.edit {
+				text-align: right;
+			}
+			button {
+				.btn-principal;
+				height: 25px;
+				background: @btn-secundario;
+				border-radius: 0;
+				padding: 0 9px;
+				font-size: 11px;
+			}
+		}
+	}
+}
+.digitacion {
+	.basica, .resi, .ex {
+		margin-top: 25px;
+		padding-bottom: 20px;
+		border-bottom: 1px solid #ccc;
+		.head {
+			h2 {
+				font-family:"VAGbold";
+				font-size: 18px;
+				padding-right: 15px;
+				margin-right: 15px;
+				border-right: 1px solid #ccc;
+			}
+			a {
+				display: block;
+				color: @color-text;
+				font-size: 13px;
+				&:hover, &:active, &:focus {
+					text-decoration: none;
+				}
+				.fa {
+					background: @color-alert;
+					font-size: 15px;
+					color: #fff;
+					width: 25px;
+					height: 25px;
+					line-height: 24px;
+					text-align: center;
+					border-radius: 50px;
+					margin-right: 3px;
+				}
+			}
+		}
+		.forms {
+			font-family: arial;
+			margin-top: 10px;
+			li {
+				width: 24%;
+				margin: 0 10px 15px 0;
+				label {
+					display: block;
+					font-weight: 100;
+
+					margin-bottom: 2px;
+				}
+			}
+			.area {
+				width: 100%;
+			}
+			.checks {
+				input {
+					width: inherit;
+					height: inherit;
+					margin: 0;
+					position: relative;
+					top: 3px;
+				}
+				span {
+					margin-right:15px;
+				}
+			}
+			.cal {
+				button {
+					border: none;
+					height: 30px;
+				}
+			}
+		}
+	}
+	.direccion {
+		width: 100%!important;
+		#editDireccion {
+			li {
+				width: inherit;
+			}
+		}
+		span {
+			font-size: 18px;
+		}
+	}
+}
+.save {
+	margin: 10px auto 100px auto;
+	.btn-principal;
+	background: @color-succes;
+	height: 30px;
+	font-family: arial;
+	width: 100%;
+}
+//
+@import "../css/variables.less";
+//

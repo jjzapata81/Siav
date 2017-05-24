@@ -1,0 +1,45 @@
+<titulo/>
+<menu></menu>
+
+<div  class="contenido">
+	<div  class="boton-fijo">
+		<a ng-click="onAgregar()" uib-tooltip="Agregar" tooltip-placement="left" ng-show="!esNuevo"><i class="fa fa-plus icon-float icon-add" aria-hidden="true"></i></a>
+		<a ng-click="onGuardar()" uib-tooltip="Guardar" tooltip-placement="left" ng-show="esNuevo"><i class="fa fa-floppy-o icon-float icon-save" aria-hidden="true"></i></a>
+		<a ng-click="onCancelar()" uib-tooltip="Cancelar" tooltip-placement="left" ng-show="esNuevo"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
+		<a ng-click="onImprimir()" uib-tooltip="Imprimir" tooltip-placement="left" ng-show="!esNuevo"><i class="fa fa-print icon-float icon-print"></i></a>
+	</div>
+	<section class="titulo-seccion">
+		Cuentas bancarias
+	</section>	
+	
+	<div class="tabla-siav">
+		<table class="table table-responsive">
+			<thead>
+				<th>Nombre</th>
+				<th>N&uacute;mero cuenta</th>
+				<th></th>
+			</thead>
+			<tbody>
+				<tr ng-repeat="banco in bancos | orderBy : 'nombre'">
+					<td>{{banco.nombre}}</td>
+					<td>{{banco.numeroCuenta}}</td>
+					<td><a ng-click="onEditar(banco)"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<section class="formulario form-fijo" ng-show="esNuevo">
+		<div>
+			<ul class="flex">
+				<li>
+					<label>Nombre:</label><br>
+					<input type="text" ng-model="bancoNuevo.nombre"/>
+				</li>
+				<li>
+					<label>N&uacute;mero cuenta:</label><br>
+					<input type="text" ng-model="bancoNuevo.numeroCuenta"/>
+				</li>
+			</ul>
+		</div>
+	</section>
+</div>

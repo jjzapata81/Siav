@@ -1,0 +1,108 @@
+<titulo/>
+<menu></menu>
+
+<div  class="contenido">
+	<div  class="boton-fijo">
+		<a ng-click="onAgregar()" uib-tooltip="Agregar" tooltip-placement="left" ng-show="!esNuevo && !editandoPerfil"><i class="fa fa-plus icon-float icon-add" aria-hidden="true"></i></a>
+		<a ng-click="onCrear()" uib-tooltip="Guardar" tooltip-placement="left" ng-show="esNuevo && editandoPerfil"><i class="fa fa-floppy-o icon-float icon-save" aria-hidden="true"></i></a>
+		<a ng-click="onActualizar()" uib-tooltip="Actualizar" tooltip-placement="left" ng-show="!esNuevo && editandoPerfil"><i class="fa fa-floppy-o icon-float icon-save" aria-hidden="true"></i></a>
+		<a ng-click="onCancelar()" uib-tooltip="Cancelar" tooltip-placement="left" ng-show="esNuevo && !editandoPerfil"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
+		<a ng-click="onCancelarEditar()" uib-tooltip="Cancelar" tooltip-placement="left" ng-show="editandoPerfil && !esNuevo"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
+	</div>
+	<section class="titulo-seccion">
+		Usuarios del sistema
+	</section>	
+	<div class="tabla-siav">
+		<table class="table table-responsive">
+			<thead>
+				<th>N&uacute;mero de identificaci&oacute;n</th>
+				<th>Nombres</th>
+				<th>Usuario</th>
+				<th>Estado</th>
+				<th></th>
+			</thead>
+			<tbody>
+				<tr ng-repeat="usuario in usuarios | orderBy:'id'">
+					<td>{{usuario.id}}</td>
+					<td><a ng-click="onEditar(usuario)">{{usuario.nombres}} {{usuario.apellidos}}</a></td>
+					<td>{{usuario.nombreUsuario}}</td>
+					<td><span ng-class="{activo : {{usuario.activo}} == 'true'}"><span ng-show="usuario.activo">ACTIVO</span><span ng-show="!usuario.activo">INACTIVO</span></span></td>
+					<td ng-if="usuario.activo"><a ng-click="onCambioEstado(usuario)"><i class="fa fa-circle activo" aria-hidden="true"></i> Desactivar</a></td>
+					<td ng-if="!usuario.activo"><a ng-click="onCambioEstado(usuario)"><i class="fa fa-circle inactivo" aria-hidden="true"></i> Activar</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<section class="formulario form-fijo" ng-show="esNuevo">
+		<div>
+			<ul class="flex">
+				
+				<li>
+					<label>Nombres:</label><br>
+					<input type="text" ng-model="usuarioNuevo.nombres"/>
+				</li>
+				<li>
+					<label>Apellidos:</label><br>
+					<input type="text" ng-model="usuarioNuevo.apellidos"/>
+				</li>
+			</ul>
+			<ul class="flex">
+				<li>
+					<label>N&uacute;mero de identificaci&oacute;n:</label><br>
+					<input type="text" ng-model="usuarioNuevo.id"/>
+				</li>
+				<li>
+					<label>Perfil:</label><br>
+					<select ng-model="usuarioNuevo.perfil"
+				    	ng-options="perfil as perfil.nombrePerfil for perfil in perfiles">
+      				</select>
+				</li>
+			</ul>
+			<ul class="flex">
+				<li>
+					<label>Ingresar contrase&ntilde;a:</label><br>
+					<input type="password" ng-model="usuarioNuevo.password" ng-change="verificarPass()" maxlength="8"/>
+				</li>
+				<li>
+					<label>Confirmar contrase&ntilde;a:</label><br>
+					<input type="password" ng-model="confirmarPassword" ng-change="verificarPass()" maxlength="8"/>
+				</li>
+				<li>
+					<label>&nbsp;</label><br>
+					<i ng-show="coinciden" class="fa fa-check verificacion-ok" aria-hidden="true"></i>
+					<i ng-show="!coinciden" class="fa fa-times verificacion-err" aria-hidden="true"></i>
+				</li>
+			</ul>
+			<ul class="flex">
+				<li>(M&aacute;ximo 8 d&iacute;gitos)</li>
+			</ul>
+		</div>
+	</section>
+	<section class="formulario form-fijo" ng-show="editandoPerfil">
+		<div>
+			<ul class="flex">
+				
+				<li>
+					<label>Nombres:</label><br>
+					<input type="text" ng-model="usuarioEditar.nombres"/>
+				</li>
+				<li>
+					<label>Apellidos:</label><br>
+					<input type="text" ng-model="usuarioEditar.apellidos"/>
+				</li>
+				<li>
+					<label>N&uacute;mero de identificaci&oacute;n:</label><br>
+					<input type="text" ng-model="usuarioEditar.id" ng-disabled="true"/>
+				</li>
+			</ul>
+			<ul class="flex">
+				<li>
+					<label>Perfil:</label><br>
+					<select ng-model="usuarioEditar.perfil"
+				    	ng-options="perfil as perfil.nombrePerfil for perfil in perfiles track by perfil.codigoPerfil">
+      				</select>
+				</li>
+			</ul>
+		</div>
+	</section>
+</div>

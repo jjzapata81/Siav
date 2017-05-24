@@ -1,0 +1,127 @@
+<titulo/>
+<menu></menu>
+<div  class="contenido">
+	<div  class="boton-fijo">
+		<a ng-click="onGuardar()" uib-tooltip="Guardar" tooltip-placement="left" ng-show="estaEditando"><i class="fa fa-floppy-o icon-float icon-save" aria-hidden="true"></i></a>
+		<a ng-click="onBuscar()" uib-tooltip="Buscar" tooltip-placement="left" ng-show="!estaEditando"><i class="fa fa-search icon-float icon-search" aria-hidden="true"></i></a>
+		<a ng-click="onCrear()" uib-tooltip="Agregar" tooltip-placement="left" ng-show="!estaEditando"><i class="fa fa-plus icon-float icon-add" aria-hidden="true"></i></a>
+		<a ng-click="onEditar()" uib-tooltip="Editar" tooltip-placement="left"  ng-show="!estaEditando && existeInstalacion"><i class="fa fa-pencil icon-float icon-add" aria-hidden="true"></i></a>
+		<a ng-click="onEditarPropietario()" uib-tooltip="{{accionPropietario}}" tooltip-placement="left"  ng-show="estaEditando"><i class="fa fa-user icon-float icon-print" aria-hidden="true"></i></a>
+		<a ng-click="onCancelar()" uib-tooltip="Cancelar" tooltip-placement="left" ng-show="estaEditando"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
+	</div>
+	
+	<section class="titulo-seccion">Instalaciones</section>
+	<section class="formulario form-fijo">
+		<div ng-show="!estaEditando">
+			<section class="sub-titulo">Buscar instalaci&oacute;n</section>
+			<ul class="flex">
+				<li>
+					<label>N&uacute;mero:</label><br>
+					<input type="text" ng-model="buscarInstalacion"/>
+				</li>
+			</ul>
+		</div>
+		<div ng-show="estaEditando || existeInstalacion">
+			<section class="sub-titulo" ng-show="!estaEditando">Instalaci&oacute;n {{instalacion.numeroInstalacion}}</section>
+			<ul class="flex">
+				<li>
+					<label><i class="fa fa-asterisk" aria-hidden="true"></i> Vereda:</label><br>
+					<select
+						ng-model="instalacion.vereda"
+				    	ng-options="vereda as vereda.nombre for vereda in veredas track by vereda.codigo"
+				    	ng-disabled="!estaEditando">
+				    	<option value=''>Seleccione...</option>
+      				</select>
+				</li>
+				<li>
+					<label><i class="fa fa-asterisk" aria-hidden="true"></i> Direcci&oacute;n instalaci&oacute;n:</label><br>
+					<input type="text" ng-model="instalacion.direccion" ng-disabled="!estaEditando"/>
+				</li>
+				<li>
+					<label>Tel&eacute;fono fijo instalaci&oacute;n:</label><br>
+					<input type="text" ng-model="instalacion.telefono" ng-disabled="!estaEditando"/>
+				</li>
+				<li>
+					<label>Estrato:</label><br>
+					<select
+						ng-model="instalacion.estrato"
+				    	ng-options="estrato as estrato for estrato in estratos track by estrato"
+				    	ng-disabled="!estaEditando">
+				    	<option value=''>Seleccione...</option>
+      				</select>
+				</li>
+ 				<li>
+					<label>Facturaci&oacute;n:</label><br>
+					<select
+						ng-model="instalacion.facturacion"
+				    	ng-options="facturacion as facturacion.valor for facturacion in tiposFacturacion track by facturacion.codigo"
+				    	ng-disabled="!estaEditando">
+				    	<option value=''>Seleccione...</option>
+      				</select>
+				</li>
+				<li>
+					<label>Serie medidor:</label><br>
+					<input type="text" ng-model="instalacion.serieMedidor" ng-disabled="!esNueva"/>
+				</li>
+				<li>
+					<label>D&iacute;gitos medidor:</label><br>
+					<input type="number" ng-model="instalacion.digitosMedidor" ng-disabled="!estaEditando" ng-change="onChangeDigitos()"/>
+				</li>
+				<li>
+					<label>N&uacute;mero catastral:</label><br>
+					<input type="text" ng-model="instalacion.numeroCatastro" ng-disabled="!estaEditando"/>
+				</li>
+			</ul>
+			
+			<ul class="flex">
+				<li>
+					<label>Ramal:</label><br>
+					<select
+						class="select-ramal"
+						ng-model="instalacion.ramal"
+				    	ng-options="ramal as ramal.nombre for ramal in ramales track by ramal.codigoRamal"
+				    	ng-disabled="!estaEditando">
+				    	<option value=''>Seleccione...</option>
+      				</select>
+				</li>
+			</ul>
+		</div>
+		<div  ng-show="existeInstalacion">
+			<section class="sub-titulo">Propietario</section>
+			<ul class="flex">
+				<li>
+					<label><i class="fa fa-asterisk" aria-hidden="true"></i> C&eacute;dula:</label><br>
+					<input type="text" ng-model="instalacion.usuario.cedula" ng-disabled="true"/>
+				</li>
+				<li>
+					<label><i class="fa fa-asterisk" aria-hidden="true"></i> Nombres:</label><br>
+					<input type="text" ng-model="instalacion.usuario.nombres" ng-disabled="true"/>
+				</li>
+				<li>
+					<label><i class="fa fa-asterisk" aria-hidden="true"></i> Apellidos:</label><br>
+					<input type="text" ng-model="instalacion.usuario.apellidos" ng-disabled="true"/>
+				</li>
+				<li>
+					<label>Ciudad:</label><br>
+					<input type="text" ng-model="instalacion.usuario.ciudad" ng-disabled="true"/>
+				</li>
+				<li>
+					<label>Direcci&oacute;n:</label><br>
+					<input type="text" ng-model="instalacion.usuario.direccion" ng-disabled="true"/>
+				</li>
+				<li>
+					<label>Tel&eacute;fono fijo:</label><br>
+					<input type="text" ng-model="instalacion.usuario.telefono" ng-disabled="true"/>
+				</li>
+				<li>
+					<label>Tel&eacute;fono celular:</label><br>
+					<input type="text" ng-model="instalacion.usuario.celular" ng-disabled="true"/>
+				</li>
+				<li>
+					<label>Correo electr&oacute;nico:</label><br>
+					<input type="text" ng-model="instalacion.usuario.email" ng-disabled="true"/>
+				</li>
+			</ul>
+		</div>
+	</section>
+</div>

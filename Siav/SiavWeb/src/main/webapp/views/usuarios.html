@@ -1,0 +1,62 @@
+<titulo/>
+<menu></menu>
+<div  class="contenido">
+	<div  class="boton-fijo">
+		<a ng-click="onGuardar()" uib-tooltip="Guardar" tooltip-placement="left" ng-show="estaEditando"><i class="fa fa-floppy-o icon-float icon-save" aria-hidden="true"></i></a>
+		<a ng-click="onBuscarPropietario()" uib-tooltip="Buscar" tooltip-placement="left" ng-show="!estaEditando"><i class="fa fa-search icon-float icon-search" aria-hidden="true"></i></a>
+		<a ng-click="onCrearUsuario()" uib-tooltip="Agregar" tooltip-placement="left" ng-show="!estaEditando"><i class="fa fa-plus icon-float icon-add" aria-hidden="true"></i></a>
+		<a ng-click="onEditar()" uib-tooltip="Editar" tooltip-placement="left"  ng-show="!estaEditando && existeUsuario"><i class="fa fa-pencil icon-float icon-add" aria-hidden="true"></i></a>
+		<a ng-click="onCancelar()" uib-tooltip="Cancelar" tooltip-placement="left" ng-show="estaEditando"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
+	</div>
+
+	<section class="titulo-seccion">Propietario</section>
+	<section class="formulario form-fijo">
+		<div ng-show="!estaEditando">
+			<section class="sub-titulo">Buscar propietario</section>
+			<ul class="flex">
+				<li>
+					<label>Documento de identidad:</label><br>
+					<input type="text" ng-model="buscarCedula"/>
+				</li>
+			</ul>
+		</div>
+		<div ng-show="estaEditando || existeUsuario">
+			<section class="sub-titulo" ng-show="!estaEditando">{{usuario.nombres}} {{usuario.apellidos}}</section>
+			<ul class="flex">
+				<li>
+					<label><i class="fa fa-asterisk" aria-hidden="true"></i> C&eacute;dula:</label><br>
+					<input type="text" ng-model="usuario.cedula" ng-disabled="!estaEditando"/>
+				</li>
+				<li>
+					<label><i class="fa fa-asterisk" aria-hidden="true"></i> Nombres:</label><br>
+					<input type="text" ng-model="usuario.nombres" ng-disabled="!estaEditando"/>
+				</li>
+				<li>
+					<label><i class="fa fa-asterisk" aria-hidden="true"></i> Apellidos:</label><br>
+					<input type="text" ng-model="usuario.apellidos" ng-disabled="!estaEditando"/>
+				</li>
+				<li>
+					<label>Ciudad:</label><br>
+					<input type="text" ng-model="usuario.ciudad" ng-disabled="!estaEditando"/>
+				</li>
+				<li>
+					<label>Direcci&oacute;n:</label><br>
+					<input type="text" ng-model="usuario.direccion" ng-disabled="!estaEditando"/>
+				</li>
+				<li>
+					<label>Tel&eacute;fono fijo:</label><br>
+					<input type="text" ng-model="usuario.telefono" ng-disabled="!estaEditando"/>
+				</li>
+				
+				<li>
+					<label>Tel&eacute;fono celular:</label><br>
+					<input type="text" ng-model="usuario.celular" ng-disabled="!estaEditando"/>
+				</li>
+				<li>
+					<label>Correo electr&oacute;nico:</label><br>
+					<input type="text" ng-model="usuario.email" ng-disabled="!estaEditando"/>
+				</li>
+			</ul>
+		</div>
+	</section>
+</div>

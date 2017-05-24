@@ -1,0 +1,35 @@
+<div class="ngdialog-message">
+	<div class="modal-header titulo-modal">
+		<h3>{{titulo}}</h3>
+	</div>
+	<div class="modal-body">
+		<div class="mensaje-body">
+			<div class="icono-modal"><i class="{{clase}}" aria-hidden="true"></i></div>
+			<div class="mensaje-modal">Desea crear un usuario nuevo o asignar la instalaci&oacute;n a uno existente?</div>
+		</div>
+		<div class="opciones-usuario">
+			<div class="icon-div">
+				<a ng-click="onSeleccionar('NUEVO')"  class="font-20">
+					<i class="fa fa-user-plus icon-float icon-add" aria-hidden="true"></i>
+					<br>Nuevo <i class="fa fa-check modal-check" aria-hidden="true" ng-show="esNuevo"></i>
+				</a>
+			</div>
+			<div class="icon-div">
+				<a ng-click="onSeleccionar('EXISTENTE')" class="font-20">
+					<i class="fa fa-user icon-float icon-save" aria-hidden="true"></i>
+					<br>Existente <i class="fa fa-check modal-check" aria-hidden="true" ng-show="!esNuevo"></i>
+				</a>
+			</div>
+		</div>
+		<div class="input-existente" ng-show="!esNuevo">
+			<span class="modal-obligatorio">{{obligatorio}}</span>
+			<input type="text" ng-model="cedula" placeholder="N&uacute;mero de documento" ng-change="onChange()">
+		</div>
+	</div>
+	<div class="modal-footer">
+		<ul class="flex alineacion-derecha" >
+			<li><button type="button" class="btn-siav btn-buscar" ng-click="continuar()">Aceptar</button></li>
+			<li><button type="button" class="btn-siav btn-cancelar" ng-click="cancelar()">Cancelar</button></li>
+		</ul>
+ 	</div>
+</div>

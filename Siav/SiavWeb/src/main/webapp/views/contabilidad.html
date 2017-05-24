@@ -1,0 +1,99 @@
+<titulo/>
+<menu></menu>
+<div  class="contenido">
+	<div  class="boton-fijo">
+		<a ng-click="onEditar()" uib-tooltip="Editar" tooltip-placement="left" ng-show="noEstaEditando"><i class="fa fa-pencil icon-float icon-add" aria-hidden="true"></i></a>
+		<a ng-click="onGuardar()" uib-tooltip="Guardar" tooltip-placement="left" ng-show="!noEstaEditando"><i class="fa fa-floppy-o icon-float icon-save" aria-hidden="true"></i></a>
+		<a ng-click="onCancelar()" uib-tooltip="Cancelar" tooltip-placement="left" ng-show="!noEstaEditando"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
+	</div>
+	
+	<section class="titulo-seccion">
+		Registro del sistema
+	</section>
+	<section class="formulario form-fijo">
+		<ul class="flex sistema-form">
+			<li>
+				<label>Consumo m&iacute;nimo:</label><br>
+				<input type="number" ng-model="contabilidad.consumoMinimo" ng-disabled="noEstaEditando"/>
+			</li>
+			<li>
+				<label>Tipo de recargo:</label><br>
+				<input type="radio" class="rbt-config" ng-model="contabilidad.esRecargoFijo" value="true" ng-disabled="noEstaEditando"> Fijo
+				<input type="radio" class="rbt-config" ng-model="contabilidad.esRecargoFijo" value="false" ng-disabled="noEstaEditando"> Porcentual
+			</li>
+			<li ng-show="!contabilidad.esRecargoFijo">
+				<label>Porcentaje</label><br>
+				<input type="numeric" ng-model="contabilidad.porcentajeRecargo" ng-disabled="noEstaEditando"/>
+			</li>
+			
+		</ul>
+		<section class="sub-titulo">Conceptos contables de facturaci&oacute;n</section>
+		<ul class="flex sistema-form">
+			<li>
+				<label>Cargo fijo:</label><br>
+				<input type="text" class="ancho-180" ng-model="contabilidad.idCargoFijo" ng-disabled="noEstaEditando"/>
+			</li>
+			<li>
+				<label>Consumo b&aacute;sico:</label><br>
+				<input type="text" ng-model="contabilidad.idBasico" ng-disabled="noEstaEditando"/>
+			</li>
+			<li>
+				<label>Consumo complementario:</label><br>
+				<input type="text" ng-model="contabilidad.idComplementario" ng-disabled="noEstaEditando"/>
+			</li>
+			<li>
+				<label>Consumo suntuario:</label><br>
+				<input type="text" ng-model="contabilidad.idSuntuario" ng-disabled="noEstaEditando"/>
+			</li>
+			<li>
+				<label>Reconexi&oacute;n:</label><br>
+				<input type="text" ng-model="contabilidad.idReconexion" ng-disabled="noEstaEditando"/>
+			</li>
+			<li>
+				<label>Recargo cuentas vencidas:</label><br>
+				<input type="text" ng-model="contabilidad.idRecargo" ng-disabled="noEstaEditando"/>
+			</li>
+			<li>
+				<label>Saldo moroso:</label><br>
+				<input type="text" ng-model="contabilidad.idMoroso" ng-disabled="noEstaEditando"/>
+			</li>
+			<li>
+				<label>Matr&iacute;cula:</label><br>
+				<input type="text" ng-model="contabilidad.idDerecho" ng-disabled="noEstaEditando"/>
+			</li>
+			<li>
+				<label>Intereses:</label><br>
+				<input type="text" ng-model="contabilidad.idInteres" ng-disabled="noEstaEditando"/>
+			</li>
+			<li>
+				<label>Saldo a favor:</label><br>
+				<input type="text" ng-model="contabilidad.idSaldoFavor" ng-disabled="noEstaEditando"/>
+			</li>
+		</ul>
+		<section class="sub-titulo">Configuraciones de sistema</section>
+		<div class="lbl-item">
+			<div class="lbl-config">Margen de error para rotaci&oacute;n completa de medidor:</div>
+			<div><input type="number" ng-model="contabilidad.epsilon" ng-disabled="noEstaEditando"/></div>
+		</div>
+		<div class="lbl-item">
+			<div class="lbl-config">M&aacute;ximo cuentas vencidas:</div>
+			<div><input type="number" ng-model="contabilidad.cuentasVencidas" ng-disabled="noEstaEditando"/></div>
+		</div>
+		<div class="lbl-item">
+			<div class="lbl-config">Techo:</div>
+			<div><input type="number" ng-model="contabilidad.tope" ng-disabled="noEstaEditando"/></div>
+		</div>
+		<div class="lbl-item">
+			<div class="lbl-config">Activar techo:</div>
+			<div><input type="checkbox" ng-model="contabilidad.tieneTope" class="chk-config" ng-true-value="'Si'" ng-false-value="'No'" ng-disabled="noEstaEditando"/> {{contabilidad.tieneTope}}</div>
+		</div>
+		<div class="lbl-item">
+			<div class="lbl-config">Cobro por rango:</div>
+			<div><input type="checkbox" ng-model="contabilidad.esPorRango" class="chk-config" ng-true-value="'Si'" ng-false-value="'No'" ng-disabled="noEstaEditando"/> {{contabilidad.esPorRango}}</div>
+		</div>
+		<div class="lbl-item">
+			<div class="lbl-config">Cobro por estrato:</div>
+			<div><input type="checkbox" ng-model="contabilidad.esPorEstrato" class="chk-config" ng-true-value="'Si'" ng-false-value="'No'" ng-disabled="noEstaEditando"/> {{contabilidad.esPorEstrato}}</div>
+		</div>	
+	</section>
+</div>

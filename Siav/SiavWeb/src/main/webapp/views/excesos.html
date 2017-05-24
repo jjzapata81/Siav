@@ -1,0 +1,121 @@
+<titulo/>
+<menu></menu>
+<div  class="contenido">
+	<div  class="boton-fijo">
+		<a ng-click="onEditarRango()" uib-tooltip="Editar l&iacute;mites" tooltip-placement="left" ng-show="!esNuevo && !editarLimites"><i class="fa fa-pencil icon-float icon-add" aria-hidden="true"></i></a>
+		<a ng-click="onGuardar()" uib-tooltip="Guardar" tooltip-placement="left" ng-show="esNuevo"><i class="fa fa-floppy-o icon-float icon-save" aria-hidden="true"></i></a>
+		<a ng-click="onCancelar()" uib-tooltip="Cancelar" tooltip-placement="left" ng-show="esNuevo"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
+		<a ng-click="onGuardarEdicionRango()" uib-tooltip="Guardar" tooltip-placement="left" ng-show="editarLimites"><i class="fa fa-floppy-o icon-float icon-save" aria-hidden="true"></i></a>
+		<a ng-click="onCancelarEdicionRango()" uib-tooltip="Cancelar" tooltip-placement="left" ng-show="editarLimites"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
+		<a ng-click="onImprimir()" uib-tooltip="Imprimir" tooltip-placement="left" ng-show="!esNuevo && !editarLimites"><i class="fa fa-print icon-float icon-print"></i></a>
+	</div>
+	<section class="titulo-seccion">
+		Consumos
+	</section>	
+	<div class="tabla-siav">
+		<table class="table table-responsive">
+			<thead>
+				<th>C&oacute;digo</th>
+				<th>Consumo</th>
+				<th>L&iacute;mite inicial</th>
+				<th>L&iacute;mite final</th>
+				<th ng-if="!esPorEstrato">Valor</th>
+				<th ng-if="esPorEstrato">Estrato 1</th>
+				<th ng-if="esPorEstrato">Estrato 2</th>
+				<th ng-if="esPorEstrato">Estrato 3</th>
+				<th ng-if="esPorEstrato">Estrato 4</th>
+				<th ng-if="esPorEstrato">Estrato 5</th>
+				<th ng-if="esPorEstrato">Estrato 6</th>
+				<th></th>
+			</thead>
+			<tbody>
+				<tr ng-repeat="exceso in excesos | orderBy:'id'">
+					<td>{{exceso.codigo}}</td>
+					<td>{{exceso.descripcion}}</td>
+					<td>{{exceso.limInicial}}</td>
+					<td>{{exceso.limFinal}}</td>
+					<td ng-if="!esPorEstrato">{{exceso.estrato0}}</td>
+					<td ng-if="esPorEstrato">{{exceso.estrato1}}</td>
+					<td ng-if="esPorEstrato">{{exceso.estrato2}}</td>
+					<td ng-if="esPorEstrato">{{exceso.estrato3}}</td>
+					<td ng-if="esPorEstrato">{{exceso.estrato4}}</td>
+					<td ng-if="esPorEstrato">{{exceso.estrato5}}</td>
+					<td ng-if="esPorEstrato">{{exceso.estrato6}}</td>
+					<td><a ng-click="onEditar(exceso)" ng-show="!editarLimites"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<section class="formulario form-fijo" ng-show="esNuevo">
+		<div>
+			<ul class="flex">
+				<li>
+					<label>C&oacute;digo:</label><br>
+					<input type="text" ng-model="excesoNuevo.codigo" ng-disabled="true"/>
+				</li>
+				
+				<li>
+					<label>Consumo:</label><br>
+					<input type="text" ng-model="excesoNuevo.descripcion" ng-disabled="true"/>
+				</li>
+				<li ng-if="!esPorEstrato">
+					<label>Valor:</label><br>
+					<input type="text" ng-model="excesoNuevo.estrato0"/>
+				</li>
+			</ul>
+			<ul class="flex" ng-if="esPorEstrato">
+				<li>
+					<label>Valor estrato 1:</label><br>
+					<input type="text" ng-model="excesoNuevo.estrato1"/>
+				</li>
+				<li>
+					<label>Valor estrato 2:</label><br>
+					<input type="text" ng-model="excesoNuevo.estrato2"/>
+				</li>
+				<li>
+					<label>Valor estrato 3:</label><br>
+					<input type="text" ng-model="excesoNuevo.estrato3"/>
+				</li>
+			</ul>
+			<ul class="flex" ng-if="esPorEstrato">
+				<li>
+					<label>Valor estrato 4:</label><br>
+					<input type="text" ng-model="excesoNuevo.estrato4"/>
+				</li>
+				<li>
+					<label>Valor estrato 5:</label><br>
+					<input type="text" ng-model="excesoNuevo.estrato5"/>
+				</li>
+				<li>
+					<label>Valor estrato 6:</label><br>
+					<input type="text" ng-model="excesoNuevo.estrato6"/>
+				</li>
+			</ul>
+		</div>
+		
+	</section>
+	<section class="formulario form-fijo" ng-show="editarLimites">
+		<div>
+			<ul class="flex ancho-200">
+				<li><label>Consumo</label></li>
+				<li><label class="label-titulo">L&iacute;mite inicial</label></li>
+				<li><label class="label-titulo">L&iacute;mite final</label></li>
+			</ul>
+			<ul class="flex ancho-200">
+				<li><label>B&aacute;sico:</label></li>
+				<li><input type="number" ng-model="basico.limInicial" ng_disabled="true"/></li>
+				<li><input type="number" ng-model="basico.limFinal" ng-change="onCambioLimite(basico.descripcion)"/></li>
+			</ul>
+			<ul class="flex ancho-200">
+				<li><label>Complementario:</label></li>
+				<li><input type="number" ng-model="complementario.limInicial" ng-change="onCambioLimite(complementario.descripcion)"/></li>
+				<li><input type="number" ng-model="complementario.limFinal" ng-change="onCambioLimite(complementario.descripcion)"/></li>
+			</ul>
+			<ul class="flex ancho-200">
+				<li><label>Suntuario:</label></li>
+				<li><input type="number" ng-model="suntuario.limInicial" ng-change="onCambioLimite(suntuario.descripcion)"/></li>
+				<li><input type="number" ng-model="suntuario.limFinal" ng_disabled="true"/></li>
+			</ul>
+		</div>
+	</section>
+</div>

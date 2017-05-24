@@ -1,0 +1,54 @@
+<titulo/>
+<menu></menu>
+<div  class="contenido">
+	<section class="titulo-seccion">
+		Lecturas digitadas
+	</section>
+	
+	<section class="formulario">
+		<div>
+			<ul class="flex">
+				<li>
+					<label>Ciclo:</label><br>
+					<input type="text" ng-disabled="true"/>
+				</li>
+				<li>
+					<label>Instalaci&oacute;n:</label><br>
+					<input type="text"/>
+				</li>
+				<li>
+					<label>Medidor:</label><br>
+					<input type="text"/>
+				</li>
+				<li>
+					<label>Fecha:</label><br>
+					<siav-calendario ng-model="fecha" />
+				</li>
+				<li>
+					<label>Lectura:</label><br>
+					<input type="text"/>
+				</li>
+				<li>
+					<label>Consumo (m<sup>3</sup>):</label><br>
+					<input type="text" ng-diabled="true"/>
+				</li>
+				<li>
+					<label>Lectura inicial corregida:</label><br>
+					<input type="text"/>
+				</li>
+				<li>
+					<label>Causa inconsistencia:</label><br>
+					<input type="text"/>
+				</li>
+				<li>
+					<label>Observaci&oacute;n:</label><br>
+					<input type="text"/>
+				</li>
+			</ul>
+		</div>
+	</section>
+	
+	<section class="botonera">
+		<button class="btn-siav btn-save"><i class="fa fa-floppy-o"></i> Guardar</button>
+	</section>
+</div>

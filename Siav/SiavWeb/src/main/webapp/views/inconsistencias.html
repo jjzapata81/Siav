@@ -1,0 +1,111 @@
+<titulo/>
+<menu></menu>
+<div  class="contenido">
+	<div  class="boton-fijo">
+		<a ng-click="onGuardar()" uib-tooltip="Guardar" tooltip-placement="left" ng-show="estaEditando"><i class="fa fa-floppy-o icon-float icon-save" aria-hidden="true"></i></a>
+		<a ng-click="onCancelar()" uib-tooltip="Cancelar" tooltip-placement="left" ng-show="estaEditando || estaConsultando"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
+	</div>
+	<section class="titulo-seccion">Inconsistencias</section>
+	<section class="formulario form-fijo" ng-show="estaEditando">
+		<div>
+			<ul class="flex">
+				<li>
+					<label>Instalaci&oacute;n:</label><br>
+					<input type="text" ng-model="corregir.instalacion.numeroInstalacion" ng-disabled="true"/>
+				</li>
+				<li>
+					<label>Nombre:</label><br>
+					<input type="text" ng-model="corregir.instalacion.usuario.nombres" ng-disabled="true"/>
+				</li>
+				<li>
+					<label>Apellido:</label><br>
+					<input type="text" ng-model="corregir.instalacion.usuario.apellidos" ng-disabled="true"/>
+				</li>
+				<li>
+					<label>Ramal:</label><br>
+					<input type="text" ng-model="corregir.instalacion.ramal" ng-disabled="true"/>
+				</li>
+				<li>
+					<label>Causa no lectura:</label><br>
+					<input type="text" ng-model="corregir.causaNoLectura" ng-disabled="true"/>
+				</li>
+			</ul>
+			<ul class="flex">
+				<li>
+					<label>Serie antiguo medidor:</label><br>
+					<input type="text" ng-model="corregir.instalacion.serieMedidor" ng-disabled="true"/>
+				</li>
+			
+				<li>
+					<label><i class="fa fa-asterisk" aria-hidden="true"></i>Serie nuevo medidor :</label><br>
+					<input type="text" ng-model="corregir.serieNueva"/>
+				</li>
+			</ul>
+			<ul class="flex">
+				<li>
+					<label>Lectura anterior antiguo medidor:</label><br>
+					<input type="number" ng-model="corregir.lecturaAnterior" ng-disabled="true"/>
+				</li>
+				<li>
+					<label><i class="fa fa-asterisk" aria-hidden="true"></i>Lectura final antiguo medidor:</label><br>
+					<input type="number" ng-model="corregir.lecturaFinal" ng-change="onRecalcular()"/>
+				</li>
+				<li>
+					<label>Lectura actual nuevo medidor:</label><br>
+					<input type="number" ng-model="corregir.lecturaActual" ng-disabled="true"/>
+				</li>
+			</ul>
+			<div class="inconsistencia-grupo">
+				<div class="inconsistencia-item">
+					<label>&Uacute;ltimo consumo:</label><br>
+					<label>{{corregir.ultimoConsumo}}</label>
+				</div>
+				<div class="inconsistencia-item">
+					<label>Consumo nuevo medidor:</label><br>
+					<label>{{corregir.lecturaActual}}</label>
+				</div>
+				<div class="inconsistencia-item">
+					<label>Total:</label><br>
+					<a ng-click="onSeleccionar()">
+						<label class="inconsistencia-total" ng-if="esPromedio">{{corregir.consumoNuevoMedidor}}</label>
+						<label class="inconsistencia-seleccion" ng-if="!esPromedio">{{corregir.consumoNuevoMedidor}}</label>
+					</a>
+				</div>
+				<div class="inconsistencia-item">
+					<label>Consumo promedio:</label><br>
+					<a ng-click="onSeleccionar()">
+						<label class="inconsistencia-total" ng-if="!esPromedio">{{corregir.consumoPromedio}}</label>
+						<label class="inconsistencia-seleccion" ng-if="esPromedio">{{corregir.consumoPromedio}}</label>
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+	<div class="tabla-siav" ng-show="!estaEditando">
+		<table class="table table-responsive">
+			<thead>
+				<th>Instalaci&oacute;n</th>
+				<th>Nombre</th>
+				<th>Ramal</th>
+				<th>Lectura<br>anterior</th>
+				<th>Lectura<br>actual</th>
+				<th>Consumo</th>
+				<th>Causa no lectura</th>
+				<th>Fecha</th>
+			</thead>
+			<tbody>
+				<tr ng-repeat="consumo in incompletos | startFrom:(currentPage-1)*itemsPerPage | limitTo:itemsPerPage">
+					<td>{{consumo.instalacion.numeroInstalacion}}</td>
+					<td><a ng-click="onCorregir(consumo)">{{consumo.instalacion.usuario.nombreCompleto}}</a></td>
+					<td>{{consumo.instalacion.ramal}}</td>
+					<td>{{consumo.lecturaAnterior}}</td>
+					<td>{{consumo.lecturaActual}}</td>
+					<td>{{consumo.consumoMes}}</td>
+					<td>{{consumo.causaNoLectura}}</td>
+					<td>{{consumo.fechaHasta | date:'dd/MM/yyyy'}}</td>
+				</tr>
+			</tbody>
+		</table>
+		<uib-pagination total-items="incompletos.length" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
+	</div>
+</div>

@@ -1,0 +1,43 @@
+<titulo/>
+<menu></menu>
+<div  class="contenido">
+	<div  class="boton-fijo">
+		<a ng-click="prefacturar()" uib-tooltip="Iniciar prefacturaci&oacute;n" tooltip-placement="left"><i class="fa fa-calculator icon-float icon-search" aria-hidden="true"></i></a>
+	</div>
+	<section class="titulo-seccion">Prefacturaci&oacute;n</section>
+	<section class="formulario form-fijo" ng-show="sinPDF">
+		<div>
+			<section class="sub-titulo">Ciclo n&uacute;mero {{ciclo.ciclo}}: {{ciclo.nombreMes}}</section>
+			<ul class="flex">
+				<li>
+					<label>Estado:</label><br>
+					<input type="text" ng-disabled="true" ng-model="ciclo.estado"/>
+				</li>
+				
+				<li>
+					<label>Pago sin recargo</label><br>
+					<label class="lbl-fecha"><i class="fa fa-calendar-check-o"></i> {{ciclo.fechaSinRecargo | date:'dd/MM/yyyy'}}</label>
+				</li>
+				
+				<li>
+					<label>Pago con recargo</label><br>
+					<label class="lbl-fecha"><i class="fa fa-calendar-check-o"></i> {{ciclo.fechaConRecargo | date:'dd/MM/yyyy'}}</label>
+				</li>
+				
+			</ul>
+		</div>
+		<div>
+			<section class="sub-titulo">Mensaje institucional</section>
+			<ul class="flex">
+				<li>
+					<textarea class="mensaje-institucional" rows="5" ng-model="ciclo.mensaje" ng-disabled="true"></textarea>
+				</li>
+			</ul>
+		</div>
+	</section>
+	
+	<div>
+		<object ng-show="content" data="{{content}}" type="application/pdf" style="width: 90%; height: 490px;"></object>
+	</div>
+	
+</div>

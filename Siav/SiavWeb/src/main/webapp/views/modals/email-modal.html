@@ -1,0 +1,24 @@
+<div class="ngdialog-message">
+	<div class="modal-header titulo-modal">
+		<h3>{{titulo}}</h3>
+	</div>
+	<div class="modal-body">
+		<div class="mensaje-body">
+			<div class="icono-modal"><i class="{{clase}}" aria-hidden="true"></i></div>
+			<div class="mensaje-modal">Ingrese la direcci&oacute;n de correo electr&oacute;nico:</div>
+		</div>
+		<div class="input-modal-email">
+			<input type="text" ng-model="email" placeholder="@ e-mail" ng-change="onChange()">
+			<i ng-show="emailValido" class="fa fa-check verificacion-ok" aria-hidden="true"></i>
+			<i ng-show="!emailValido" class="fa fa-times verificacion-err" aria-hidden="true"></i><span class="validacion-email">{{obligatorio}}</span>
+			<br>
+			<span class="modal-info">Puede ingresar m&aacute;s de una direcci&oacute;n de correo electr&oacute;nico separ&aacute;ndolas por coma (,).</span>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<ul class="flex alineacion-derecha" >
+			<li><button type="button" class="btn-siav btn-buscar" ng-click="continuar()">Aceptar</button></li>
+			<li><button type="button" class="btn-siav btn-cancelar" ng-click="cancelar()">Cancelar</button></li>
+		</ul>
+ 	</div>
+</div>

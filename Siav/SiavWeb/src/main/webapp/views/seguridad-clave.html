@@ -1,0 +1,42 @@
+<titulo/>
+<menu></menu>
+
+<div  class="contenido">
+	<div  class="boton-fijo">
+		<a ng-click="onCambiar()" uib-tooltip="Cambiar" tooltip-placement="left"><i class="fa fa-refresh icon-float icon-save" aria-hidden="true"></i></a>
+		<a ng-click="onCancelar()" uib-tooltip="Cancelar" tooltip-placement="left"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
+	</div>
+	<section class="titulo-seccion">
+		Modificar clave
+	</section>
+	<section class="formulario form-fijo">
+		<ul class="flex">
+			<li>
+				<label>Usuario:</label><br>
+				<input type="text" ng-model="clave.usuario"/>
+			</li>
+			<li>
+				<label>Contrase&ntilde;a actual:</label><br>
+				<input type="password" ng-model="clave.password"/>
+			</li>
+		</ul>
+		<ul class="flex">
+			<li>
+				<label>Nueva contrase&ntilde;a:</label><br>
+				<input type="password" ng-model="clave.nuevoPassword" ng-change="verificarPass()" maxlength="8"/>
+			</li>
+			<li>
+				<label>Repetir contrase&ntilde;a:</label><br>
+				<input type="password" ng-model="confirmarPassword" ng-change="verificarPass()" maxlength="8"/>
+			</li>
+			<li>
+				<label>&nbsp;</label><br>
+				<i ng-show="coinciden" class="fa fa-check verificacion-ok" aria-hidden="true"></i>
+				<i ng-show="!coinciden" class="fa fa-times verificacion-err" aria-hidden="true"></i>
+			</li>
+		</ul>
+		<ul class="flex">
+			<li>(M&aacute;ximo 8 d&iacute;gitos)</li>
+		</ul>
+	</section>	
+</div>

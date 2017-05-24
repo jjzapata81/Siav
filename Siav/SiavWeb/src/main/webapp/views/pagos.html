@@ -1,0 +1,57 @@
+<titulo/>
+<menu></menu>
+<div  class="contenido">
+	<div  class="boton-fijo">
+		<a ng-click="onBuscar()" uib-tooltip="Buscar" tooltip-placement="left" ng-show="!mostrarUsuario"><i class="fa fa-search icon-float icon-search" aria-hidden="true"></i></a>
+		<a ng-click="onGuardar()" uib-tooltip="Pagar" tooltip-placement="left" ng-show="mostrarUsuario"><i class="fa fa-money icon-float icon-save" aria-hidden="true"></i></a>
+		<a ng-click="onCancelar()" uib-tooltip="Cancelar" tooltip-placement="left" ng-show="mostrarUsuario"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
+	</div>
+	<section class="titulo-seccion">
+		Pagos digitados
+	</section>
+	<section class="formulario form-fijo">
+		<div ng-show="!mostrarUsuario">
+			<section class="sub-titulo">Buscar instalaci&oacute;n</section>
+			<ul class="flex">
+				<li>
+					<label>N&uacute;mero:</label><br>
+					<input type="text" ng-model="numeroInstalacion" ng-enter="onBuscar()" />
+				</li>
+			</ul>
+		</div>
+		<div ng-show="mostrarUsuario">
+			<section class="sub-titulo">{{factura.numeroInstalacion}} - {{factura.nombres}}</section>
+			<ul class="flex">
+				<li>
+					<label>Factura:</label><br>
+					<input type="text" ng-model="factura.numeroFactura" ng-disabled="true"/>
+				</li>
+				<li>
+					<label>Punto de pago:</label><br>
+					<input type="text"  class="lbl-500" ng-model="puntoPago" ng-disabled="true"/>
+				</li>
+				
+			</ul>
+			<ul class="flex">
+			
+				<li>
+					<label>Valor a pagar:</label><br>
+					<input type="number" ng-model="pago.valor"/>
+				</li>
+				<li>
+					<label>Fecha consignacion:</label><br>
+					<input type="date" ng-model="pago.fecha"/>
+				</li>
+				<li>
+					<label>Cuenta:</label><br>
+					<select
+						ng-model="cuentaSeleccionada"
+						ng-change="onSeleccionar()"
+				    	ng-options="banco as banco.nombre + ' - ' + banco.numeroCuenta for banco in bancos">
+				    	<option value=''>Seleccione una cuenta</option>
+      				</select>
+				</li>
+			</ul>
+		</div>
+	</section>
+</div>

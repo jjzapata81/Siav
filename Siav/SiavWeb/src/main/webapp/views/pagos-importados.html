@@ -1,0 +1,69 @@
+<titulo/>
+<menu></menu>
+<div  class="contenido">
+	<section class="titulo-seccion">Pagos importados</section>
+
+	<section class="section-center">
+		<div class="box">
+			<input type="file" name="file-5[]" id="txtFile" class="inputfile inputfile-4" data-multiple-caption="{count} files selected" multiple />
+			<label for="txtFile"><i class="fa fa-upload" aria-hidden="true"></i> <span>{{mensaje}}&hellip;</span></label>
+		</div>
+	</section>
+	<section class="formulario form-fijo">
+		<section class="sub-titulo">Selecci&oacute;n de cuenta</section>
+		<ul class="flex">
+			<li>
+				<select
+					class="select-cuenta"
+					ng-model="cuentaSeleccionada"
+			    	ng-options="cuenta.codigo as cuenta.nombreCompleto for cuenta in cuentas">
+			    	<option value=''>Seleccione...</option>
+      			</select>
+			</li>
+		</ul>
+	</section>
+<!-- 	<div class="resumen">
+		
+		<label class="titulo">Resumen de cargas</label>
+		<div>
+		<ul class="flex">
+			<li><span class="lbl-span"><i class="fa fa-search" aria-hidden="true"></i> Buscar</span></li>
+			<li>
+				<input type="text" ng-model="buscar.nombreArchivo" placeholder="Nombre archivo" />
+			</li>
+			<li>
+				<input type="text" ng-model="buscar.usuario" placeholder="Usuario" />
+			</li>
+			<li>
+				<input type="text" ng-model="buscar.estadoProceso" placeholder="Procesado"/>
+			</li>		
+		</ul>
+	</div>
+		<table class="table table-responsive">
+				<thead>
+					<th>Nombre archivo</th>
+					<th>Fecha encabezado</th>
+					<th>Fecha carga</th>
+					<th>Fecha acumulaci&oacute;n</th>
+					<th>Usuario</th>
+					<th>Total registros</th>
+					<th>Total puntos</th>
+					<th>Procesado</th>
+				</thead>
+				<tbody>
+					<tr ng-repeat="archivo in archivos | orderBy: '-fechaCarga' | filter:buscar | startFrom:(currentPage-1)*itemsPerPage | limitTo:itemsPerPage">
+						<td><a ng-click="verDetalle(archivo)">{{archivo.nombreArchivo}}</a></td>
+						<td>{{archivo.fechaArchivo | date:'dd/MM/yyyy'}}</td>
+						<td>{{archivo.fechaCarga | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+						<td>{{archivo.fechaAcumulacion | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+						<td>{{archivo.usuario}}</td>
+						<td>{{archivo.totalRegistros | number:0}}</td>
+						<td>{{archivo.totalPuntos | number:0}}</td>
+						<td>{{archivo.estadoProceso}}</td>
+					</tr>
+				</tbody>
+			</table>
+			<uib-pagination total-items="archivos.length" ng-model="currentPage" ng-change="pageChanged()" force-ellipses="true" max-size="maxSize" class="pagination-sm" boundary-link-numbers="true" rotate="false"></uib-pagination>
+	</div> -->
+
+</div>

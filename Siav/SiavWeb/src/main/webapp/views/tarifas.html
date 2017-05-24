@@ -1,0 +1,103 @@
+<titulo/>
+<menu></menu>
+
+<div  class="contenido">
+	<div  class="boton-fijo">
+		<a ng-click="onAgregar()" uib-tooltip="Agregar" tooltip-placement="left" ng-show="!esNuevo"><i class="fa fa-plus icon-float icon-add" aria-hidden="true"></i></a>
+		<a ng-click="onGuardar()" uib-tooltip="Guardar" tooltip-placement="left" ng-show="esNuevo"><i class="fa fa-floppy-o icon-float icon-save" aria-hidden="true"></i></a>
+		<a ng-click="onCancelar()" uib-tooltip="Cancelar" tooltip-placement="left" ng-show="esNuevo"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
+		<a ng-click="onImprimir()" uib-tooltip="Imprimir" tooltip-placement="left" ng-show="!esNuevo"><i class="fa fa-print icon-float icon-print"></i></a>
+	</div>
+	<section class="titulo-seccion">
+		Tarifas
+	</section>	
+	<div class="tabla-siav">
+		<table class="table table-responsive">
+			<thead>
+				<th>C&oacute;digo</th>
+				<th>Descripci&oacute;n</th>
+				<th>Tipo</th>
+				<th ng-if="!esPorEstrato">Valor</th>
+				<th ng-if="esPorEstrato">Estrato 1</th>
+				<th ng-if="esPorEstrato">Estrato 2</th>
+				<th ng-if="esPorEstrato">Estrato 3</th>
+				<th ng-if="esPorEstrato">Estrato 4</th>
+				<th ng-if="esPorEstrato">Estrato 5</th>
+				<th ng-if="esPorEstrato">Estrato 6</th>
+				<th></th>
+			</thead>
+			<tbody>
+				<tr ng-repeat="tarifa in tarifas | orderBy:'descripcion'">
+					<td>{{tarifa.codigo}}</td>
+					<td>{{tarifa.descripcion}}</td>
+					<td>{{tarifa.tipo.valor}}</td>
+					<td ng-if="!esPorEstrato">{{tarifa.estrato0}}</td>
+					<td ng-if="esPorEstrato">{{tarifa.estrato1}}</td>
+					<td ng-if="esPorEstrato">{{tarifa.estrato2}}</td>
+					<td ng-if="esPorEstrato">{{tarifa.estrato3}}</td>
+					<td ng-if="esPorEstrato">{{tarifa.estrato4}}</td>
+					<td ng-if="esPorEstrato">{{tarifa.estrato5}}</td>
+					<td ng-if="esPorEstrato">{{tarifa.estrato6}}</td>
+					<td><a ng-click="onEditar(tarifa)"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<section class="formulario form-fijo" ng-show="esNuevo">
+		<div>
+			<ul class="flex">
+				<li>
+					<label>C&oacute;digo:</label><br>
+					<input type="text" ng-model="tarifaNueva.codigo" ng-disabled="esEdicion"/>
+				</li>
+				<li>
+					<label>Descripci&oacute;n:</label><br>
+					<input type="text" ng-model="tarifaNueva.descripcion"
+						uib-typeahead="item as item for item in descripciones | filter:$viewValue | limitTo:5" 
+						uib-typeahead-min-length="2" 
+						uib-typeahead-wait-ms="1"/>
+				</li>
+				<li>
+					<label>Tipo tarifa:</label><br>
+					<select ng-model="tarifaNueva.tipo"
+				    	ng-options="tipoTarifa as tipoTarifa.valor for tipoTarifa in tiposTarifas track by tipoTarifa.codigo">
+      				</select>
+				</li>
+				<li ng-if="tarifaNueva.tipo.valor=='FIJO' && !esPorEstrato">
+					<label>Valor:</label><br>
+					<input type="number" ng-model="tarifaNueva.estrato0"/>
+				</li>
+			</ul>
+			<ul class="flex" ng-if="tarifaNueva.tipo.valor=='FIJO'">
+				<li ng-if="esPorEstrato">
+					<label>Valor estrato 1:</label><br>
+					<input type="number" ng-model="tarifaNueva.estrato1"/>
+				</li>
+				<li ng-if="esPorEstrato">
+					<label>Valor estrato 2:</label><br>
+					<input type="number" ng-model="tarifaNueva.estrato2"/>
+				</li>
+				<li ng-if="esPorEstrato">
+					<label>Valor estrato 3:</label><br>
+					<input type="number" ng-model="tarifaNueva.estrato3"/>
+				</li>
+			</ul>
+			<ul class="flex" ng-if="tarifaNueva.tipo.valor=='FIJO'">
+				<li ng-if="esPorEstrato">
+					<label>Valor estrato 4:</label><br>
+					<input type="number" ng-model="tarifaNueva.estrato4"/>
+				</li>
+				<li ng-if="esPorEstrato">
+					<label>Valor estrato 5:</label><br>
+					<input type="number" ng-model="tarifaNueva.estrato5"/>
+				</li>
+				<li ng-if="esPorEstrato">
+					<label>Valor estrato 6:</label><br>
+					<input type="number" ng-model="tarifaNueva.estrato6"/>
+				</li>
+
+			</ul>
+		</div>
+		
+	</section>
+</div>

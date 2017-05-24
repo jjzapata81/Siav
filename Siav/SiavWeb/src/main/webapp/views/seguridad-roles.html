@@ -1,0 +1,26 @@
+<titulo/>
+<menu></menu>
+
+<div  class="contenido">
+	<ul class="flex btp-plus">
+		<li ng-show="estaEditando">
+			<a ng-click="onCancelar()"><i class="fa fa-times" aria-hidden="true"></i> Cancelar</a>
+			<a ng-click="onCambiar()"><i class="fa fa-times" aria-hidden="true"></i> Cambiar</a>
+		</li>
+	</ul>
+	<section class="titulo-seccion">
+		Roles por usuario
+	</section>
+	<section class="seccion-roles">
+		<div ng-repeat="perfil in perfiles">
+			<div class="grupo-perfil">
+				<div calss="titulo-perfil">
+					<span class="nombre-perfil"><i class="fa fa-check-circle" aria-hidden="true"></i>  {{perfil.nombrePerfil}}</span>
+				</div>
+				<div class="grupo-recurso">
+					<div ng-repeat="recurso in perfil.recursoPerfil">{{recurso.recurso.titulo}}</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>

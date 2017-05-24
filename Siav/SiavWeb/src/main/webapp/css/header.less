@@ -1,0 +1,74 @@
+header {
+  width: 100%;
+  min-height: 64px;
+  background: url("../images/cabezote.png")top center no-repeat @color-primario;
+  color: #fff;
+  margin-bottom: 24px;
+  a {
+    color: #fff;
+    text-decoration: none;
+    &:hover, &:active, &:focus {
+      text-decoration: none;
+      color: #fff;
+    }
+  }
+  .logo {
+    float: left;
+    width: 80px;
+    padding-top: 10px;
+    img {
+      width: 100%;
+    }
+  }
+  #top {
+    float: right;
+    padding-top: 20px;
+    li {
+      display: inline-block;
+      padding: 0 15px;
+      border-right: 1px solid #fff;
+      &:last-child {
+        border: none;
+      }
+    }
+    .language {
+      i {
+        width: 20px;
+        display: inline-block;
+        img {
+          width: 100%;
+        }
+      }
+    }
+    .dropdown-menu {
+      border-radius: 0;
+      right: 0;
+      left: inherit;
+      background: fade(#fff, 92%);
+      box-shadow: 1px 1px 0px rgba(0,0,0,.175);
+      border: none;
+      min-width: inherit;
+      top: 19px;
+      li {
+        padding: 0;
+      }
+      a {
+        font-size: 12px;
+        &:hover {
+          background: transparent;
+        }
+      }
+    }
+    .cambiar {
+      border-radius: 50px;
+      width: 18px;
+      height: 18px;
+      display: inline-block;
+      text-align: center;
+      margin-left: 5px;
+      .caret {
+        margin: 0;
+      }
+    }
+  }
+}

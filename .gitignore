@@ -18,5 +18,18 @@
 *.tar.gz
 *.rar
 
+#Gradle
+**/.gradle/
+
+#Ignoramos carpetas de eclipse
+/.metadata/
+/RemoteSystemsTempFiles/
+**/.settings/
+
+#Ignoramos carpetas de build
+**/bin/
+**/build/
+*.class
+
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*

@@ -1,0 +1,68 @@
+<titulo/>
+<menu></menu>
+<div  class="contenido">
+	<div  class="boton-fijo">
+		<a ng-click="onBuscar()" uib-tooltip="Buscar" tooltip-placement="left" ng-show="!estaEditando && !estaConsultando"><i class="fa fa-search icon-float icon-search" aria-hidden="true"></i></a>
+		<a ng-click="onGuardar()" uib-tooltip="Guardar" tooltip-placement="left" ng-show="estaEditando"><i class="fa fa-floppy-o icon-float icon-save" aria-hidden="true"></i></a>
+		<a ng-click="onEditar()" uib-tooltip="Editar" tooltip-placement="left"  ng-show="!estaEditando && !estaConsultando"><i class="fa fa-pencil icon-float icon-add" aria-hidden="true"></i></a>
+		<a ng-click="onCancelar()" uib-tooltip="Cancelar" tooltip-placement="left" ng-show="estaEditando || estaConsultando"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
+	</div>
+	<section class="titulo-seccion">
+		Mantenimiento de ciclos
+	</section>
+	<section class="formulario form-fijo" ng-show="!estaConsultando">
+		<div>
+			<section class="sub-titulo">Ciclo n&uacute;mero {{ciclo.ciclo}}: {{ciclo.nombreMes}}</section>
+			<ul class="flex">
+				<li>
+					<label>Pago sin recargo</label><br>
+					<label ng-show="!estaEditando" class="lbl-fecha"><i class="fa fa-calendar-check-o"></i> {{ciclo.fechaSinRecargo | date:'dd/MM/yyyy'}}</label>
+					<siav-calendario ng-model="ciclo.fechaSinRecargo" ng-show="estaEditando" />
+				</li>
+				
+				<li>
+					<label>Pago con recargo</label><br>
+					<label ng-show="!estaEditando" class="lbl-fecha"><i class="fa fa-calendar-check-o"></i> {{ciclo.fechaConRecargo | date:'dd/MM/yyyy'}}</label>
+					<siav-calendario ng-model="ciclo.fechaConRecargo" ng-show="estaEditando" />
+				</li>
+				
+			</ul>
+		</div>
+		<div>
+			<section class="sub-titulo">Configuraci&oacute;n de mensajes</section>
+			<ul class="flex">
+				<li>
+					<label>Mensaje institucional</label><br>
+					<textarea class="mensaje-institucional" rows="5" ng-model="ciclo.mensaje" ng-disabled="!estaEditando"  maxlength="500"></textarea>
+				</li>
+				<li>
+					<label>Mensaje punto de pago</label><br>
+					<textarea class="mensaje-institucional" rows="2" ng-model="ciclo.mensajePuntoPago" ng-disabled="!estaEditando"  maxlength="100"></textarea>
+				</li>
+				<li>
+					<label>Mensaje quejas y reclamos</label><br>
+					<textarea class="mensaje-institucional" rows="2" ng-model="ciclo.mensajeReclamo" ng-disabled="!estaEditando"  maxlength="100"></textarea>
+				</li>
+			</ul>
+		</div>
+	</section>
+	<div class="tabla-siav" ng-show="estaConsultando">
+		<table class="table table-responsive">
+			<thead>
+				<th>Ciclo</th>
+				<th>Fecha pago sin recargo</th>
+				<th>Fecha pago con recargo</th>
+				<th>Estado</th>
+			</thead>
+			<tbody>
+				<tr ng-repeat="cicloViejo in ciclos | orderBy:'-ciclo' | startFrom:(currentPage-1)*itemsPerPage | limitTo:itemsPerPage">
+					<td>{{cicloViejo.ciclo}}</td>
+					<td>{{cicloViejo.fechaSinRecargo | date:'dd/MM/yyyy'}}</td>
+					<td>{{cicloViejo.fechaConRecargo | date:'dd/MM/yyyy'}}</td>
+					<td>{{cicloViejo.estado}}</td>
+				</tr>
+			</tbody>
+		</table>
+		<uib-pagination total-items="ciclos.length" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
+	</div>
+</div>

@@ -1,0 +1,134 @@
+#right {
+  float: right;
+  width: 84%;
+  background: #efeff0;
+  @media (max-width:1280px) {
+    width: 82%;
+  }
+  @media (max-width:1024px) {
+    width: 78%;
+  }
+  .head {
+    background: @color-primario;
+    width: 100%;
+    min-height: 41px;
+    line-height: 41px;
+    color: #fff;
+    padding: 0 15px;
+    h2 {
+      font-size: 16px;
+      font-weight: 300;
+      float: left;
+    }
+    button {
+      .btn-principal;
+      float: right;
+      height: 41px;
+    }
+  }
+  .content-app {
+    padding: 15px;
+    .filtro {
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 15px;
+      margin-bottom: 15px;
+      label {
+        margin: 0;
+        display: block;
+        font-size: 11px;
+      }
+      li {
+        margin-right: 15px;
+      }
+      .liCal {
+        width: 120px;
+      }
+      .buscar {
+        height: 30px;
+        margin-top: 15px;
+        i {
+          font-size: 10px;
+        }
+      }
+    }
+    .filtroI {
+      margin-bottom: 10px;
+      @media (max-width:1024px) {
+        border-bottom:1px solid #ccc;
+        padding-bottom:15px;
+      }
+      ul {
+        li {
+          margin-right: 10px;
+          input, button, select {
+            height: 25px;
+          }
+        }
+      }
+    }
+    .indicadores {
+      ul {
+        li {
+          border-right: 1px solid #ccc;
+          padding: 0 10px;
+          margin-bottom: 12px;
+          width: 16%;
+          @media (max-width:1026px) {
+            width:50%;
+            border:none;
+            &:first-child {
+              padding-left:10px!important;
+            }
+          }
+          &:first-child {
+            padding-left: 0;
+          }
+          &:last-child {
+            border: none;
+          }
+          .checkbox {
+            margin: 0;
+            float: left;
+            height: 20px;
+          }
+          span {
+            font-weight: 500;
+            float: left;
+            margin: 0 4px;
+          }
+          label {
+            font-weight: 300;
+            font-size: 10px;
+            margin: 0;
+            line-height: 15px;
+          }
+        }
+      }
+    }
+    h2 {
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+    .calendar {
+      background: #fff;
+      border: 1px solid #D4D1D1;
+      height: 30px;
+      line-height: 29px;
+      input {
+        border: none;
+        height: 28px;
+        width: 70%;
+      }
+      button {
+        background: #fff;
+        border: none;
+        height: 28px;
+        i {
+          font-size: 18px;
+          color: @btn-principal;
+          margin: 0;
+        }
+      }
+    }
+  }
+}

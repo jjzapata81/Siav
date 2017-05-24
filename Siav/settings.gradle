@@ -1,0 +1,4 @@
+include ':SiavWEBApp'
+include ':SiavEJB'
+include ':SiavWeb'
+rootProject.name='SiavWEB'

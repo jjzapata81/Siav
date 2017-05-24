@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="instalaciones" language="groovy" pageWidth="572" pageHeight="752" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="5ff975e7-3674-444a-acb8-b23a29a0692e">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\SiavWebApp\\App\\Reportes\\"]]></defaultValueExpression>
+	</parameter>
+	<field name="numero" class="java.lang.Long"/>
+	<field name="nombres" class="java.lang.String"/>
+	<field name="cedula" class="java.lang.String"/>
+	<field name="factura" class="java.lang.Long"/>
+	<field name="cuentasVencidas" class="java.lang.Long"/>
+	<field name="lecturaActual" class="java.lang.Long"/>
+	<field name="lecturaAnterior" class="java.lang.Long"/>
+	<field name="consumo" class="java.lang.Long"/>
+	<field name="detalles" class="java.util.ArrayList"/>
+	<field name="serialMedidor" class="java.lang.String"/>
+	<detail>
+		<band height="71" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="55" height="12" uuid="5822db5b-66bc-4aaf-8c9f-e3212844b12b"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Instalación]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="55" y="0" width="78" height="12" uuid="814f9e23-d3c0-4d51-ad1c-0b0b705f751b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numero}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="133" y="0" width="158" height="12" uuid="01f0896f-f8e7-46d2-9a44-f435147d9602"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombres}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="291" y="1" width="99" height="12" uuid="69bde30a-523f-4c52-a40c-86bc73f25f3f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cedula}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="13" width="40" height="12" uuid="9784c17c-3771-4d87-8b27-6bf45a87ba4c"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Factura]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="40" y="13" width="56" height="12" uuid="7334eb9b-1777-4f15-a3db-b1b3134d62cc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{factura}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="194" y="13" width="29" height="12" uuid="ef5f9bf1-4d48-4e88-b12b-7f18745de5a3"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cuentasVencidas}>0?$F{cuentasVencidas}:""]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="223" y="13" width="68" height="12" uuid="d4e4a2ad-edb5-4ca2-a842-a5c08bca081a"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Lectura actual]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="291" y="13" width="43" height="12" uuid="2d8e5556-3625-43f1-be1e-f9a11fc4b62f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{lecturaActual}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="334" y="13" width="78" height="12" uuid="e9bc5025-4050-4811-8aa3-d656cea8c0d3"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Lectura anterior]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="412" y="13" width="44" height="12" uuid="b7238854-d071-4e47-83a0-abf485c321bc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{lecturaAnterior}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="456" y="13" width="54" height="12" uuid="a72ff680-543d-4033-a1bb-b5e8e79a91db"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Consumo]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="509" y="13" width="62" height="12" uuid="d92dafc8-64a4-4420-bbce-5ede7bcfd179"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{consumo}>0?$F{consumo} + " m3":""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="96" y="13" width="98" height="12" uuid="08b83b92-e232-4af7-82aa-1963c25e61e8"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cuentasVencidas}>0?"Cuentas vencidas" : ""]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="0" y="28" width="572" height="42" uuid="fe703e66-b7ec-4eba-b81a-1621f27f39bf"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{detalles})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "detallesPrefactura.jasper"]]></subreportExpression>
+			</subreport>
+			<line>
+				<reportElement x="0" y="26" width="571" height="1" uuid="58d07b1a-6449-4b3a-bd90-7b9f1a04623f"/>
+				<graphicElement>
+					<pen lineColor="#CCCCCC"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="1" y="0" width="571" height="1" uuid="95bd0f03-d477-4f92-b091-b043a20a28b2"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="390" y="1" width="66" height="12" uuid="863971ba-71c8-4da3-9e82-f0adb56999ba"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Serial medidor]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="456" y="1" width="115" height="12" uuid="975b7a93-2b6d-4559-a122-b399558d44d8"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{serialMedidor}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

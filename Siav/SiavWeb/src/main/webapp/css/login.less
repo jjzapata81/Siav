@@ -1,0 +1,121 @@
+#login {
+  max-width: 420px;
+  margin: 70px auto 0 auto;
+  .logo {
+    margin:0 auto 30px auto;
+    max-width: 220px;
+    img {
+      width: 100%;
+    }
+  }
+  .contLogin {
+    background: #EEEEF0;
+    padding: 20px 35px;
+    input {
+      width: 100%;
+      margin-bottom: 8px;
+    }
+    button {
+      .btn-principal;
+      height: 30px;
+      width: 100%;
+      margin-top: 10px;
+    }
+    .actions {
+      margin: 10px 0;
+      .recordar {
+        float: left;
+        .check {
+          height: 12px;
+          width: inherit;
+          margin: 0;
+        }
+      }
+      a {
+        float: right;
+        text-decoration: underline;
+        color:@color-text;
+        cursor: pointer;
+      }
+    }
+  }
+  .languages {
+    nav {
+      float: right;
+    }
+    .language {
+      margin-bottom: 6px;
+      a {
+        text-decoration: none;
+        color:@color-text;
+      }
+      i {
+        width: 20px;
+        display: inline-block;
+        img {
+          width: 100%;
+        }
+      }
+    }
+    .dropdown-menu {
+      border-radius: 0;
+      right: 0;
+      left: inherit;
+      background: fade(#fff, 70%);
+      box-shadow: 1px 1px 0px rgba(0,0,0,.175);
+      border: none;
+      min-width: inherit;
+      top: 19px;
+      li {
+        padding: 0;
+      }
+      a {
+        font-size: 12px;
+        &:hover {
+          background: transparent;
+        }
+      }
+    }
+  }
+}
+.fondo {
+  background: url("../images/fondo.jpg")top center no-repeat;
+}
+#olvido {
+  .modal-dialog {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: inherit;
+    width: 250px;
+    transform: translate(-50%, -50%)!important;
+    -webkit-transform: translate(-50%, -50%)!important;
+  }
+  .modal-content {
+    border-radius: 0;
+    padding: 5px;
+    h2 {
+      background: #023859;
+      color: #fff;
+      padding: 6px;
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+    input {
+      width: 100%;
+    }
+    .actions {
+      margin: 7px 0;
+        .check {
+          height: 12px;
+          width: inherit;
+          margin: 0;
+        }
+    }
+    button {
+      .btn-principal;
+      height: 30px;
+      width: 100%;
+    }
+  }
+}

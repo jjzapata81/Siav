@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facturaSiavDetalle" language="groovy" pageWidth="315" pageHeight="752" columnWidth="315" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="5216580e-e025-4bad-8a31-bc18eabdf46f">
+	<property name="ireport.zoom" value="3.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="concepto" class="java.lang.String"/>
+	<field name="m3" class="java.lang.String"/>
+	<field name="valor" class="java.lang.Number"/>
+	<field name="tarifa" class="java.lang.Number"/>
+	<variable name="valor_1" class="java.lang.Number" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{valor}]]></variableExpression>
+	</variable>
+	<columnHeader>
+		<band height="13">
+			<rectangle radius="3">
+				<reportElement x="0" y="1" width="313" height="12" forecolor="#000000" backcolor="#999999" uuid="60fa8ef5-786e-49ed-a4e5-260fa16f4921"/>
+				<graphicElement>
+					<pen lineStyle="Double" lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="146" y="0" width="38" height="12" forecolor="#FFFFFF" uuid="01f16cc8-ba7b-4cd9-b5ba-3359c957bf91"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[m3]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="1" width="146" height="12" forecolor="#FFFFFF" uuid="1b927851-86a4-4479-88bc-13e5acf8ae11"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Concepto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="184" y="1" width="65" height="12" forecolor="#FFFFFF" uuid="0e9b54a6-9bf1-43d8-a816-a0e6651d271e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tarifa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="250" y="1" width="65" height="12" forecolor="#FFFFFF" uuid="228cae53-4e6f-4f6c-9702-987103fe5261"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="12" width="311" height="1" uuid="08a0b0e8-e699-456d-beb6-b9821c385f34"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="12" splitType="Stretch">
+			<line>
+				<reportElement x="312" y="-1" width="1" height="12" uuid="156e48c9-8299-49ab-a3a3-8c47a8b1c13a"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="146" height="12" uuid="6445e2cf-4435-431f-885d-ae00acc39763"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{concepto}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="146" y="0" width="1" height="12" uuid="644240e3-f1fd-4e2a-96b9-554f42778eaa"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement x="146" y="0" width="38" height="12" uuid="2462a4a5-a21b-4954-9f5a-19e4fc75364f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph leftIndent="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{m3}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="184" y="0" width="1" height="12" uuid="7bd7cc78-792c-4d06-a347-86c1c77a0f83"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="249" y="0" width="1" height="12" uuid="5c191f7f-2daf-4f3a-b0ac-e07fec6c9ff1"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="0" y="0" width="1" height="12" uuid="519ec269-fab7-49eb-a56e-cbd6285f5c85"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField pattern="¤ #,##0" isBlankWhenNull="true">
+				<reportElement x="249" y="0" width="63" height="12" uuid="56e1626a-48a5-40b6-bfab-6fb62ba580fc"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph rightIndent="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0" isBlankWhenNull="true">
+				<reportElement x="186" y="0" width="63" height="12" uuid="1ec6ec85-f516-4bc7-88f2-951133aa7f2a"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+					<paragraph rightIndent="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tarifa}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="12" splitType="Stretch">
+			<rectangle radius="3">
+				<reportElement x="179" y="0" width="135" height="12" backcolor="#999999" uuid="8c96ac9e-2c90-4d6a-ae77-1872713d7633"/>
+				<graphicElement>
+					<pen lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="179" y="0" width="59" height="12" forecolor="#FFFFFF" backcolor="#FFFFFF" uuid="1a5cc993-4db1-4a99-bb31-85720d2626de"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total:]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0">
+				<reportElement x="249" y="0" width="65" height="12" forecolor="#FFFFFF" backcolor="#FFFFFF" uuid="fd0b760e-fd7b-41c0-925c-4d824ff6ee52"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+					<paragraph rightIndent="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{valor_1}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="1" y="0" width="311" height="1" uuid="84c3280c-e40b-4313-98c6-c00f2ccdca54"/>
+				<graphicElement>
+					<pen lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

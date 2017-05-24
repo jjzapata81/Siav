@@ -1,0 +1,69 @@
+apply plugin: 'war'
+apply plugin: 'jacoco'
+
+[ compileJava, compileTestJava ]*.options*.encoding = 'UTF-8'
+
+repositories {
+	mavenCentral()
+	maven { url "http://jasperreports.sourceforge.net/maven2/" }
+}
+
+dependencies {
+
+	providedCompile 'org.slf4j:slf4j-api:1.7.5'
+	compile fileTree(dir: 'libs', includes: ['*.jar'])
+	compile 'org.codehaus.groovy:groovy-all:2.4.5'
+	compile 'com.lowagie:itext:2.1.7'
+	compile 'com.itextpdf:itext7-core:7.0.2'
+	compile 'commons-beanutils:commons-beanutils:1.9.2'
+	compile 'org.apache.commons:commons-lang3:3.0'
+	compile 'org.apache.poi:poi:3.14'
+ 	compile 'org.apache.poi:poi-ooxml:3.14'
+ 	compile 'org.apache.poi:poi-ooxml-schemas:3.14'
+	providedCompile 'org.jboss.spec:jboss-javaee-6.0:3.0.3.Final'
+	providedCompile 'com.fasterxml.jackson.core:jackson-annotations:2.6.4'
+	providedCompile 'org.jboss.logging:jboss-logging:3.1.4.GA'
+	testCompile 'junit:junit:4.11'
+}
+
+war {
+	archiveName = "${baseName}.${extension}"
+}
+
+task deploy(dependsOn: 'build' , type: Copy) {
+ 
+     println "Configurando Despliegue"
+ 
+     from('build/libs/') {
+          include '*.war'
+     }
+ 
+     def target="${project.name}.war"
+     def JBOSS_HOME = System.getenv('JBOSS_HOME')
+     
+     into "$JBOSS_HOME"+"/standalone/deployments/"
+     
+     def ok=new File("${JBOSS_HOME}/standalone/deployments/${target}.deployed");
+     def nok=new File("${JBOSS_HOME}/standalone/deployments/${target}.failed");   
+ 
+     doFirst {
+          println "Borrando war anteriores"
+          if(ok.exists()) { ok.delete() }
+          if(nok.exists()) { nok.delete() }
+ 
+     }
+ 
+     doLast {
+          println "ejecutando war..."
+          def deployed=false
+          for(def i=0;i<80;i++) {
+          
+               if(ok.exists()) { deployed=true; break }
+               if(nok.exists()) { break }
+               sleep(500);
+          }
+ 
+          if(deployed) { println("despligue exitoso.") }
+          else { throw new RuntimeException("Despligue fallido, ver jboss logs!") }
+     }
+}

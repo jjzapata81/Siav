@@ -1,0 +1,20 @@
+<div class="menu-ppal">
+	<uib-accordion close-others="true">
+		<uib-accordion-group ng-repeat="item in menu | orderBy:'orden'">
+			<uib-accordion-heading>{{item.grupo}}</uib-accordion-heading>
+      		<ul>
+      			<li ng-repeat="recurso in item.recursos | orderBy:'orden'">
+      				<a ng-if="!recurso.tieneSubMenu" ng-click="goTo(recurso)">{{recurso.titulo}}</a>
+      				<span ng-if="recurso.tieneSubMenu" uib-dropdown on-toggle="toggled(open)">
+				    	<a href id="{{recurso.accion}}" uib-dropdown-toggle>{{recurso.titulo}} <i class="pull-right fa fa-ellipsis-h" ></i></a>
+				      	<ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="{{recurso.accion}}">
+							<li ng-repeat="subItem in recurso.submenus | orderBy:'orden'">
+			      				<a ng-click="goTo(subItem)">{{subItem.titulo}}</a>
+			      			</li>
+						</ul>
+				    </span>
+      			</li>
+		    </ul>
+    	</uib-accordion-group>
+  </uib-accordion>
+</div>

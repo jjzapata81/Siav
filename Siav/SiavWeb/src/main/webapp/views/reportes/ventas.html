@@ -1,0 +1,42 @@
+<titulo/>
+<menu></menu>
+
+<div  class="contenido">
+	<div  class="boton-fijo">
+		<a ng-click="onBuscar()" uib-tooltip="Buscar" tooltip-placement="left"><i class="fa fa-search icon-float icon-search" aria-hidden="true"></i></a>
+		<a ng-click="onDescargar()" uib-tooltip="Descargar Excel" tooltip-placement="left"><i class="fa fa-file-excel-o icon-float icon-save"></i></a>
+	</div>
+	<section class="titulo-seccion">
+		Ventas
+	</section>
+	<section class="formulario form-fijo">
+		<div>
+			<ul class="flex">
+				<li>
+					<label>Ciclo:</label><br>
+					<input type="number" ng-model="filtro.ciclo"/>
+				</li>
+			</ul>
+		</div>
+	</section>
+	<div class="tabla-siav">
+		<table class="table table-responsive">
+			<thead>
+				<th>Concepto</th>
+				<th>Nombre</th>
+				<th>Venta</th>
+				<th>Cartera</th>
+			</thead>
+			<tbody>
+				<tr ng-repeat="item in items | startFrom:(currentPage-1)*itemsPerPage | limitTo:itemsPerPage">
+					<td>{{item.concepto}}</td>
+					<td>{{item.nombre}}</td>
+					<td>{{item.venta | currency:"$":0}}</td>
+					<td>{{item.cartera | currency:"$":0}}</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<uib-pagination total-items="items.length" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
+	</div>
+</div>
