@@ -20,6 +20,10 @@ define(['siav-module'], function (app) {
         					$scope.clase = "fa fa-info-circle blue";
     					}
     					
+    					$scope.limpiar = function(){
+    						$scope.obligatorio = ""; 
+    					}
+    					
 						$scope.continuar = function() {
 							if($scope.consumo){
 								$uibModalInstance.close($scope.consumo);

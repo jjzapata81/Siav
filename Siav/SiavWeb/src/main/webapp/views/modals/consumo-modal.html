@@ -7,12 +7,13 @@
 			<div class="icono-modal"><i class="{{clase}}" aria-hidden="true"></i></div>
 			<div class="mensaje-modal">Ingrese el rango de consumo a consultar</div>
 		</div>
-		<div>
-			<span>La consulta mostrar&aacute; como resultado todos los consumos</span>
+		<div class="margin-55">
+			<span>Se mostrar&aacute; como resultado todas las lecturas cuyo consumo anterior tenga una diferencia con el consumo actual, mayor al rango indicado.</span>
 		</div>
-		<div>
+		<div class="margin-55">
+			<br>
+			<input type="number" ng-model="consumo" placeholder="Consumo" ng-change="limpiar()"><br>
 			<span class="modal-obligatorio">{{obligatorio}}</span>
-			<input type="number" ng-model="consumo" placeholder="Consumo">
 		</div>
 	</div>
 	<div class="modal-footer">

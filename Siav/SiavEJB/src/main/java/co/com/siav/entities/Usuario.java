@@ -104,7 +104,7 @@ public class Usuario implements Serializable{
 	}
 	
 	public String getNombreCompleto(){
-		return null == nombres ? "" : nombres + " " + apellidos;
+		return null == nombres ? apellidos : nombres + " " + apellidos;
 	}
 		
 }

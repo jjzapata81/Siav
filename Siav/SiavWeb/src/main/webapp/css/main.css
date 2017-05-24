@@ -1039,5 +1039,8 @@ a:hover{
 }
 
 .column-numeric{
-	text-align: right;
+	text-align: center;
+}
+.margin-55{
+	margin-left: 55px;
 }

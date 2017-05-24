@@ -3,7 +3,7 @@
 <div  class="contenido">
 	<div  class="boton-fijo">
 		<a ng-click="onBuscar()" uib-tooltip="Buscar consumos" tooltip-placement="left" ng-show="!estaEditando && !estaEditandoRiesgo"><i class="fa fa-search icon-float icon-search" aria-hidden="true"></i></a>
-		<a ng-click="onCancelarRiesgo()" uib-tooltip="Cancelar" tooltip-placement="left" ng-show="!estaEditando && !estaEditandoRiesgo"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
+		<a ng-click="onCancelarRiesgo()" uib-tooltip="Cancelar" tooltip-placement="left" ng-show="!estaEditando && !estaEditandoRiesgo && hayRiesgo"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
 		<a ng-click="onGuardar()" uib-tooltip="Guardar" tooltip-placement="left" ng-show="estaEditando"><i class="fa fa-floppy-o icon-float icon-save" aria-hidden="true"></i></a>
 		<a ng-click="onCancelar()" uib-tooltip="Cancelar" tooltip-placement="left" ng-show="estaEditando"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
 		<a ng-click="onGuardarRiesgo()" uib-tooltip="Guardar" tooltip-placement="left" ng-show="estaEditandoRiesgo"><i class="fa fa-floppy-o icon-float icon-save" aria-hidden="true"></i></a>

@@ -73,6 +73,9 @@ public class Constantes {
 	public static final String ERR_SIN_INSTALACION = "La instalación ingresada no existe.";
 	public static final String USUARIO_SISTEMA_NO_EXISTE = "No existe usuario con la identificación %s.";
 	public static final String ERR_CONSULTAR_IP = "No se pudo consultar la dirección IP del servidor. ";
+	public static final String FORMATO_RECAUDO = "FORMATO_RECAUDO";
+	public static final String NUMERACION_CREDITO = "NUMERACION_CRED";
+	public static final String SIN_FECHA = "SIN_FECHA";
 	
 	public static String getMensaje(String mensaje, Long codigo) {
 		return getMensaje(mensaje, String.valueOf(codigo));

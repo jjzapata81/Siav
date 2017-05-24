@@ -69,6 +69,7 @@ define(['siav-module', 'inconsistencias-services', 'causas-no-lectura-services',
     			.guardarCorreccion(request)
     			.then(function(respuesta){
     				modalFactory.abrirDialogo(respuesta);
+    				$scope.estaEditandoRiesgo = false;
     				$scope.consultarRango();
     			});
     		}
@@ -105,6 +106,7 @@ define(['siav-module', 'inconsistencias-services', 'causas-no-lectura-services',
     	}
     	
     	$scope.onCancelarRiesgo = function(){
+    		$scope.hayRiesgo = false;
     		$scope.init();
     	}
     	
