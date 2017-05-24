@@ -62,6 +62,7 @@ require.config({
     	'modal-usuario-factory' : 'factories/modal-usuario-factory',
     	'reportes-factory' : 'factories/reportes-factory',
     	'factoria-menu' : 'factories/factoria-menu',
+    	'modal-consumo-factory' : 'factories/modal-consumo-factory',
     	
     	//Controladores
     	'menu-controller' : 'controllers/menu-controller',

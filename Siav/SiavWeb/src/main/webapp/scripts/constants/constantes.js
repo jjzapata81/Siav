@@ -20,7 +20,9 @@ define(['siav-module'], function(app) {
     		"BUSCAR_PAGO" : "rest/pagos/buscar/",
     		"CARGAR_PAGO" : "rest/pagos/cargar/",
     		"CONSUMOS_INCOMPLETOS" : "rest/consumos/consultar/incompletos",
-    		"CONSUMOS_INCOMPLETOS_GUARDAR" : "rest/consumos/guardar"
+    		"CONSUMOS_RANGO" : "rest/consumos/consultar/rango",
+    		"CONSUMOS_INCOMPLETOS_GUARDAR" : "rest/consumos/guardar",
+    		"CONSUMOS_RIESGO_GUARDAR" : "rest/consumos/riesgo/guardar"
     	},
     	"MSG" : {
     		"CAMBIO_GUARDADO" : "Los cambios han sido guardados de manera correcta.",
@@ -92,7 +94,8 @@ define(['siav-module'], function(app) {
     	},
     	"INCONSISTENCIA" : {
     		"ERR_LECTURA_FINAL_MENOR" : "La lectura final no puede ser menor que la lectura anterior",
-    		"ERR_SERIAL_OBLIGATORIO" : "Ingrese un número de serial para el nuevo medidor"
+    		"ERR_SERIAL_OBLIGATORIO" : "Ingrese un número de serial para el nuevo medidor",
+    		"ERR_LECTURA_CORRECCION" : "Ingrese un valor para la lectura corregida"
     	},
     	"INSTALACION" : {
     		"ERR_BUSQUEDA_OBLIGATORIO" : "Ingrese un número de instalación.",

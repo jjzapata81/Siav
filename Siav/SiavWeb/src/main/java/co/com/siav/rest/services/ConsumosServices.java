@@ -14,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 import co.com.siav.bean.ConsumosBean;
 import co.com.siav.entities.Consumo;
 import co.com.siav.request.CorreccionConsumoRequest;
+import co.com.siav.response.ConsumoRiesgo;
 import co.com.siav.response.MensajeResponse;
 
 
@@ -32,10 +33,24 @@ public class ConsumosServices {
 	}
 	
 	@POST
+	@Path("consultar/rango")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<ConsumoRiesgo> getConsumosRango(CorreccionConsumoRequest request){
+		return bean.consultarRango(request);
+	}
+	
+	@POST
 	@Path("guardar")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public MensajeResponse guardar(CorreccionConsumoRequest request){
 		return bean.guardar(request);
+	}
+	
+	@POST
+	@Path("riesgo/guardar")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public MensajeResponse guardarCorreccion(CorreccionConsumoRequest request){
+		return bean.guardarCorreccion(request);
 	}
 
 }

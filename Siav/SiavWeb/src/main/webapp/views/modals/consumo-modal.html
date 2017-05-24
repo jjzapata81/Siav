@@ -1,0 +1,24 @@
+<div class="ngdialog-message">
+	<div class="modal-header titulo-modal">
+		<h3>{{titulo}}</h3>
+	</div>
+	<div class="modal-body">
+		<div class="mensaje-body">
+			<div class="icono-modal"><i class="{{clase}}" aria-hidden="true"></i></div>
+			<div class="mensaje-modal">Ingrese el rango de consumo a consultar</div>
+		</div>
+		<div>
+			<span>La consulta mostrar&aacute; como resultado todos los consumos</span>
+		</div>
+		<div>
+			<span class="modal-obligatorio">{{obligatorio}}</span>
+			<input type="number" ng-model="consumo" placeholder="Consumo">
+		</div>
+	</div>
+	<div class="modal-footer">
+		<ul class="flex alineacion-derecha" >
+			<li><button type="button" class="btn-siav btn-buscar" ng-click="continuar()">Aceptar</button></li>
+			<li><button type="button" class="btn-siav btn-cancelar" ng-click="cancelar()">Cancelar</button></li>
+		</ul>
+ 	</div>
+</div>
