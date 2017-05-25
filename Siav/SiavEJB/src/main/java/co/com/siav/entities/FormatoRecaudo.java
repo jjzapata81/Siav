@@ -39,7 +39,13 @@ public class FormatoRecaudo implements Serializable{
 	
 	@Column(name="posicion_final_fra")
 	private Long posicionFinalFactura;
-
+	
+	@Column(name="posicion_inicial_ciclo")
+	private Long posicionInicialCiclo;
+	
+	@Column(name="posicion_final_ciclo")
+	private Long posicionFinalCiclo;
+	
 	public String getId() {
 		return id;
 	}
@@ -119,5 +125,23 @@ public class FormatoRecaudo implements Serializable{
 	public void setPosicionFinalFactura(Long posicionFinalFactura) {
 		this.posicionFinalFactura = posicionFinalFactura;
 	}
+
+	public int getPosicionInicialCiclo() {
+		return null == posicionInicialCiclo ? 0 : posicionInicialCiclo.intValue();
+	}
+
+	public void setPosicionInicialCiclo(Long posicionInicialCiclo) {
+		this.posicionInicialCiclo = posicionInicialCiclo;
+	}
+
+	public int getPosicionFinalCiclo() {
+		return null == posicionFinalCiclo ? 0 : posicionFinalCiclo.intValue();
+	}
+
+	public void setPosicionFinalCiclo(Long posicionFinalCiclo) {
+		this.posicionFinalCiclo = posicionFinalCiclo;
+	}
+	
+	
 	
 }

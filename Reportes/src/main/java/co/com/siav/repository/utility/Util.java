@@ -60,7 +60,7 @@ public class Util {
 		DateFormat df = new SimpleDateFormat("yyyyMMdd");
 		StringBuilder sb = new StringBuilder();
 		sb.append(complet(referencia, 13));
-		sb.append(complet(String.valueOf(valorTotal), 8));
+		sb.append(complet(String.valueOf(Math.abs(valorTotal)), 8));
 		sb.append(df.format(fecha));
 		return sb.toString();
 	}
