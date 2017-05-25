@@ -27,6 +27,9 @@ public class Reporte {
 	public static final String LECTURAS_CONSUMOS_ASUNTO = "Informe de lecturas y consumos";
 	public static final String LECTURAS_CONSUMOS_CUERPO = "<h3><b>Informe de Lecturas y Consumos</b></h3><br><h4>Adjunto se encuentra el informe de lecturas y consumos correspondiente al ciclo %d.</h4>";
 	public static final String LECTURAS_CONSUMOS = "lecturas_consumos_ciclo_%d.xlsx";
+	public static final String INSTALACIONES_RUTA_ASUNTO = "Informe de instalaciones por ruta";
+	public static final String INSTALACIONES_RUTA_CUERPO = "<h3><b>Informe de Instalaciones por Ruta</b></h3><br><h4>Adjunto se encuentra el informe de instalaciones por ruta.</h4>";
+	public static final String INSTALACIONES_RUTA = "instalaciones_ruta.xlsx";
 	
 
 }

@@ -6,20 +6,24 @@ import co.com.siav.reports.filters.Filter;
 public class QueryHelper {
 	
 	public static String getCuentasVencidas(Filter filter) {
-		String limiteSuperior = null == filter.getValorHasta() ? "(select max(cuentasvencidas) from ta_factura_maestro)" : String.valueOf(filter.getValorHasta());
 		StringBuilder sb = new StringBuilder();
 		sb.append("select fma.nmfactura as factura, fma.nombres, fdetalle.valorfac as valor, fma.cuentasvencidas ");
 		sb.append("from ta_factura_maestro fma inner join (select (COALESCE(sum(fde.valor),0) + COALESCE(sum(fde.saldo),0)) as valorfac, fde.nmfactura as fac  from ta_factura_detalle fde group by fde.nmfactura) ");
 		sb.append("as fdetalle on fma.nmfactura = fdetalle.fac ");
 		sb.append("where fma.ciclo = ");
-		sb.append("%1s ");
-		sb.append("and fma.cuentasvencidas >= ");
-		sb.append("%2s ");
-		sb.append("and fma.cuentasvencidas <= ");
-		sb.append("%3s ");
-		sb.append("order by 4 desc, 2, 1");
-		String query = String.format(sb.toString(),filter.getCiclo(), filter.getValorDesde(), limiteSuperior);
-		return query;
+		sb.append(filter.getCiclo());
+		if(null != filter.getValorDesde()){
+			sb.append(" and fma.cuentasvencidas >= ");
+			sb.append(filter.getValorDesde());
+		}else{
+			sb.append(" and fma.cuentasvencidas >= 1");
+		}
+		if(null != filter.getValorHasta()){
+			sb.append(" and fma.cuentasvencidas <= ");
+			sb.append(filter.getValorHasta());
+		}
+		sb.append(" order by 4 desc, 2, 1");
+		return sb.toString();
 	}
 
 	public static String getVentas(Filter filter) {
@@ -95,9 +99,6 @@ public class QueryHelper {
 			sb.append(filter.getCedula().trim());
 			sb.append("' ");
 		}
-//		if(null != filter.getValorDesde()){
-//			
-//		}
 		sb.append(" ORDER BY ti.cdramal, ti.nmorden");
 		return sb.toString();
 	}
@@ -351,6 +352,23 @@ public class QueryHelper {
 			sb.append(filter.getValorHasta());
 		}
 		sb.append(" order by c.consumodefinitivo, i.nminstalacion ");
+		return sb.toString();
+	}
+	
+	public static String getRutas(Filter filter){
+		StringBuilder sb = new StringBuilder();
+		sb.append("SELECT i.cdramal AS ruta, i.nminstalacion AS instalacion, ");
+		sb.append("(COALESCE(u.nombres,''))|| ' ' || (COALESCE(u.apellidos,'')) AS nombre, i.snmedidor AS tieneMedidor, i.seriemedidor AS serieMedidor, ");
+		sb.append("CASE i.cdtipofacturacion WHEN '1' then 'S' ELSE 'N' END factura, ");
+		sb.append("(SELECT nombre FROM ta_veredas WHERE cdvereda = i.cdvereda) AS vereda, i.direccion, i.telefono ");
+		sb.append("FROM ta_instalacion i, ta_usuarios u ");
+		sb.append("WHERE i.cedula = u.cedula AND snactivo = 'S' ");
+		if(null != filter.getCriterio()){
+			sb.append("AND i.cdramal = '");
+			sb.append(filter.getCriterio().toUpperCase());
+			sb.append("' ");
+		}
+		sb.append("ORDER BY i.cdramal, nmorden ");
 		return sb.toString();
 	}
 

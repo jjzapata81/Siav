@@ -112,6 +112,7 @@ require.config({
     	'reporte-factura-controller' : 'controllers/reportes/reporte-factura-controller',
     	'instalaciones-usuarios-controller' : 'controllers/reportes/instalaciones-usuarios-controller',
     	'reporte-variacion-consumo-controller' : 'controllers/reportes/reporte-variacion-consumo-controller',
+    	'reporte-instalaciones-ruta-controller' : 'controllers/reportes/reporte-instalaciones-ruta-controller',
     	
     	//Directivas
     	

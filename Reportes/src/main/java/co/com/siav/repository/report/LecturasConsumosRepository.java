@@ -49,7 +49,7 @@ public class LecturasConsumosRepository implements IReportType{
 	}
 
 	private Attachment getFile(Filter filter){
-		return new Attachment(Reporte.LECTURAS_CONSUMOS, download(filter));
+		return new Attachment(String.format(Reporte.LECTURAS_CONSUMOS, filter.getCiclo()), download(filter));
 	}
 	
 	private List<LecturasConsumos> getLecturasConsumos(Filter filter) {

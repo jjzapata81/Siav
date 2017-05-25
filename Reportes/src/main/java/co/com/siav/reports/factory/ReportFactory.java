@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import co.com.siav.repository.report.CuentasVencidasRepository;
 import co.com.siav.repository.report.FacturaRepository;
+import co.com.siav.repository.report.InstalacionesRutaRepository;
 import co.com.siav.repository.report.LecturasConsumosRepository;
 import co.com.siav.repository.report.PrefacturaRepository;
 import co.com.siav.repository.report.UsuarioRepository;
@@ -32,6 +33,9 @@ public class ReportFactory {
 	@Inject
 	private LecturasConsumosRepository lecturasConsumosRep;
 	
+	@Inject
+	private InstalacionesRutaRepository instalacionesRutaRep;
+	
 	private Map<String, IReportType> typeReport;
 
 	public IReportType getInstance(String reporte) {
@@ -47,6 +51,7 @@ public class ReportFactory {
 		typeReport.put("usuarios-instalaciones", usuarioRep);
 		typeReport.put("variacion-consumo", variacionRep);
 		typeReport.put("lecturas-consumos", lecturasConsumosRep);
+		typeReport.put("instalaciones-ruta", instalacionesRutaRep);
 	}
 
 }
