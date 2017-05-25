@@ -85,7 +85,7 @@ require.config({
     	'medidor-general-controller' : 'controllers/medidor-general-controller',
     	'lecturas-digitadas-controller' : 'controllers/lecturas-digitadas-controller',
     	'inconsistencias-controller' : 'controllers/inconsistencias-controller',
-    	'ajustes-controller' : 'controllers/ajustes-controller',
+    	'credito-abono-controller' : 'controllers/credito-abono-controller',
     	'historico-controller' : 'controllers/historico-controller',
     	'novedades-controller' : 'controllers/novedades-controller',
     	'creditos-controller' : 'controllers/creditos-controller',

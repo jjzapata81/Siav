@@ -5,6 +5,8 @@ define(['siav-module', 'pagos-services', 'modal-factory', 'constantes'], functio
 	
     return app.controller('abonos-controller', ['$scope', '$sce', 'pagosServices', 'modalFactory', 'CONSTANTES', function($scope, $sce, pagosServices, modalFactory, CONSTANTES){
     	
+    	$scope.content = null;
+    	
     	$scope.init = function(){
     		$scope.limpiar();
     	}

@@ -1044,3 +1044,9 @@ a:hover{
 .margin-55{
 	margin-left: 55px;
 }
+
+.sel-abono-credito, .sel-abono-credito:hover{
+	color : #fff;
+	cursor: pointer;
+	font-size: 18px;
+}

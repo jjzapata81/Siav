@@ -79,7 +79,8 @@ define(['siav-module'], function(app) {
     		"ERR_NUMERO_CUOTAS_OBLIGATORIO" : "El número de cuotas es obligatorio.",
     		"ERR_INSTALACION_OBLIGATORIO" : "El número de la instalación es obligatorio.",
     		"ERR_TARIFA_OBLIGATORIO" : "Debe seleccionar un concepto para el crédito.",
-    		"ERR_NEGATIVO" : "No se pueden ingresar valores negativos."
+    		"ERR_NEGATIVO" : "No se pueden ingresar valores negativos.",
+    		"ERR_VALOR_SUPERIOR" : "El valor ingresado no debe ser superior al saldo del crédito."
     	},
     	"ESTADO" : {
     		"OK" : "OK",

@@ -56,7 +56,7 @@ public class AbonoRepository {
 	}
 	
 	private AbonoFacturaBD getFactura(AbonoRequest request) {
-		String query = QueryHelper.getFacturaAbono(request.getNumeroFactura());
+		String query = QueryHelper.getFacturaAbono(request.getNumeroInstalacion());
 		ReportFactory<AbonoFacturaBD> factory = new ReportFactory<>();
 		return factory.getReportResult(AbonoFacturaBD.class, query).get(0);
 	}

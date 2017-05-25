@@ -1,0 +1,77 @@
+<titulo/>
+<menu></menu>
+<div  class="contenido">
+		<div  class="boton-fijo">
+		<a ng-click="onBuscar()" uib-tooltip="Buscar" tooltip-placement="left" ng-show="!mostrarUsuario"><i class="fa fa-search icon-float icon-search" aria-hidden="true"></i></a>
+		<a ng-click="onGuardar()" uib-tooltip="Guardar" tooltip-placement="left" ng-show="mostrarCredito"><i class="fa fa-floppy-o icon-float icon-save" aria-hidden="true"></i></a>
+		<a ng-click="onCancelar()" uib-tooltip="Cancelar" tooltip-placement="left" ng-show="mostrarUsuario && !mostrarCredito"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
+		<a ng-click="onCancelarSeleccion()" uib-tooltip="Cancelar" tooltip-placement="left" ng-show="mostrarCredito"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
+	</div>
+	<section class="titulo-seccion">
+		Comprobante pago de cr&eacute;dito
+	</section>
+	<section class="formulario form-fijo">
+		<div ng-show="!mostrarUsuario">
+			<section class="sub-titulo">Buscar instalaci&oacute;n</section>
+			<ul class="flex">
+				<li>
+					<label>N&uacute;mero:</label><br>
+					<input type="text" ng-model="numeroInstalacion" ng-enter="onBuscar()" />
+				</li>
+			</ul>
+		</div>
+		<div ng-show="mostrarUsuario">
+			<section class="sub-titulo">{{instalacion.numeroInstalacion}} - {{instalacion.nombreCompleto}}</section>
+			<div class="tabla-siav">
+				<table class="table table-responsive">
+					<thead>
+						<th>C&oacute;digo</th>
+						<th>Concepto</th>
+						<th>Valor</th>
+						<th>Saldo</th>
+						<th>Inter&eacute;s</th>
+						<th>N&uacute;mero cuotas</th>
+						<th>Cuotas pendientes</th>
+					</thead>
+					<tbody>
+						<tr ng-repeat="credito in creditos">
+							<td>{{credito.id}}</td>
+							<td><a class="link-table" ng-click="seleccionar(credito)">{{credito.concepto.descripcion}}</a></td>
+							<td>{{credito.valor | currency:"$":0}}</td>
+							<td>{{credito.saldo | currency:"$":0}}</td>
+							<td>{{credito.interes | currency:"%":2}}</td>
+							<td>{{credito.numeroCuotas}}</td>
+							<td>{{credito.numeroCuotas - credito.actual}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div ng-show="mostrarCredito">
+			<section class="sub-titulo">Generar comprobante</section>
+			<ul class="flex">
+				<li>
+					<a class="sel-abono-credito" ng-click="onSeleccion('TOTAL')">
+						<i class="fa fa-check-circle-o" aria-hidden="true" ng-if="esTotal"></i>
+						<i class="fa fa-circle-o" aria-hidden="true" ng-if="!esTotal"></i>
+						&nbsp;Valor total saldo:
+					</a>
+					<br>
+					<label class="label-input">{{credito.valor | currency:"$":0}}</label>
+				</li>
+				<li>
+					<a class="sel-abono-credito" ng-click="onSeleccion('OTRO')">
+						<i class="fa fa-check-circle-o" aria-hidden="true" ng-if="!esTotal"></i>
+						<i class="fa fa-circle-o" aria-hidden="true" ng-if="esTotal"></i>
+						&nbsp;Otro valor:
+					</a>
+					<br>
+					<input type="number" placeholder="$" ng-model="credito.otroValor"/>
+				</li>
+			</ul>
+		</div>
+	</section>
+	<div>
+		<object ng-show="content" data="{{content}}" type="application/pdf" style="width: 90%; height: 360px;"></object>
+	</div>
+</div>

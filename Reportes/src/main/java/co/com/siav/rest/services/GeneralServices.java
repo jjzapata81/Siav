@@ -30,7 +30,7 @@ public class GeneralServices {
 	@Path("abono/pdf")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public byte[] pdfCuentasVencidas(AbonoRequest request){
+	public byte[] pdfAbono(AbonoRequest request){
 		return repository.getPDF(request);
 	}
 	

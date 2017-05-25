@@ -197,16 +197,17 @@ public class QueryHelper {
 		return sb.toString();
 	}
 
-	public static String getFacturaAbono(Long numeroFactura) {
+	public static String getFacturaAbono(Long numeroInstalacion) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("SELECT ");
-		sb.append("fm.nombres AS nombre, ");
-		sb.append("fm.nombrevereda AS vereda, ");
-		sb.append("fm.direccion AS direccion, ");
-		sb.append("estrato AS estrato ");
-		sb.append("FROM ta_factura_maestro fm ");
-		sb.append("WHERE fm.nmfactura =  ");
-		sb.append(numeroFactura);
+		sb.append("SELECT "); 
+		sb.append("(COALESCE(u.nombres,''))|| ' ' || (COALESCE(u.apellidos,'')) AS nombre, ");
+		sb.append("v.nombre AS vereda, ");
+		sb.append("i.direccion, ");
+		sb.append("i.estrato ");
+		sb.append("from ta_instalacion i, ta_usuarios u, ta_veredas v ");
+		sb.append("WHERE i.nminstalacion = ");
+		sb.append(numeroInstalacion);
+		sb.append(" AND i.cedula = u.cedula AND i.cdvereda = v.cdvereda ");
 		return sb.toString();
 	}
 
