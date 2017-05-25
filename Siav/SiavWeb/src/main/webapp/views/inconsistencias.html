@@ -2,8 +2,12 @@
 <menu></menu>
 <div  class="contenido">
 	<div  class="boton-fijo">
+		<a ng-click="onBuscar()" uib-tooltip="Buscar consumos" tooltip-placement="left" ng-show="!estaEditando && !estaEditandoRiesgo"><i class="fa fa-search icon-float icon-search" aria-hidden="true"></i></a>
+		<a ng-click="onCancelarRiesgo()" uib-tooltip="Cancelar" tooltip-placement="left" ng-show="!estaEditando && !estaEditandoRiesgo && hayRiesgo"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
 		<a ng-click="onGuardar()" uib-tooltip="Guardar" tooltip-placement="left" ng-show="estaEditando"><i class="fa fa-floppy-o icon-float icon-save" aria-hidden="true"></i></a>
-		<a ng-click="onCancelar()" uib-tooltip="Cancelar" tooltip-placement="left" ng-show="estaEditando || estaConsultando"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
+		<a ng-click="onCancelar()" uib-tooltip="Cancelar" tooltip-placement="left" ng-show="estaEditando"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
+		<a ng-click="onGuardarRiesgo()" uib-tooltip="Guardar" tooltip-placement="left" ng-show="estaEditandoRiesgo"><i class="fa fa-floppy-o icon-float icon-save" aria-hidden="true"></i></a>
+		<a ng-click="onCancelarEdicionRiesgo()" uib-tooltip="Cancelar" tooltip-placement="left" ng-show="estaEditandoRiesgo"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
 	</div>
 	<section class="titulo-seccion">Inconsistencias</section>
 	<section class="formulario form-fijo" ng-show="estaEditando">
@@ -81,7 +85,58 @@
 			</div>
 		</div>
 	</section>
-	<div class="tabla-siav" ng-show="!estaEditando">
+	<section class="formulario form-fijo" ng-show="estaEditandoRiesgo">
+		<div>
+			<ul class="flex">
+				<li>
+					<label>Instalaci&oacute;n:</label><br>
+					<input type="text" ng-model="corregirRiesgo.instalacion" ng-disabled="true"/>
+				</li>
+				<li>
+					<label>Nombre:</label><br>
+					<input type="text" ng-model="corregirRiesgo.nombre" ng-disabled="true"/>
+				</li>
+				<li>
+					<label>Ramal:</label><br>
+					<input type="text" ng-model="corregirRiesgo.ramal" ng-disabled="true"/>
+				</li>
+			</ul>
+			<ul class="flex">
+				<li>
+					<label>Lectura anterior:</label><br>
+					<input type="number" ng-model="corregirRiesgo.lecturaAnterior" ng-disabled="true"/>
+				</li>
+				<li>
+					<label>Lectura actual:</label><br>
+					<input type="number" ng-model="corregirRiesgo.lecturaActual" ng-disabled="true"/>
+				</li>
+				<li>
+					<label><i class="fa fa-asterisk" aria-hidden="true"></i>Lectura corregir:</label><br>
+					<input type="number" ng-model="corregirRiesgo.lecturaCorreccion" ng-change="onRecalcularCorreccion()"/>
+				</li>
+				
+			</ul>
+			<div class="inconsistencia-grupo">
+				<div class="inconsistencia-item">
+					<label>Consumo anterior:</label><br>
+					<label class="inconsistencia-total">{{corregirRiesgo.consumoAnterior}}</label>
+				</div>
+				<div class="inconsistencia-item">
+					<label>Consumo actual:</label><br>
+					<label class="inconsistencia-total">{{corregirRiesgo.consumoActual}}</label>
+				</div>
+				<div class="inconsistencia-item">
+					<label>Consumo promedio:</label><br>
+					<label class="inconsistencia-total">{{corregirRiesgo.consumoPromedio}}</label>
+				</div>
+				<div class="inconsistencia-item">
+					<label>Consumo corregido:</label><br>
+					<label class="inconsistencia-seleccion">{{corregirRiesgo.consumoCorregido}}</label>
+				</div>
+			</div>
+		</div>
+	</section>
+	<div class="tabla-siav" ng-show="!estaEditando && hayCorreccion && !hayRiesgo">
 		<table class="table table-responsive">
 			<thead>
 				<th>Instalaci&oacute;n</th>
@@ -94,7 +149,7 @@
 				<th>Fecha</th>
 			</thead>
 			<tbody>
-				<tr ng-repeat="consumo in incompletos | startFrom:(currentPage-1)*itemsPerPage | limitTo:itemsPerPage">
+				<tr ng-repeat="consumo in incompletos">
 					<td>{{consumo.instalacion.numeroInstalacion}}</td>
 					<td><a ng-click="onCorregir(consumo)">{{consumo.instalacion.usuario.nombreCompleto}}</a></td>
 					<td>{{consumo.instalacion.ramal}}</td>
@@ -102,10 +157,52 @@
 					<td>{{consumo.lecturaActual}}</td>
 					<td>{{consumo.consumoMes}}</td>
 					<td>{{consumo.causaNoLectura}}</td>
-					<td>{{consumo.fechaHasta | date:'dd/MM/yyyy'}}</td>
+					<td>{{consumo.fechaHasta | date:'yyyy/MM/dd'}}</td>
 				</tr>
 			</tbody>
 		</table>
-		<uib-pagination total-items="incompletos.length" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
+	</div>
+	<section class="formulario form-fijo" ng-show="!hayCorreccion">
+		<div>
+			<section class="sub-titulo">No hay lecturas negativas</section>
+		</div>
+	</section>
+	<div class="tabla-siav" ng-show="!estaEditando && hayRiesgo && !estaEditandoRiesgo">
+		<table class="table table-responsive">
+			<thead class="column-center">
+				<th>Instalaci&oacute;n</th>
+				<th>Nombre</th>
+				<th>Ramal</th>
+				<th>Lectura<br>anterior</th>
+				<th>Lectura<br>actual</th>
+				<th>Consumo<br>anterior</th>
+				<th>Consumo<br>actual</th>
+				<th>Consumo<br>promedio</th>
+				<th>Fecha</th>
+			</thead>
+			<tbody>
+				<tr ng-repeat="consumo in consumosRiesgo | orderBy:'-diferencia' | startFrom:(currentPage-1)*itemsPerPage | limitTo:itemsPerPage">
+					<td>{{consumo.instalacion}}</td>
+					<td><a ng-click="onCorregirRiesgo(consumo)">{{consumo.nombre}}</a></td>
+					<td>{{consumo.ramal}}</td>
+					<td class="column-numeric">{{consumo.lecturaAnterior}}</td>
+					<td class="column-numeric">{{consumo.lecturaActual}}</td>
+					<td class="column-numeric">{{consumo.consumoAnterior}}</td>
+					<td>
+						<span class="plus" ng-show="consumo.consumoActual > consumo.consumoAnterior">
+							<label class="signal">+</label>
+							<label class="column-right">{{consumo.consumoActual}}</label>
+						</span>
+						<span class="minus" ng-show="consumo.consumoActual < consumo.consumoAnterior">
+							<label class="signal">-</label>
+							<label class="column-right">{{consumo.consumoActual}}</label>
+						</span>
+					</td>
+					<td class="column-numeric">{{consumo.consumoPromedio}}</td>
+					<td>{{consumo.fecha | date:'yyyy/MM/dd'}}</td>
+				</tr>
+			</tbody>
+		</table>
+		<uib-pagination total-items="consumosRiesgo.length" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
 	</div>
 </div>

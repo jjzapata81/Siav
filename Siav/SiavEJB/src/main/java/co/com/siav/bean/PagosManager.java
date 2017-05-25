@@ -129,4 +129,10 @@ public class PagosManager {
 		}
 	}
 
+	public void addDirtectPay(Pago pago) {
+		pago.setEsCredito(true);
+		pago.setMensaje("Pago de credito " + pago.getNumeroFactura());
+		pagosRep.save(pago);
+	}
+
 }

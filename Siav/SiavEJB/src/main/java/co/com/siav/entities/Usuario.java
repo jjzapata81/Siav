@@ -48,7 +48,7 @@ public class Usuario implements Serializable{
 	}
 
 	public String getNombres() {
-		return nombres;
+		return null == nombres ? "" : nombres;
 	}
 
 	public void setNombres(String nombres) {
@@ -104,7 +104,7 @@ public class Usuario implements Serializable{
 	}
 	
 	public String getNombreCompleto(){
-		return nombres + " " + apellidos;
+		return null == nombres ? apellidos : nombres + " " + apellidos;
 	}
 		
 }

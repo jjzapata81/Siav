@@ -1,0 +1,2 @@
+﻿INSERT INTO ta_configuraciones_sistema(nmconfiguracion, llave, valor, dsvalor) VALUES (5, 'FORMATO_RECAUDO', '1', 'ID DEL REGISTRO A UTILIZAR PARA LOS FORMATOS DE RECAUDO');
+INSERT INTO ta_configuraciones_sistema(nmconfiguracion, llave, valor, dsvalor) VALUES (6, 'NUMERACION_CRED', '990000', 'NUMERACION A PARTIR DE LA CUAL SE FACTURAN LOS CREDITOS');
