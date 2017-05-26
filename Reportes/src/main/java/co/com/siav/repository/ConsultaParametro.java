@@ -12,6 +12,11 @@ public class ConsultaParametro implements IConsultaParametro{
 		this.columna = columna;
 		this.valor = valor;
 	}
+	
+	public ConsultaParametro(String valor) {
+		this.columna = "valor";
+		this.valor = valor;
+	}
 
 	@Override
 	public String getTabla() {

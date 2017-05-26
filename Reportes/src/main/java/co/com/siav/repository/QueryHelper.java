@@ -1,6 +1,7 @@
 package co.com.siav.repository;
 
 import co.com.siav.pdf.dto.InstalacionPDFBase;
+import co.com.siav.reports.filters.Comprobante;
 import co.com.siav.reports.filters.Filter;
 
 public class QueryHelper {
@@ -370,6 +371,40 @@ public class QueryHelper {
 			sb.append("' ");
 		}
 		sb.append("ORDER BY i.cdramal, nmorden ");
+		return sb.toString();
+	}
+
+	public static String actualizar() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("update ta_instalacion set seriemedidor = '12345' where nminstalacion = 4096");
+		return sb.toString();
+	}
+	
+	public static String saveComprobante(Comprobante filter){
+		StringBuilder sb = new StringBuilder();
+		sb.append("INSERT INTO ta_comprobante_pago ");
+		sb.append("(nmcomprobante, nminstalacion, cedula, valor, usuario, fecha, nmcredito) ");
+		sb.append("VALUES (");
+		sb.append(filter.getComprobante());
+		sb.append(", ");
+		sb.append(filter.getInstalacion());
+		sb.append(", '");
+		sb.append(filter.getCedula());
+		sb.append("', ");
+		sb.append(filter.getValor());
+		sb.append(", '");
+		sb.append(filter.getUsuario());
+		sb.append("', '");
+		sb.append(filter.getFecha());
+		sb.append("', ");
+		sb.append(filter.getCredito());
+		sb.append(")");
+		return sb.toString();
+	}
+
+	public static String getComprobante() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("SELECT MAX(nmcomprobante) AS parametro FROM ta_comprobante_pago");
 		return sb.toString();
 	}
 

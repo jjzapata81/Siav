@@ -13,9 +13,9 @@ public class SendMail {
 	private static final String ALIAS_ENVIO_CORREO = "ALIAS_ENVIO_CORREO";
 	
 	public void send(String email, String asunto, String textoMail, Attachment file) {
-		String from = Util.getParametro(new ConsultaParametro("valor", EMAIL_ENVIO_CORREO));;
-		String pass = Util.getParametro(new ConsultaParametro("valor", PASS_ENVIO_CORREO));;
-		String alias = Util.getParametro(new ConsultaParametro("valor", ALIAS_ENVIO_CORREO));;
+		String from = Util.getParametro(new ConsultaParametro(EMAIL_ENVIO_CORREO));;
+		String pass = Util.getParametro(new ConsultaParametro(PASS_ENVIO_CORREO));;
+		String alias = Util.getParametro(new ConsultaParametro(ALIAS_ENVIO_CORREO));;
 		NotificationBean notificator = new NotificationBean(from, alias, pass);
 		notificator.sendHtmlAndAttachedMultipleFiles(new GeneradorHTML(textoMail), asunto, email, file);
 	}

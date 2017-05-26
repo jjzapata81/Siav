@@ -3,8 +3,9 @@ package co.com.siav.rest.request;
 public class AbonoRequest {
 	
 	private Long numeroInstalacion;
-	private Long numeroFactura;
+	private Long numeroCredito;
 	private Long valor;
+	private String cedula;
 
 	public Long getNumeroInstalacion() {
 		return numeroInstalacion;
@@ -14,12 +15,12 @@ public class AbonoRequest {
 		this.numeroInstalacion = numeroInstalacion;
 	}
 	
-	public Long getNumeroFactura() {
-		return numeroFactura;
+	public Long getNumeroCredito() {
+		return numeroCredito;
 	}
 	
-	public void setNumeroFactura(Long numeroFactura) {
-		this.numeroFactura = numeroFactura;
+	public void setNumeroFactura(Long numeroCredito) {
+		this.numeroCredito = numeroCredito;
 	}
 
 	public Long getValor() {
@@ -28,6 +29,14 @@ public class AbonoRequest {
 
 	public void setValor(Long valor) {
 		this.valor = valor;
+	}
+	
+	public String getCedula() {
+		return cedula;
+	}
+	
+	public void setCedula(String cedula) {
+		this.cedula = cedula;
 	}
 	
 }

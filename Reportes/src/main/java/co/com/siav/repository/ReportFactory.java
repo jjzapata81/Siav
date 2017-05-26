@@ -15,5 +15,12 @@ public class ReportFactory<T> {
 	public List<T> getReportResult(Class<T> clazz, String query) {
 		return getManager().getReportResult(clazz, query);
 	}
+	public void update(String query) {
+		getManager().update(query);
+	}
+	
+	public void save(String query) {
+		getManager().save(query);
+	}
 
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -30,8 +31,8 @@ public class GeneralServices {
 	@Path("abono/pdf")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public byte[] pdfAbono(AbonoRequest request){
-		return repository.getPDF(request);
+	public byte[] pdfAbono(@HeaderParam("siav_usuario") String usuario, AbonoRequest request){
+		return repository.getPDF(usuario, request);
 	}
 	
 	@POST

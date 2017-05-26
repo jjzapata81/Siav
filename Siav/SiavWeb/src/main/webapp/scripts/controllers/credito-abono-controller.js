@@ -3,8 +3,8 @@
 
 define(['siav-module', 'creditos-services', 'pagos-services', 'modal-factory', 'constantes'], function (app) {
 	
-    return app.controller('credito-abono-controller', ['$scope', '$filter', 'creditosServices', 'pagosServices', 'modalFactory', 'CONSTANTES',
-                                                        function($scope, $filter, creditosServices, pagosServices, modalFactory, CONSTANTES){
+    return app.controller('credito-abono-controller', ['$scope', '$sce', '$filter', 'creditosServices', 'pagosServices', 'modalFactory', 'CONSTANTES',
+                                                        function($scope, $sce, $filter, creditosServices, pagosServices, modalFactory, CONSTANTES){
     	
     	$scope.content = null;
     	
@@ -18,6 +18,7 @@ define(['siav-module', 'creditos-services', 'pagos-services', 'modal-factory', '
     	}
     	
     	$scope.onBuscar = function(){
+    		$scope.content = null;
     		$scope.mostrarUsuario = false;
     		if($scope.numeroInstalacion){
     			creditosServices
@@ -30,22 +31,12 @@ define(['siav-module', 'creditos-services', 'pagos-services', 'modal-factory', '
         		});
     		}
     	}
-    	
+    	 	
     	$scope.onGuardar = function(){
     		if($scope.formularioValido()){
-    			creditosServices
-    			.refinanciar($scope.credito)
-    			.then(function(){
-    				$scope.limpiar();
-    				modalFactory.abrir(CONSTANTES.ESTADO.OK, CONSTANTES.CREDITO.GUARDAR_EXITO);
-    			});
-    		}
-    	}
-    	
-    	$scope.onGuardar = function(){
-    		if($scope.validarCampos()){
-    			$scope.abono.numeroInstalacion = $scope.factura.numeroInstalacion;
+    			$scope.abono.numeroInstalacion = $scope.instalacion.numeroInstalacion;
     			$scope.abono.numeroFactura = "123456";
+    			$scope.abono.valor = $scope.esTotal ? $scope.credito.valor : $scope.credito.otroValor;
     			pagosServices
     			.abonar($scope.abono)
     			.then(function(data){
@@ -70,6 +61,7 @@ define(['siav-module', 'creditos-services', 'pagos-services', 'modal-factory', '
     		$scope.mostrarCredito = false;
     		$scope.credito = {};
     		$scope.instalacion = {};
+    		$scope.abono = {};
     	}
     	
     	$scope.seleccionar = function(credito){

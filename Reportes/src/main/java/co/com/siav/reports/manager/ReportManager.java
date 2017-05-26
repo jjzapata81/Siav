@@ -24,6 +24,34 @@ public class ReportManager<T> extends ResourceManager {
 		super(datasource);
 	}
 	
+	public void update(String sentence) {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		try {
+			connection = getConnection();
+			statement = connection.prepareStatement(sentence);
+			statement.executeUpdate();
+		} catch (Exception ex) {
+			throw new TechnicalException("Error ejecutando la consulta del reporte", ex);
+		} finally {
+			closeResources(statement, connection);
+		}
+	}
+	
+	public void save(String sentence) {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		try {
+			connection = getConnection();
+			statement = connection.prepareStatement(sentence);
+			statement.execute();
+		} catch (Exception ex) {
+			throw new TechnicalException("Error ejecutando la consulta del reporte", ex);
+		} finally {
+			closeResources(statement, connection);
+		}
+	}
+	
 	public List<T> getReportResult(Class<T> clazz, String sentence, Object... parameters) {
 		List<T> list = null;
 		
