@@ -51,6 +51,7 @@ public class CreditosBean {
 		CreditoResponse response = new CreditoResponse();
 		response.setNumeroInstalacion(instalacion.getNumeroInstalacion());
 		response.setNombreCompleto(instalacion.getUsuario().getNombreCompleto());
+		response.setCedula(instalacion.getUsuario().getCedula());
 		response.setCreditos(buildCreditos(creditos));
 		return response;
 	}

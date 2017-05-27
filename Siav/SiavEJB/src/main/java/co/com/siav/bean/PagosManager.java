@@ -1,10 +1,11 @@
 package co.com.siav.bean;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import co.com.siav.entities.Comprobante;
+import co.com.siav.entities.CreditoMaestro;
 import co.com.siav.entities.DetalleFactura;
 import co.com.siav.entities.Factura;
 import co.com.siav.entities.Novedad;
@@ -12,6 +13,7 @@ import co.com.siav.entities.NovedadPK;
 import co.com.siav.entities.OrdenAbono;
 import co.com.siav.entities.Pago;
 import co.com.siav.repositories.IRepositoryCiclos;
+import co.com.siav.repositories.IRepositoryCreditoMaestro;
 import co.com.siav.repositories.IRepositoryInstalaciones;
 import co.com.siav.repositories.IRepositoryNovedades;
 import co.com.siav.repositories.IRepositoryOrdenAbono;
@@ -40,7 +42,8 @@ public class PagosManager {
 	@Inject
 	private IRepositoryCiclos ciclosRep;
 	
-	private List<Pago> fails;
+	@Inject
+	private IRepositoryCreditoMaestro creditosRep;
 	
 	private List<OrdenAbono> orden;
 	
@@ -54,21 +57,13 @@ public class PagosManager {
 	}
 
 	public void addFail(Pago pago, String mensaje) {
-		init();
-		pago.setError(true);
-		pago.setMensaje(mensaje);
+		if(null == pago.getMensaje() || pago.getMensaje().length() == 0){
+			pago.setError(true);
+			pago.setMensaje(mensaje);
+		}
 		pagosRep.save(pago);
-		fails.add(pago);
 	}
 	
-	public List<Pago> getFails(){
-		return fails;
-	}
-	
-	public int getFailsSize() {
-		return null == fails ? 0 : fails.size();
-	}
-
 	public Factura process(Factura factura, Pago pago) {
 		Long saldo = factura.getDetalles().stream().mapToLong(DetalleFactura::getSaldo).sum();
 		Long valor = factura.getDetalles().stream().mapToLong(DetalleFactura::getValor).sum();
@@ -123,16 +118,39 @@ public class PagosManager {
 		detalleFactura.setCancelado(detalleFactura.getValor() + detalleFactura.getSaldo() == detalleFactura.getCartera());
 	}
 
-	private void init(){
-		if(fails == null){
-			fails = new ArrayList<Pago>();
+	public void addOtherPay(Pago pago, Comprobante comprobante) {
+		pago.setEsCredito(null != comprobante.getIdCredito());
+		if(!comprobante.getCancelado()){
+			addComprobantPay(pago, comprobante);
+		}else{
+			addFail(pago, Constantes.getMensaje(Constantes.COMPROBANTE_CANCELADO, pago.getNumeroFactura()));
 		}
 	}
 
-	public void addDirtectPay(Pago pago) {
-		pago.setEsCredito(true);
-		pago.setMensaje("Pago de credito " + pago.getNumeroFactura());
-		pagosRep.save(pago);
+	private void addComprobantPay(Pago pago, Comprobante comprobante) {
+		if(comprobante.getEsMatricula()){
+			pago.setMensaje("Pago de comprobante " + comprobante.getIdComprobante());
+			pagosRep.save(pago);
+		}else{
+			CreditoMaestro credito = creditosRep.findOne(comprobante.getIdCredito());
+			if(null != credito){
+				if(credito.getSaldo()>0L){
+					Long nuevoSaldo = credito.getSaldo()-pago.getValor();
+					credito.setSaldo(nuevoSaldo < 0L ? 0L : nuevoSaldo);
+					if(credito.getSaldo().equals(0L)){
+						credito.setFechaFinal(pago.getFecha());
+					}
+					creditosRep.save(credito);
+					pago.setMensaje("Pago de comprobante " + comprobante.getIdComprobante());
+					pagosRep.save(pago);
+				}
+				else{
+					addFail(pago, Constantes.getMensaje(Constantes.CREDITO_CANCELADO, comprobante.getIdCredito()));
+				}
+			}else{
+				addFail(pago, Constantes.getMensaje(Constantes.CREDITO_NO_EXISTE, comprobante.getIdCredito()));
+			}
+		}
 	}
 
 }

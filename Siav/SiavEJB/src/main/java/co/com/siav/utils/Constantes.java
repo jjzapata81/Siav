@@ -76,6 +76,9 @@ public class Constantes {
 	public static final String FORMATO_RECAUDO = "FORMATO_RECAUDO";
 	public static final String NUMERACION_CREDITO = "NUMERACION_CRED";
 	public static final String SIN_FECHA = "SIN_FECHA";
+	public static final String CREDITO_NO_EXISTE = "No existe el crédito %s.";
+	public static final String CREDITO_CANCELADO = "El crédito %s se encuentra cancelado.";
+	public static final String COMPROBANTE_CANCELADO = "El comprobante %s ha sido previamente registrado.";
 	
 	public static String getMensaje(String mensaje, Long codigo) {
 		return getMensaje(mensaje, String.valueOf(codigo));

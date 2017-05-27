@@ -9,6 +9,8 @@ public class FacturaResponse extends MensajeResponse{
 	
 	private Long numeroInstalacion;
 	
+	private String cedula;
+	
 	private Long valor;
 
 	public FacturaResponse(EstadoEnum estado, String mensaje) {
@@ -44,6 +46,14 @@ public class FacturaResponse extends MensajeResponse{
 	
 	public void setNumeroInstalacion(Long numeroInstalacion) {
 		this.numeroInstalacion = numeroInstalacion;
+	}
+	
+	public String getCedula() {
+		return cedula;
+	}
+	
+	public void setCedula(String cedula) {
+		this.cedula = cedula;
 	}
 	
 	public Long getValor() {

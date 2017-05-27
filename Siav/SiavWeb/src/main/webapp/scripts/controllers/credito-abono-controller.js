@@ -27,6 +27,7 @@ define(['siav-module', 'creditos-services', 'pagos-services', 'modal-factory', '
         			$scope.mostrarUsuario = true;
     				$scope.instalacion.numeroInstalacion = respuesta.numeroInstalacion;
     				$scope.instalacion.nombreCompleto = respuesta.nombreCompleto;
+    				$scope.instalacion.cedula = respuesta.cedula;
     				$scope.creditos = respuesta.creditos;
         		});
     		}
@@ -35,7 +36,8 @@ define(['siav-module', 'creditos-services', 'pagos-services', 'modal-factory', '
     	$scope.onGuardar = function(){
     		if($scope.formularioValido()){
     			$scope.abono.numeroInstalacion = $scope.instalacion.numeroInstalacion;
-    			$scope.abono.numeroFactura = "123456";
+    			$scope.abono.cedula = $scope.instalacion.cedula;
+    			$scope.abono.numeroCredito = $scope.credito.id;
     			$scope.abono.valor = $scope.esTotal ? $scope.credito.valor : $scope.credito.otroValor;
     			pagosServices
     			.abonar($scope.abono)

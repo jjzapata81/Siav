@@ -18,7 +18,6 @@ import co.com.siav.rest.request.AbonoRequest;
 public class AbonoRepository {
 	
 	private static final String CERRADO = "CERRADO";
-	private static final String CICLO_DEFECTO = "999";
 	private Empresa empresa;
 	private Ciclo ciclo;
 	private String resolucion;
@@ -80,7 +79,7 @@ public class AbonoRepository {
 		abono.setNit(empresa.getNit());
 		abono.setNombreAcueducto(empresa.getNombreCorto());
 		abono.setNumeroFactura(String.valueOf(comprobante.getComprobante()));
-		abono.setReferente(getReferente(comprobante.getInstalacion(), comprobante.getComprobante()));
+		abono.setReferente(getReferente(comprobante.getInstalacion(), comprobante.getComprobante(), ciclo.getCiclo()));
 		abono.setResolucion(resolucion);
 		abono.setCodigoBarras(Util.getCodigoBarras(abono.getReferente(), abono.getValorTotal(), abono.getFePagoRecargo() == null ? abono.getFePagoSinRecargo() : abono.getFePagoRecargo()));
 		return abono;
@@ -92,8 +91,8 @@ public class AbonoRepository {
 		return factory.getReportResult(AbonoFacturaBD.class, query).get(0);
 	}
 
-	private String getReferente(Long numeroInstalacion, Long numeroFactura) {
-		return String.format("%s%s%s", numeroInstalacion, numeroFactura, CICLO_DEFECTO);
+	private String getReferente(Long numeroInstalacion, Long numeroFactura, Long ciclo) {
+		return String.format("%s%s%s", numeroInstalacion, numeroFactura, ciclo);
 	}
 
 }

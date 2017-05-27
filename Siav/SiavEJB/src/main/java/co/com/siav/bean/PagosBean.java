@@ -15,12 +15,14 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import co.com.siav.entities.Ciclo;
+import co.com.siav.entities.Comprobante;
 import co.com.siav.entities.DetalleFactura;
 import co.com.siav.entities.Factura;
 import co.com.siav.entities.FormatoRecaudo;
 import co.com.siav.entities.Pago;
 import co.com.siav.exception.ExcepcionNegocio;
 import co.com.siav.repositories.IRepositoryCiclos;
+import co.com.siav.repositories.IRepositoryComprobante;
 import co.com.siav.repositories.IRepositoryFacturas;
 import co.com.siav.repositories.IRepositoryFormatoRecaudo;
 import co.com.siav.repositories.IRepositoryParametros;
@@ -41,6 +43,9 @@ public class PagosBean {
 	private IRepositoryFacturas facturasRep;
 	
 	@Inject
+	private IRepositoryComprobante comprobanteRep;
+	
+	@Inject
 	private IRepositoryParametros parametrosRep;
 	
 	@Inject
@@ -54,14 +59,14 @@ public class PagosBean {
 	
 	private FormatoRecaudo formatoRecaudo;
 	
-	private Long numeracionCredito;
-	
-	private String nombreCiclo;
+	private Long numeroCiclo;
 
 	public MensajeResponse guardar(Pago pago, String usuario) {
 		manager.run(CONSIGNACION_FAX);
 		pago.setRutaPago(DIGITADO);
 		pago.setUsuario(usuario);
+		Ciclo cicloAnterior = ciclosRep.findFirstByEstadoOrderByCicloDesc(Constantes.CERRADO);
+		numeroCiclo = cicloAnterior.getCiclo();
 		getFactura(pago);
 		return new MensajeResponse(Constantes.ACTUALIZACION_EXITO);
 	}
@@ -78,6 +83,7 @@ public class PagosBean {
 		response.setNombres(factura.getNombres());
 		response.setNumeroFactura(factura.getNumeroFactura());
 		response.setNumeroInstalacion(factura.getNumeroInstalacion());
+		response.setCedula(factura.getCedula());
 		response.setValor(getValorTotalFactura(factura));
 		return response;
 	}
@@ -96,13 +102,12 @@ public class PagosBean {
 	public void guardarArchivo(String nombreArchivo, String codigoCuenta, String usuario, File archivoPagos) {
 		validar(codigoCuenta);
 		String numeroFormato = parametrosRep.findByCdParametro(Constantes.FORMATO_RECAUDO).getDsValor();
-		numeracionCredito = Long.valueOf(parametrosRep.findByCdParametro(Constantes.NUMERACION_CREDITO).getDsValor());
 		formatoRecaudo = formatoRep.findOne(numeroFormato);
 		try {
 			String rutaArchivo = parametrosRep.findByCdParametro(Constantes.RUTA_ARCHIVO_PAGO).getDsValor();
 			List<String> lines = Files.readAllLines(Paths.get(archivoPagos.getAbsolutePath()), Charset.defaultCharset());
 			List<Pago> pagos = lines.stream().skip(3L).map(this::convert).collect(Collectors.toList());
-			String directorio = null == nombreCiclo ? "SIN_FECHA" : nombreCiclo;
+			String directorio = null == numeroCiclo ? "SIN_FECHA" : String.valueOf(numeroCiclo);
 			String rutaFinal = moverArchivo(archivoPagos.getAbsolutePath(), rutaArchivo + directorio + "\\", nombreArchivo);
 			pagos.stream().forEach(
 					pago-> {
@@ -119,11 +124,7 @@ public class PagosBean {
 	}
 
 	private Factura getFactura(Pago pago){
-		if(compare(pago.getNumeroFactura())){
-			manager.addDirtectPay(pago);
-			return new Factura();
-		}
-		Factura factura = facturasRep.findOne(pago.getNumeroFactura());
+		Factura factura = find(pago);
 		if(factura == null){
 			manager.addFail(pago, Constantes.getMensaje(Constantes.FACTURA_NO_EXISTE, pago.getNumeroFactura()));
 			factura = new Factura();
@@ -136,9 +137,23 @@ public class PagosBean {
 		}
 		return factura;
 	}
-	
-	private boolean compare(Long numeroFactura) {
-		return 0 < numeroFactura.compareTo(numeracionCredito);
+
+	private Factura find(Pago pago) {
+		Factura factura = facturasRep.findOne(pago.getNumeroFactura());
+		if(null == factura){
+			Comprobante comprobante = comprobanteRep.findOne(pago.getNumeroFactura());
+			if(null == comprobante){
+				return null;
+			}
+			comprobante.setCancelado(true);
+			comprobanteRep.save(comprobante);
+			if(null==comprobante.getIdCredito() && !comprobante.getEsMatricula()){
+				return facturasRep.findByNumeroInstalacionAndCiclo(comprobante.getInstalacion(), Long.valueOf(numeroCiclo));
+			}else{
+				manager.addOtherPay(pago, comprobante);
+			}
+		}
+		return factura;
 	}
 
 	private Pago convert(String linea){
@@ -146,7 +161,7 @@ public class PagosBean {
 			String[] atributos = linea.split(formatoRecaudo.getSeparador());
 			Pago pago = new Pago();
 			pago.setFecha(setFecha(atributos[formatoRecaudo.getFecha()].trim(), formatoRecaudo.getFormatoFecha()));
-			pago.setValor(atributos[5].trim());
+			pago.setValor(atributos[formatoRecaudo.getValor()].trim());
 			pago.setNumeroFactura(getValorAuxiliar(atributos[formatoRecaudo.getReferencia()], formatoRecaudo.getSeparadorAux(), formatoRecaudo.getPosicionAux()));
 			return pago;
 		}catch(Exception e){
@@ -165,8 +180,8 @@ public class PagosBean {
 
 	private String getValorAuxiliar(String valor, String separador, int posicion) {
 		String referencia = valor.split(separador)[posicion].trim();
-		if(null == nombreCiclo){
-			nombreCiclo = referencia.substring(formatoRecaudo.getPosicionInicialCiclo(), formatoRecaudo.getPosicionFinalCiclo());
+		if(null == numeroCiclo){
+			numeroCiclo = Long.valueOf(referencia.substring(formatoRecaudo.getPosicionInicialCiclo(), formatoRecaudo.getPosicionFinalCiclo()));
 		}
 		return referencia.substring(formatoRecaudo.getPosicionInicialFactura(), formatoRecaudo.getPosicionFinalFactura());
 	}

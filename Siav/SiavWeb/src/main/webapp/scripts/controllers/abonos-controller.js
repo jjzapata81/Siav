@@ -12,6 +12,7 @@ define(['siav-module', 'pagos-services', 'modal-factory', 'constantes'], functio
     	}
     	
     	$scope.onBuscar = function(){
+    		$scope.content = null;
     		$scope.mostrarUsuario = false;
     		if($scope.numeroInstalacion){
     			pagosServices
@@ -37,7 +38,7 @@ define(['siav-module', 'pagos-services', 'modal-factory', 'constantes'], functio
     	$scope.onGuardar = function(){
     		if($scope.validarCampos()){
     			$scope.abono.numeroInstalacion = $scope.factura.numeroInstalacion;
-    			$scope.abono.numeroFactura = $scope.factura.numeroFactura;
+    			$scope.abono.cedula = $scope.factura.cedula;
     			pagosServices
     			.abonar($scope.abono)
     			.then(function(data){
