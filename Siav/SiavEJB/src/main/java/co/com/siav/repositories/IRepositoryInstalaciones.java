@@ -11,11 +11,11 @@ import co.com.siav.entities.Instalacion;
 
 public interface IRepositoryInstalaciones extends JpaRepository<Instalacion, Long>{
 
-	@Query("select coalesce(max(i.id), '0') from Instalacion i where i.vereda = :codigoVereda")
+	@Query("select coalesce(max(i.numeroInstalacion), '0') from Instalacion i where i.vereda.codigo = :codigoVereda")
 	Long getMaxId(@Param("codigoVereda") Long codigoVereda);
 	
 	
-	@Query("select i from Instalacion i where i.id not in (select c.id from Consumo c)")
+	@Query("select i from Instalacion i where i.numeroInstalacion not in (select c.id.instalacion from Consumo c)")
 	List<Instalacion> findNewInstalacion();
 
 	Long countByVeredaCodigo(Long codigoVereda);

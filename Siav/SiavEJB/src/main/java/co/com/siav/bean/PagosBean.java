@@ -145,12 +145,14 @@ public class PagosBean {
 			if(null == comprobante){
 				return null;
 			}
-			comprobante.setCancelado(true);
-			comprobanteRep.save(comprobante);
 			if(null==comprobante.getIdCredito() && !comprobante.getEsMatricula()){
+				comprobante.setCancelado(true);
+				comprobanteRep.save(comprobante);
 				return facturasRep.findByNumeroInstalacionAndCiclo(comprobante.getInstalacion(), Long.valueOf(numeroCiclo));
 			}else{
 				manager.addOtherPay(pago, comprobante);
+				comprobante.setCancelado(true);
+				comprobanteRep.save(comprobante);
 			}
 		}
 		return factura;

@@ -27,15 +27,6 @@ public class InstalacionBean {
 	
 	@Inject
 	private IRepositoryConsumos consumosRep;
-	
-//	@Inject
-//	private IRepositoryUsuarios usuarioRep;
-//	
-//	@Inject
-//	private IRepositoryMaestros maestroRep;
-//	
-//	@Inject
-//	private IRepositoryVeredas veredasRep;
 
 	public InstalacionResponse consultarInstalacionPorNumero(String numeroInstalacion) {
 		Instalacion instalacion = instalacionRep.findOne(Long.valueOf(numeroInstalacion));
@@ -48,6 +39,7 @@ public class InstalacionBean {
 	
 	public MensajeResponse crear(Instalacion instalacion){
 		instalacion.setNumeroInstalacion(crearNumeroInstalacion(instalacion.getVereda().getCodigo()));
+		instalacion.setCuentasVencidas(0L);
 		instalacionRep.save(instalacion);
 		crearConsumo(instalacion);
 		return new MensajeResponse(Constantes.getMensaje(Constantes.INSTALACION_CREADA, instalacion.getNumeroInstalacion()));
@@ -69,6 +61,7 @@ public class InstalacionBean {
 		consumo.setLecturaAnterior(0L);
 		consumo.setConsumoPromedio(0L);
 		consumo.setSincronizado(false);
+		consumo.setCodigoCausaNoLectura(0L);
 		consumosRep.save(consumo);
 		return consumo;
 	}
@@ -80,18 +73,6 @@ public class InstalacionBean {
 		pk.setSerieMedidor(serieMedidor);
 		return pk;
 	}
-
-//	private Usuario crearUsuario(UsuarioRequest usuarioRequest) {
-//		
-//		Usuario usuario = usuarioRep.findOne(usuarioRequest.getCedula());
-//		if(null == usuario){
-//			usuario = new Usuario();
-//			BeanUtils.copyProperties(usuarioRequest, usuario);
-//			usuarioRep.save(usuario);
-//		}
-//		
-//		return usuario;
-//	}
 	
 	private Long crearNumeroInstalacion(Long codigoVereda) {
 		long consecutivo = instalacionRep.getMaxId(codigoVereda);

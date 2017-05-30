@@ -11,6 +11,7 @@ public class Comprobante {
 	private String usuario;
 	private Date fecha;
 	private Long credito;
+	private String esMatricula;
 	
 	public Long getInstalacion() {
 		return instalacion;
@@ -53,6 +54,14 @@ public class Comprobante {
 	}
 	public void setCredito(Long credito) {
 		this.credito = credito;
+	}
+	
+	public String getEsMatricula() {
+		return null == esMatricula ? "N" : esMatricula;
+	}
+	
+	public void setEsMatricula(String esMatricula) {
+		this.esMatricula = esMatricula;
 	}
 	
 }
