@@ -6,6 +6,7 @@ public class AbonoRequest {
 	private Long numeroCredito;
 	private Long valor;
 	private String cedula;
+	private String esMatricula;
 
 	public Long getNumeroInstalacion() {
 		return numeroInstalacion;
@@ -37,6 +38,14 @@ public class AbonoRequest {
 	
 	public void setCedula(String cedula) {
 		this.cedula = cedula;
+	}
+	
+	public String getEsMatricula() {
+		return esMatricula;
+	}
+	
+	public void setEsMatricula(String esMatricula) {
+		this.esMatricula = esMatricula;
 	}
 	
 }

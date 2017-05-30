@@ -93,7 +93,7 @@ require.config({
     	'abonos-controller' : 'controllers/abonos-controller',
     	'pagos-controller' : 'controllers/pagos-controller',
     	'pagos-importados-controller' : 'controllers/pagos-importados-controller',
-    	'cambio-consignacion-controller' : 'controllers/cambio-consignacion-controller',
+    	'matricula-abono-controller' : 'controllers/matricula-abono-controller',
     	'prefacturacion-controller' : 'controllers/prefacturacion-controller',
     	'reliquidacion-controller' : 'controllers/reliquidacion-controller',
     	'kardex-controller' : 'controllers/kardex-controller',

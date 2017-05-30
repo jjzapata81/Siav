@@ -14,6 +14,7 @@ import co.com.siav.repository.entities.Empresa;
 import co.com.siav.repository.entities.Parametro;
 import co.com.siav.repository.utility.Util;
 import co.com.siav.rest.request.AbonoRequest;
+import co.com.siav.rest.request.MatriculaRequest;
 
 public class AbonoRepository {
 	
@@ -21,12 +22,47 @@ public class AbonoRepository {
 	private Empresa empresa;
 	private Ciclo ciclo;
 	private String resolucion;
+	private static final String SIN_INFO = "SIN INFO"; 
 
 	public byte[] getPDF(String usuario, AbonoRequest request) {
 		getValoresGenerales();
 		Comprobante comprobante = generarComprobante(usuario, request);
 		GeneradorAbono generador = new GeneradorAbono(getAbono(comprobante));
 		return generador.generarPDFStream();
+	}
+	
+	public byte[] getMatriculaPDF(String usuario, MatriculaRequest request) {
+		getValoresGenerales();
+		if(request.isNuevo()){
+			guardarUsuario(request);
+		}
+		request.setEsMatricula("S");
+		Comprobante comprobante = generarComprobante(usuario, request);
+		GeneradorAbono generador = new GeneradorAbono(getAbonoMatricula(request, comprobante));
+		return generador.generarPDFStream();
+	}
+
+	private AbonoPDF getAbonoMatricula(MatriculaRequest request,Comprobante comprobante) {
+		AbonoPDF abono = new AbonoPDF();
+		abono.setCiclo(String.valueOf(ciclo.getCiclo()));
+		abono.setDireccion(request.getDireccion());
+		abono.setEstrato(SIN_INFO);
+		abono.setValorTotal(request.getValor());
+		abono.setVereda(SIN_INFO);
+		abono.setNombre(null == request.getNombres() ? request.getApellidos().toUpperCase() : request.getNombres().toUpperCase() + " " + request.getApellidos().toUpperCase());
+		abono.setFePagoRecargo(ciclo.getFeconrecargo());
+		abono.setFePagoSinRecargo(ciclo.getFesinrecargo());
+		abono.setInstalacion("0000");
+		abono.setMensajePrincipal(ciclo.getMensaje());
+		abono.setMensajePuntoPago(ciclo.getMensajePuntoPago());
+		abono.setMensajeReclamo(ciclo.getMensajeReclamo());
+		abono.setNit(empresa.getNit());
+		abono.setNombreAcueducto(empresa.getNombreCorto());
+		abono.setNumeroFactura(String.valueOf(comprobante.getComprobante()));
+		abono.setReferente(getReferente(0L, comprobante.getComprobante(), ciclo.getCiclo()));
+		abono.setResolucion(resolucion);
+		abono.setCodigoBarras(Util.getCodigoBarras(abono.getReferente(), abono.getValorTotal(), abono.getFePagoRecargo() == null ? abono.getFePagoSinRecargo() : abono.getFePagoRecargo()));
+		return abono;
 	}
 
 	private Comprobante generarComprobante(String usuario, AbonoRequest request) {
@@ -38,6 +74,7 @@ public class AbonoRepository {
 		comprobante.setFecha(new Date());
 		comprobante.setUsuario(usuario);
 		comprobante.setCredito(request.getNumeroCredito());
+		comprobante.setEsMatricula(request.getEsMatricula());
 		guardarBD(comprobante);
 		return comprobante;
 	}
@@ -92,7 +129,17 @@ public class AbonoRepository {
 	}
 
 	private String getReferente(Long numeroInstalacion, Long numeroFactura, Long ciclo) {
+		if(numeroInstalacion.equals(0L)){
+			return String.format("000%s%s", numeroFactura, ciclo);
+		}
 		return String.format("%s%s%s", numeroInstalacion, numeroFactura, ciclo);
+	}
+
+	private void guardarUsuario(MatriculaRequest request) {
+		String query = QueryHelper.saveUsuario(request);
+		ReportFactory<AbonoFacturaBD> factory = new ReportFactory<>();
+		factory.save(query);
+		
 	}
 
 }

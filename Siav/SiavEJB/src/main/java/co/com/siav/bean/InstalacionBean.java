@@ -40,6 +40,9 @@ public class InstalacionBean {
 	public MensajeResponse crear(Instalacion instalacion){
 		instalacion.setNumeroInstalacion(crearNumeroInstalacion(instalacion.getVereda().getCodigo()));
 		instalacion.setCuentasVencidas(0L);
+		instalacion.setActivo(true);
+		instalacion.setDigitosMedidor(null == instalacion.getDigitosMedidor() ? 0L : instalacion.getDigitosMedidor());
+		instalacion.setSerieMedidor(null == instalacion.getSerieMedidor() ? "0" : instalacion.getSerieMedidor());
 		instalacionRep.save(instalacion);
 		crearConsumo(instalacion);
 		return new MensajeResponse(Constantes.getMensaje(Constantes.INSTALACION_CREADA, instalacion.getNumeroInstalacion()));

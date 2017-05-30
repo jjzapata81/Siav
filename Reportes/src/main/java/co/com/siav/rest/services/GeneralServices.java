@@ -16,6 +16,7 @@ import co.com.siav.reports.response.UsuariosInstalaciones;
 import co.com.siav.repository.report.AbonoRepository;
 import co.com.siav.repository.report.UsuarioRepository;
 import co.com.siav.rest.request.AbonoRequest;
+import co.com.siav.rest.request.MatriculaRequest;
 
 @RequestScoped
 @Path("general/")
@@ -33,6 +34,14 @@ public class GeneralServices {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public byte[] pdfAbono(@HeaderParam("siav_usuario") String usuario, AbonoRequest request){
 		return repository.getPDF(usuario, request);
+	}
+	
+	@POST
+	@Path("abono/matricula/pdf")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public byte[] pdfMatricula(@HeaderParam("siav_usuario") String usuario, MatriculaRequest request){
+		return repository.getMatriculaPDF(usuario, request);
 	}
 	
 	@POST

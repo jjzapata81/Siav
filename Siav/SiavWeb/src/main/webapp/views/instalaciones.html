@@ -28,7 +28,7 @@
 					<label><i class="fa fa-asterisk" aria-hidden="true"></i> Vereda:</label><br>
 					<select
 						ng-model="instalacion.vereda"
-				    	ng-options="vereda as vereda.nombre for vereda in 	 track by vereda.codigo"
+				    	ng-options="vereda as vereda.nombre for vereda in veredas track by vereda.codigo"
 				    	ng-disabled="!estaEditando">
 				    	<option value=''>Seleccione...</option>
       				</select>

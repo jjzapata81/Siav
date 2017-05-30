@@ -197,12 +197,12 @@ public class Instalacion implements Serializable{
 		this.conMedidor = conMedidor ? "S" : "N";
 	}
 	
-	public String getActivo() {
-		return activo;
+	public Boolean getActivo() {
+		return "S".equals(activo);
 	}
 
-	public void setActivo(String activo) {
-		this.activo = activo;
+	public void setActivo(Boolean activo) {
+		this.activo = activo ? "S" : "N";
 	}
 
 	@PrePersist

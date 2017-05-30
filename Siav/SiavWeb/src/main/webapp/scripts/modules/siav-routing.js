@@ -122,9 +122,9 @@ define(['angularAMD', 'angular-route'], function (angularAMD) {
 	            templateUrl: 'views/pagos-importados.html', 
 	            controller: 'pagos-importados-controller'
 	        }))
-	        .when("/cambio-consignacion", angularAMD.route({
-	            templateUrl: 'views/cambio-consignacion.html', 
-	            controller: 'cambio-consignacion-controller'
+	        .when("/matricula-abono", angularAMD.route({
+	            templateUrl: 'views/matricula-abono.html', 
+	            controller: 'matricula-abono-controller'
 	        }))
 	        .when("/prefacturacion", angularAMD.route({
 	            templateUrl: 'views/prefacturacion.html', 

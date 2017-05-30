@@ -7,7 +7,8 @@ define(['siav-module', 'constantes'], function (app) {
     			 pagar : pagar,
     			 abonar : abonar,
     			 buscar : buscar,
-    			 cargarPagos : cargarPagos
+    			 cargarPagos : cargarPagos,
+    			 abonoMatricula : abonoMatricula
     	 };
     	 
     	 function pagar(pago){
@@ -19,6 +20,13 @@ define(['siav-module', 'constantes'], function (app) {
     	 
     	 function abonar(abono){
     		 var request = $http.post("/Reportes/rest/general/abono/pdf", abono, {responseType: 'arraybuffer'});
+    		 return(request.then(function(response){
+    			 return response.data;
+    		 }));
+    	 }
+    	 
+    	 function abonoMatricula(matricula){
+    		 var request = $http.post("/Reportes/rest/general/abono/matricula/pdf", matricula, {responseType: 'arraybuffer'});
     		 return(request.then(function(response){
     			 return response.data;
     		 }));

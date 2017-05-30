@@ -1,0 +1,69 @@
+<titulo/>
+<menu></menu>
+<div  class="contenido">
+	<div  class="boton-fijo">
+		<a ng-click="onBuscar()" uib-tooltip="Buscar" tooltip-placement="left"><i class="fa fa-search icon-float icon-search" aria-hidden="true"></i></a>
+		<a ng-click="onGuardar()" uib-tooltip="Guardar" tooltip-placement="left"><i class="fa fa-floppy-o icon-float icon-save" aria-hidden="true"></i></a>
+		<a ng-click="onCancelar()" uib-tooltip="Cancelar" tooltip-placement="left"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
+	</div>
+
+	<section class="titulo-seccion">Abono matr&iacute;cula</section>
+	<section class="formulario form-fijo" ng-show="mostrarForm">
+		<div>
+			<section class="sub-titulo">Buscar usuario</section>
+			<ul class="flex">
+				<li>
+					<label>Documento de identidad:</label><br>
+					<input type="text" ng-model="buscarCedula"/>
+				</li>
+			</ul>
+		</div>
+		<div>
+			<section class="sub-titulo">Informaci&oacute;n b&aacute;sica:</section>
+			<ul class="flex">
+				<li>
+					<label><i class="fa fa-asterisk" aria-hidden="true"></i> C&eacute;dula:</label><br>
+					<input type="text" ng-model="matricula.cedula" ng-disabled="!matricula.nuevo"/>
+				</li>
+				<li>
+					<label>Nombres:</label><br>
+					<input type="text" ng-model="matricula.nombres" ng-disabled="!matricula.nuevo"/>
+				</li>
+				<li>
+					<label><i class="fa fa-asterisk" aria-hidden="true"></i> Apellidos:</label><br>
+					<input type="text" ng-model="matricula.apellidos" ng-disabled="!matricula.nuevo"/>
+				</li>
+				<li>
+					<label>Ciudad:</label><br>
+					<input type="text" ng-model="matricula.ciudad" ng-disabled="!matricula.nuevo"/>
+				</li>
+				<li>
+					<label>Direcci&oacute;n:</label><br>
+					<input type="text" ng-model="matricula.direccion" ng-disabled="!matricula.nuevo"/>
+				</li>
+				<li>
+					<label>Tel&eacute;fono fijo:</label><br>
+					<input type="text" ng-model="matricula.telefono" ng-disabled="!matricula.nuevo"/>
+				</li>
+				
+				<li>
+					<label>Tel&eacute;fono celular:</label><br>
+					<input type="text" ng-model="matricula.celular" ng-disabled="!matricula.nuevo"/>
+				</li>
+				<li>
+					<label>Correo electr&oacute;nico:</label><br>
+					<input type="text" ng-model="matricula.email" ng-disabled="!matricula.nuevo"/>
+				</li>
+			</ul>
+			<ul class="flex">
+				<li>
+					<label><i class="fa fa-asterisk" aria-hidden="true"></i> Valor a pagar</label><br>
+					<input type="number" placeholder="$" ng-model="matricula.valor"/>
+				</li>
+			</ul>
+		</div>
+	</section>
+	<div>
+		<object ng-show="content" data="{{content}}" type="application/pdf" style="width: 90%; height: 360px;"></object>
+	</div>
+</div>

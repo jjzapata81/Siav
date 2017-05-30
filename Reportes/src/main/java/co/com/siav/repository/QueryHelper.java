@@ -3,6 +3,7 @@ package co.com.siav.repository;
 import co.com.siav.pdf.dto.InstalacionPDFBase;
 import co.com.siav.reports.filters.Comprobante;
 import co.com.siav.reports.filters.Filter;
+import co.com.siav.rest.request.MatriculaRequest;
 
 public class QueryHelper {
 	
@@ -399,7 +400,7 @@ public class QueryHelper {
 		sb.append("', ");
 		sb.append(filter.getCredito());
 		sb.append(", '");
-		sb.append(filter.getEsMatricula());
+		sb.append(null == filter.getEsMatricula() ? "N" : filter.getEsMatricula());
 		sb.append("', 'N')");
 		return sb.toString();
 	}
@@ -407,6 +408,30 @@ public class QueryHelper {
 	public static String getComprobante() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("SELECT MAX(nmcomprobante) AS parametro FROM ta_comprobante_pago");
+		return sb.toString();
+	}
+
+	public static String saveUsuario(MatriculaRequest filter) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("INSERT INTO ta_usuarios ");
+		sb.append("(cedula, nombres, apellidos, telefono, celular, direccion, ciudad, email) ");
+		sb.append("VALUES ('");
+		sb.append(filter.getCedula());
+		sb.append("', '");
+		sb.append(filter.getNombres());
+		sb.append("', '");
+		sb.append(filter.getApellidos());
+		sb.append("', '");
+		sb.append(filter.getTelefono());
+		sb.append("', '");
+		sb.append(filter.getCelular());
+		sb.append("', '");
+		sb.append(filter.getDireccion());
+		sb.append("', '");
+		sb.append(filter.getCiudad());
+		sb.append("', '");
+		sb.append(filter.getEmail());
+		sb.append("')");
 		return sb.toString();
 	}
 

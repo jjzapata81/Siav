@@ -46,7 +46,8 @@ define(['siav-module'], function(app) {
     		"CUENTAS_VENCIDAS_NEGATIVO" : "El valor del número de cuentas vencidas debe ser positivo.",
     		"TOPE_OBLIGATORIO" : "Ingrese un valor para el techo.",
     		"TOPE_NEGATIVO" : "El valor del techo debe ser positivo.",
-    		"OBLIGATORIO" : "Todos los campos son obligatorios."
+    		"OBLIGATORIO" : "Todos los campos son obligatorios.",
+    		"OBLIGATORIO_PENDTIENTE": "Existen campos obligatorios sin diligenciar."
     	},
     	"ABONO" : {
     		"ABONO_MAYOR" : "El valor del abono no debe ser mayor al valor de la factura." 
