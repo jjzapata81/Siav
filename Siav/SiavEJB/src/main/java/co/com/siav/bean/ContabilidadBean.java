@@ -89,6 +89,7 @@ public class ContabilidadBean {
 		compararValor(sistemaBD.getIdDerecho(), request.getIdDerecho());
 		compararValor(sistemaBD.getIdInteres(), request.getIdInteres());
 		compararValor(sistemaBD.getIdSaldoFavor(), request.getIdSaldoFavor());
+		compararValor(sistemaBD.getIdMatricula(), request.getIdMatricula());
 		
 	}
 
@@ -104,8 +105,7 @@ public class ContabilidadBean {
 	private void compararValor(String codigoBD, String codigoRequest) {
 		if(!codigoBD.equalsIgnoreCase(codigoRequest)){
 			Tarifa tarifa = tarifasRep.findOne(codigoBD);
-			tarifa.setCodigo(codigoRequest);
-			tarifasRep.save(tarifa);
+			tarifasRep.update(codigoRequest, tarifa.getCodigo());
 		}
 		
 	}

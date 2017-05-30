@@ -81,7 +81,8 @@ define(['siav-module'], function(app) {
     		"ERR_INSTALACION_OBLIGATORIO" : "El número de la instalación es obligatorio.",
     		"ERR_TARIFA_OBLIGATORIO" : "Debe seleccionar un concepto para el crédito.",
     		"ERR_NEGATIVO" : "No se pueden ingresar valores negativos.",
-    		"ERR_VALOR_SUPERIOR" : "El valor ingresado no debe ser superior al saldo del crédito."
+    		"ERR_VALOR_SUPERIOR" : "El valor ingresado no debe ser superior al saldo del crédito.",
+    		"ERR_COMPROBANTE_OBLIGATORIO" : "Debe ingresar un número de comprobante de pago."
     	},
     	"ESTADO" : {
     		"OK" : "OK",

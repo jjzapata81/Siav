@@ -79,9 +79,16 @@ public class Constantes {
 	public static final String CREDITO_NO_EXISTE = "No existe el crédito %s.";
 	public static final String CREDITO_CANCELADO = "El crédito %s se encuentra cancelado.";
 	public static final String COMPROBANTE_CANCELADO = "El comprobante %s ha sido previamente registrado.";
+	public static final String ERR_FALTA_COMPROBANTE = "No existe el comprobante número %s.";
+	public static final String ERR_COMPROBANTE_NO_MATRICULA = "El comprobante número %s no corresponde a una matrícula.";
+	public static final String ERR_COMPROBANTE_VALOR = "El valor del comprobante de pago (%s) es diferente al valor ingresado (%s).";
 	
 	public static String getMensaje(String mensaje, Long codigo) {
 		return getMensaje(mensaje, String.valueOf(codigo));
+	}
+	
+	public static String getMensaje(String mensaje, Long param1, Long param2) {
+		return String.format(mensaje, String.valueOf(param1), String.valueOf(param2));
 	}
 	
 	public static String getMensaje(String mensaje, String codigo) {

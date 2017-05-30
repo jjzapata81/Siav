@@ -6,8 +6,6 @@ import java.util.stream.Collectors;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
-import org.springframework.scheduling.annotation.Async;
-
 import co.com.siav.entities.Ciclo;
 import co.com.siav.entities.Consumo;
 import co.com.siav.entities.DetalleFactura;

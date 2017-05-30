@@ -1,5 +1,7 @@
 package co.com.siav.bean;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -25,16 +27,13 @@ public class NovedadesBean {
 		return new MensajeResponse(Constantes.ACTUALIZACION_EXITO);
 	}
 
-	private NovedadPK crearId(Long instalacion, String codigoConcepto) {
-		NovedadPK id = new NovedadPK();
-		id.setCiclo(consultarCiclo());
-		id.setCodigoConcepto(codigoConcepto);
-		id.setInstalacion(instalacion);
-		return id;
-	}
-
 	private Long consultarCiclo() {
 		return ciclosRep.findFirstByEstadoOrderByCicloDesc(Constantes.ABIERTO).getCiclo();
+	}
+
+	public List<Novedad> consultarPorCedula(Long numeroInstalacion) {
+		Long ciclo = consultarCiclo();
+		return novedadesRep.findByIdInstalacionAndIdCiclo(numeroInstalacion, ciclo);
 	}
 
 }

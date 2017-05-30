@@ -7,12 +7,17 @@ import java.util.stream.Collectors;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
+import org.springframework.beans.BeanUtils;
+
+import co.com.siav.entities.Comprobante;
 import co.com.siav.entities.CreditoMaestro;
 import co.com.siav.entities.Instalacion;
 import co.com.siav.exception.ExcepcionNegocio;
+import co.com.siav.repositories.IRepositoryComprobante;
 import co.com.siav.repositories.IRepositoryCreditoMaestro;
 import co.com.siav.repositories.IRepositoryInstalaciones;
 import co.com.siav.repositories.IRepositoryTarifas;
+import co.com.siav.request.CreditoRequest;
 import co.com.siav.response.CreditoMaestroResponse;
 import co.com.siav.response.CreditoRefinanciar;
 import co.com.siav.response.CreditoResponse;
@@ -28,15 +33,28 @@ public class CreditosBean {
 	private IRepositoryInstalaciones instalacionesRep;
 	
 	@Inject
+	private IRepositoryComprobante comprobanteRep;
+	
+	@Inject
 	private IRepositoryTarifas tarifasRep;
 
-	public void guardar(CreditoMaestro request) {
-		request.setInicial(null == request.getInicial() ? 0L : request.getInicial());
-		request.setInteres(null == request.getInteres() ? 0D : request.getInteres());
-		request.setFecha(new Date());
-		request.setSaldo(request.getValor() - request.getInicial());
-		request.setActual(0L);
-		creditoMaestroRep.save(request);
+	public void guardar(CreditoRequest request) {
+		Comprobante comprobantePago = comprobanteRep.findOne(request.getComprobante());
+		if(null != request.getComprobante() && null == comprobantePago){
+			throw new ExcepcionNegocio(Constantes.getMensaje(Constantes.ERR_FALTA_COMPROBANTE, request.getComprobante()));
+		}else if(null != comprobantePago && !comprobantePago.getEsMatricula()){
+			throw new ExcepcionNegocio(Constantes.getMensaje(Constantes.ERR_COMPROBANTE_NO_MATRICULA, request.getComprobante()));
+		}else if(null != comprobantePago && !request.getInicial().equals(comprobantePago.getValor())){
+			throw new ExcepcionNegocio(Constantes.getMensaje(Constantes.ERR_COMPROBANTE_VALOR, comprobantePago.getValor(), request.getInicial()));
+		}
+		CreditoMaestro credito = new CreditoMaestro();
+		BeanUtils.copyProperties(request, credito);
+		credito.setInicial(null == request.getInicial() ? 0L : request.getInicial());
+		credito.setInteres(null == request.getInteres() ? 0D : request.getInteres());
+		credito.setFecha(new Date());
+		credito.setSaldo(request.getValor() - request.getInicial());
+		credito.setActual(0L);
+		creditoMaestroRep.save(credito);
 	}
 
 	public CreditoResponse buscar(Long numeroInstalacion) {

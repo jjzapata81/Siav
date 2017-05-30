@@ -11,7 +11,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import co.com.siav.bean.CreditosBean;
-import co.com.siav.entities.CreditoMaestro;
+import co.com.siav.request.CreditoRequest;
 import co.com.siav.response.CreditoRefinanciar;
 import co.com.siav.response.CreditoResponse;
 
@@ -33,7 +33,7 @@ public class CreditosServices {
 	@PUT
 	@Path("guardar")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void guardarCredito(CreditoMaestro request){
+	public void guardarCredito(CreditoRequest request){
 		bean.guardar(request);
 	}
 	

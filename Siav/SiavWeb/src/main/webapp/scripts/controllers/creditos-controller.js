@@ -1,10 +1,10 @@
 /*global define*/
 'use strict';
 
-define(['siav-module', 'instalaciones-services', 'tarifas-services', 'creditos-services', 'modal-factory', 'constantes'], function (app) {
+define(['siav-module', 'instalaciones-services', 'tarifas-services', 'creditos-services', 'contabilidad-services', 'modal-factory', 'constantes'], function (app) {
 	
-    return app.controller('creditos-controller', ['$scope', '$filter', 'instalacionesServices', 'tarifasServices', 'creditosServices', 'modalFactory', 'CONSTANTES',
-                                                  function($scope, $filter, instalacionesServices, tarifasServices, creditosServices, modalFactory, CONSTANTES){
+    return app.controller('creditos-controller', ['$scope', '$filter', 'instalacionesServices', 'tarifasServices', 'creditosServices', 'contabilidadServices', 'modalFactory', 'CONSTANTES',
+                                                  function($scope, $filter, instalacionesServices, tarifasServices, creditosServices, contabilidadServices, modalFactory, CONSTANTES){
     	
     	$scope.init = function (){
     		$scope.limpiar();
@@ -37,6 +37,15 @@ define(['siav-module', 'instalaciones-services', 'tarifas-services', 'creditos-s
     		.consultar()
     		.then(function(tarifas){
     			$scope.tarifas = tarifas;
+    			$scope.consultarSistema();
+    		});
+    	}
+    	
+    	$scope.consultarSistema = function(){
+    		contabilidadServices
+    		.consultar()
+    		.then(function(sistema){
+    			$scope.sistema = sistema;
     		});
     	}
     	
@@ -48,12 +57,14 @@ define(['siav-module', 'instalaciones-services', 'tarifas-services', 'creditos-s
     			$scope.esFijo = false;
     			$scope.credito.valor = null; 
     		}
+    		$scope.mostrarComprobante = $scope.sistema.idMatricula == $scope.tarifaCredito.codigo;
     	}
     	
     	$scope.onGuardar = function(){
     		if($scope.formularioValido()){
     			$scope.credito.codigoConcepto = $scope.tarifaCredito.codigo;
     			$scope.credito.instalacion = $scope.instalacion.numeroInstalacion;
+    			$scope.credito.comprobante = $scope.comprobante;
     			creditosServices
     			.guardar($scope.credito)
     			.then(function(){
@@ -86,12 +97,17 @@ define(['siav-module', 'instalaciones-services', 'tarifas-services', 'creditos-s
     			modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.CREDITO.ERR_VALOR_OBLIGATORIO);
     			return false;
     		}
+    		if($scope.mostrarComprobante && !$scope.comprobante){
+    			modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.CREDITO.ERR_COMPROBANTE_OBLIGATORIO);
+    			return false;
+    		}
     		return true;
     	}
     	
     	$scope.limpiar = function(){
     		$scope.mostrarUsuario = false;
     		$scope.mostrarTarifa = false;
+    		$scope.mostrarComprobante = false;
     		$scope.credito = {};
     		$scope.instalacion = null;
     		$scope.tarifa = null;

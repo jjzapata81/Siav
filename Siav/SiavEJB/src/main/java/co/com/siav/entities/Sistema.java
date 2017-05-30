@@ -51,6 +51,9 @@ public class Sistema implements Serializable{
 	@Column(name="idmoroso")
 	private String idMoroso;
 	
+	@Column(name="idmatricula")
+	private String idMatricula;
+	
 	@Column(name="snrecargofijo")
 	private String esRecargoFijo;
 	
@@ -74,7 +77,15 @@ public class Sistema implements Serializable{
 	
 	@Column(name="sntope")
 	private String tieneTope;
+	
 
+	public String getIdMatricula() {
+		return idMatricula;
+	}
+
+	public void setIdMatricula(String idMatricula) {
+		this.idMatricula = idMatricula;
+	}
 
 	public Long getId() {
 		return id;

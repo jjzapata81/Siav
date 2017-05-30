@@ -38,4 +38,18 @@
 			</ul>
 		</div>
 	</section>
+	<div class="tabla-siav" ng-if="novedades">
+		<table class="table table-responsive">
+			<thead>
+				<th>Concepto</th>
+				<th>Valor</th>
+			</thead>
+			<tbody>
+				<tr ng-repeat="novedad in novedades">
+					<td>{{novedad.descripcion}}</td>
+					<td>{{novedad.valor | currency:"$":0}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </div>

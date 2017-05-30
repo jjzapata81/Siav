@@ -3,13 +3,14 @@
 
 define(['siav-module', 'instalaciones-services', 'tarifas-services', 'novedades-services', 'modal-factory', 'constantes'], function (app) {
 	
-    return app.controller('novedades-controller', ['$scope', 'instalacionesServices', 'tarifasServices', 'novedadesServices', 'modalFactory', 'CONSTANTES', function($scope, instalacionesServices, tarifasServices, novedadesServices, modalFactory, CONSTANTES){
+    return app.controller('novedades-controller', ['$scope', '$filter', 'instalacionesServices', 'tarifasServices', 'novedadesServices', 'modalFactory', 'CONSTANTES', function($scope, $filter, instalacionesServices, tarifasServices, novedadesServices, modalFactory, CONSTANTES){
     	
     	$scope.init = function (){
     		$scope.mostrarUsuario = false;
     		$scope.numeroInstalacion = null;
     		$scope.novedad = {};
     		$scope.consultarTarifas();
+    		$scope.novedades = null;
     	}
     	
     	$scope.onBuscar = function(){
@@ -24,11 +25,24 @@ define(['siav-module', 'instalaciones-services', 'tarifas-services', 'novedades-
         			}else{
         				$scope.mostrarUsuario = true;
         				$scope.instalacion = respuesta.instalacion;
+        				$scope.consultarDetalle();
         			}
         		});
     		}else{
     			modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.INSTALACION.ERR_BUSQUEDA_OBLIGATORIO);
     		}
+    	}
+    	
+    	$scope.consultarDetalle = function(){
+    		novedadesServices
+    		.consultar($scope.instalacion.numeroInstalacion)
+    		.then(function(novedades){
+    			$scope.novedades = novedades;
+    			angular.forEach($scope.novedades, function(novedad, key) {
+    				var filtro = $filter('filter')($scope.tarifas, { codigo : novedad.id.codigoConcepto })[0];
+    				novedad.descripcion = filtro.descripcion;
+    			});
+    		});
     	}
     	
     	$scope.onGuardar = function(){
