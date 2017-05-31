@@ -94,9 +94,9 @@ define(['angularAMD', 'angular-route'], function (angularAMD) {
 	            templateUrl: 'views/credito-abono.html', 
 	            controller: 'credito-abono-controller'
 	        }))
-	        .when("/historico", angularAMD.route({
-	            templateUrl: 'views/historico.html', 
-	            controller: 'historico-controller'
+	        .when("/configuracion-ruta", angularAMD.route({
+	            templateUrl: 'views/configuracion-ruta.html', 
+	            controller: 'configuracion-ruta-controller'
 	        }))
 	        .when("/novedades", angularAMD.route({
 	            templateUrl: 'views/novedades.html', 

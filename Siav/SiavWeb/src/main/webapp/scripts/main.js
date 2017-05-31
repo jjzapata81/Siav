@@ -50,6 +50,7 @@ require.config({
     	"ramal-services" : "services/ramal-services",
     	"siav-services" : "services/siav-services",
     	"inconsistencias-services" : "services/inconsistencias-services",
+    	"ruta-services" : "services/ruta-services",
     	// constantes
     	'constantes' :  'constants/constantes',
     	//Interceptor
@@ -87,7 +88,7 @@ require.config({
     	'lecturas-digitadas-controller' : 'controllers/lecturas-digitadas-controller',
     	'inconsistencias-controller' : 'controllers/inconsistencias-controller',
     	'credito-abono-controller' : 'controllers/credito-abono-controller',
-    	'historico-controller' : 'controllers/historico-controller',
+    	'configuracion-ruta-controller' : 'controllers/configuracion-ruta-controller',
     	'novedades-controller' : 'controllers/novedades-controller',
     	'creditos-controller' : 'controllers/creditos-controller',
     	'refinanciacion-controller' : 'controllers/refinanciacion-controller',

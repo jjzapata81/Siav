@@ -43,6 +43,7 @@ public class InstalacionBean {
 		instalacion.setActivo(true);
 		instalacion.setDigitosMedidor(null == instalacion.getDigitosMedidor() ? 0L : instalacion.getDigitosMedidor());
 		instalacion.setSerieMedidor(null == instalacion.getSerieMedidor() ? "0" : instalacion.getSerieMedidor());
+		instalacion.setOrden(99999L);
 		instalacionRep.save(instalacion);
 		crearConsumo(instalacion);
 		return new MensajeResponse(Constantes.getMensaje(Constantes.INSTALACION_CREADA, instalacion.getNumeroInstalacion()));

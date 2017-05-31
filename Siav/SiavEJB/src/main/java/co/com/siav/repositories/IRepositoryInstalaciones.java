@@ -31,5 +31,8 @@ public interface IRepositoryInstalaciones extends JpaRepository<Instalacion, Lon
 	@Modifying
 	@Query("UPDATE Instalacion i SET i.cuentasVencidas = 0 WHERE i.numeroInstalacion = :numeroInstalacion)")
 	void updateCuentasVencidasInstalacion(@Param("numeroInstalacion") Long numeroInstalacion);
+
+
+	List<Instalacion> findByOrden(Long orden);
 	
 }
