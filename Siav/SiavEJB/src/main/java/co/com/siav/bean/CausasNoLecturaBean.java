@@ -1,8 +1,6 @@
 package co.com.siav.bean;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import javax.ejb.Stateless;
@@ -26,6 +24,10 @@ public class CausasNoLecturaBean {
 	public List<CausaNoLectura> consultar() {
 		return causasRep.findAll();
 	}
+	
+	public List<CausaNoLectura> consultarActivas() {
+		return causasRep.findByActivo(Constantes.SI);
+	}
 
 	public MensajeResponse crear(CausasNoLecturaDTO causa) {
 		if(null == causasRep.findByDescripcion(causa.getDescripcion().trim())){
@@ -44,6 +46,13 @@ public class CausasNoLecturaBean {
 	public List<String> consultarDescripciones() {
 		List<CausaNoLectura> causas = causasRep.findAll();
 		return causas.stream().map(CausaNoLectura::getDescripcion).collect(Collectors.toList());
+	}
+
+	public void activar(Long codigoCausa) {
+		CausaNoLectura causa = causasRep.findOne(codigoCausa);
+		causa.setActivo(!causa.getActivo());
+		causasRep.save(causa);
+		
 	}
 
 }

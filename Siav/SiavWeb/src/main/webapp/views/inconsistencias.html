@@ -70,14 +70,14 @@
 				</div>
 				<div class="inconsistencia-item">
 					<label>Total:</label><br>
-					<a ng-click="onSeleccionar()">
+					<a ng-click="onSeleccionar('TOTAL')">
 						<label class="inconsistencia-total" ng-if="esPromedio">{{corregir.consumoNuevoMedidor}}</label>
 						<label class="inconsistencia-seleccion" ng-if="!esPromedio">{{corregir.consumoNuevoMedidor}}</label>
 					</a>
 				</div>
 				<div class="inconsistencia-item">
 					<label>Consumo promedio:</label><br>
-					<a ng-click="onSeleccionar()">
+					<a ng-click="onSeleccionar('PROMEDIO')">
 						<label class="inconsistencia-total" ng-if="!esPromedio">{{corregir.consumoPromedio}}</label>
 						<label class="inconsistencia-seleccion" ng-if="esPromedio">{{corregir.consumoPromedio}}</label>
 					</a>

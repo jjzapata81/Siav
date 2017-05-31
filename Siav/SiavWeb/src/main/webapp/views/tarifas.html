@@ -27,7 +27,7 @@
 				<th></th>
 			</thead>
 			<tbody>
-				<tr ng-repeat="tarifa in tarifas | orderBy:'descripcion'">
+				<tr ng-repeat="tarifa in tarifas | orderBy:'descripcion' | startFrom:(currentPage-1)*itemsPerPage | limitTo:itemsPerPage">
 					<td>{{tarifa.codigo}}</td>
 					<td>{{tarifa.descripcion}}</td>
 					<td>{{tarifa.tipo.valor}}</td>
@@ -42,6 +42,7 @@
 				</tr>
 			</tbody>
 		</table>
+		<uib-pagination total-items="tarifas.length" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
 	</div>
 	<section class="formulario form-fijo" ng-show="esNuevo">
 		<div>

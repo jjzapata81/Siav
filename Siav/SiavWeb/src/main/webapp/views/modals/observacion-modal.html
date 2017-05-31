@@ -1,0 +1,21 @@
+<div class="ngdialog-message">
+	<div class="modal-header titulo-modal">
+		<h3>{{titulo}}</h3>
+	</div>
+	<div class="modal-body">
+		<div class="mensaje-body">
+			<div class="icono-modal"><i class="{{clase}}" aria-hidden="true"></i></div>
+			<div class="mensaje-modal">Ingrese el motivo por el cu&aacute;l se realiza el ajuste:</div>
+		</div>
+		<label class="modal-obligatorio">{{error}}</label>
+		<div>
+			<textarea class="mensaje-observacion" rows="3" ng-model="observacion" maxlength="500"></textarea>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<ul class="flex alineacion-derecha" >
+			<li><button type="button" class="btn-siav btn-buscar" ng-click="continuar()">Aceptar</button></li>
+			<li><button type="button" class="btn-siav btn-cancelar" ng-click="cancelar()">Cancelar</button></li>
+		</ul>
+ 	</div>
+</div>

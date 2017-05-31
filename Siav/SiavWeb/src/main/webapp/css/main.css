@@ -380,6 +380,12 @@ a:hover{
     padding: 10px;
 }
 
+.mensaje-observacion{
+	width : 530px;
+	color: #31708f;
+    padding: 10px;
+}
+
 .login{
 	width: 350px;
     padding: 50px 50px;
@@ -396,7 +402,7 @@ a:hover{
 .login label,
 .login input{
 	margin-bottom: 15px;
-	text-transform:lowercase !important;
+	text-transform:none !important;
 }
 
 .login button{

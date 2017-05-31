@@ -6,11 +6,19 @@ define(['siav-module'], function (app) {
     	 var contrato = {
     			 consultar : consultar,
     			 consultarDescripciones : consultarDescripciones,
-    			 crear : crear
+    			 crear : crear,
+    			 cambiarEstado : cambiarEstado
     	 };
     	 
     	 function crear(causa){
     		 var request = $http.post("rest/nolectura/crear", causa);
+    		 return (request.then(function(response) {
+ 	    		return response.data;
+	    	}));
+    	 }
+    	 
+    	 function cambiarEstado(causa){
+    		 var request = $http.put("rest/nolectura/activar", causa);
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));

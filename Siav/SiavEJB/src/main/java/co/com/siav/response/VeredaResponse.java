@@ -8,12 +8,22 @@ public class VeredaResponse extends Vereda{
 	
 	private Long cantidadUsuarios;
 	
+	private Long cantidadInstalaciones;
+	
 	public Long getCantidadUsuarios() {
 		return cantidadUsuarios;
 	}
 	
 	public void setCantidadUsuarios(Long cantidadUsuarios) {
 		this.cantidadUsuarios = cantidadUsuarios;
+	}
+	
+	public Long getCantidadInstalaciones() {
+		return cantidadInstalaciones;
+	}
+	
+	public void setCantidadInstalaciones(Long cantidadInstalaciones) {
+		this.cantidadInstalaciones = cantidadInstalaciones;
 	}
 
 }

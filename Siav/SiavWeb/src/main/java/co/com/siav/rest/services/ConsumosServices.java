@@ -6,6 +6,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -42,8 +43,8 @@ public class ConsumosServices {
 	@POST
 	@Path("guardar")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public MensajeResponse guardar(CorreccionConsumoRequest request){
-		return bean.guardar(request);
+	public MensajeResponse guardar(@HeaderParam("siav_usuario") String usuario, CorreccionConsumoRequest request){
+		return bean.guardar(request, usuario);
 	}
 	
 	@POST

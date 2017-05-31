@@ -15,13 +15,15 @@
 			<thead>
 				<th>C&oacute;digo</th>
 				<th>Nombre</th>
-				<th>Cantidad usuarios</th>
+				<th>Usuarios</th>
+				<th>Instalaciones</th>
 			</thead>
 			<tbody>
 				<tr ng-repeat="vereda in veredas | orderBy: 'codigo'">
 					<td>{{vereda.codigo}}</td>
 					<td>{{vereda.nombre}}</td>
 					<td>{{vereda.cantidadUsuarios}}</td>
+					<td>{{vereda.cantidadInstalaciones}}</td>
 				</tr>
 			</tbody>
 		</table>

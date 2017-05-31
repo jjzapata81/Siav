@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -33,10 +34,24 @@ public class CausasNoLecturaServices {
 	}
 	
 	@GET
+	@Path("consultar/activo")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<CausaNoLectura> getCausasActivas(){
+		return bean.consultarActivas();
+	}
+	
+	@GET
 	@Path("consultar/descripciones")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<String> getDescripciones(){
 		return bean.consultarDescripciones();
+	}
+	
+	@PUT
+	@Path("activar")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public void activar(CausaNoLectura causa){
+		bean.activar(causa.getCodigo());
 	}
 	
 	@GET
@@ -44,7 +59,7 @@ public class CausasNoLecturaServices {
 	@Produces(MediaType.APPLICATION_JSON)
 	public CausasResponse getCausasMovil(){
 		CausasResponse causas = new CausasResponse();
-		causas.setCausas(bean.consultar());
+		causas.setCausas(bean.consultarActivas());
 		return causas;
 	}
 	

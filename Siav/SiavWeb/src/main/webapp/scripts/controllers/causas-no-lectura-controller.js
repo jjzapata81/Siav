@@ -28,6 +28,14 @@ define(['siav-module', 'causas-no-lectura-services', 'modal-factory', 'constante
     		});
     	}
     	
+    	$scope.onCambioEstado = function(causa){
+    		causasServices
+    		.cambiarEstado(causa)
+    		.then(function(response){
+    			$scope.init();
+    		});
+    	}
+    	
     	$scope.onAgregar = function(){
     		$scope.esNuevo = true;
     	}

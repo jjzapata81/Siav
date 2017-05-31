@@ -20,7 +20,6 @@ public interface IRepositoryInstalaciones extends JpaRepository<Instalacion, Lon
 
 	Long countByVeredaCodigo(Long codigoVereda);
 
-
 	Long countByActivo(String activo);
 
 	List<Instalacion> findByActivoAndRamal(String activo, String ramal);

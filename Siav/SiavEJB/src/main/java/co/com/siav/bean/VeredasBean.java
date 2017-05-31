@@ -8,6 +8,7 @@ import javax.inject.Inject;
 
 import co.com.siav.entities.Vereda;
 import co.com.siav.repositories.IRepositoryInstalaciones;
+import co.com.siav.repositories.IRepositoryUsuarios;
 import co.com.siav.repositories.IRepositoryVeredas;
 import co.com.siav.response.MensajeResponse;
 import co.com.siav.response.VeredaResponse;
@@ -20,6 +21,9 @@ public class VeredasBean {
 	
 	@Inject
 	private IRepositoryInstalaciones instalacionesRep;
+	
+	@Inject
+	private IRepositoryUsuarios usuariosRep;
 	
 	public List<String> consultarNombres() {
 		List<Vereda> veredasBD = veredasRep.findAll();
@@ -47,7 +51,8 @@ public class VeredasBean {
 		VeredaResponse response = new VeredaResponse();
 		response.setCodigo(vereda.getCodigo());
 		response.setNombre(vereda.getNombre());
-		response.setCantidadUsuarios(instalacionesRep.countByVeredaCodigo(vereda.getCodigo()));
+		response.setCantidadUsuarios(usuariosRep.countByVeredaCodigoAndUsuario(vereda.getCodigo()));
+		response.setCantidadInstalaciones(instalacionesRep.countByVeredaCodigo(vereda.getCodigo()));
 		return response;
 	}
 

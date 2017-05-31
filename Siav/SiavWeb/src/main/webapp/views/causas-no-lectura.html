@@ -16,11 +16,16 @@
 			<thead>
 				<th>C&oacute;digo</th>
 				<th>Descripci&oacute;n</th>
+				<th>Estado</th>
+				<th></th>
 			</thead>
 			<tbody>
 				<tr ng-repeat="causa in causas | orderBy: 'codigo'">
 					<td ng-if="causa.codigo!=0">{{causa.codigo}}</td>
 					<td ng-if="causa.codigo!=0">{{causa.descripcion}}</td>
+					<td ng-if="causa.codigo!=0"><span ng-class="{activo : {{causa.activo}} == 'true'}"><span ng-show="causa.activo">ACTIVO</span><span ng-show="!causa.activo">INACTIVO</span></span></td>
+					<td ng-if="causa.activo && causa.codigo!=0"><a ng-click="onCambioEstado(causa)"><i class="fa fa-circle activo" aria-hidden="true"></i> Desactivar</a></td>
+					<td ng-if="!causa.activo && causa.codigo!=0"><a ng-click="onCambioEstado(causa)"><i class="fa fa-circle inactivo" aria-hidden="true"></i> Activar</a></td>
 				</tr>
 			</tbody>
 		</table>

@@ -1,9 +1,9 @@
 /*global define*/
 'use strict';
 
-define(['siav-module', 'inconsistencias-services', 'causas-no-lectura-services', 'modal-factory', 'constantes', 'modal-consumo-factory'], function (app) {
+define(['siav-module', 'inconsistencias-services', 'causas-no-lectura-services', 'modal-factory', 'modal-observacion', 'constantes', 'modal-consumo-factory'], function (app) {
 	
-    return app.controller('inconsistencias-controller', ['$scope', '$filter', 'inconsistenciasServices', 'causasServices', 'modalFactory', 'CONSTANTES', 'modalConsumo', function($scope, $filter, inconsistenciasServices, causasServices, modalFactory, CONSTANTES, modalConsumo){
+    return app.controller('inconsistencias-controller', ['$scope', '$filter', 'inconsistenciasServices', 'causasServices', 'modalFactory', 'modalObservacion', 'CONSTANTES', 'modalConsumo', function($scope, $filter, inconsistenciasServices, causasServices, modalFactory, modalObservacion, CONSTANTES, modalConsumo){
     	
     	$scope.init = function(){
     		$scope.estaEditando = false;
@@ -37,25 +37,38 @@ define(['siav-module', 'inconsistencias-services', 'causas-no-lectura-services',
     		$scope.corregirRiesgo = angular.copy(consumo);
     	}
     	
-    	$scope.onSeleccionar = function(){
-    		$scope.esPromedio = !$scope.esPromedio;
+    	$scope.onSeleccionar = function(opcion){
+    		$scope.esPromedio = 'PROMEDIO' === opcion;
     	}
     	
     	$scope.onGuardar = function(){
     		if($scope.validar()){
-    			var request = {};
-    			request.numeroInstalacion = $scope.corregir.instalacion.numeroInstalacion;
-    			request.consumo = $scope.esPromedio ? $scope.corregir.consumoPromedio : $scope.corregir.consumoNuevoMedidor;
-    			request.lecturaCorregida = $scope.corregir.lecturaFinal;
-    			request.antiguoMedidor = $scope.corregir.instalacion.serieMedidor;
-    			request.nuevoMedidor = $scope.corregir.serieNueva;
-    			inconsistenciasServices
-    			.guardar(request)
-    			.then(function(respuesta){
-    				modalFactory.abrirDialogo(respuesta);
-    				$scope.init();
-    			});
+    			modalObservacion
+    			.abrir()
+        		.result
+        		.then(function(observacion){
+        			$scope.continuarGuardar(observacion);
+        		});
+    			
     		}
+    	}
+    	
+    	$scope.continuarGuardar = function(observacion){
+    		console.log(observacion);
+    		var request = {};
+			request.numeroInstalacion = $scope.corregir.instalacion.numeroInstalacion;
+			request.consumo = $scope.esPromedio ? $scope.corregir.consumoPromedio : $scope.corregir.consumoNuevoMedidor;
+			request.lecturaCorregida = $scope.corregir.lecturaFinal;
+			request.antiguoMedidor = $scope.corregir.instalacion.serieMedidor;
+			request.nuevoMedidor = $scope.corregir.serieNueva;
+			request.observacion = observacion;
+			inconsistenciasServices
+			.guardar(request)
+			.then(function(respuesta){
+				modalFactory.abrirDialogo(respuesta);
+				$scope.init();
+			});
+    		
     	}
     	
     	$scope.onGuardarRiesgo = function(){

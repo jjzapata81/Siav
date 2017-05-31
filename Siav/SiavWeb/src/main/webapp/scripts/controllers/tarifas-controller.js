@@ -11,7 +11,7 @@ define(['siav-module', 'tarifas-services', 'contabilidad-services', 'instalacion
     		$scope.tarifaNueva = {};
     		$scope.cargarTiposTarifas();
     		$scope.cargarDescripcionesTarifas();
-    		
+    		$scope.tarifas = [];
     		$scope.consultarSistema();
     	}
     	
@@ -120,6 +120,7 @@ define(['siav-module', 'tarifas-services', 'contabilidad-services', 'instalacion
     		
     	}
     	
+    	
     	$scope.validarSinEstrato = function(){
     		if($scope.tarifaNueva.tipo === 'FIJO' && (!$scope.tarifaNueva.estrato0 || $scope.tarifaNueva.estrato0 <= 0)){
     			modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.TARIFA.ERR_FALTA_VALOR);
@@ -152,6 +153,13 @@ define(['siav-module', 'tarifas-services', 'contabilidad-services', 'instalacion
     	$scope.onImprimir = function(){
     		window.print();
     	}
+    	
+    	$scope.itemsPerPage = 10;
+        $scope.currentPage = 1;
+
+        $scope.setPage = function (pageNo) {
+          $scope.currentPage = pageNo;
+        };
     	
     	$scope.init();
 

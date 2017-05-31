@@ -14,4 +14,6 @@ public interface IRepositoryCausasNoLectura extends JpaRepository<CausaNoLectura
 	@Query("select c from CausaNoLectura c order by c.codigo")
 	List<CausaNoLectura> findAllOrdered();
 
+	List<CausaNoLectura> findByActivo(String estado);
+
 }

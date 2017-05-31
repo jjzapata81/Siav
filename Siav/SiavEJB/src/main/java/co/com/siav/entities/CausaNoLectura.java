@@ -30,6 +30,9 @@ public class CausaNoLectura implements Serializable{
 	
 	@Column(name="snaplicaprom")
 	private String aplicaPromedio;
+	
+	@Column(name="snactiva")
+	private String activo;
 
 	public Long getCodigo() {
 		return codigo;
@@ -53,6 +56,14 @@ public class CausaNoLectura implements Serializable{
 	
 	public void setAplicaPromedio(Boolean aplicaPromedio) {
 		this.aplicaPromedio = aplicaPromedio ? "S" : "N";
+	}
+	
+	public Boolean getActivo() {
+		return "S".equals(activo);
+	}
+	
+	public void setActivo(Boolean activo) {
+		this.activo = activo ? "S" : "N";
 	}
 	
 }

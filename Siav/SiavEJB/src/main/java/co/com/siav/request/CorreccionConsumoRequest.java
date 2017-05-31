@@ -7,6 +7,7 @@ public class CorreccionConsumoRequest {
 	private Long lecturaCorregida;
 	private String antiguoMedidor;
 	private String nuevoMedidor;
+	private String observacion;
 	
 	public Long getNumeroInstalacion() {
 		return numeroInstalacion;
@@ -37,6 +38,12 @@ public class CorreccionConsumoRequest {
 	}
 	public void setNuevoMedidor(String nuevoMedidor) {
 		this.nuevoMedidor = nuevoMedidor;
+	}
+	public String getObservacion() {
+		return observacion;
+	}
+	public void setObservacion(String observacion) {
+		this.observacion = observacion;
 	}
 	
 }

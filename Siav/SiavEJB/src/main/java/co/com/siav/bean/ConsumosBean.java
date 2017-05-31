@@ -1,5 +1,6 @@
 package co.com.siav.bean;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -8,9 +9,11 @@ import javax.inject.Inject;
 
 import co.com.siav.entities.Ciclo;
 import co.com.siav.entities.Consumo;
+import co.com.siav.entities.ConsumoAuditoria;
 import co.com.siav.entities.ConsumoPK;
 import co.com.siav.entities.Instalacion;
 import co.com.siav.repositories.IRepositoryCiclos;
+import co.com.siav.repositories.IRepositoryConsumoAuditoria;
 import co.com.siav.repositories.IRepositoryConsumos;
 import co.com.siav.repositories.IRepositoryInstalaciones;
 import co.com.siav.request.CorreccionConsumoRequest;
@@ -31,6 +34,9 @@ public class ConsumosBean {
 	@Inject
 	private IRepositoryCiclos ciclosRep;
 	
+	@Inject
+	private IRepositoryConsumoAuditoria audiRep;
+	
 	private Long cicloAnterior;
 
 	public List<Consumo> consultarIncompletos() {
@@ -38,7 +44,7 @@ public class ConsumosBean {
 		return consumosRep.findByCicloAndIncompletos(cicloAbierto.getCiclo());
 	}
 
-	public MensajeResponse guardar(CorreccionConsumoRequest request) {
+	public MensajeResponse guardar(CorreccionConsumoRequest request, String usuario) {
 		try{
 			Ciclo cicloAbierto = ciclosRep.findFirstByEstadoOrderByCicloDesc(Constantes.ABIERTO);
 			ConsumoPK pk = new ConsumoPK();
@@ -54,11 +60,28 @@ public class ConsumosBean {
 			Instalacion instalacion = instalacionesRep.findOne(request.getNumeroInstalacion());
 			instalacion.setSerieMedidor(request.getNuevoMedidor());
 			instalacionesRep.save(instalacion);
+			guardarAuditoria(cicloAbierto.getCiclo(), instalacion.getNumeroInstalacion(), usuario, 
+					consumoBD.getConsumoMes(), request.getConsumo(), consumoBD.getLecturaActual(), request.getLecturaCorregida(), request.getObservacion());
 			return new MensajeResponse(Constantes.ACTUALIZACION_EXITO);
 		}catch(Exception e){
 			return new MensajeResponse(EstadoEnum.ERROR, Constantes.ACTUALIZACION_FALLO);
 		}
 	}
+	
+	private void guardarAuditoria(Long ciclo, Long instalacion, String usuario, Long consumo, Long consumoCorregido, Long lectura, Long lecturaCorregida, String observacion){
+		ConsumoAuditoria auditoria = new ConsumoAuditoria();
+		auditoria.setCiclo(ciclo);
+		auditoria.setConsumo(consumo);
+		auditoria.setConsumoCorregido(consumoCorregido);
+		auditoria.setFecha(new Date());
+		auditoria.setInstalacion(instalacion);
+		auditoria.setLectura(lectura);
+		auditoria.setLecturaCorregida(lecturaCorregida);
+		auditoria.setObservacion(observacion);
+		auditoria.setUsuario(usuario);
+		audiRep.save(auditoria);
+	}
+	
 	public MensajeResponse guardarCorreccion(CorreccionConsumoRequest request) {
 		try{
 			Ciclo cicloAbierto = ciclosRep.findFirstByEstadoOrderByCicloDesc(Constantes.ABIERTO);

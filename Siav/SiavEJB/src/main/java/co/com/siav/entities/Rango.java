@@ -65,7 +65,7 @@ public class Rango implements Serializable{
 	}
 
 	public String getResolucion() {
-		return resolucion.toUpperCase();
+		return null == resolucion ? "" : resolucion.toUpperCase();
 	}
 
 	public void setResolucion(String resolucion) {
