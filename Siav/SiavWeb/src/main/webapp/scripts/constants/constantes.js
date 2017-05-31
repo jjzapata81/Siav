@@ -22,7 +22,8 @@ define(['siav-module'], function(app) {
     		"CONSUMOS_INCOMPLETOS" : "rest/consumos/consultar/incompletos",
     		"CONSUMOS_RANGO" : "rest/consumos/consultar/rango",
     		"CONSUMOS_INCOMPLETOS_GUARDAR" : "rest/consumos/guardar",
-    		"CONSUMOS_RIESGO_GUARDAR" : "rest/consumos/riesgo/guardar"
+    		"CONSUMOS_RIESGO_GUARDAR" : "rest/consumos/riesgo/guardar",
+    		"CONSUMOS_RIESGO_GUARDAR_CORRECCION_CONSUMO" : "rest/consumos/correccion/guardar"
     	},
     	"MSG" : {
     		"CAMBIO_GUARDADO" : "Los cambios han sido guardados de manera correcta.",

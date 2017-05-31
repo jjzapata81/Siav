@@ -913,7 +913,12 @@ a:hover{
     color: #31708f;
     padding: 20px;
     border-radius: 28px;
-    cursor : pointer;
+    width: 60px;
+    height: 60px;
+}
+
+.sel{
+	cursor : pointer;
 }
 
 .inconsistencia-seleccion{
@@ -921,7 +926,8 @@ a:hover{
     color: #fff;
     padding: 20px;
     border-radius: 28px;
-    cursor : pointer;
+    width: 60px;
+    height: 60px;
 }
 .inconsistencia-item>label{
     padding-top: 20px;
@@ -1055,4 +1061,11 @@ a:hover{
 	color : #fff;
 	cursor: pointer;
 	font-size: 18px;
+}
+
+.input-circle{
+	width: 60px;
+    height: 60px;
+    border-radius: 40px;
+    text-align: center;
 }

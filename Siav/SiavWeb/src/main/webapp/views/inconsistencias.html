@@ -41,7 +41,7 @@
 				</li>
 			
 				<li>
-					<label><i class="fa fa-asterisk" aria-hidden="true"></i>Serie nuevo medidor :</label><br>
+					<label><i class="fa fa-asterisk" aria-hidden="true"></i>Serie nuevo medidor:</label><br>
 					<input type="text" ng-model="corregir.serieNueva"/>
 				</li>
 			</ul>
@@ -71,15 +71,15 @@
 				<div class="inconsistencia-item">
 					<label>Total:</label><br>
 					<a ng-click="onSeleccionar('TOTAL')">
-						<label class="inconsistencia-total" ng-if="esPromedio">{{corregir.consumoNuevoMedidor}}</label>
-						<label class="inconsistencia-seleccion" ng-if="!esPromedio">{{corregir.consumoNuevoMedidor}}</label>
+						<label class="inconsistencia-total sel" ng-if="esPromedio">{{corregir.consumoNuevoMedidor}}</label>
+						<label class="inconsistencia-seleccion sel" ng-if="!esPromedio">{{corregir.consumoNuevoMedidor}}</label>
 					</a>
 				</div>
 				<div class="inconsistencia-item">
 					<label>Consumo promedio:</label><br>
 					<a ng-click="onSeleccionar('PROMEDIO')">
-						<label class="inconsistencia-total" ng-if="!esPromedio">{{corregir.consumoPromedio}}</label>
-						<label class="inconsistencia-seleccion" ng-if="esPromedio">{{corregir.consumoPromedio}}</label>
+						<label class="inconsistencia-total sel" ng-if="!esPromedio">{{corregir.consumoPromedio}}</label>
+						<label class="inconsistencia-seleccion sel" ng-if="esPromedio">{{corregir.consumoPromedio}}</label>
 					</a>
 				</div>
 			</div>
@@ -87,6 +87,13 @@
 	</section>
 	<section class="formulario form-fijo" ng-show="estaEditandoRiesgo">
 		<div>
+			<ul class="flex">
+				<li>
+					<label>Tipo de correcci&oacute;n:</label><br>
+					<input type="radio" class="rbt-config" ng-model="correccionLectura" value=true ng-change="tipoCorrecion()"/> Lectura
+					<input type="radio" class="rbt-config" ng-model="correccionLectura" value=false ng-change="tipoCorrecion()"/> Consumo
+				</li>
+			</ul>
 			<ul class="flex">
 				<li>
 					<label>Instalaci&oacute;n:</label><br>
@@ -112,7 +119,7 @@
 				</li>
 				<li>
 					<label><i class="fa fa-asterisk" aria-hidden="true"></i>Lectura corregir:</label><br>
-					<input type="number" ng-model="corregirRiesgo.lecturaCorreccion" ng-change="onRecalcularCorreccion()"/>
+					<input type="number" ng-model="corregirRiesgo.lecturaCorreccion" ng-change="onRecalcularCorreccion()" ng-disabled="correccionLectura=='false'"/>
 				</li>
 				
 			</ul>
@@ -129,9 +136,13 @@
 					<label>Consumo promedio:</label><br>
 					<label class="inconsistencia-total">{{corregirRiesgo.consumoPromedio}}</label>
 				</div>
-				<div class="inconsistencia-item">
+				<div class="inconsistencia-item"  ng-if="correccionLectura=='true'">
 					<label>Consumo corregido:</label><br>
 					<label class="inconsistencia-seleccion">{{corregirRiesgo.consumoCorregido}}</label>
+				</div>
+				<div class="inconsistencia-item" ng-if="correccionLectura=='false'">
+					<label>Consumo corregido:</label><br>
+					<input class="input-circle" type="number" ng-model="corregirRiesgo.consumoCorregido"/>
 				</div>
 			</div>
 		</div>

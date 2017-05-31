@@ -50,8 +50,15 @@ public class ConsumosServices {
 	@POST
 	@Path("riesgo/guardar")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public MensajeResponse guardarCorreccion(CorreccionConsumoRequest request){
-		return bean.guardarCorreccion(request);
+	public MensajeResponse guardarCorreccion(@HeaderParam("siav_usuario") String usuario, CorreccionConsumoRequest request){
+		return bean.guardarCorreccion(request, usuario);
+	}
+	
+	@POST
+	@Path("correccion/guardar")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public MensajeResponse guardarCorreccionConsumo(@HeaderParam("siav_usuario") String usuario, CorreccionConsumoRequest request){
+		return bean.guardarCorreccionConsumo(request, usuario);
 	}
 
 }

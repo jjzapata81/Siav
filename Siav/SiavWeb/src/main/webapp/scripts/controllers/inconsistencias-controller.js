@@ -6,6 +6,7 @@ define(['siav-module', 'inconsistencias-services', 'causas-no-lectura-services',
     return app.controller('inconsistencias-controller', ['$scope', '$filter', 'inconsistenciasServices', 'causasServices', 'modalFactory', 'modalObservacion', 'CONSTANTES', 'modalConsumo', function($scope, $filter, inconsistenciasServices, causasServices, modalFactory, modalObservacion, CONSTANTES, modalConsumo){
     	
     	$scope.init = function(){
+    		$scope.correccionLectura = 'true';
     		$scope.estaEditando = false;
     		$scope.estaEditandoRiesgo = false;
     		$scope.rango = {};
@@ -13,6 +14,13 @@ define(['siav-module', 'inconsistencias-services', 'causas-no-lectura-services',
     		$scope.consumosRiesgo = [];
     		$scope.consultarCausasNoLectura();
     		
+    	}
+    	
+    	$scope.tipoCorrecion = function(){
+    		if($scope.correccionLectura=='false'){
+    			$scope.corregirRiesgo.lecturaCorreccion = null;
+    		}
+    		$scope.corregirRiesgo = angular.copy($scope.corregirRiesgoTemp);
     	}
     	
     	$scope.consultarCausasNoLectura = function(){
@@ -35,6 +43,7 @@ define(['siav-module', 'inconsistencias-services', 'causas-no-lectura-services',
     	$scope.onCorregirRiesgo = function(consumo){
     		$scope.estaEditandoRiesgo = true;
     		$scope.corregirRiesgo = angular.copy(consumo);
+    		$scope.corregirRiesgoTemp = angular.copy(consumo);
     	}
     	
     	$scope.onSeleccionar = function(opcion){
@@ -54,7 +63,6 @@ define(['siav-module', 'inconsistencias-services', 'causas-no-lectura-services',
     	}
     	
     	$scope.continuarGuardar = function(observacion){
-    		console.log(observacion);
     		var request = {};
 			request.numeroInstalacion = $scope.corregir.instalacion.numeroInstalacion;
 			request.consumo = $scope.esPromedio ? $scope.corregir.consumoPromedio : $scope.corregir.consumoNuevoMedidor;
@@ -73,19 +81,50 @@ define(['siav-module', 'inconsistencias-services', 'causas-no-lectura-services',
     	
     	$scope.onGuardarRiesgo = function(){
     		if($scope.validarRiesgo()){
-    			var request = {};
-    			request.numeroInstalacion = $scope.corregirRiesgo.instalacion;
-    			request.consumo = $scope.corregirRiesgo.consumoCorregido;
-    			request.antiguoMedidor = $scope.corregirRiesgo.serieMedidor;
-    			request.lecturaCorregida = $scope.corregirRiesgo.lecturaCorregida;
-    			inconsistenciasServices
-    			.guardarCorreccion(request)
-    			.then(function(respuesta){
-    				modalFactory.abrirDialogo(respuesta);
-    				$scope.estaEditandoRiesgo = false;
-    				$scope.consultarRango();
-    			});
+    			modalObservacion
+    			.abrir()
+        		.result
+        		.then(function(observacion){
+        			if($scope.correccionLectura=='true'){
+        				$scope.continuarGuardarRiesgo(observacion);
+        			}else{
+        				$scope.continuarGuardarRiesgoConsumo(observacion);
+        			}
+        		});
     		}
+    	}
+    	
+    	$scope.continuarGuardarRiesgo =function(observacion){
+    		var request = {};
+			request.numeroInstalacion = $scope.corregirRiesgo.instalacion;
+			request.consumo = $scope.corregirRiesgo.consumoCorregido;
+			request.lecturaCorregida = $scope.corregirRiesgo.lecturaCorregida;
+			request.antiguoMedidor = $scope.corregirRiesgo.serieMedidor;
+			request.observacion = observacion;
+			inconsistenciasServices
+			.guardarCorreccion(request)
+			.then(function(respuesta){
+				modalFactory.abrirDialogo(respuesta);
+				$scope.estaEditandoRiesgo = false;
+				$scope.consultarRango();
+				$scope.correccionLectura = 'true';
+			});
+    	}
+    	
+    	$scope.continuarGuardarRiesgoConsumo =function(observacion){
+    		var request = {};
+			request.numeroInstalacion = $scope.corregirRiesgo.instalacion;
+			request.consumo = $scope.corregirRiesgo.consumoCorregido;
+			request.antiguoMedidor = $scope.corregirRiesgo.serieMedidor;
+			request.observacion = observacion;
+			inconsistenciasServices
+			.guardarCorreccionConsumo(request)
+			.then(function(respuesta){
+				modalFactory.abrirDialogo(respuesta);
+				$scope.estaEditandoRiesgo = false;
+				$scope.consultarRango();
+				$scope.correccionLectura = 'true';
+			});
     	}
     	
     	$scope.validar = function(){
@@ -101,7 +140,7 @@ define(['siav-module', 'inconsistencias-services', 'causas-no-lectura-services',
     	}
     	
     	$scope.validarRiesgo = function(){
-    		if(!$scope.corregirRiesgo.lecturaCorreccion || $scope.corregirRiesgo.lecturaCorreccion < 0){
+    		if($scope.correccionLectura=='true' && (!$scope.corregirRiesgo.lecturaCorreccion || $scope.corregirRiesgo.lecturaCorreccion < 0)){
     			modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.INCONSISTENCIA.ERR_LECTURA_CORRECCION);
     			return false;
     		}
@@ -116,6 +155,7 @@ define(['siav-module', 'inconsistencias-services', 'causas-no-lectura-services',
     	$scope.onCancelarEdicionRiesgo = function(){
     		$scope.estaEditandoRiesgo = false;
     		$scope.corregirRiesgo = {};
+    		$scope.correccionLectura = 'true';
     	}
     	
     	$scope.onCancelarRiesgo = function(){

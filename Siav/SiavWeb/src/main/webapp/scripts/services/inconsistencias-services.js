@@ -7,7 +7,8 @@ define(['siav-module', 'constantes'], function (app) {
     			 consultar : consultar,
     			 consultarRango : consultarRango,
     			 guardar : guardar,
-    			 guardarCorreccion : guardarCorreccion
+    			 guardarCorreccion : guardarCorreccion,
+    			 guardarCorreccionConsumo : guardarCorreccionConsumo
     	 };
     	 
     	 function consultar(){
@@ -33,6 +34,13 @@ define(['siav-module', 'constantes'], function (app) {
     	 
     	 function guardarCorreccion(request){
     		 var request = $http.post(CONSTANTES.SRV.CONSUMOS_RIESGO_GUARDAR, request);
+    		 return(request.then(function(response){
+    			 return response.data;
+    		 }));
+    	 }
+    	 
+    	 function guardarCorreccionConsumo(request){
+    		 var request = $http.post(CONSTANTES.SRV.CONSUMOS_RIESGO_GUARDAR_CORRECCION_CONSUMO, request);
     		 return(request.then(function(response){
     			 return response.data;
     		 }));

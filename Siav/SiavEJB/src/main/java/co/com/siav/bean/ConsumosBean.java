@@ -61,28 +61,14 @@ public class ConsumosBean {
 			instalacion.setSerieMedidor(request.getNuevoMedidor());
 			instalacionesRep.save(instalacion);
 			guardarAuditoria(cicloAbierto.getCiclo(), instalacion.getNumeroInstalacion(), usuario, 
-					consumoBD.getConsumoMes(), request.getConsumo(), consumoBD.getLecturaActual(), request.getLecturaCorregida(), request.getObservacion());
+					consumoBD.getConsumoMes(), request.getConsumo(), null, null, request.getObservacion());
 			return new MensajeResponse(Constantes.ACTUALIZACION_EXITO);
 		}catch(Exception e){
 			return new MensajeResponse(EstadoEnum.ERROR, Constantes.ACTUALIZACION_FALLO);
 		}
 	}
 	
-	private void guardarAuditoria(Long ciclo, Long instalacion, String usuario, Long consumo, Long consumoCorregido, Long lectura, Long lecturaCorregida, String observacion){
-		ConsumoAuditoria auditoria = new ConsumoAuditoria();
-		auditoria.setCiclo(ciclo);
-		auditoria.setConsumo(consumo);
-		auditoria.setConsumoCorregido(consumoCorregido);
-		auditoria.setFecha(new Date());
-		auditoria.setInstalacion(instalacion);
-		auditoria.setLectura(lectura);
-		auditoria.setLecturaCorregida(lecturaCorregida);
-		auditoria.setObservacion(observacion);
-		auditoria.setUsuario(usuario);
-		audiRep.save(auditoria);
-	}
-	
-	public MensajeResponse guardarCorreccion(CorreccionConsumoRequest request) {
+	public MensajeResponse guardarCorreccionConsumo(CorreccionConsumoRequest request, String usuario) {
 		try{
 			Ciclo cicloAbierto = ciclosRep.findFirstByEstadoOrderByCicloDesc(Constantes.ABIERTO);
 			ConsumoPK pk = new ConsumoPK();
@@ -90,6 +76,27 @@ public class ConsumosBean {
 			pk.setInstalacion(request.getNumeroInstalacion());
 			pk.setSerieMedidor(request.getAntiguoMedidor());
 			Consumo consumoBD = consumosRep.findOne(pk);
+			guardarAuditoria(cicloAbierto.getCiclo(), request.getNumeroInstalacion(), usuario, 
+					consumoBD.getConsumoMes(), request.getConsumo(), null, null, request.getObservacion());
+			consumoBD.setConsumoDefinitivo(request.getConsumo());
+			consumoBD.setAjustado(true);
+			consumosRep.save(consumoBD);
+			return new MensajeResponse(Constantes.ACTUALIZACION_EXITO);
+		}catch(Exception e){
+			return new MensajeResponse(EstadoEnum.ERROR, Constantes.ACTUALIZACION_FALLO);
+		}
+	}
+	
+	public MensajeResponse guardarCorreccion(CorreccionConsumoRequest request, String usuario) {
+		try{
+			Ciclo cicloAbierto = ciclosRep.findFirstByEstadoOrderByCicloDesc(Constantes.ABIERTO);
+			ConsumoPK pk = new ConsumoPK();
+			pk.setCiclo(cicloAbierto.getCiclo());
+			pk.setInstalacion(request.getNumeroInstalacion());
+			pk.setSerieMedidor(request.getAntiguoMedidor());
+			Consumo consumoBD = consumosRep.findOne(pk);
+			guardarAuditoria(cicloAbierto.getCiclo(), request.getNumeroInstalacion(), usuario, 
+					consumoBD.getConsumoMes(), request.getConsumo(), consumoBD.getLecturaActual(), request.getLecturaCorregida(), request.getObservacion());
 			consumoBD.setConsumoDefinitivo(request.getConsumo());
 			consumoBD.setLecturaActualCorregido(consumoBD.getLecturaActual());
 			consumoBD.setLecturaActual(request.getLecturaCorregida());
@@ -122,7 +129,19 @@ public class ConsumosBean {
 		consumo.setDiferencia(consumo.getConsumoActual() - consumo.getConsumoAnterior());
 		return consumo;
 	}
+	
+	private void guardarAuditoria(Long ciclo, Long instalacion, String usuario, Long consumo, Long consumoCorregido, Long lectura, Long lecturaCorregida, String observacion){
+		ConsumoAuditoria auditoria = new ConsumoAuditoria();
+		auditoria.setCiclo(ciclo);
+		auditoria.setConsumo(consumo);
+		auditoria.setConsumoCorregido(consumoCorregido);
+		auditoria.setFecha(new Date());
+		auditoria.setInstalacion(instalacion);
+		auditoria.setLectura(lectura);
+		auditoria.setLecturaCorregida(lecturaCorregida);
+		auditoria.setObservacion(observacion);
+		auditoria.setUsuario(usuario);
+		audiRep.save(auditoria);
+	}
 
-	
-	
 }
