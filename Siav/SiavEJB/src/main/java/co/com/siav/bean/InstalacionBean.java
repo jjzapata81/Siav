@@ -1,5 +1,7 @@
 package co.com.siav.bean;
 
+import java.util.Date;
+
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -64,8 +66,12 @@ public class InstalacionBean {
 		consumo.setLecturaActual(0L);
 		consumo.setLecturaAnterior(0L);
 		consumo.setConsumoPromedio(0L);
+		consumo.setConsumoMes(0L);
+		consumo.setConsumoDefinitivo(0L);
 		consumo.setSincronizado(false);
 		consumo.setCodigoCausaNoLectura(0L);
+		consumo.setFechaDesde(new Date());
+		consumo.setFechaHasta(new Date());
 		consumosRep.save(consumo);
 		return consumo;
 	}
@@ -79,9 +85,11 @@ public class InstalacionBean {
 	}
 	
 	private Long crearNumeroInstalacion(Long codigoVereda) {
-		long consecutivo = instalacionRep.getMaxId(codigoVereda);
+		Long limiteInicial = codigoVereda * 1000L;
+		Long limiteFinal = (codigoVereda + 1L) * 1000L;
+		long consecutivo = instalacionRep.getMaxNumeroInstalacion(limiteInicial, limiteFinal);
 		if(consecutivo == 0){
-			consecutivo = codigoVereda * 1000L;
+			return limiteInicial;
 		}
 		return consecutivo  + 1L;
 	}

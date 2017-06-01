@@ -14,6 +14,8 @@ public interface IRepositoryInstalaciones extends JpaRepository<Instalacion, Lon
 	@Query("select coalesce(max(i.numeroInstalacion), '0') from Instalacion i where i.vereda.codigo = :codigoVereda")
 	Long getMaxId(@Param("codigoVereda") Long codigoVereda);
 	
+	@Query("select coalesce(max(i.numeroInstalacion), '0') from Instalacion i where i.numeroInstalacion >= :limiteInicial AND i.numeroInstalacion < :limiteFinal")
+	Long getMaxNumeroInstalacion(@Param("limiteInicial") Long limiteInicial, @Param("limiteFinal") Long limiteFinal);
 	
 	@Query("select i from Instalacion i where i.numeroInstalacion not in (select c.id.instalacion from Consumo c)")
 	List<Instalacion> findNewInstalacion();
