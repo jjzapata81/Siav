@@ -78,7 +78,8 @@ define(['siav-module'], function(app) {
     		"ERR_SIN_FECHA" : "No se puede cerra un ciclo sin fechas."
     	},
     	"CONFIGURACION_RUTA" : {
-    		"ERR_INSTALACION_OBLIGATORIO" : "Debe ingresar el número de instalación que antecede la instalación actual."
+    		"ERR_INSTALACION_OBLIGATORIO" : "Debe ingresar el número de instalación que antecede la instalación actual.",
+    		"ERR_CAMBIO_RAMAL" : "Para hacer un cambio de ruta debe indicar la nueva posición de la instalación."
     	},
     	"CREDITO" : {
     		"GUARDAR_EXITO" : "El crédito se ha registrado de manera exitosa.",

@@ -9,7 +9,7 @@ repositories {
 
 dependencies {
 
-	compile 'org.springframework.data:spring-data-jpa:1.9.1.RELEASE'
+	compile 'org.springframework.data:spring-data-jpa:1.11.3.RELEASE'
 	compile 'org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final'
 	compile 'org.jboss.spec:jboss-javaee-6.0:3.0.3.Final'
 	testCompile 'junit:junit:4.11'

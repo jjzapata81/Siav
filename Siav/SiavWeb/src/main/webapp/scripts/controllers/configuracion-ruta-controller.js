@@ -9,6 +9,7 @@ define(['siav-module', 'ruta-services', 'ramal-services', 'constantes', 'modal-f
     		$scope.instalaciones = [];
     		$scope.estaEditando = false;
     		$scope.instalacionAnterior = null;
+    		$scope.ramalTemp = null;
     		$scope.esPrimer = 'true';
     		$scope.mostrarInstalacion = false;
     		$scope.consultarInstalaciones();
@@ -48,6 +49,7 @@ define(['siav-module', 'ruta-services', 'ramal-services', 'constantes', 'modal-f
         		.consultarPorNumero($scope.numeroInstalacion)
         		.then(function(instalacion){
         			$scope.instalacionCorregir = instalacion;
+        			$scope.ramalTemp = angular.copy(instalacion.ramal);
         			var filtro = $filter('filter')($scope.ramales, { codigoRamal : $scope.instalacionCorregir.ramal })[0];
         			$scope.instalacionCorregir.ramal = filtro;
         			$scope.estaEditando = true;
@@ -85,6 +87,10 @@ define(['siav-module', 'ruta-services', 'ramal-services', 'constantes', 'modal-f
     			modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.CONFIGURACION_RUTA.ERR_INSTALACION_OBLIGATORIO);
     			return false;
     		}
+    		if($scope.ramalTemp && $scope.ramalTemp != $scope.instalacionCorregir.ramal.codigoRamal && !$scope.instalacionCorregir.cambiarOrden){
+    			modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.CONFIGURACION_RUTA.ERR_CAMBIO_RAMAL);
+    			return false;
+    		}
     		return true;
     	}
     	
@@ -92,6 +98,7 @@ define(['siav-module', 'ruta-services', 'ramal-services', 'constantes', 'modal-f
     		$scope.estaEditando = true;
     		$scope.cambiarOrden = 'No';
     		$scope.instalacionCorregir = angular.copy(instalacion);
+    		$scope.ramalTemp = angular.copy(instalacion.ramal.codigoRamal);
     	}
     	
     	$scope.itemsPerPage = 15;

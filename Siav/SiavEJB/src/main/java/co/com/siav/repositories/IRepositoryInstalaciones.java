@@ -40,5 +40,8 @@ public interface IRepositoryInstalaciones extends JpaRepository<Instalacion, Lon
 
 	@Query("SELECT i FROM Instalacion i WHERE i.orden > :orden ORDER BY i.orden")
 	List<Instalacion> findNextByOrden(@Param("orden") Long orden);
+
+	@Query("SELECT i FROM Instalacion i WHERE i.orden < 99999 ORDER BY i.orden DESC")
+	List<Instalacion> findLastByOrden();
 	
 }

@@ -71,6 +71,10 @@ public class RutaBean {
 		}
 		Instalacion instalacionSiguiente = instalacionesRep.findNextByOrden(instalacionAnterior.getOrden()).stream().findFirst().orElse(null);
 		if(null == instalacionSiguiente || instalacionSiguiente.getOrden().equals(SIN_ORDEN)){
+			if(instalacionAnterior.getOrden().equals(SIN_ORDEN)){
+				Optional<Instalacion> ultimaInstalacion = instalacionesRep.findLastByOrden().stream().findFirst();
+				return ultimaInstalacion.map(Instalacion::getOrden).orElse(SIN_ORDEN);
+			}
 			return instalacionAnterior.getOrden() + 100L;
 		}
 		return Long.valueOf(Math.round((instalacionSiguiente.getOrden() - instalacionAnterior.getOrden())/ 2) + instalacionAnterior.getOrden());

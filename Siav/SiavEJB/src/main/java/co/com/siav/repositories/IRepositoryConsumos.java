@@ -18,8 +18,9 @@ public interface IRepositoryConsumos extends JpaRepository<Consumo, ConsumoPK>{
 
 	List<Consumo> findByIdCicloAndInstalacionActivoAndInstalacionFacturacion(Long ciclo, String activo, String facturacion);
 	
-	@Query("select c from Consumo c where c.id.ciclo = :ciclo and c.sincronizado = 'S' and c.instalacion.activo = :activo and c.instalacion.facturacion = :facturacion order by c.id.instalacion")
-	List<Consumo> findConsumosPrefactura(@Param(value="ciclo") Long ciclo, @Param(value="activo") String activo, @Param(value="facturacion") String facturacion);
+//	@Query("select c from Consumo c where c.id.ciclo = :ciclo and c.sincronizado = 'S' and c.instalacion.activo = :activo and c.instalacion.facturacion = :facturacion order by c.id.instalacion")
+	@Query("select c from Consumo c where c.id.ciclo = :ciclo and c.sincronizado = 'S' and c.instalacion.activo = :activo order by c.id.instalacion")
+	List<Consumo> findConsumosPrefactura(@Param(value="ciclo") Long ciclo, @Param(value="activo") String activo);
 	
 	@Query("SELECT c FROM Consumo c WHERE c.instalacion.activo = :activo AND c.instalacion.ramal = :ramal AND c.id.ciclo = :ciclo "
 			+ "AND c.instalacion.numeroInstalacion NOT IN (SELECT ac.instalacion.numeroInstalacion FROM Consumo ac WHERE ac.id.ciclo = :cicloAbierto) "

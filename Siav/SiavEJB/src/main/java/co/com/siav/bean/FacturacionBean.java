@@ -3,6 +3,7 @@ package co.com.siav.bean;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.ejb.Asynchronous;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -83,7 +84,7 @@ public class FacturacionBean {
 		}
 		cicloActual = ciclo.getCiclo();
 		cicloAnterior = cicloRep.findMaximoCicloPorEstado(Constantes.CERRADO);
-		List<Consumo> consumos = consumosRep.findConsumosPrefactura(ciclo.getCiclo(), Constantes.SI, Constantes.FACTURACION_NORMAL);
+		List<Consumo> consumos = consumosRep.findConsumosPrefactura(ciclo.getCiclo(), Constantes.SI);
 		Long instalacionesActivas = instalacionRep.countByActivo(Constantes.SI);
 		try{
 			validador.ejecutar(consumos, instalacionesActivas, excesosRep.findAll(), tarifasRep.findAll(), sistema.getEsPorEstrato());
@@ -94,11 +95,10 @@ public class FacturacionBean {
 		facturador = getFacturador();		
 		borrarPrefacturacion(ciclo.getCiclo());
 		borrarDetelleCredito(ciclo.getCiclo());
-		List<Factura> collect = consumos.stream().map(this::crearFactura).collect(Collectors.toList());
+		List<Factura> collect = consumos.stream().filter(consumo->consumo.getInstalacion().getFacturacion().equals(Constantes.FACTURACION_NORMAL)).map(this::crearFactura).collect(Collectors.toList());
 		return new MensajeResponse(EstadoEnum.OK, Constantes.getMensaje(Constantes.PREFACTURACION_EXITO, String.valueOf(collect.size())));
 	}
 
-	
 	private Factura crearFactura(Consumo consumo) {
 		Factura factura = new Factura();
 		Factura facturaAnterior = facturasRep.findByFacturaCuentasVencidas(consumo.getInstalacion().getNumeroInstalacion(), cicloAnterior);
@@ -148,10 +148,12 @@ public class FacturacionBean {
 		return tarifador.generar(consumo, numeroFactura, facturaAnterior ,sistema, facturador);
 	}
 
+	@Asynchronous
 	private void borrarPrefacturacion(Long ciclo) {
 		facturasRep.deleteByCiclo(ciclo);
 	}
 	
+	@Asynchronous
 	private void borrarDetelleCredito(Long ciclo) {
 		detalleCreditoRep.deleteByIdCiclo(ciclo);
 	}
