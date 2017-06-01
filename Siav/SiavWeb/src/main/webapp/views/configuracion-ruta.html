@@ -2,9 +2,9 @@
 <menu></menu>
 <div  class="contenido">
 	<div  class="boton-fijo">
-		<a ng-click="onBuscar()" uib-tooltip="Buscar consumos" tooltip-placement="left"><i class="fa fa-search icon-float icon-search" aria-hidden="true"></i></a>
-		<a ng-click="onCancelar()" uib-tooltip="Cancelar" tooltip-placement="left" ng-show="estaEditando"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
+		<a ng-click="onBuscar()" uib-tooltip="Buscar consumos" tooltip-placement="left" ng-show="!estaEditando"><i class="fa fa-search icon-float icon-search" aria-hidden="true"></i></a>
 		<a ng-click="onGuardar()" uib-tooltip="Guardar" tooltip-placement="left" ng-show="estaEditando"><i class="fa fa-floppy-o icon-float icon-save" aria-hidden="true"></i></a>
+		<a ng-click="onCancelar()" uib-tooltip="Cancelar" tooltip-placement="left" ng-show="estaEditando"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
 	</div>
 	<section class="titulo-seccion">Configuraci&oacute;n de ruta</section>
 	<section class="formulario form-fijo" ng-show="estaEditando">
@@ -24,38 +24,39 @@
 				</li>
 				<li>
 					<label>Ramal:</label><br>
-					<input type="text" ng-model="instalacionCorregir.ramal" ng-disabled="true"/>
+					<select
+						ng-model="instalacionCorregir.ramal"
+				    	ng-options="ramal as ramal.nombre for ramal in ramales track by ramal.codigoRamal"
+				    	ng-disabled="!estaEditando">
+      				</select>
 				</li>
 				<li>
 					<label>Serie medidor:</label><br>
 					<input type="text" ng-model="instalacionCorregir.serieMedidor" />
 				</li>
+				<li>
+					<label>Cambiar orden:</label><br>
+					<input type="checkbox" ng-model="cambiarOrden" class="chk-config" ng-true-value="'Si'" ng-false-value="'No'" ng-change="esCambioOrden()"/> {{cambiarOrden}}
+				</li>
 			</ul>
-			<ul class="flex">
+			<ul class="flex" ng-show="instalacionCorregir.cambiarOrden">
 				<li>
 					<label>Establecer orden:</label><br>
-					<input type="radio" class="rbt-config" ng-model="esPrimer" value=true/> Primer lugar
-					<input type="radio" class="rbt-config" ng-model="esPrimer" value=false/> Despu&eacute;s de...
+					<input type="radio" class="rbt-config" ng-model="esPrimer" value=true ng-change="seleccionOrden()"/> Primer lugar
 				</li>
-				<li ng-if="esPrimer=='false'">
-					<label>Ramal:</label><br>
-					<select
-						class="select-ramal"
-						ng-model="ramalSeleccionado"
-				    	ng-options="ramal as ramal.nombre for ramal in ramales track by ramal.codigoRamal"
-				    	ng-disabled="!estaEditando">
-				    	<option value=''>Seleccione...</option>
-      				</select>
+				<li class="ancho-133">
+					<label>&nbsp;</label><br>
+					<input type="radio" class="rbt-config" ng-model="esPrimer" value=false ng-change="seleccionOrden()"/> Despu&eacute;s de...
 				</li>
-				<li ng-if="esPrimer=='false'">
+				<li ng-show="mostrarInstalacion">
 					<label>Instalaci&oacute;n:</label><br>
-					<input type="text" ng-model="instalacionAnterior" ng-disabled="true"/>	
+					<input type="text" ng-model="instalacionAnterior"/>	
 				</li>
 			</ul>
 		</div>
 	</section>
-	<section class="formulario form-fijo">
-		<div ng-show="!estaEditando">
+	<section class="formulario form-fijo" ng-show="!estaEditando">
+		<div>
 			<ul class="flex">
 				<li>
 					<label>Buscar instalaci&oacute;n:</label><br>
@@ -75,13 +76,13 @@
 				<th>Instalaci&oacute;n</th>
 				<th>Nombre</th>
 				<th>Ramal</th>
-				<th>Serie<br>medidor</th>
+				<th>Serie medidor</th>
 			</thead>
 			<tbody>
 				<tr ng-repeat="instalacion in instalaciones | orderBy:'-ramal' | startFrom:(currentPage-1)*itemsPerPage | limitTo:itemsPerPage">
 					<td>{{instalacion.instalacion}}</td>
 					<td><a ng-click="onCambiarOrden(instalacion)">{{instalacion.nombre}} {{instalacion.apellido}}</a></td>
-					<td>{{instalacion.ramal}}</td>
+					<td>{{instalacion.ramal.nombre}}</td>
 					<td>{{instalacion.serieMedidor}}</td>
 				</tr>
 			</tbody>

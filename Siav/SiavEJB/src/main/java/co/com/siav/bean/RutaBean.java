@@ -1,6 +1,7 @@
 package co.com.siav.bean;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.ejb.Stateless;
@@ -8,8 +9,11 @@ import javax.inject.Inject;
 
 import co.com.siav.dto.ConfiguracionRuta;
 import co.com.siav.entities.Instalacion;
+import co.com.siav.exception.ExcepcionNegocio;
 import co.com.siav.repositories.IRepositoryInstalaciones;
+import co.com.siav.response.EstadoEnum;
 import co.com.siav.response.MensajeResponse;
+import co.com.siav.utils.Constantes;
 
 @Stateless
 public class RutaBean {
@@ -38,8 +42,38 @@ public class RutaBean {
 	}
 
 	public MensajeResponse guardar(ConfiguracionRuta request) {
-		// TODO Auto-generated method stub
-		return null;
+		Instalacion instalacionBD = instalacionesRep.findOne(request.getInstalacion());
+		if(null == instalacionBD){
+			return new MensajeResponse(EstadoEnum.ERROR, Constantes.getMensaje(Constantes.INSTALACION_NO_EXISTE, request.getInstalacion()));
+		}
+		if(request.isCambiarOrden()){
+			instalacionBD.setOrden(getOrden(request));
+		}
+		instalacionBD.setSerieMedidor(request.getSerieMedidor());
+		instalacionBD.setRamal(request.getRamal());
+		instalacionesRep.save(instalacionBD);
+		return new MensajeResponse(Constantes.ACTUALIZACION_EXITO);
+		
+		
+	}
+
+	private Long getOrden(ConfiguracionRuta request) {
+		if(null == request.getInstalacionAnterior()){
+			Instalacion primeraInstalacion = instalacionesRep.findFirstOrderByOrden().stream().findFirst().orElseThrow(()->new ExcepcionNegocio("No existen instalaciones para ese ramal."));
+			return Long.valueOf(Math.round(primeraInstalacion.getOrden() / 2));
+		}
+		Instalacion instalacionAnterior = instalacionesRep.findOne(request.getInstalacionAnterior());
+		if(null == instalacionAnterior){
+			throw new ExcepcionNegocio(Constantes.getMensaje(Constantes.INSTALACION_NO_EXISTE,request.getInstalacionAnterior()));
+		}
+		if(!request.getRamal().equals(instalacionAnterior.getRamal())){
+			throw new ExcepcionNegocio(Constantes.getMensaje(Constantes.ERR_RAMAL_DIFERENTE,request.getInstalacion(), instalacionAnterior.getNumeroInstalacion()));
+		}
+		Instalacion instalacionSiguiente = instalacionesRep.findNextByOrden(instalacionAnterior.getOrden()).stream().findFirst().orElse(null);
+		if(null == instalacionSiguiente || instalacionSiguiente.getOrden().equals(SIN_ORDEN)){
+			return instalacionAnterior.getOrden() + 100L;
+		}
+		return Long.valueOf(Math.round((instalacionSiguiente.getOrden() - instalacionAnterior.getOrden())/ 2) + instalacionAnterior.getOrden());
 	}
 
 

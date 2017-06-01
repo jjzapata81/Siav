@@ -82,6 +82,7 @@ public class Constantes {
 	public static final String ERR_FALTA_COMPROBANTE = "No existe el comprobante número %s.";
 	public static final String ERR_COMPROBANTE_NO_MATRICULA = "El comprobante número %s no corresponde a una matrícula.";
 	public static final String ERR_COMPROBANTE_VALOR = "El valor del comprobante de pago (%s) es diferente al valor ingresado (%s).";
+	public static final String ERR_RAMAL_DIFERENTE = "El ramal de la instalación %s es diferente al ramal de la instalación %s.";
 	
 	public static String getMensaje(String mensaje, Long codigo) {
 		return getMensaje(mensaje, String.valueOf(codigo));

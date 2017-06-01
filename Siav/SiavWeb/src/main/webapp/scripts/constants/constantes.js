@@ -77,6 +77,9 @@ define(['siav-module'], function(app) {
     		"CONFIRMAR_CIERRE_COMPLEMENTO" : ". Desea continuar?",
     		"ERR_SIN_FECHA" : "No se puede cerra un ciclo sin fechas."
     	},
+    	"CONFIGURACION_RUTA" : {
+    		"ERR_INSTALACION_OBLIGATORIO" : "Debe ingresar el número de instalación que antecede la instalación actual."
+    	},
     	"CREDITO" : {
     		"GUARDAR_EXITO" : "El crédito se ha registrado de manera exitosa.",
     		"ERR_VALOR_OBLIGATORIO" : "El valor del crédito es obligatorio.",
