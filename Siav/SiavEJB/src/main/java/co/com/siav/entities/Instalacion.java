@@ -205,11 +205,6 @@ public class Instalacion implements Serializable{
 		this.activo = activo ? "S" : "N";
 	}
 
-	@PrePersist
-	private void onPrePersist(){
-		activo = "S";
-	}
-	
 	public Long getOrden() {
 		return orden;
 	}

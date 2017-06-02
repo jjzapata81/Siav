@@ -1,0 +1,1 @@
+ALTER TABLE ta_instalacion ADD COLUMN femedidor timestamp without time zone;

@@ -44,11 +44,32 @@ public final class Utilidades {
 		Long actual = null == lecturaActual ? lecturaAnterior : lecturaActual;
 		return actual - anterior;
 	}
-
+	
+//	public static Long extract(Long lecturaActual, Long lecturaAnterior, Long digitosMedidor, Long epsilon) {
+//		Long anterior = null == lecturaAnterior ? 0L : lecturaAnterior;
+//		Long actual = null == lecturaActual ? lecturaAnterior : lecturaActual;
+//		Long consumo =  actual - anterior;
+//		if(consumo < 0L){
+//			if(Math.abs(consumo) > epsilon){
+//				Double limiteD = Math.pow(10, digitosMedidor);
+//				Long limiteMedidor = limiteD.longValue() - 1L;
+//				consumo = limiteMedidor - lecturaAnterior + lecturaActual;
+//			}
+//		}
+//		return consumo;
+//	}
+	
 	public static Date fechaMasDias(Date fecha, int dias) {
 		Calendar c = Calendar.getInstance();
 		c.setTime(fecha);
 		c.add(Calendar.DAY_OF_MONTH, dias);
+		return c.getTime();
+	}
+
+	public static Date fechaPrimerDia(Date fecha) {
+		Calendar c = Calendar.getInstance();
+		c.setTime(fecha);
+		c.set(Calendar.DAY_OF_MONTH, 1);
 		return c.getTime();
 	}
 }

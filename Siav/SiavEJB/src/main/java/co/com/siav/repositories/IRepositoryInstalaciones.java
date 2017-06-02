@@ -1,5 +1,6 @@
 package co.com.siav.repositories;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -45,5 +46,8 @@ public interface IRepositoryInstalaciones extends JpaRepository<Instalacion, Lon
 
 	@Query("SELECT i FROM Instalacion i WHERE i.orden < 99999 ORDER BY i.orden DESC")
 	List<Instalacion> findLastByOrden();
+
+	@Query("SELECT i FROM Instalacion i WHERE i.activo = 'N' AND i.fechaInstalacion < :fechaInstalacion")
+	List<Instalacion> findToActivate(@Param("fechaInstalacion") Date fecha);
 	
 }

@@ -2,25 +2,28 @@ package co.com.siav.bean;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
+import javax.ejb.Asynchronous;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
-import org.springframework.scheduling.annotation.Async;
-
 import co.com.siav.entities.Ciclo;
+import co.com.siav.entities.Consumo;
+import co.com.siav.entities.ConsumoPK;
 import co.com.siav.entities.CreditoDetalle;
 import co.com.siav.entities.CreditoMaestro;
 import co.com.siav.entities.DetalleFactura;
 import co.com.siav.entities.Factura;
+import co.com.siav.entities.Instalacion;
 import co.com.siav.repositories.IRepositoryCiclos;
+import co.com.siav.repositories.IRepositoryConsumos;
 import co.com.siav.repositories.IRepositoryCreditoMaestro;
 import co.com.siav.repositories.IRepositoryFacturas;
 import co.com.siav.repositories.IRepositoryInstalaciones;
 import co.com.siav.response.EstadoEnum;
 import co.com.siav.response.MensajeResponse;
 import co.com.siav.utils.Constantes;
+import co.com.siav.utils.Utilidades;
 
 @Stateless
 public class CiclosBean {
@@ -37,6 +40,8 @@ public class CiclosBean {
 	@Inject
 	private IRepositoryFacturas facturasRep;
 	
+	@Inject
+	private IRepositoryConsumos consumosRep;
 
 	public Ciclo consultar() {
 		return ciclosRep.findFirstByEstadoOrderByCicloDesc(Constantes.ABIERTO);
@@ -71,18 +76,27 @@ public class CiclosBean {
 			ciclosRep.save(cicloActual);
 			crearNuevoCiclo(cicloActual);
 			marcarCuentasVencidas(cicloActual.getCiclo());
-			
+			actualizarInstalaciones(cicloActual);
 			return new MensajeResponse(Constantes.getMensaje(Constantes.CICLO_CERRADO, cicloActual.getCiclo()));
 		}catch (Exception e){
 			return new MensajeResponse(EstadoEnum.ERROR, e.getMessage());
 		}
 	}
 
+	private void actualizarInstalaciones(Ciclo cicloActual) {
+		List<Instalacion> inactivas = instalacionesRep.findToActivate(cicloActual.getFecha());
+		inactivas.stream().forEach(instalacion -> actualizar(instalacion, cicloActual));
+	}
+
+	private void actualizar(Instalacion instalacion, Ciclo cicloActual) {
+		instalacion.setActivo(true);
+		instalacionesRep.save(instalacion);
+		crearConsumo(instalacion, cicloActual);
+	}
+
 	private void actualzarCreditos(Long ciclo) {
 		List<CreditoMaestro> creditos = creditosRep.findAllSinCancelar();
 		creditos.stream().forEach(credito -> actualizar(credito, ciclo));
-		
-		
 	}
 
 	private void actualizar(CreditoMaestro credito, Long ciclo) {
@@ -96,7 +110,7 @@ public class CiclosBean {
 		Ciclo nuevoCiclo = new Ciclo();
 		nuevoCiclo.setCiclo(ciclo.getCiclo() + 1L);
 		nuevoCiclo.setEstado(Constantes.ABIERTO);
-		nuevoCiclo.setFecha(new Date());
+		nuevoCiclo.setFecha(Utilidades.fechaPrimerDia(new Date()));
 		nuevoCiclo.setMensaje(ciclo.getMensaje());
 		nuevoCiclo.setMensajePuntoPago(ciclo.getMensajePuntoPago());
 		nuevoCiclo.setMensajeReclamo(ciclo.getMensajeReclamo());
@@ -104,14 +118,20 @@ public class CiclosBean {
 	}
 
 	private void marcarCuentasVencidas(Long numeroCiclo) {
-		instalacionesRep.updateCuentasVencidas(numeroCiclo);
+		facturasRep.findByCiclo(numeroCiclo).stream().forEach(this::actualizarCuentasVencidas);
+	}
+	
+	@Asynchronous
+	private void actualizarCuentasVencidas(Factura factura){
+		Instalacion instalacion = instalacionesRep.findOne(factura.getNumeroInstalacion());
+		instalacion.setCuentasVencidas(factura.getCuentasVencidas());
+		instalacionesRep.save(instalacion);
 	}
 	
 	private void completarHistorico(Long cicloActual) {
 		Ciclo cicloAnterior = ciclosRep.findFirstByEstadoOrderByCicloDesc(Constantes.CERRADO);
 		List<Factura> facturas = facturasRep.findByCiclo(cicloActual);
 		facturas.stream().forEach(factura -> completar(factura, cicloAnterior));
-		
 	}
 	
 	private void completar(Factura factura, Ciclo cicloAnterior){
@@ -140,6 +160,28 @@ public class CiclosBean {
 		sb.append(String.format("%d-%s;", facturaAnterior.getConsumo(), mesAnterior));
 		return sb.toString();
 	}
+	
+	private Consumo crearConsumo(Instalacion instalacion, Ciclo ciclo) {
+		Consumo consumo = new Consumo();
+		consumo.setId(crearConsumoPK(instalacion.getNumeroInstalacion(), ciclo, instalacion.getSerieMedidor()));
+		consumo.setLecturaActual(0L);
+		consumo.setLecturaAnterior(0L);
+		consumo.setConsumoPromedio(0L);
+		consumo.setConsumoMes(0L);
+		consumo.setConsumoDefinitivo(0L);
+		consumo.setSincronizado(true);
+		consumo.setCodigoCausaNoLectura(0L);
+		consumo.setFechaDesde(new Date());
+		consumo.setFechaHasta(new Date());
+		consumosRep.save(consumo);
+		return consumo;
+	}
 
-
+	private ConsumoPK crearConsumoPK(Long instalacion, Ciclo ciclo, String serieMedidor) {
+		ConsumoPK pk = new ConsumoPK();
+		pk.setCiclo(ciclo.getCiclo());
+		pk.setInstalacion(instalacion);
+		pk.setSerieMedidor(serieMedidor);
+		return pk;
+	}
 }

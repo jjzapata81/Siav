@@ -166,18 +166,4 @@ public class MovilBean {
 		return macro;
 	}
 	
-//	private Long calculoConsumo(Long lecturaActual, Long lecturaAnterior, Long digitosMedidor, Long consumoPromedio){
-//	Long consumoPeriodo = lecturaActual - lecturaAnterior;
-//	if(consumoPeriodo < 0L){
-//		if(Math.abs(consumoPeriodo) > sistema.getEpsilon()){
-//			Double limiteD = Math.pow(10, digitosMedidor);
-//			Long limiteMedidor = limiteD.longValue();
-//			consumoPeriodo = limiteMedidor - lecturaAnterior + lecturaActual;
-//		}
-//	}else if(consumoPeriodo == 0L){
-//		consumoPeriodo = consumoPromedio;
-//	}
-//	return consumoPeriodo;
-//}
-
 }
