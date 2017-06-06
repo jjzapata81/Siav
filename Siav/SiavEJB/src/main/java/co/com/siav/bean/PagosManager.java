@@ -75,6 +75,7 @@ public class PagosManager {
 		if(pago.getValor() == saldo + valor){
 			factura.getDetalles().stream().forEach(item -> item.setCancelado(true));
 		}else{
+			factura.setAbono(true);
 			controlPago = pago.getValor();
 			orden.stream().forEachOrdered(o -> partialPay(o, factura));
 			factura.getDetalles().stream().filter(detalle -> !detalle.getAcumulado()).forEachOrdered(this::pay);
