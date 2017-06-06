@@ -32,7 +32,7 @@ define(['siav-module', 'bancos-services', 'pagos-services', 'modal-factory', 'co
     	
     	$scope.consultarCuentas = function(){
     		bancosServices
-    		.consultar()
+    		.consultarCuentas()
     		.then(function(bancos){
     			$scope.bancos = bancos;
     		});

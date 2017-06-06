@@ -20,7 +20,7 @@ define(['siav-module', 'modal-factory', 'constantes', 'pagos-services', 'bancos-
         
         $scope.cargarCuentas = function(){
     		bancosServices
-    		.consultar()
+    		.consultarCuentas()
     		.then(function(cuentas){
     			$scope.cuentas = cuentas;
     			angular.forEach($scope.cuentas, function(cuenta, key) {

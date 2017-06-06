@@ -84,6 +84,8 @@ public class Constantes {
 	public static final String ERR_COMPROBANTE_VALOR = "El valor del comprobante de pago (%s) es diferente al valor ingresado (%s).";
 	public static final String ERR_RAMAL_DIFERENTE = "El ramal de la instalación %s es diferente al ramal de la instalación %s.";
 	public static final Long SIN_ORDEN = 99999L;
+	public static final String ERR_GENERACION_CREDITO = "ERROR buscando credito instalación %s.";
+	public static final String ERR_CREAR_BANCO = "Ocurrió un error al guardar el banco.";
 	
 	public static String getMensaje(String mensaje, Long codigo) {
 		return getMensaje(mensaje, String.valueOf(codigo));

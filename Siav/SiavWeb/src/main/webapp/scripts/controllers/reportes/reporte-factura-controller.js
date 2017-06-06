@@ -49,7 +49,7 @@ define(['siav-module', 'reportes-services', 'modal-email', 'modal-factory', 'con
         
         $scope.validar = function(){
         	if(!$scope.filtro || $scope.filtro.ciclo < 1){
-        		modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.ERR.OBLIGATORIO);
+        		modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.ERR.CICLO_OBLIGATORIO);
         		return false;
         	}
         	return true;

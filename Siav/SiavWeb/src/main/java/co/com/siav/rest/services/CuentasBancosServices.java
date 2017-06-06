@@ -13,6 +13,7 @@ import javax.ws.rs.core.MediaType;
 
 import co.com.siav.bean.CuentasBancosBean;
 import co.com.siav.dto.CuentaBancoDTO;
+import co.com.siav.entities.Banco;
 import co.com.siav.entities.CuentaBanco;
 import co.com.siav.response.MensajeResponse;
 
@@ -38,10 +39,17 @@ public class CuentasBancosServices {
 	}
 	
 	@GET
-	@Path("consultar")
+	@Path("consultar/cuentas")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<CuentaBanco> getCuentas(){
 		return bean.consultar();
+	}
+	
+	@GET
+	@Path("consultar")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Banco> getBancos(){
+		return bean.consultarBancos();
 	}
 	
 }

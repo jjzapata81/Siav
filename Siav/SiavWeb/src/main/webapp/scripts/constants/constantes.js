@@ -9,6 +9,7 @@ define(['siav-module'], function(app) {
     		"CREAR_BANCO" : "rest/bancos/crear",
     		"EDITAR_BANCO" : "rest/bancos/editar",
     		"CONSULTAR_BANCO" : "rest/bancos/consultar",
+    		"CONSULTAR_CUENTAS" : "rest/bancos/consultar/cuentas",
     		//Ciclos
     		"CONSULTAR_CICLOS" : "rest/ciclos/consultar",
     		"CONSULTAR_CICLOS_TODO" : "rest/ciclos/consultar/todo",
@@ -50,6 +51,7 @@ define(['siav-module'], function(app) {
     		"TOPE_OBLIGATORIO" : "Ingrese un valor para el techo.",
     		"TOPE_NEGATIVO" : "El valor del techo debe ser positivo.",
     		"OBLIGATORIO" : "Todos los campos son obligatorios.",
+    		"CICLO_OBLIGATORIO" : "Debe ingresar un número de ciclo.",
     		"OBLIGATORIO_PENDTIENTE": "Existen campos obligatorios sin diligenciar."
     	},
     	"ABONO" : {

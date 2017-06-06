@@ -20,6 +20,7 @@ import co.com.siav.facturacion.ConceptoCredito;
 import co.com.siav.facturacion.IFacturador;
 import co.com.siav.repositories.IRepositoryCreditoMaestro;
 import co.com.siav.repositories.IRepositoryNovedades;
+import co.com.siav.utils.Constantes;
 
 @Stateless
 public class Tarifador {
@@ -90,7 +91,7 @@ public class Tarifador {
 				creditos.stream().forEach(credito -> generarDetalleCredito(credito));
 			}
 		}catch(Exception e){
-			throw new ExcepcionNegocio(e.getMessage() + " ERROR buscando credito instalacion: " + instalacion);
+			throw new ExcepcionNegocio(Constantes.getMensaje(Constantes.ERR_GENERACION_CREDITO, instalacion) + " " + e.getMessage());
 		}
 	}
 

@@ -14,28 +14,22 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name="ta_cuentas")
-public class CuentaBanco implements Serializable{
+@Table(name="ta_bancos")
+public class Banco implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
-	private static final String NOMBRE_SECUENCIA = "CuentaBanco.codigo";
+	private static final String NOMBRE_SECUENCIA = "Banco.codigo";
 	
 	@Id
-	@SequenceGenerator(name = CuentaBanco.NOMBRE_SECUENCIA, sequenceName = "sq_ta_cuentas", allocationSize=1)
-	@GeneratedValue(generator = CuentaBanco.NOMBRE_SECUENCIA, strategy = GenerationType.SEQUENCE)
-	@Column(name="codigo")
-	private Long codigo;
-	
+	@SequenceGenerator(name = Banco.NOMBRE_SECUENCIA, sequenceName = "sq_ta_bancos", allocationSize=1)
+	@GeneratedValue(generator = Banco.NOMBRE_SECUENCIA, strategy = GenerationType.SEQUENCE)
 	@Column(name="nmbanco")
-	private Long codigoBanco;
+	private Long codigo;
 	
 	@Column(name="nombre")
 	private String nombre;
 	
-	@Column(name="numerocuenta")
-	private String numeroCuenta;
-
 	public Long getCodigo() {
 		return codigo;
 	}
@@ -50,22 +44,6 @@ public class CuentaBanco implements Serializable{
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
-	}
-
-	public String getNumeroCuenta() {
-		return numeroCuenta;
-	}
-
-	public void setNumeroCuenta(String numeroCuenta) {
-		this.numeroCuenta = numeroCuenta;
-	}
-	
-	public Long getCodigoBanco() {
-		return codigoBanco;
-	}
-	
-	public void setCodigoBanco(Long codigoBanco) {
-		this.codigoBanco = codigoBanco;
 	}
 	
 	@PrePersist

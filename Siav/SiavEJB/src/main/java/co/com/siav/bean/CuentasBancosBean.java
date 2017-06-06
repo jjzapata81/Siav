@@ -8,7 +8,10 @@ import javax.inject.Inject;
 import org.springframework.beans.BeanUtils;
 
 import co.com.siav.dto.CuentaBancoDTO;
+import co.com.siav.entities.Banco;
 import co.com.siav.entities.CuentaBanco;
+import co.com.siav.exception.ExcepcionNegocio;
+import co.com.siav.repositories.IRepositoryBancos;
 import co.com.siav.repositories.IRepositoryCuentasBancos;
 import co.com.siav.response.EstadoEnum;
 import co.com.siav.response.MensajeResponse;
@@ -20,6 +23,9 @@ public class CuentasBancosBean {
 	@Inject
 	private IRepositoryCuentasBancos cuentasRep;
 	
+	@Inject
+	private IRepositoryBancos bancosRep;
+	
 	public List<CuentaBanco> consultar() {
 		return cuentasRep.findAll();
 	}
@@ -28,17 +34,32 @@ public class CuentasBancosBean {
 		if(!cuentasRep.findByNombre(request.getNombre().toUpperCase().trim()).isEmpty()){
 			return new MensajeResponse(EstadoEnum.ERROR, "Ya existe una cuenta con el nombre " + request.getNombre().trim() + ".");
 		}else if(!cuentasRep.findByNumeroCuenta(request.getNumeroCuenta().trim()).isEmpty()){
-			return new MensajeResponse(EstadoEnum.ERROR, "Ya existe una cuenta con el nÃºmero " + request.getNumeroCuenta().trim() + ".");
+			return new MensajeResponse(EstadoEnum.ERROR, "Ya existe una cuenta con el número " + request.getNumeroCuenta().trim() + ".");
+		}
+		if(bancosRep.findByNombre(request.getNombreBanco().toUpperCase().trim()).isEmpty()){
+			Banco banco = new Banco();
+			banco.setNombre(request.getNombreBanco().toUpperCase().trim());
+			bancosRep.save(banco);
+			Banco bancoBD = bancosRep.findByNombre(request.getNombreBanco().toUpperCase().trim()).stream().findFirst().orElseThrow(()-> new ExcepcionNegocio(Constantes.ERR_CREAR_BANCO));
+			request.setCodigoBanco(bancoBD.getCodigo());
 		}
 		cuentasRep.save(crearCuenta(request));
-		return new MensajeResponse("Se creÃ³ la cuenta " + request.getNombre() + " " + request.getNumeroCuenta() + ".");
+		return new MensajeResponse("Se creó la cuenta " + request.getNombre() + " " + request.getNumeroCuenta() + ".");
 		
 	}
 	
 	public MensajeResponse editar(CuentaBancoDTO request) {
+		if(bancosRep.findByNombre(request.getNombreBanco().toUpperCase().trim()).isEmpty()){
+			Banco banco = new Banco();
+			banco.setNombre(request.getNombreBanco().toUpperCase().trim());
+			bancosRep.save(banco);
+			Banco bancoBD = bancosRep.findByNombre(request.getNombreBanco().toUpperCase().trim()).stream().findFirst().orElseThrow(()-> new ExcepcionNegocio(Constantes.ERR_CREAR_BANCO));
+			request.setCodigoBanco(bancoBD.getCodigo());
+		}
 		CuentaBanco cuentaBD = cuentasRep.findOne(request.getCodigo());
 		cuentaBD.setNombre(request.getNombre());
 		cuentaBD.setNumeroCuenta(request.getNumeroCuenta());
+		cuentaBD.setCodigoBanco(request.getCodigoBanco());
 		cuentasRep.save(cuentaBD);
 		return new MensajeResponse(Constantes.ACTUALIZACION_EXITO);
 	}
@@ -47,6 +68,10 @@ public class CuentasBancosBean {
 		CuentaBanco cuentaBD = new CuentaBanco();
 		BeanUtils.copyProperties(cuenta, cuentaBD);
 		return cuentaBD;
+	}
+
+	public List<Banco> consultarBancos() {
+		return bancosRep.findAll();
 	}
 
 	

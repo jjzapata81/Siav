@@ -5,6 +5,7 @@ define(['siav-module', 'constantes'], function (app) {
     app.service('bancosServices', ['$http', '$q', 'CONSTANTES', function ($http, $q, CONSTANTES) {
     	 var contrato = {
     			 consultar : consultar,
+    			 consultarCuentas : consultarCuentas,
     			 crear : crear, 
     			 editar : editar
     	 };
@@ -25,6 +26,13 @@ define(['siav-module', 'constantes'], function (app) {
     	 
     	 function consultar(){
     		 var request = $http.get(CONSTANTES.SRV.CONSULTAR_BANCO, {isArray : true});
+    		 return (request.then(function(response) {
+ 	    		return response.data;
+	    	}));
+    	 }
+    	 
+    	 function consultarCuentas(){
+    		 var request = $http.get(CONSTANTES.SRV.CONSULTAR_CUENTAS, {isArray : true});
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));
