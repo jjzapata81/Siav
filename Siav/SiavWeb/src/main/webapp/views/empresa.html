@@ -11,30 +11,33 @@
 		Empresa
 	</section>
 	<section class="formulario form-fijo">
-		<ul class="flex sistema-form">
-			<li>
-				<label>Nit:</label><br>
-				<input type="text" ng-model="empresa.nit" ng-disabled="!estaEditando"/>
-			</li>
+		<ul class="flex form-xl">
+			
 			<li>
 				<label>Nombre corto:</label><br>
-				<input type="text" ng-model="empresa.nombreCorto" ng-disabled="!estaEditando"/>
+				<input type="text" ng-model="empresa.nombreCorto" ng-disabled="!estaEditando" maxlength="50"/>
 			</li>
 			<li>
 				<label>Nombre completo:</label><br>
-				<input type="text" ng-model="empresa.nombreLargo" ng-disabled="!estaEditando"/>
+				<input type="text" ng-model="empresa.nombreLargo" ng-disabled="!estaEditando" maxlength="100"/>
 			</li>
 			<li>
 				<label>Direcci&oacute;n:</label><br>
-				<input type="text" ng-model="empresa.direccion" ng-disabled="!estaEditando"/>
+				<input type="text" ng-model="empresa.direccion" ng-disabled="!estaEditando" maxlength="50"/>
+			</li>
+		</ul>
+		<ul class="flex">
+			<li>
+				<label>Nit:</label><br>
+				<input type="text" ng-model="empresa.nit" ng-disabled="!estaEditando" maxlength="15"/>
 			</li>
 			<li>
 				<label>Tel&eacute;fono:</label><br>
-				<input type="text" ng-model="empresa.telefono" ng-disabled="!estaEditando"/>
+				<input type="text" ng-model="empresa.telefono" ng-disabled="!estaEditando" maxlength="50"/>
 			</li>
 			<li>
 				<label>Ciudad:</label><br>
-				<input type="text" ng-model="empresa.ciudad" ng-disabled="!estaEditando"/>
+				<input type="text" ng-model="empresa.ciudad" ng-disabled="!estaEditando" maxlength="50"/>
 			</li>
 		</ul>
 	</section>

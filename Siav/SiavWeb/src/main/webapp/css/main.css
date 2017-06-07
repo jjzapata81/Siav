@@ -199,7 +199,9 @@ a:hover{
 	width: 184px;
 }
 
-
+.form-xl li input{
+	width:950px;
+}
 
 .ancho-180{
 	width: 184px !important;
@@ -1072,4 +1074,10 @@ a:hover{
 
 .ancho-133{
 	width: 133px;
+}
+
+.deshabilitar,
+.deshabilitar:HOVER{
+	color: #fff;
+	font-size: 20px;
 }

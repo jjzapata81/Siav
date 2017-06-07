@@ -1,0 +1,99 @@
+<titulo/>
+<menu></menu>
+
+<div  class="contenido">
+	<div  class="boton-fijo">
+		<a ng-click="onAgregar()" uib-tooltip="Agregar" tooltip-placement="left" ng-show="!esNuevo && !estaEditando"><i class="fa fa-plus icon-float icon-add" aria-hidden="true"></i></a>
+		<a ng-click="onBuscar()" uib-tooltip="Buscar" tooltip-placement="left" ng-show="!estaEditando && esNuevo"><i class="fa fa-search icon-float icon-search" aria-hidden="true"></i></a>
+		<a ng-click="onGuardar()" uib-tooltip="Guardar" tooltip-placement="left" ng-show="existeUsuario"><i class="fa fa-floppy-o icon-float icon-save" aria-hidden="true"></i></a>
+		<a ng-click="onActualizar()" uib-tooltip="Actualizar" tooltip-placement="left" ng-show="estaEditando"><i class="fa fa-floppy-o icon-float icon-save" aria-hidden="true"></i></a>
+		<a ng-click="onCancelar()" uib-tooltip="Cancelar" tooltip-placement="left" ng-show="esNuevo || estaEditando"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
+	</div>
+	<section class="titulo-seccion">
+		Junta 
+	</section>
+	<section class="formulario form-fijo">
+		<section class="sub-titulo">{{nombreAcueducto}}</section>
+		<div class="tabla-siav" ng-show="!esNuevo && !estaEditando">
+			<table class="table table-responsive">
+				<thead>
+					<th>C&eacute;dula</th>
+					<th>Nombres</th>
+					<th>Cargo</th>
+					<th>E-mail</th>
+					<th>Tel&eacute;fono</th>
+				</thead>
+				<tbody>
+					<tr ng-repeat="usuario in junta">
+						<td>{{usuario.cedula}}</td>
+						<td><a class="link-table" ng-click="onEditar(usuario)">{{usuario.nombre}}</a></td>
+						<td>{{usuario.cargo.valor}}</td>
+						<td>{{usuario.email}}</td>
+						<td>{{usuario.telefono}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div ng-show="esNuevo">
+			<section class="sub-titulo">Buscar usuario</section>
+			<ul class="flex">
+				<li>
+					<label>Documento de identidad:</label><br>
+					<input type="text" ng-model="buscarCedula"/>
+				</li>
+			</ul>
+			<ul class="flex" ng-show="existeUsuario">
+				<li>
+					<label>Nombres:</label><br>
+					<input type="text" ng-model="usuarioNuevo.nombres" ng-disabled="true"/>
+				</li>
+				<li>
+					<label>Apellidos:</label><br>
+					<input type="text" ng-model="usuarioNuevo.apellidos" ng-disabled="true"/>
+				</li>
+				<li>
+					<label>Email:</label><br>
+					<input type="text" ng-model="usuarioNuevo.email" ng-disabled="true"/>
+				</li>
+				<li>
+					<label>Tel&eacute;fono:</label><br>
+					<input type="text" ng-model="usuarioNuevo.celular" ng-disabled="true"/>
+				</li>
+				<li>
+					<label>Cargo:</label><br>
+					<select ng-model="usuarioNuevo.cargo"
+				    	ng-options="cargo as cargo.valor for cargo in cargos track by cargo.codigo">
+     				</select>
+				</li>
+				<li>
+					<label>Acta:</label><br>
+					<input type="text" ng-model="usuarioNuevo.acta"/>
+				</li>
+			</ul>
+		</div>
+		<div  ng-show="estaEditando">
+			<section class="sub-titulo">{{usuarioEditar.nombre}}</section>
+			<ul class="flex">
+				<li>
+					<label>Cargo:</label><br>
+					<select ng-model="usuarioEditar.cargo"
+				    	ng-options="cargo as cargo.valor for cargo in cargos track by cargo.codigo">
+     				</select>
+				</li>
+				<li>
+					<label>Acta:</label><br>
+					<input type="text" ng-model="usuarioEditar.acta"/>
+				</li>
+				<li>
+					<label>&nbsp;</label><br>
+					<label><a class="deshabilitar" ng-click="onDeshabilitar()">
+						<i class="fa fa-check-circle-o" aria-hidden="true" ng-if="deshabilitar"></i>
+						<i class="fa fa-circle-o" aria-hidden="true" ng-if="!deshabilitar"></i>
+						&nbsp;Deshabilitar
+						</a>
+					</label>
+				</li>
+			</ul>
+		</div>
+	</section>
+</div>

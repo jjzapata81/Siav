@@ -42,7 +42,7 @@ INSERT INTO ta_cuentas(codigo, nmbanco, nombre, numerocuenta)
 CREATE TABLE ta_estructura
 (
   nmempresa numeric(10,0) NOT NULL,
-  cedula character varying(50) NOT NULL,
+  cedula character varying(20) NOT NULL,
   cdcargo character varying(2) NOT NULL,
   snactivo character varying(1),
   acta character varying (100),

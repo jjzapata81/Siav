@@ -54,7 +54,7 @@ public class Constantes {
 
 	public static final String CICLO_CERRADO = "El ciclo %s ha sido cerrado.";
 
-	public static final Object ACTUALIZACION_POR_ESTRATO = "Se ha cambiado el cobro por estrato. Debe proceder a actualizar los valores fijos en Tarifas y en Consumos. ";
+	public static final String ACTUALIZACION_POR_ESTRATO = "Se ha cambiado el cobro por estrato. Debe proceder a actualizar los valores fijos en Tarifas y en Consumos. ";
 
 	public static final String FACTURACION_NORMAL = "1";
 
@@ -83,9 +83,12 @@ public class Constantes {
 	public static final String ERR_COMPROBANTE_NO_MATRICULA = "El comprobante número %s no corresponde a una matrícula.";
 	public static final String ERR_COMPROBANTE_VALOR = "El valor del comprobante de pago (%s) es diferente al valor ingresado (%s).";
 	public static final String ERR_RAMAL_DIFERENTE = "El ramal de la instalación %s es diferente al ramal de la instalación %s.";
-	public static final Long SIN_ORDEN = 99999L;
 	public static final String ERR_GENERACION_CREDITO = "ERROR buscando credito instalación %s.";
 	public static final String ERR_CREAR_BANCO = "Ocurrió un error al guardar el banco.";
+	public static final String ERR_MIEMBRO_JUNTA_EXISTE = "El usuario que está tratando de ingresar ya existe.";
+	
+	public static final Long ID_EMPRESA = 1L;
+	public static final Long SIN_ORDEN = 99999L;
 	
 	public static String getMensaje(String mensaje, Long codigo) {
 		return getMensaje(mensaje, String.valueOf(codigo));

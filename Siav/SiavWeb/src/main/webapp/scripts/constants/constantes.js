@@ -28,7 +28,11 @@ define(['siav-module'], function(app) {
     		"CONSULTAR_ORDEN_RUTAS" : "rest/ruta/consultar",
     		"GUARDAR_ORDEN_RUTAS" : "rest/ruta/guardar",
     		"SISTEMA_CONSULTAR_IP":"rest/general/consultar/ip",
-    		"SISTEMA_CONSULTAR_EMPRESA" : "rest/general/consultar/empresa"
+    		"SISTEMA_CONSULTAR_ESTRUCTURA" : "rest/general/consultar/estructura",
+    		"SISTEMA_CONSULTAR_EMPRESA" : "rest/general/consultar/empresa",
+    		"SISTEMA_ACTUALIZAR_EMPRESA" : "rest/general/actualizar/empresa",
+    		"SISTEMA_AGREGAR_JUNTA" : "rest/general/agregar/junta",
+    		"SISTEMA_ACTUALIZAR_JUNTA" : "rest/general/actualizar/junta"
     	},
     	"MSG" : {
     		"CAMBIO_GUARDADO" : "Los cambios han sido guardados de manera correcta.",
@@ -99,6 +103,12 @@ define(['siav-module'], function(app) {
     		"OK" : "OK",
     		"ERROR" : "ERROR",
     		"INFO" : "INFO"
+    	},
+    	"ESTRUCTURA" :{
+    		"ERR_USUARIO" : "No se ha seleccionado un usuario.",
+    		"ERR_ACTA" : "Debe ingresar el acta de nombramiento.",
+    		"ERR_CARGO" : "Debe seleccionar un cargo.",
+    		"INFO_MODIFICAR_ESTADO" : "Se procede a deshabilitar un miembro de la junta. Desea continuar?"
     	},
     	"EXCESO" : {
     		"INFO_EDITAR_RANGO" : "La modificación de los límites puede afectar todos los consumos, desea continuar?",

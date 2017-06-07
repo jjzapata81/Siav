@@ -18,6 +18,10 @@ define(['angularAMD', 'angular-route'], function (angularAMD) {
 	            templateUrl: 'views/empresa.html', 
 	            controller: 'empresa-controller'
 	        }))
+	        .when("/estructura-acueducto", angularAMD.route({
+	            templateUrl: 'views/estructura-acueducto.html', 
+	            controller: 'estructura-acueducto-controller'
+	        }))
 	        .when("/contabilidad", angularAMD.route({
 	            templateUrl: 'views/contabilidad.html', 
 	            controller: 'contabilidad-controller'
@@ -167,7 +171,7 @@ define(['angularAMD', 'angular-route'], function (angularAMD) {
 	            controller: 'reporte-ventas-controller'
 	        }))
 	        .when("/lecturas-consumos", angularAMD.route({
-	            templateUrl: 'views/lecturas-consumos.html', 
+	            templateUrl: 'views/reportes/lecturas-consumos.html', 
 	            controller: 'lecturas-consumos-controller'
 	        }))
 	        .when("/instalaciones-usuarios", angularAMD.route({

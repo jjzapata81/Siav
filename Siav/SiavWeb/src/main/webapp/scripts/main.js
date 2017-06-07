@@ -73,7 +73,7 @@ require.config({
     	'contabilidad-controller' : 'controllers/contabilidad-controller',
     	'seguridad-clave-controller' : 'controllers/seguridad-clave-controller',
     	'seguridad-usuarios-controller' : 'controllers/seguridad-usuarios-controller',
-    	'mantenimiento-controller' : 'controllers/mantenimiento-controller',
+    	'estructura-acueducto-controller' : 'controllers/estructura-acueducto-controller',
     	'respaldo-controller' : 'controllers/respaldo-controller',
     	'recuperacion-controller' : 'controllers/recuperacion-controller',
     	'instalaciones-controller' : 'controllers/instalaciones-controller',
