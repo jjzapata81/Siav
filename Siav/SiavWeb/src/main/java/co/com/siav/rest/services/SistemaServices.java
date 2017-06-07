@@ -8,6 +8,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import co.com.siav.bean.SistemaBean;
+import co.com.siav.entities.Empresa;
 import co.com.siav.response.IpResponse;
 
 
@@ -23,6 +24,13 @@ public class SistemaServices {
 	@Produces(MediaType.APPLICATION_JSON)
 	public IpResponse getIp(){
 		return bean.consultarIp();
+	}
+	
+	@GET
+	@Path("consultar/empresa")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Empresa getEmpresa(){
+		return bean.consultarEmpresa();
 	}
 
 }

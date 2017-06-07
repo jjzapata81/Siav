@@ -1,0 +1,41 @@
+<titulo/>
+<menu></menu>
+<div  class="contenido">
+	<div  class="boton-fijo">
+		<a ng-click="onEditar()" uib-tooltip="Editar" tooltip-placement="left" ng-show="!estaEditando"><i class="fa fa-pencil icon-float icon-add" aria-hidden="true"></i></a>
+		<a ng-click="onGuardar()" uib-tooltip="Guardar" tooltip-placement="left" ng-show="estaEditando"><i class="fa fa-floppy-o icon-float icon-save" aria-hidden="true"></i></a>
+		<a ng-click="onCancelar()" uib-tooltip="Cancelar" tooltip-placement="left" ng-show="estaEditando"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
+	</div>
+	
+	<section class="titulo-seccion">
+		Empresa
+	</section>
+	<section class="formulario form-fijo">
+		<ul class="flex sistema-form">
+			<li>
+				<label>Nit:</label><br>
+				<input type="text" ng-model="empresa.nit" ng-disabled="!estaEditando"/>
+			</li>
+			<li>
+				<label>Nombre corto:</label><br>
+				<input type="text" ng-model="empresa.nombreCorto" ng-disabled="!estaEditando"/>
+			</li>
+			<li>
+				<label>Nombre completo:</label><br>
+				<input type="text" ng-model="empresa.nombreLargo" ng-disabled="!estaEditando"/>
+			</li>
+			<li>
+				<label>Direcci&oacute;n:</label><br>
+				<input type="text" ng-model="empresa.direccion" ng-disabled="!estaEditando"/>
+			</li>
+			<li>
+				<label>Tel&eacute;fono:</label><br>
+				<input type="text" ng-model="empresa.telefono" ng-disabled="!estaEditando"/>
+			</li>
+			<li>
+				<label>Ciudad:</label><br>
+				<input type="text" ng-model="empresa.ciudad" ng-disabled="!estaEditando"/>
+			</li>
+		</ul>
+	</section>
+</div>

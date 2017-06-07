@@ -26,7 +26,9 @@ define(['siav-module'], function(app) {
     		"CONSUMOS_RIESGO_GUARDAR" : "rest/consumos/riesgo/guardar",
     		"CONSUMOS_RIESGO_GUARDAR_CORRECCION_CONSUMO" : "rest/consumos/correccion/guardar",
     		"CONSULTAR_ORDEN_RUTAS" : "rest/ruta/consultar",
-    		"GUARDAR_ORDEN_RUTAS" : "rest/ruta/guardar"
+    		"GUARDAR_ORDEN_RUTAS" : "rest/ruta/guardar",
+    		"SISTEMA_CONSULTAR_IP":"rest/general/consultar/ip",
+    		"SISTEMA_CONSULTAR_EMPRESA" : "rest/general/consultar/empresa"
     	},
     	"MSG" : {
     		"CAMBIO_GUARDADO" : "Los cambios han sido guardados de manera correcta.",

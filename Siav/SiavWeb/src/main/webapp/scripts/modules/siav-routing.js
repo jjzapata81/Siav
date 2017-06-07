@@ -14,6 +14,10 @@ define(['angularAMD', 'angular-route'], function (angularAMD) {
 	            templateUrl: 'views/principal.html', 
 	            controller: 'principal-controller'
 	        }))
+	        .when("/empresa", angularAMD.route({
+	            templateUrl: 'views/empresa.html', 
+	            controller: 'empresa-controller'
+	        }))
 	        .when("/contabilidad", angularAMD.route({
 	            templateUrl: 'views/contabilidad.html', 
 	            controller: 'contabilidad-controller'

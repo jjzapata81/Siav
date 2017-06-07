@@ -105,6 +105,7 @@ require.config({
     	'lecturas-consumos-controller' : 'controllers/lecturas-consumos-controller',
     	'seguridad-roles-controller' : 'controllers/seguridad-roles-controller',
     	'red-controller' : 'controllers/red-controller',
+    	'empresa-controller' : 'controllers/empresa-controller',
     	
     	//Reportes
     	
