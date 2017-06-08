@@ -5,10 +5,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import co.com.siav.utils.Constantes;
@@ -63,6 +60,12 @@ public class Exceso implements Serializable, IEstrato{
 	
 	@Column(name="descripcion")
 	private String descripcion;
+	
+	@Column(name="nmorden")
+	private Long orden;
+	
+	@Column(name="snventas")
+	private String esVenta;
 
 	public Long getId() {
 		return id;
@@ -180,6 +183,22 @@ public class Exceso implements Serializable, IEstrato{
 	
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion.toUpperCase();
+	}
+	
+	public Long getOrden() {
+		return orden;
+	}
+
+	public void setOrden(Long orden) {
+		this.orden = orden;
+	}
+
+	public Boolean getEsVenta() {
+		return "S".equals(esVenta);
+	}
+
+	public void setEsVenta(Boolean esVenta) {
+		this.esVenta = esVenta ? "S" : "N";
 	}
 
 	@Override

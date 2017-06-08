@@ -1,6 +1,8 @@
 package co.com.siav.utils;
 
-public class Constantes {
+public final class Constantes {
+	
+	private Constantes(){}
 	
 //	public static final Long REGISTRO_NUMERO_FACTURA = 1L;
 

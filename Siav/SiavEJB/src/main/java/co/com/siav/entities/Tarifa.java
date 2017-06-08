@@ -49,6 +49,12 @@ public class Tarifa implements Serializable, IEstrato{
 	@Column(name="estrato6")
 	private Long estrato6;
 	
+	@Column(name="nmorden")
+	private Long orden;
+	
+	@Column(name="snventas")
+	private String esVenta;
+	
 	public String getCodigo() {
 		return codigo;
 	}
@@ -134,7 +140,23 @@ public class Tarifa implements Serializable, IEstrato{
 
 	public void setEstrato6(Long estrato6) {
 		this.estrato6 = estrato6;
-	}	
+	}
+	
+	public Long getOrden() {
+		return orden;
+	}
+
+	public void setOrden(Long orden) {
+		this.orden = orden;
+	}
+
+	public Boolean getEsVenta() {
+		return "S".equals(esVenta);
+	}
+
+	public void setEsVenta(Boolean esVenta) {
+		this.esVenta = esVenta ? "S" : "N";
+	}
 	
 	@PrePersist
 	@PreUpdate
