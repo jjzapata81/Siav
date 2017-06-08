@@ -49,5 +49,7 @@ public interface IRepositoryInstalaciones extends JpaRepository<Instalacion, Lon
 
 	@Query("SELECT i FROM Instalacion i WHERE i.activo = 'N' AND i.fechaInstalacion < :fechaInstalacion")
 	List<Instalacion> findToActivate(@Param("fechaInstalacion") Date fecha);
+
+	Long countByRamal(String codigoRamal);
 	
 }

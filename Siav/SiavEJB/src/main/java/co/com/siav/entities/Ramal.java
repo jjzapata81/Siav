@@ -26,7 +26,7 @@ public class Ramal implements Serializable{
 	}
 	
 	public void setCodigoRamal(String codigoRamal) {
-		this.codigoRamal = codigoRamal;
+		this.codigoRamal = codigoRamal.toUpperCase();
 	}
 	
 	public String getNombre() {
@@ -34,7 +34,7 @@ public class Ramal implements Serializable{
 	}
 	
 	public void setNombre(String nombre) {
-		this.nombre = nombre;
+		this.nombre = nombre.toUpperCase();
 	}
 	
 }

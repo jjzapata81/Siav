@@ -98,6 +98,7 @@ define(['siav-module', 'siav-services', 'usuarios-services', 'instalaciones-serv
     			request.id.cargo = $scope.usuarioNuevo.cargo.codigo;
     			request.acta = $scope.usuarioNuevo.acta;
     			request.id.cedula = $scope.usuarioNuevo.cedula;
+    			request.id.fecha = $scope.usuarioNuevo.fecha;
     			siavServices
         		.agregarJunta(request)
         		.then(function(response){

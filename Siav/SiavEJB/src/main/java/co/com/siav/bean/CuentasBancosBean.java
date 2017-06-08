@@ -32,9 +32,9 @@ public class CuentasBancosBean {
 	
 	public MensajeResponse crear(CuentaBancoDTO request) {
 		if(!cuentasRep.findByNombre(request.getNombre().toUpperCase().trim()).isEmpty()){
-			return new MensajeResponse(EstadoEnum.ERROR, "Ya existe una cuenta con el nombre " + request.getNombre().trim() + ".");
+			return new MensajeResponse(EstadoEnum.ERROR, Constantes.getMensaje(Constantes.ERR_CUENTA_EXISTE, request.getNombre().trim()));
 		}else if(!cuentasRep.findByNumeroCuenta(request.getNumeroCuenta().trim()).isEmpty()){
-			return new MensajeResponse(EstadoEnum.ERROR, "Ya existe una cuenta con el número " + request.getNumeroCuenta().trim() + ".");
+			return new MensajeResponse(EstadoEnum.ERROR, Constantes.getMensaje(Constantes.ERR_CUENTA_NUMERO_EXISTE, request.getNumeroCuenta().trim()));
 		}
 		if(bancosRep.findByNombre(request.getNombreBanco().toUpperCase().trim()).isEmpty()){
 			Banco banco = new Banco();
@@ -44,7 +44,7 @@ public class CuentasBancosBean {
 			request.setCodigoBanco(bancoBD.getCodigo());
 		}
 		cuentasRep.save(crearCuenta(request));
-		return new MensajeResponse("Se creó la cuenta " + request.getNombre() + " " + request.getNumeroCuenta() + ".");
+		return new MensajeResponse(Constantes.getMensaje(Constantes.CREACION_CUENTA, request.getNombre(),request.getNumeroCuenta()));
 		
 	}
 	

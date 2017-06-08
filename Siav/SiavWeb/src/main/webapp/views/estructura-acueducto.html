@@ -10,7 +10,7 @@
 		<a ng-click="onCancelar()" uib-tooltip="Cancelar" tooltip-placement="left" ng-show="esNuevo || estaEditando"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
 	</div>
 	<section class="titulo-seccion">
-		Junta 
+		Junta directiva
 	</section>
 	<section class="formulario form-fijo">
 		<section class="sub-titulo">{{nombreAcueducto}}</section>
@@ -24,7 +24,7 @@
 					<th>Tel&eacute;fono</th>
 				</thead>
 				<tbody>
-					<tr ng-repeat="usuario in junta">
+					<tr ng-repeat="usuario in junta | orderBy:'cargo.codigo' ">
 						<td>{{usuario.cedula}}</td>
 						<td><a class="link-table" ng-click="onEditar(usuario)">{{usuario.nombre}}</a></td>
 						<td>{{usuario.cargo.valor}}</td>
@@ -68,6 +68,10 @@
 				<li>
 					<label>Acta:</label><br>
 					<input type="text" ng-model="usuarioNuevo.acta"/>
+				</li>
+				<li>
+					<label>Fecha nombramiento:</label><br>
+					<input type="date" ng-model="usuarioNuevo.fecha"/>
 				</li>
 			</ul>
 		</div>

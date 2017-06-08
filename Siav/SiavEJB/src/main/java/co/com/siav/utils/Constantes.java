@@ -89,17 +89,26 @@ public class Constantes {
 	
 	public static final Long ID_EMPRESA = 1L;
 	public static final Long SIN_ORDEN = 99999L;
+	public static final String ERR_CUENTA_EXISTE = "Ya existe una cuenta con el nombre %s.";
+	public static final String ERR_CUENTA_NUMERO_EXISTE = "Ya existe una cuenta con el número %s.";
+	public static final String CREACION_CUENTA = "Se creó la cuenta %s %s.";
+	public static final String ERR_COD_RAMAL_EXISTE = "El código de ramal ingresado ya existe.";
+	public static final String ERR_NOMBRE_RAMAL_EXISTE = "El nombre del ramal ingresado ya existe.";
 	
 	public static String getMensaje(String mensaje, Long codigo) {
 		return getMensaje(mensaje, String.valueOf(codigo));
 	}
 	
 	public static String getMensaje(String mensaje, Long param1, Long param2) {
-		return String.format(mensaje, String.valueOf(param1), String.valueOf(param2));
+		return getMensaje(mensaje, String.valueOf(param1), String.valueOf(param2));
 	}
 	
 	public static String getMensaje(String mensaje, String codigo) {
 		return String.format(mensaje, codigo);
+	}
+
+	public static String getMensaje(String mensaje, String param1, String param2) {
+		return String.format(mensaje, param1, param2);
 	}
 
 

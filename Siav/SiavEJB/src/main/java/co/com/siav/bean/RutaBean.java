@@ -28,6 +28,9 @@ public class RutaBean {
 	}
 	
 	public ConfiguracionRuta consultarPorNumero(Long numeroInstalacion) {
+		if(!instalacionesRep.exists(numeroInstalacion)){
+			throw new ExcepcionNegocio(Constantes.getMensaje(Constantes.INSTALACION_NO_EXISTE, numeroInstalacion));
+		}
 		return transform(instalacionesRep.findOne(numeroInstalacion));
 	}
 

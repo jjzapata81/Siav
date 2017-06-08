@@ -67,13 +67,15 @@ public class PagosManager {
 	public Factura process(Factura factura, Pago pago) {
 		Long saldo = factura.getDetalles().stream().mapToLong(DetalleFactura::getSaldo).sum();
 		Long valor = factura.getDetalles().stream().mapToLong(DetalleFactura::getValor).sum();
+		Long cartera = factura.getDetalles().stream().mapToLong(DetalleFactura::getCartera).sum();
 		factura.setCancelado(true);
 		factura.setCodigoCuenta(pago.getCodigoCuenta());
 		factura.setCodigoPuntoPago(codigoPuntoPago);
 		factura.setFechaConsignacion(pago.getFecha());
 		factura.setFechaPagoReal(pago.getFecha());
-		if(pago.getValor() == saldo + valor){
+		if(pago.getValor() == saldo + valor -  cartera){
 			factura.getDetalles().stream().forEach(item -> item.setCancelado(true));
+			factura.setAbono(false);
 		}else{
 			factura.setAbono(true);
 			controlPago = pago.getValor();
@@ -109,14 +111,18 @@ public class PagosManager {
 	}
 
 	private void pay(DetalleFactura detalleFactura) {
-		detalleFactura.setAcumulado(true);
-		detalleFactura.setCartera(
-					controlPago < detalleFactura.getValor() + detalleFactura.getSaldo()
-					? controlPago
-					: detalleFactura.getValor() + detalleFactura.getSaldo()
-				);
-		controlPago = controlPago < detalleFactura.getCartera() ? 0L : controlPago - detalleFactura.getCartera();
-		detalleFactura.setCancelado(detalleFactura.getValor() + detalleFactura.getSaldo() == detalleFactura.getCartera());
+		if(!detalleFactura.getCancelado()){
+			detalleFactura.setAcumulado(true);
+			Long nuevaCartera = detalleFactura.getValor() + detalleFactura.getSaldo() - detalleFactura.getCartera();
+			if(controlPago < nuevaCartera){
+				detalleFactura.setCartera(controlPago + detalleFactura.getCartera());
+				controlPago = 0L;
+			}else{
+				detalleFactura.setCartera(detalleFactura.getValor() + detalleFactura.getSaldo());
+				controlPago = controlPago - nuevaCartera;
+			}
+			detalleFactura.setCancelado(detalleFactura.getValor() + detalleFactura.getSaldo() == detalleFactura.getCartera());
+		}
 	}
 
 	public void addOtherPay(Pago pago, Comprobante comprobante) {

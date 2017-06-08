@@ -84,7 +84,7 @@ public class SistemaBean {
 
 	public MensajeResponse agregarJunta(Estructura request) {
 		try{
-			request.setId(construirPK(request.getId().getCedula(), request.getId().getCargo()));
+			request.setId(construirPK(request.getId().getCedula(), request.getId().getCargo(), request.getId().getFecha()));
 			if(estructuraRep.exists(request.getId())){
 				return new MensajeResponse(EstadoEnum.ERROR, Constantes.ACTUALIZACION_FALLO);
 			}
@@ -96,12 +96,12 @@ public class SistemaBean {
 		return new MensajeResponse(Constantes.ACTUALIZACION_EXITO);
 	}
 
-	private EstructuraPK construirPK(String cedula, String cargo) {
+	private EstructuraPK construirPK(String cedula, String cargo, Date fecha) {
 		EstructuraPK pk = new EstructuraPK();
 		pk.setCedula(cedula);
 		pk.setCargo(cargo);
 		pk.setEmpresa(Constantes.ID_EMPRESA);
-		pk.setFecha(new Date());
+		pk.setFecha(fecha);
 		return pk;
 	}
 

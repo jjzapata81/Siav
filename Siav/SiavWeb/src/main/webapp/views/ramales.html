@@ -1,5 +1,6 @@
 <titulo/>
 <menu></menu>
+
 <div  class="contenido">
 	<div  class="boton-fijo">
 		<a ng-click="onAgregar()" uib-tooltip="Agregar" tooltip-placement="left" ng-show="!esNuevo && !estaEditando"><i class="fa fa-plus icon-float icon-add" aria-hidden="true"></i></a>
@@ -7,22 +8,22 @@
 		<a ng-click="onCancelar()" uib-tooltip="Cancelar" tooltip-placement="left" ng-show="esNuevo || estaEditando"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
 	</div>
 	<section class="titulo-seccion">
-		Macromedidor
+		Rutas
 	</section>
 	<div class="tabla-siav">
 		<table class="table table-responsive">
 			<thead>
 				<th>C&oacute;digo</th>
 				<th>Nombre</th>
-				<th>Marca</th>
-				<th>Direcci&oacute;n</th>
+				<th>Usuarios</th>
+				<th>Instalaciones</th>
 			</thead>
 			<tbody>
-				<tr ng-repeat="macro in macros">
-					<td>{{macro.macro}}</td>
-					<td><a ng-click="onEditar(macro)">{{macro.nombre}}</a></td>
-					<td>{{macro.marca}}</td>
-					<td>{{macro.direccion}}</td>
+				<tr ng-repeat="ramal in ramales | orderBy: 'codigoRamal'">
+					<td>{{ramal.codigoRamal}}</td>
+					<td><a ng-click="onEditar(ramal)">{{ramal.nombre}}</a></td>
+					<th>{{ramal.usuarios}}</th>
+					<th>{{ramal.instalaciones}}</th>
 				</tr>
 			</tbody>
 		</table>
@@ -31,16 +32,12 @@
 		<div>
 			<ul class="flex">
 				<li>
+					<label>C&oacute;digo:</label><br>
+					<input type="text" ng-model="ramalNuevo.codigoRamal" ng-disabled="!esNuevo"/>
+				</li>
+				<li>
 					<label>Nombre:</label><br>
-					<input type="text" ng-model="macroNuevo.nombre"/>
-				</li>
-				<li>
-					<label>Marca:</label><br>
-					<input type="text" ng-model="macroNuevo.marca"/>
-				</li>
-				<li>
-					<label>Direcci&oacute;n:</label><br>
-					<input type="text" ng-model="macroNuevo.direccion"/>
+					<input type="text" ng-model="ramalNuevo.nombre"/>
 				</li>
 			</ul>
 		</div>

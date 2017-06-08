@@ -4,25 +4,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 import co.com.siav.dto.ConsumoDTO;
-import co.com.siav.dto.Macromedidor;
+import co.com.siav.dto.Ruta;
 import co.com.siav.entities.CausaNoLectura;
 
 public class MacrosResponse {
 	
-	private List<Macromedidor> macros;
+	private List<Ruta> macros;
 
     private List<ConsumoDTO> consumos;
     
     private List<CausaNoLectura> causasNoLectura;
 
-	public List<Macromedidor> getMacros() {
+	public List<Ruta> getMacros() {
 		if(null == macros){
-			return new ArrayList<Macromedidor>();
+			return new ArrayList<Ruta>();
 		}
 		return macros;
 	}
 
-	public void setMacros(List<Macromedidor> macros) {
+	public void setMacros(List<Ruta> macros) {
 		this.macros = macros;
 	}
 

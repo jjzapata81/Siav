@@ -1,6 +1,6 @@
 package co.com.siav.dto;
 
-public class Macromedidor {
+public class Ruta {
 	
 	private String codigoRamal;
 

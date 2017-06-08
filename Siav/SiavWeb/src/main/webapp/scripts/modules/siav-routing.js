@@ -58,6 +58,10 @@ define(['angularAMD', 'angular-route'], function (angularAMD) {
 	            templateUrl: 'views/veredas.html', 
 	            controller: 'veredas-controller'
 	        }))
+	        .when("/macromedidor", angularAMD.route({
+	            templateUrl: 'views/medidor-general.html', 
+	            controller: 'medidor-general-controller'
+	        }))
 	        .when("/causas-no-lectura", angularAMD.route({
 	            templateUrl: 'views/causas-no-lectura.html', 
 	            controller: 'causas-no-lectura-controller'
@@ -82,10 +86,6 @@ define(['angularAMD', 'angular-route'], function (angularAMD) {
 	            templateUrl: 'views/ciclos.html', 
 	            controller: 'ciclos-controller'
 	        }))
-	        .when("/medidor-general", angularAMD.route({
-	            templateUrl: 'views/medidor-general.html', 
-	            controller: 'medidor-general-controller'
-	        }))
 	        .when("/lecturas-digitadas", angularAMD.route({
 	            templateUrl: 'views/lecturas-digitadas.html', 
 	            controller: 'lecturas-digitadas-controller'
@@ -101,6 +101,10 @@ define(['angularAMD', 'angular-route'], function (angularAMD) {
 	        .when("/credito-abono", angularAMD.route({
 	            templateUrl: 'views/credito-abono.html', 
 	            controller: 'credito-abono-controller'
+	        }))
+	        .when("/ramales", angularAMD.route({
+	            templateUrl: 'views/ramales.html', 
+	            controller: 'ramales-controller'
 	        }))
 	        .when("/configuracion-ruta", angularAMD.route({
 	            templateUrl: 'views/configuracion-ruta.html', 

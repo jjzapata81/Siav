@@ -71,6 +71,11 @@
 					<label>N&uacute;mero catastral:</label><br>
 					<input type="text" ng-model="instalacion.numeroCatastro" ng-disabled="!estaEditando"/>
 				</li>
+				<li>
+					<label>Tiene medidor:</label><br>
+					<label ng-if="instalacion.conMedidor">SI</label>
+					<label ng-if="!instalacion.conMedidor">NO</label>
+				</li>
 			</ul>
 			
 			<ul class="flex">

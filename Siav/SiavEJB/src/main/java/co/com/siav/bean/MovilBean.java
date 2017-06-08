@@ -9,7 +9,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import co.com.siav.dto.ConsumoDTO;
-import co.com.siav.dto.Macromedidor;
+import co.com.siav.dto.Ruta;
 import co.com.siav.entities.CausaNoLectura;
 import co.com.siav.entities.Consumo;
 import co.com.siav.entities.ConsumoPK;
@@ -133,7 +133,7 @@ public class MovilBean {
 		ciclo = ciclosRep.findFirstByEstadoOrderByCicloDesc(Constantes.CERRADO).getCiclo();
 		cicloAbierto = ciclosRep.findFirstByEstadoOrderByCicloDesc(Constantes.ABIERTO).getCiclo();
 		MacrosResponse response = new MacrosResponse();
-		response.setMacros(consultarMacros(usuario));
+		response.setMacros(consultarRutas(usuario));
 		response.setConsumos(consultarConsumos(response.getMacros()));
 		response.setCausasNoLectura(consultarCausasNoLectura()); 
 		return response;
@@ -143,27 +143,27 @@ public class MovilBean {
 		return causasRep.findAllOrdered();
 	}
 
-	private List<ConsumoDTO> consultarConsumos(List<Macromedidor> macros) {
+	private List<ConsumoDTO> consultarConsumos(List<Ruta> rutas) {
 		List<Consumo> consumosBD = new ArrayList<Consumo>();
-		macros.stream().forEach(macro-> consumosBD.addAll(consultar(macro)));
+		rutas.stream().forEach(ruta-> consumosBD.addAll(consultar(ruta)));
 		return crearLista(consumosBD);
 	}
 
-	private List<Consumo> consultar(Macromedidor macro) {
-		return consumosRep.findConsumo(Constantes.SI, macro.getCodigoRamal(), ciclo, cicloAbierto);
+	private List<Consumo> consultar(Ruta ruta) {
+		return consumosRep.findConsumo(Constantes.SI, ruta.getCodigoRamal(), ciclo, cicloAbierto);
 	}
 
-	private List<Macromedidor> consultarMacros(String usuario) {
+	private List<Ruta> consultarRutas(String usuario) {
 		List<UsuarioRamal> ramalesUsuario = usuarioRamalRep.findMacrosPorUsuario(usuario, new Date());
-		return ramalesUsuario.stream().map(this::crearMacro).collect(Collectors.toList());
+		return ramalesUsuario.stream().map(this::crearRuta).collect(Collectors.toList());
 	}
 
-	private Macromedidor crearMacro(UsuarioRamal ramalUsuario) {
+	private Ruta crearRuta(UsuarioRamal ramalUsuario) {
 		Ramal ramal = ramalesRep.findOne(ramalUsuario.getUsuarioRamalPK().getCodigoRamal());
-		Macromedidor macro = new Macromedidor();
-		macro.setCodigoRamal(ramal.getCodigoRamal());
-		macro.setNombre(ramal.getNombre());
-		return macro;
+		Ruta ruta = new Ruta();
+		ruta.setCodigoRamal(ramal.getCodigoRamal());
+		ruta.setNombre(ramal.getNombre());
+		return ruta;
 	}
 	
 }

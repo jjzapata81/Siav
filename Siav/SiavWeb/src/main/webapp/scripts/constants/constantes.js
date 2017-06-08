@@ -32,7 +32,12 @@ define(['siav-module'], function(app) {
     		"SISTEMA_CONSULTAR_EMPRESA" : "rest/general/consultar/empresa",
     		"SISTEMA_ACTUALIZAR_EMPRESA" : "rest/general/actualizar/empresa",
     		"SISTEMA_AGREGAR_JUNTA" : "rest/general/agregar/junta",
-    		"SISTEMA_ACTUALIZAR_JUNTA" : "rest/general/actualizar/junta"
+    		"SISTEMA_ACTUALIZAR_JUNTA" : "rest/general/actualizar/junta",
+    		"MACROS_CONSULTAR" : "rest/macros/consultar",
+    		"MACROS_GUARDAR" : "rest/macros/",
+    		"RAMAL_CONSULTAR_TODO" : "rest/ramal/consultar/todo",
+    		"RAMAL_CONSULTAR" : "rest/ramal/consultar",
+    		"RAMAL_GUARDAR" : "rest/ramal/guardar/"
     	},
     	"MSG" : {
     		"CAMBIO_GUARDADO" : "Los cambios han sido guardados de manera correcta.",
@@ -125,6 +130,9 @@ define(['siav-module'], function(app) {
     		"ERR_BUSQUEDA_OBLIGATORIO" : "Ingrese un número de instalación.",
     		"ERR_USUARIO_NO_EXISTE" : "No existen usuarios con la cédula ingresada."
     	},
+    	"MACROS" :{
+    		"ERR_MACRO_NOMBRE" : "Debe ingresar el nombre del macromedidor."
+    	},
     	"PAGO" : {
     		"NO_CANCELADO" : "Ha seleccionado pago no cancelado. Está seguro que desea continuar?",
     		"ERR_EXTENSION" : "Sólo se permiten cargar archivos con extensión .csv",
@@ -134,6 +142,10 @@ define(['siav-module'], function(app) {
     		"ELIMINAR_RANGO" : "Se procede a eliminar un rango de facturación. Desea continuar?",
     		"ERR_LIMITE_INICIAL" : "El límite inicial debe ser mayor que cero.",
     		"ERR_LIMITE_FINAL" : "El límite final debe ser mayor al límite incial."
+    	},
+    	"RAMAL" : {
+    		"ERR_NOMBRE_OBLIGATORIO" : "El nombre del ramal es obligatorio.",
+    		"ERR_CODIGO_OBLIGATORIO" : "El código del ramal es obligatorio."
     	},
     	"REPORTES" : {
     		"ARCHIVO_ENVIADO" : "El archivo se ha enviado de manera exitosa.",

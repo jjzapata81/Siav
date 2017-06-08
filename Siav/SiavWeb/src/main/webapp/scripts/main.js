@@ -51,6 +51,7 @@ require.config({
     	"siav-services" : "services/siav-services",
     	"inconsistencias-services" : "services/inconsistencias-services",
     	"ruta-services" : "services/ruta-services",
+    	"macros-services" : "services/macros-services",
     	// constantes
     	'constantes' :  'constants/constantes',
     	//Interceptor
@@ -74,7 +75,7 @@ require.config({
     	'seguridad-clave-controller' : 'controllers/seguridad-clave-controller',
     	'seguridad-usuarios-controller' : 'controllers/seguridad-usuarios-controller',
     	'estructura-acueducto-controller' : 'controllers/estructura-acueducto-controller',
-    	'respaldo-controller' : 'controllers/respaldo-controller',
+    	'ramales-controller' : 'controllers/ramales-controller',
     	'recuperacion-controller' : 'controllers/recuperacion-controller',
     	'instalaciones-controller' : 'controllers/instalaciones-controller',
     	'veredas-controller' : 'controllers/veredas-controller',

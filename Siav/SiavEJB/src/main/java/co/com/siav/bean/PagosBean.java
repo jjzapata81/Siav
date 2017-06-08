@@ -60,6 +60,23 @@ public class PagosBean {
 	private FormatoRecaudo formatoRecaudo;
 	
 	private Long numeroCiclo;
+	
+	public FacturaResponse buscar(Long numeroInstalacion){
+		Factura factura = buscarFactura(numeroInstalacion);
+		if(null == factura){
+			return new FacturaResponse(EstadoEnum.ERROR, Constantes.FACTURA_NO_EXISTE);
+		}
+		if(factura.getCancelado() && !factura.getAbono()){
+			return new FacturaResponse(EstadoEnum.ERROR, Constantes.getMensaje(Constantes.FACTURA_YA_CANCELADA, factura.getNumeroFactura()));
+		}
+		FacturaResponse response = new FacturaResponse();
+		response.setNombres(factura.getNombres());
+		response.setNumeroFactura(factura.getNumeroFactura());
+		response.setNumeroInstalacion(factura.getNumeroInstalacion());
+		response.setCedula(factura.getCedula());
+		response.setValor(getValorTotalFactura(factura));
+		return response;
+	}
 
 	public MensajeResponse guardar(Pago pago, String usuario) {
 		manager.run(CONSIGNACION_FAX);
@@ -71,34 +88,6 @@ public class PagosBean {
 		return new MensajeResponse(Constantes.ACTUALIZACION_EXITO);
 	}
 	
-	public FacturaResponse buscar(Long numeroInstalacion){
-		Factura factura = buscarFactura(numeroInstalacion);
-		if(null == factura){
-			return new FacturaResponse(EstadoEnum.ERROR, Constantes.FACTURA_NO_EXISTE);
-		}
-		if(factura.getCancelado()){
-			return new FacturaResponse(EstadoEnum.ERROR, Constantes.getMensaje(Constantes.FACTURA_YA_CANCELADA, factura.getNumeroFactura()));
-		}
-		FacturaResponse response = new FacturaResponse();
-		response.setNombres(factura.getNombres());
-		response.setNumeroFactura(factura.getNumeroFactura());
-		response.setNumeroInstalacion(factura.getNumeroInstalacion());
-		response.setCedula(factura.getCedula());
-		response.setValor(getValorTotalFactura(factura));
-		return response;
-	}
-	
-	private Long getValorTotalFactura(Factura factura) {
-		Long totalValor = factura.getDetalles().stream().mapToLong(DetalleFactura::getValor).sum();
-		Long totalSaldo = factura.getDetalles().stream().mapToLong(DetalleFactura::getSaldo).sum();
-		return totalValor + totalSaldo;
-	}
-
-	private Factura buscarFactura(Long numeroInstalacion){
-		Ciclo cicloAnterior = ciclosRep.findFirstByEstadoOrderByCicloDesc(Constantes.CERRADO);
-		return facturasRep.findByNumeroInstalacionAndCiclo(numeroInstalacion, cicloAnterior.getCiclo());
-	}
-
 	public void guardarArchivo(String nombreArchivo, String codigoCuenta, String usuario, File archivoPagos) {
 		validar(codigoCuenta);
 		String numeroFormato = parametrosRep.findByCdParametro(Constantes.FORMATO_RECAUDO).getDsValor();
@@ -122,13 +111,27 @@ public class PagosBean {
 		}
 		
 	}
+	
+	private Long getValorTotalFactura(Factura factura) {
+		Long totalValor = factura.getDetalles().stream().mapToLong(DetalleFactura::getValor).sum();
+		Long totalSaldo = factura.getDetalles().stream().mapToLong(DetalleFactura::getSaldo).sum();
+		Long totalCartera = factura.getDetalles().stream().mapToLong(DetalleFactura::getCartera).sum();
+		return totalValor + totalSaldo - totalCartera;
+	}
+
+	private Factura buscarFactura(Long numeroInstalacion){
+		Ciclo cicloAnterior = ciclosRep.findFirstByEstadoOrderByCicloDesc(Constantes.CERRADO);
+		return facturasRep.findByNumeroInstalacionAndCiclo(numeroInstalacion, cicloAnterior.getCiclo());
+	}
+
+	
 
 	private Factura getFactura(Pago pago){
 		Factura factura = find(pago);
 		if(factura == null){
 			manager.addFail(pago, Constantes.getMensaje(Constantes.FACTURA_NO_EXISTE, pago.getNumeroFactura()));
 			factura = new Factura();
-		}else if(factura.getCancelado()){
+		}else if(factura.getCancelado()&&!factura.getAbono()){
 			manager.addFail(pago, Constantes.getMensaje(Constantes.FACTURA_YA_CANCELADA, pago.getNumeroFactura()));
 			factura = new Factura();
 		}else{
