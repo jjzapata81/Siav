@@ -6,10 +6,14 @@ define(['siav-module', 'usuario-sistema-services', 'modal-factory', 'constantes'
     return app.controller('seguridad-usuarios-controller', ['$scope', 'usuarioSistemaServices', 'modalFactory', 'CONSTANTES', function($scope, usuarioSistemaServices, modalFactory, CONSTANTES){
     	
     	$scope.init = function(){
-    		$scope.limpiar();
+    		$scope.esNuevo = false;
+    		$scope.editandoPerfil = false;
+    		$scope.coinciden = false;
+    		$scope.usuarioNuevo = null;
+    		$scope.confirmarPassword = "";
     		$scope.consultarPerfiles();
     		$scope.consultarUsuarios();
-    		$scope.editandoPerfil = false;
+    		
     	}
     	
     	$scope.consultarPerfiles = function(){
@@ -28,19 +32,17 @@ define(['siav-module', 'usuario-sistema-services', 'modal-factory', 'constantes'
     		});
     	}
     	
-    	$scope.limpiar = function(){
-    		$scope.esNuevo = false;
-    		$scope.coinciden = false;
-    		$scope.usuarioNuevo = {};
-    		$scope.confirmarPassword = "";
+    	$scope.onAgregar = function(){
+    		$scope.esNuevo = true;
     	}
     	
-    	$scope.onAgregar = function(){
-    		$scope.esNuevo = !$scope.esNuevo;
+    	$scope.onEditar = function(usuario){
+    		$scope.editandoPerfil = true;
+    		$scope.usuarioEditar = angular.copy(usuario);
     	}
     	
     	$scope.onCancelar = function(){
-    		$scope.limpiar();
+    		$scope.init();
     	}
     	
     	$scope.onCrear = function(){
@@ -78,18 +80,6 @@ define(['siav-module', 'usuario-sistema-services', 'modal-factory', 'constantes'
     		return true;
     	}
     	
-    	$scope.onEditar = function(usuario){
-    		$scope.esNuevo = false;
-    		$scope.editandoPerfil = true;
-    		$scope.usuarioEditar = angular.copy(usuario);
-    	}
-    	
-    	$scope.onCancelarEditar = function(){
-    		$scope.editandoPerfil = false;
-    		$scope.usuarioEditar = null;
-    	}
-    	
-   	
     	$scope.onCambioEstado = function(usuario){
     		delete(usuario.nombreCompleto);
     		usuario.activo = !usuario.activo;
@@ -125,7 +115,6 @@ define(['siav-module', 'usuario-sistema-services', 'modal-factory', 'constantes'
     	}
     	
     	$scope.init();
-	
 
     }])
 

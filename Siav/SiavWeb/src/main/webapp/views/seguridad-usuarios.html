@@ -4,10 +4,9 @@
 <div  class="contenido">
 	<div  class="boton-fijo">
 		<a ng-click="onAgregar()" uib-tooltip="Agregar" tooltip-placement="left" ng-show="!esNuevo && !editandoPerfil"><i class="fa fa-plus icon-float icon-add" aria-hidden="true"></i></a>
-		<a ng-click="onCrear()" uib-tooltip="Guardar" tooltip-placement="left" ng-show="esNuevo && editandoPerfil"><i class="fa fa-floppy-o icon-float icon-save" aria-hidden="true"></i></a>
-		<a ng-click="onActualizar()" uib-tooltip="Actualizar" tooltip-placement="left" ng-show="!esNuevo && editandoPerfil"><i class="fa fa-floppy-o icon-float icon-save" aria-hidden="true"></i></a>
-		<a ng-click="onCancelar()" uib-tooltip="Cancelar" tooltip-placement="left" ng-show="esNuevo && !editandoPerfil"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
-		<a ng-click="onCancelarEditar()" uib-tooltip="Cancelar" tooltip-placement="left" ng-show="editandoPerfil && !esNuevo"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
+		<a ng-click="onCrear()" uib-tooltip="Guardar" tooltip-placement="left" ng-show="esNuevo"><i class="fa fa-floppy-o icon-float icon-save" aria-hidden="true"></i></a>
+		<a ng-click="onActualizar()" uib-tooltip="Actualizar" tooltip-placement="left" ng-show="editandoPerfil"><i class="fa fa-floppy-o icon-float icon-save" aria-hidden="true"></i></a>
+		<a ng-click="onCancelar()" uib-tooltip="Cancelar" tooltip-placement="left" ng-show="esNuevo || editandoPerfil"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
 	</div>
 	<section class="titulo-seccion">
 		Usuarios del sistema
