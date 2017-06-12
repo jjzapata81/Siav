@@ -6,7 +6,6 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import co.com.siav.entities.Novedad;
-import co.com.siav.entities.NovedadPK;
 import co.com.siav.repositories.IRepositoryCiclos;
 import co.com.siav.repositories.IRepositoryNovedades;
 import co.com.siav.response.MensajeResponse;

@@ -1,7 +1,5 @@
 package co.com.siav.bean;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import co.com.siav.entities.Comprobante;
@@ -10,13 +8,11 @@ import co.com.siav.entities.DetalleFactura;
 import co.com.siav.entities.Factura;
 import co.com.siav.entities.Novedad;
 import co.com.siav.entities.NovedadPK;
-import co.com.siav.entities.OrdenAbono;
 import co.com.siav.entities.Pago;
 import co.com.siav.repositories.IRepositoryCiclos;
 import co.com.siav.repositories.IRepositoryCreditoMaestro;
 import co.com.siav.repositories.IRepositoryInstalaciones;
 import co.com.siav.repositories.IRepositoryNovedades;
-import co.com.siav.repositories.IRepositoryOrdenAbono;
 import co.com.siav.repositories.IRepositoryPago;
 import co.com.siav.repositories.IRepositorySistema;
 import co.com.siav.utils.Constantes;
@@ -24,9 +20,6 @@ import co.com.siav.utils.Constantes;
 
 public class PagosManager {
 
-	@Inject
-	private IRepositoryOrdenAbono abonoRep;
-	
 	@Inject
 	private IRepositoryPago pagosRep;
 	
@@ -45,15 +38,17 @@ public class PagosManager {
 	@Inject
 	private IRepositoryCreditoMaestro creditosRep;
 	
-	private List<OrdenAbono> orden;
+	@Inject
+	private Ordenador ordenador;
 	
 	private Long controlPago;
 	
 	private String codigoPuntoPago; 
 	
 	public void run(String codigoPuntoPago){
-		orden = abonoRep.findAll();
+		ordenador.prepare();
 		this.codigoPuntoPago = codigoPuntoPago;
+		
 	}
 
 	public void addFail(Pago pago, String mensaje) {
@@ -79,8 +74,7 @@ public class PagosManager {
 		}else{
 			factura.setAbono(true);
 			controlPago = pago.getValor();
-			orden.stream().forEachOrdered(o -> partialPay(o, factura));
-			factura.getDetalles().stream().filter(detalle -> !detalle.getAcumulado()).forEachOrdered(this::pay);
+			ordenador.get().stream().forEachOrdered(o -> partialPay(o, factura));
 			saveExcedent(controlPago, factura);
 		}
 		pagosRep.save(pago);
@@ -106,13 +100,12 @@ public class PagosManager {
 		return pk;
 	}
 
-	private void partialPay(OrdenAbono orden, Factura factura) {
-		factura.getDetalles().stream().filter(item -> item.getCodigo().equals(orden.getCodigoConcepto())).forEachOrdered(this::pay);
+	private void partialPay(OrdenPago orden, Factura factura) {
+		factura.getDetalles().stream().filter(item -> item.getCodigo().equals(orden.getTarifa())).forEachOrdered(this::pay);
 	}
 
 	private void pay(DetalleFactura detalleFactura) {
 		if(!detalleFactura.getCancelado()){
-			detalleFactura.setAcumulado(true);
 			Long nuevaCartera = detalleFactura.getValor() + detalleFactura.getSaldo() - detalleFactura.getCartera();
 			if(controlPago < nuevaCartera){
 				detalleFactura.setCartera(controlPago + detalleFactura.getCartera());

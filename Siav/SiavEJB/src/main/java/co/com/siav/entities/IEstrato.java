@@ -20,5 +20,7 @@ public interface IEstrato {
 	void setEstrato6(Long valor);
 	
 	String getTipo();
+	String getCodigo();
+	Long getOrden();
 
 }
