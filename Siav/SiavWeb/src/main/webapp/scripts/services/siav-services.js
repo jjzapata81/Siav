@@ -13,7 +13,7 @@ define(['siav-module', 'constantes'], function (app) {
     	 };
     	 
     	 function consultarIp(){
-    		 var request = $http.get(CONSTANTES.SRV.SISTEMA_CONSULTAR_EMPRESA, {isArray : false});
+    		 var request = $http.get(CONSTANTES.SRV.SISTEMA_CONSULTAR_IP, {isArray : false});
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));
