@@ -35,8 +35,7 @@ public class Reader {
 	}
 
 	private void escribir2(Tasks schedule) {
-		System.out.println("--------------------------------------------------");
-		schedule.getWeights().stream().forEach(System.out::println);
+		System.out.println(schedule.getWeights());
 	}
 
 
