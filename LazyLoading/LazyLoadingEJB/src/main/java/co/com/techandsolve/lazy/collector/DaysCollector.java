@@ -10,10 +10,9 @@ import java.util.function.Supplier;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-import co.com.techandsolve.lazy.dto.Carga;
-import co.com.techandsolve.lazy.exception.BusinessException;
+import co.com.techandsolve.lazy.dto.Tasks;
 
-public class DaysCollector implements Collector<Integer, Creator, List<List<Carga>>>{
+public class DaysCollector implements Collector<Integer, Creator, List<Tasks>>{
 
 	@Override
 	public Supplier<Creator> supplier() {
@@ -41,7 +40,7 @@ public class DaysCollector implements Collector<Integer, Creator, List<List<Carg
 	}
 
 	@Override
-	public Function<Creator, List<List<Carga>>> finisher() {
+	public Function<Creator, List<Tasks>> finisher() {
 		return (data)->{
 			return data.getElements().stream().map(this::transform).collect(Collectors.toList());
 		};
@@ -52,14 +51,10 @@ public class DaysCollector implements Collector<Integer, Creator, List<List<Carg
 		 return EnumSet.of(Characteristics.UNORDERED);
 	}
 	
-	private List<Carga> transform(List<Integer> data){
-		return data.stream().map(this::transformCarga).collect(Collectors.toList());
+	private Tasks transform(List<Integer> data){
+		Tasks schedule = new Tasks();
+		schedule.setWeights(data);
+		return schedule;
 	}
 	
-	private Carga transformCarga(Integer data){
-		Carga carga = new Carga();
-		carga.setPeso(data);
-		return carga;
-	}
-
 }

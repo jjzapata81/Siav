@@ -12,14 +12,16 @@ public class Creator {
 	
 	public Creator(){
 		elements = new ArrayList<List<Integer>>();
-		firstElement = true;
-		subelements = new ArrayList<Integer>();
-		numberOfElements = 0;
+		reset();
 	}
 	
 	public void init(){
-		firstElement = true;
 		elements.add(new ArrayList<Integer>(subelements));
+		reset();
+	}
+
+	private void reset() {
+		firstElement = true;
 		subelements = new ArrayList<Integer>();
 		numberOfElements = 0;
 	}
