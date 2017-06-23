@@ -1,7 +1,9 @@
 package co.com.techandsolve.lazy.reader;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -14,7 +16,6 @@ import co.com.techandsolve.lazy.dto.Tasks;
 import co.com.techandsolve.lazy.exception.BusinessException;
 import co.com.techandsolve.lazy.util.LazyConstants;
 
-
 public class Reader {
 	
 	public List<Integer> read(File file){
@@ -25,19 +26,22 @@ public class Reader {
 		}
 	}
 	
-	public void extractor(List<Integer> lines){
+	public byte[] extractor(List<Integer> lines){
 		int days = lines.stream().findFirst().orElseThrow(()-> new BusinessException(LazyConstants.ERR_SIN_CONTENIDO));
-		System.out.println("Dias: " + days);
 		List<Tasks> tasks = lines.stream().skip(1).collect(new DaysCollector());
-		tasks.stream().forEach(item -> escribir2(item));
+		Validator.days(tasks.size(), days);
 		Distributor distributor = new Distributor();
-		tasks.stream().forEach(item -> distributor.run(item));
+		List<String> list = tasks.stream().map(item -> distributor.run(item)).collect(Collectors.toList());
+		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		ObjectOutputStream oos;
+		try {
+			oos = new ObjectOutputStream(bos);
+			oos.writeObject(list);
+		    return bos.toByteArray();
+		} catch (IOException e) {
+			throw new BusinessException(LazyConstants.ERR_ESCRITURA_ARCHIVO);
+		}
+	    
 	}
-
-	private void escribir2(Tasks schedule) {
-		System.out.println(schedule.getWeights());
-	}
-
-
 
 }

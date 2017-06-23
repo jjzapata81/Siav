@@ -1,27 +1,25 @@
 package co.com.techandsolve.lazy.bean;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import co.com.techandsolve.lazy.dto.Tasks;
 
 public class Distributor {
 	
-	public final static int PESO = 50;
+	private final static int PESO = 50;
+	private int viajes;
+	private Double distribution;
 
 	public String run(Tasks task) {
-//		task.getWeights().stream().sorted().collect(new WeightsCollector());
-		List<Integer> orderedWeights = task.getWeights().stream().sorted().collect(Collectors.toList());
-		Integer maxValue = task.getWeights().stream().reduce((a, b) -> a > b ? a : b).orElse(0);
-		List<Integer> reverseWeights = new ArrayList<Integer>(orderedWeights);
-		Collections.reverse(reverseWeights);
-		System.out.println("Ascendente: " + orderedWeights);
-		System.out.println("Descendente: " + reverseWeights);
-		System.out.println("Valor maximo: " + maxValue);
-		
-		return "";
+		viajes = 0;
+		distribution = 0D;
+		task.getWeights().stream().sorted((a, b)-> Integer.compare(b, a)).forEachOrdered(item -> calculo(item, task.getWeights().size()));
+		return "case # : " + viajes;
+	}
+	
+	private void calculo(Integer weight, int size){
+		distribution += (Math.ceil(PESO / weight.doubleValue()));
+		if(distribution.intValue() <= size){
+			viajes++;
+		}
 	}
 
 }
