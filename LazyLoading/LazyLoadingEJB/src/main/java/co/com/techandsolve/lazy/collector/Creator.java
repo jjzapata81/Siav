@@ -26,28 +26,16 @@ public class Creator {
 		numberOfElements = 0;
 	}
 
-	public boolean isFirstElement() {
-		return firstElement;
-	}
-
-	public void setFirstElement(boolean firstElement) {
-		this.firstElement = firstElement;
-	}
-
-	public void setNumberOfElements(Integer item) {
-		numberOfElements = item;
-	}
-	
-	public Integer getNumberOfElements() {
-		return numberOfElements;
-	}
-
 	public void add(Integer item) {
-		subelements.add(item);
-	}
-
-	public Integer size() {
-		return subelements.size();
+		if(firstElement){
+			numberOfElements = item;
+			firstElement = false;
+		}else{
+			subelements.add(item);
+			if(subelements.size() == numberOfElements){
+				init();
+			}
+		}
 	}
 
 	public List<List<Integer>> getElements() {

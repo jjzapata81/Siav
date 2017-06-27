@@ -12,6 +12,7 @@ dependencies {
 	compile 'org.springframework.data:spring-data-jpa:1.11.4.RELEASE'
 	compile 'org.jboss.spec:jboss-javaee-6.0:3.0.3.Final'
 	testCompile 'junit:junit:4.11'
+	testCompile 'org.mockito:mockito-all:1.9.5'
 
 }
 

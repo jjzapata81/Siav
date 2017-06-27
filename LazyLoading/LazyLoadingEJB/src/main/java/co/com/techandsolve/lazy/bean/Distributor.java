@@ -2,21 +2,25 @@ package co.com.techandsolve.lazy.bean;
 
 import co.com.techandsolve.lazy.dto.Tasks;
 
-public class Distributor {
+public final class Distributor {
 	
-	private final static int PESO = 50;
-	private int viajes;
-	private Double distribution;
+	private static int viajes;
+	private static Double distribution;
+	
+	private Distributor(){
+		super();
+	}
 
-	public String run(Tasks task) {
+	public static int run(Tasks task, int fixedWeight) {
 		viajes = 0;
 		distribution = 0D;
-		task.getWeights().stream().sorted((a, b)-> Integer.compare(b, a)).forEachOrdered(item -> calculo(item, task.getWeights().size()));
-		return "case # : " + viajes;
+		task.getWeights().stream().sorted((a, b)-> Integer.compare(b, a)).forEachOrdered(item -> distribute(item, task.getWeights().size(), fixedWeight));
+		System.out.println(viajes);
+		return viajes;
 	}
 	
-	private void calculo(Integer weight, int size){
-		distribution += (Math.ceil(PESO / weight.doubleValue()));
+	private static void distribute(Integer weight, int size, int fixedWeight){
+		distribution += (Math.ceil(fixedWeight / weight.doubleValue()));
 		if(distribution.intValue() <= size){
 			viajes++;
 		}

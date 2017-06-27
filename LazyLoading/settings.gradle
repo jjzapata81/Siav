@@ -1,0 +1,4 @@
+include ':LazyLoadingApp'
+include ':LazyLoadingEJB'
+include ':LazyLoadingWeb'
+rootProject.name='LazyLoading'

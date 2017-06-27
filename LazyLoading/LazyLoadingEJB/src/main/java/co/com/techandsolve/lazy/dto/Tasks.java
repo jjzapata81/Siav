@@ -7,6 +7,10 @@ public class Tasks {
 	
 	private List<Integer> weights;
 	
+	public Tasks(List<Integer> weights) {
+		this.weights = weights;
+	}
+
 	public List<Integer> getWeights() {
 		return weights == null ? new ArrayList<Integer>() : weights;
 	}

@@ -21,28 +21,13 @@ public class DaysCollector implements Collector<Integer, Creator, List<Tasks>>{
 
 	@Override
 	public BiConsumer<Creator, Integer> accumulator() {
-		return(creator, item)->{
-			if(creator.isFirstElement()){
-				creator.setNumberOfElements(item);
-				creator.setFirstElement(false);
-			}else{
-				creator.add(item);
-				if(creator.size() ==  creator.getNumberOfElements()){
-					creator.init();
-				}
-			}
-		};
-	}
-
-	@Override
-	public BinaryOperator<Creator> combiner() {
-		return null;
+		return (creator, item)-> creator.add(item);
 	}
 
 	@Override
 	public Function<Creator, List<Tasks>> finisher() {
 		return (data)->{
-			return data.getElements().stream().map(this::transform).collect(Collectors.toList());
+			return data.getElements().stream().map(item -> new Tasks(item)).collect(Collectors.toList());
 		};
 	}
 
@@ -51,10 +36,9 @@ public class DaysCollector implements Collector<Integer, Creator, List<Tasks>>{
 		 return EnumSet.of(Characteristics.UNORDERED);
 	}
 	
-	private Tasks transform(List<Integer> data){
-		Tasks schedule = new Tasks();
-		schedule.setWeights(data);
-		return schedule;
+	@Override
+	public BinaryOperator<Creator> combiner() {
+		return null;
 	}
 	
 }
