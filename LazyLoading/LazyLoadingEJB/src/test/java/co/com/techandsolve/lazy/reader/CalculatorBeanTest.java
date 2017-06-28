@@ -21,30 +21,31 @@ public class CalculatorBeanTest {
 	private String FILE_DAYS_OUT_OF_RANGE = "input_day_out_of_range.txt";
 	private String FILE_LOAD_OUT_OF_RANGE = "input_load_out_of_range.txt";
 	private String FILE_WEIGHT_OUT_OF_RANGE = "input_weight_out_of_range.txt";
+	private String CEDULA = "123456";
 	
 	@Test
 	public void debeHacerAlgo(){
 		File inputFile = new File(getClass().getClassLoader().getResource(INPUT_FILE).getPath());
-		byte[] extractor = bean.getFile(inputFile);
+		byte[] extractor = bean.getFile(inputFile, CEDULA);
 		Assert.assertNotNull(extractor);
 	}
 	
 	@Test(expected=BusinessException.class)
 	public void debeValidarRangoDias(){
 		File inputFile = new File(getClass().getClassLoader().getResource(FILE_DAYS_OUT_OF_RANGE).getPath());
-		bean.getFile(inputFile);
+		bean.getFile(inputFile, CEDULA);
 	}
 	
 	@Test(expected=BusinessException.class)
 	public void debeValidarRangoCargas(){
 		File inputFile = new File(getClass().getClassLoader().getResource(FILE_LOAD_OUT_OF_RANGE).getPath());
-		bean.getFile(inputFile);
+		bean.getFile(inputFile, CEDULA);
 	}
 	
 	@Test(expected=BusinessException.class)
 	public void debeValidarRangoPeso(){
 		File inputFile = new File(getClass().getClassLoader().getResource(FILE_WEIGHT_OUT_OF_RANGE).getPath());
-		bean.getFile(inputFile);
+		bean.getFile(inputFile, CEDULA);
 	}
 
 }

@@ -1,6 +1,7 @@
-package co.com.techandsolve.lazy.bean;
+package co.com.techandsolve.lazy.util;
 
 import co.com.techandsolve.lazy.dto.Tasks;
+import co.com.techandsolve.lazy.exception.BusinessException;
 
 public final class Distributor {
 	
@@ -12,6 +13,12 @@ public final class Distributor {
 	}
 
 	public static int run(Tasks task, int fixedWeight) {
+		if(task == null){
+			throw new BusinessException(LazyConstants.ERR_LISTA_NULA);
+		}
+		if(fixedWeight == 0){
+			throw new BusinessException(LazyConstants.ERR_PESO_CERO);
+		}
 		viajes = 0;
 		distribution = 0D;
 		task.getWeights().stream().sorted((a, b)-> Integer.compare(b, a)).forEachOrdered(item -> distribute(item, task.getWeights().size(), fixedWeight));

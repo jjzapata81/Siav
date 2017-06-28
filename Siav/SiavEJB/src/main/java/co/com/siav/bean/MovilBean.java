@@ -81,8 +81,9 @@ public class MovilBean {
 	private void guardarConsumo(ConsumoDTO consumo, String usuario) {
 		ciclo = ciclosRep.findFirstByEstadoOrderByCicloDesc(Constantes.CERRADO).getCiclo();
 		cicloAbierto = ciclosRep.findFirstByEstadoOrderByCicloDesc(Constantes.ABIERTO).getCiclo();
+		Instalacion instalacionBD = instalacionesRep.findOne(consumo.getNumeroInstalacion());
 		List<CausaNoLectura> causasAplica = causasRep.findAll().stream().filter(causa -> causa.getAplicaPromedio()).collect(Collectors.toList());
-		ConsumoPK consumoPk = crearId(consumo);
+		ConsumoPK consumoPk = crearId(consumo, instalacionBD.getSerieMedidor());
 		if(!consumosRep.exists(consumoPk)){
 			Consumo consumoBD = new Consumo();
 			consumoBD.setId(consumoPk);
@@ -121,11 +122,11 @@ public class MovilBean {
 		return instalacionesRep.findOne(numeroInstalcion);
 	}
 
-	private ConsumoPK crearId(ConsumoDTO consumo) {
+	private ConsumoPK crearId(ConsumoDTO consumo, String medidor) {
 		ConsumoPK pk = new ConsumoPK();
 		pk.setCiclo(cicloAbierto);
 		pk.setInstalacion(consumo.getNumeroInstalacion());
-		pk.setSerieMedidor(consumo.getSerialMedidor());
+		pk.setSerieMedidor(medidor);
 		return pk;
 	}
 
