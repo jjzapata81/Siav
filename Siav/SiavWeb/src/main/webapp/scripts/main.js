@@ -106,6 +106,7 @@ require.config({
     	'seguridad-roles-controller' : 'controllers/seguridad-roles-controller',
     	'red-controller' : 'controllers/red-controller',
     	'empresa-controller' : 'controllers/empresa-controller',
+    	'nota-credito-controller' : 'controllers/nota-credito-controller',
     	
     	//Reportes
     	

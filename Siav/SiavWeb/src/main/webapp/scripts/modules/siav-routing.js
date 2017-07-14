@@ -114,6 +114,10 @@ define(['angularAMD', 'angular-route'], function (angularAMD) {
 	            templateUrl: 'views/novedades.html', 
 	            controller: 'novedades-controller'
 	        }))
+	        .when("/nota-credito", angularAMD.route({
+	            templateUrl: 'views/nota-credito.html', 
+	            controller: 'nota-credito-controller'
+	        }))
 	        .when("/creditos", angularAMD.route({
 	            templateUrl: 'views/creditos.html', 
 	            controller: 'creditos-controller'

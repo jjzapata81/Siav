@@ -35,6 +35,13 @@ define(['siav-module'], function(app) {
     		"SISTEMA_ACTUALIZAR_JUNTA" : "rest/general/actualizar/junta",
     		"MACROS_CONSULTAR" : "rest/macros/consultar",
     		"MACROS_GUARDAR" : "rest/macros/",
+    		
+    		"NOVEDAD_GUARDAR" : "rest/novedades/guardar",
+    		"NOVEDAD_CONSULTAR" : "rest/novedades/consultar/",
+    		"NOVEDAD_ELIMINAR" : "rest/novedades/eliminar",
+    		"NOVEDAD_CONSULTAR_NOTA_CREDITO" : "rest/novedades/consultar/nota-credito/",
+    		"NOVEDAD_GUARDAR_NOTA_CREDITO" : "rest/novedades/guardar/nota-credito",
+    		
     		"RAMAL_CONSULTAR_TODO" : "rest/ramal/consultar/todo",
     		"RAMAL_CONSULTAR" : "rest/ramal/consultar",
     		"RAMAL_GUARDAR" : "rest/ramal/guardar/"

@@ -1,0 +1,32 @@
+<titulo/>
+<menu></menu>
+<div  class="contenido">
+	<div  class="boton-fijo">
+		<a ng-click="onBuscar()" uib-tooltip="Buscar" tooltip-placement="left" ng-show="!mostrarUsuario"><i class="fa fa-search icon-float icon-search" aria-hidden="true"></i></a>
+		<a ng-click="onGuardar()" uib-tooltip="Guardar" tooltip-placement="left" ng-show="mostrarUsuario"><i class="fa fa-floppy-o icon-float icon-save" aria-hidden="true"></i></a>
+		<a ng-click="onCancelar()" uib-tooltip="Cancelar" tooltip-placement="left" ng-show="mostrarUsuario"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
+	</div>
+	<section class="titulo-seccion">
+		Nota cr&eacute;dito
+	</section>
+	<section class="formulario form-fijo">
+		<div ng-show="!mostrarUsuario">
+			<section class="sub-titulo">Buscar instalaci&oacute;n</section>
+			<ul class="flex">
+				<li>
+					<label>N&uacute;mero:</label><br>
+					<input type="text" ng-model="numeroInstalacion" ng-enter="onBuscar()" />
+				</li>
+			</ul>
+		</div>
+		<div ng-show="mostrarUsuario">
+			<section class="sub-titulo">{{instalacion.numeroInstalacion}} - {{instalacion.usuario.nombres}} {{instalacion.usuario.apellidos}}</section>
+			<ul class="flex">
+      			<li>
+					<label>Valor:</label><br>
+					<input type="text" ng-model="novedad.valor" ng-disabled="esFijo"/>
+				</li>
+			</ul>
+		</div>
+	</section>
+</div>
