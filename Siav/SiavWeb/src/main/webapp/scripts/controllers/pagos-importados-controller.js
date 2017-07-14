@@ -44,7 +44,15 @@ define(['siav-module', 'modal-factory', 'constantes', 'pagos-services', 'bancos-
         	if(!$scope.hasError() || $scope.hayCuenta()){
         		pagosServices
             	.cargarPagos(file, $scope.cuentaSeleccionada)
-            	.then(function(){
+            	.then(function(data){
+            		var blob = new Blob([data], {type : 'application/octet-stream', endings : 'native'});
+    		 		var a = document.createElement('a');
+    		 		a.href = (window.URL || window.webkitURL).createObjectURL(blob); 
+	                a.target = '_blank';
+	                a.download = "salida.txt";
+	                document.body.appendChild(a);
+	                a.click();
+
             		$scope.files = null;
             		modalFactory.abrir(CONSTANTES.ESTADO.OK, "La carga del archivo " + file.name + " terminó exitosamente.");
         			$scope.mensaje = "Seleccione un archivo...";

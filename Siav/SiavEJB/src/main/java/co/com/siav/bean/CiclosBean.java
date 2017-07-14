@@ -1,7 +1,9 @@
 package co.com.siav.bean;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.ejb.Asynchronous;
 import javax.ejb.Stateless;
@@ -15,6 +17,7 @@ import co.com.siav.entities.CreditoMaestro;
 import co.com.siav.entities.DetalleFactura;
 import co.com.siav.entities.Factura;
 import co.com.siav.entities.Instalacion;
+import co.com.siav.exception.ExcepcionNegocio;
 import co.com.siav.repositories.IRepositoryCiclos;
 import co.com.siav.repositories.IRepositoryConsumos;
 import co.com.siav.repositories.IRepositoryCreditoMaestro;
@@ -28,6 +31,8 @@ import co.com.siav.utils.Utilidades;
 @Stateless
 public class CiclosBean {
 	
+	private static final String SEPARADOR = ";";
+
 	@Inject
 	private IRepositoryCiclos ciclosRep;
 	
@@ -143,22 +148,23 @@ public class CiclosBean {
 					facturaAnterior.getDetalles().stream().mapToLong(DetalleFactura::getValor).sum() + 
 					facturaAnterior.getDetalles().stream().mapToLong(DetalleFactura::getSaldo).sum());
 			factura.setHistoricoConsumos(getHistoricos(facturaAnterior, cicloAnterior.getNombreMes().substring(0,3).toLowerCase()));
-			facturasRep.save(factura);
 		}
+		facturasRep.save(factura);
 	}
 
 	private String getHistoricos(Factura facturaAnterior, String mesAnterior) {
-		StringBuilder sb = new StringBuilder();
-		if(null != facturaAnterior.getHistoricoConsumos()){
-			String[] meses = facturaAnterior.getHistoricoConsumos().split(";");
-			int longitud = meses.length >= 6 ? 5 : meses.length;
-			for(int i = 1; i <= longitud; i++){
-				sb.append(meses[i]);
-				sb.append(";");
+		try{
+			String consumo = String.format(Constantes.FORMATO_HISTORICO, facturaAnterior.getConsumo(), mesAnterior);
+			String historico = Constantes.VACIO;
+			if(null != facturaAnterior.getHistoricoConsumos()){
+				String[] meses = facturaAnterior.getHistoricoConsumos().split(SEPARADOR);
+				int start = meses.length < 6 ? 0 : 1;
+				historico = Arrays.stream(meses).skip(start).collect(Collectors.joining(SEPARADOR)) + SEPARADOR;
 			}
+			return historico + consumo;
+		}catch (Exception e){
+			throw new ExcepcionNegocio(Constantes.getMensaje(Constantes.ERROR_HISTORICO, facturaAnterior.getNumeroFactura()));
 		}
-		sb.append(String.format("%d-%s;", facturaAnterior.getConsumo(), mesAnterior));
-		return sb.toString();
 	}
 	
 	private Consumo crearConsumo(Instalacion instalacion, Ciclo ciclo) {

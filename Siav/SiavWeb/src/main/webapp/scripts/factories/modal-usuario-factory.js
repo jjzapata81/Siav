@@ -18,11 +18,6 @@ define(['siav-module'], function (app) {
     					$scope.init = function(){
     						$scope.titulo = "Información";
         					$scope.clase = "fa fa-info-circle blue";
-        					$scope.esNuevo = true;
-    					}
-    					
-    					$scope.onSeleccionar = function(usuario){
-    						$scope.esNuevo = usuario === 'NUEVO';
     					}
     					
     					$scope.onChange = function(){
@@ -30,9 +25,7 @@ define(['siav-module'], function (app) {
     					}
     					
 						$scope.continuar = function() {
-							if($scope.esNuevo){
-								$uibModalInstance.close(null);
-							}else if($scope.cedula){
+							if($scope.cedula){
 								$uibModalInstance.close($scope.cedula);
 							}else{
 								$scope.obligatorio = "Debe ingresar un número de documento";

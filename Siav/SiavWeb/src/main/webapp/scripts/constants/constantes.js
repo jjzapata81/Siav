@@ -41,7 +41,7 @@ define(['siav-module'], function(app) {
     	},
     	"MSG" : {
     		"CAMBIO_GUARDADO" : "Los cambios han sido guardados de manera correcta.",
-    		"CONFIRMAR_ELIMINAR_RANGO" : "Se procede a eliminar un rango de facturación. Desea continuar?"
+    		"CONFIRMAR_ELIMINAR_RANGO" : "Se procede a eliminar un rango de facturación. ¿Desea continuar?"
     	},
     	"ERR" : {
     		"CONSUMO_MINIMO_NEGATIVO" : "El valor del consumo mínimo debe ser positivo.",
@@ -72,10 +72,10 @@ define(['siav-module'], function(app) {
     		"EDITAR" : "EDITAR",
     		"CREAR" : "CREAR",
     		"MODIFICAR_PROPIETARIO" : "Modificar propietario",
-    		"AGREGAR_PROPPIETARIO" : "Agregar propietario"
+    		"AGREGAR_PROPIETARIO" : "Agregar propietario"
     	},
     	"BANCO" : {
-    		"INFO_MODIFICAR_CUENTA" : "Se procede a modificar la cuenta, desea continuar?",
+    		"INFO_MODIFICAR_CUENTA" : "Se procede a modificar la cuenta. ¿Desea continuar?",
     		"ERR_OBLIGATORIO" : "Los campos de nombre y número de cuenta son obligatorios."
     	},
     	"CAUSAS" : {
@@ -87,7 +87,7 @@ define(['siav-module'], function(app) {
     	},
     	"CIERRE" : {
     		"CONFIRMAR_CIERRE" : "Se procede a cerrar el ciclo ",
-    		"CONFIRMAR_CIERRE_COMPLEMENTO" : ". Desea continuar?",
+    		"CONFIRMAR_CIERRE_COMPLEMENTO" : ". ¿Desea continuar?",
     		"ERR_SIN_FECHA" : "No se puede cerra un ciclo sin fechas."
     	},
     	"CONFIGURACION_RUTA" : {
@@ -113,10 +113,10 @@ define(['siav-module'], function(app) {
     		"ERR_USUARIO" : "No se ha seleccionado un usuario.",
     		"ERR_ACTA" : "Debe ingresar el acta de nombramiento.",
     		"ERR_CARGO" : "Debe seleccionar un cargo.",
-    		"INFO_MODIFICAR_ESTADO" : "Se procede a deshabilitar un miembro de la junta. Desea continuar?"
+    		"INFO_MODIFICAR_ESTADO" : "Se procede a deshabilitar un miembro de la junta. ¿Desea continuar?"
     	},
     	"EXCESO" : {
-    		"INFO_EDITAR_RANGO" : "La modificación de los límites puede afectar todos los consumos, desea continuar?",
+    		"INFO_EDITAR_RANGO" : "La modificación de los límites puede afectar todos los consumos. ¿Desea continuar?",
     		"ERR_OBLIGATORIO" : "Los campos de código y descripción son obligatorios.",
     		"ERR_FALTA_VALOR_ESTRATO" : "Debe indicar los valores para cada uno de los estratos.",
     		"ERR_FALTA_VALOR" : "Debe indicar el valor del consumo."
@@ -130,16 +130,22 @@ define(['siav-module'], function(app) {
     		"ERR_BUSQUEDA_OBLIGATORIO" : "Ingrese un número de instalación.",
     		"ERR_USUARIO_NO_EXISTE" : "No existen usuarios con la cédula ingresada."
     	},
+    	"LOGIN" : {
+    		"ERR_OBLIGATORIO" : "Debe ingresar los datos de Usuario y Contraseña."
+    	},
     	"MACROS" :{
     		"ERR_MACRO_NOMBRE" : "Debe ingresar el nombre del macromedidor."
     	},
+    	"NOVEDAD" : {
+    		"CONFIRMAR_ELIMINAR" : "Se procede a eliminar una novedad. ¿Desea continuar?"
+    	},
     	"PAGO" : {
-    		"NO_CANCELADO" : "Ha seleccionado pago no cancelado. Está seguro que desea continuar?",
+    		"NO_CANCELADO" : "Ha seleccionado pago no cancelado. ¿Está seguro que desea continuar?",
     		"ERR_EXTENSION" : "Sólo se permiten cargar archivos con extensión .csv",
     		"ERR_NUMERO_CUENTA" : "Debe seleccionar una cuenta bancaria para asociar el pago."
     	},
     	"RANGO_FACTURACION" : {
-    		"ELIMINAR_RANGO" : "Se procede a eliminar un rango de facturación. Desea continuar?",
+    		"ELIMINAR_RANGO" : "Se procede a eliminar un rango de facturación. ¿Desea continuar?",
     		"ERR_LIMITE_INICIAL" : "El límite inicial debe ser mayor que cero.",
     		"ERR_LIMITE_FINAL" : "El límite final debe ser mayor al límite incial."
     	},
@@ -159,10 +165,10 @@ define(['siav-module'], function(app) {
     		"ERR_IDENTIFICACION" : "Ingrese un número de identificación."
     	},
     	"SISTEMA" : {
-    		"INFO_MODIFICAR_ESTRATO" : "Se procede a modificar el cobro por ESTRATO, este cambio elimina los valores en TARIFAS y CONSUMOS previamente configurados. Desea continuar con el cambio?",
+    		"INFO_MODIFICAR_ESTRATO" : "Se procede a modificar el cobro por ESTRATO, este cambio elimina los valores en TARIFAS y CONSUMOS previamente configurados. ¿Desea continuar con el cambio?",
     	},
     	"TARIFA" : {
-    		"INFO_MODIFICAR" : "Se procede a modificar una tarifa. Desea continuar?",
+    		"INFO_MODIFICAR" : "Se procede a modificar una tarifa. ¿Desea continuar?",
     		"ERR_OBLIGATORIO" : "Los campos de código y descripción son obligatorios.",
     		"ERR_FALTA_VALOR_ESTRATO" : "Debe indicar los valores para cada uno de los estratos.",
     		"ERR_FALTA_VALOR" : "Debe indicar el valor de la tarifa."

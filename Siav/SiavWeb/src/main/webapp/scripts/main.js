@@ -57,8 +57,6 @@ require.config({
     	//Interceptor
     	
     	//Factories
-    	'factoria-facturacion' : 'factories/factoria-facturacion',
-    	'factoria-usuario' : 'factories/factoria-usuario',
     	'modal-factory' : 'factories/modal-factory',
     	'modal-email' : 'factories/modal-email',
     	'modal-usuario-factory' : 'factories/modal-usuario-factory',
@@ -69,6 +67,7 @@ require.config({
     	
     	//Controladores
     	'menu-controller' : 'controllers/menu-controller',
+    	'titulo-controller' : 'controllers/titulo-controller',
     	'principal-controller' : 'controllers/principal-controller',
     	'login-controller' : 'controllers/login-controller',
     	'contabilidad-controller' : 'controllers/contabilidad-controller',

@@ -17,6 +17,8 @@ public interface IRepositoryFacturas extends JpaRepository<Factura, Long>{
 
 	Long deleteByCiclo(Long ciclo);
 	
+	Long deleteByNumeroFactura(Long numeroFactura);
+	
 	@Query("SELECT COALESCE(MAX(f.numeroFactura), '0') FROM Factura f WHERE f.ciclo = :ciclo")
 	Long findNumeroFacturaByCiclo(@Param("ciclo") Long ciclo);
 

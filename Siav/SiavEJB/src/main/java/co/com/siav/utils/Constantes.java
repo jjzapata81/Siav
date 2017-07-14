@@ -96,6 +96,13 @@ public final class Constantes {
 	public static final String CREACION_CUENTA = "Se creó la cuenta %s %s.";
 	public static final String ERR_COD_RAMAL_EXISTE = "El código de ramal ingresado ya existe.";
 	public static final String ERR_NOMBRE_RAMAL_EXISTE = "El nombre del ramal ingresado ya existe.";
+	public static final String ERR_ELIMINAR_NOVEDAD = "Ocurrió un error al tratar de eliminar la novedad. ";
+	public static final String ELIMINAR_NOVEDAD_OK = "Se eliminó la novedad de manera correcta.";
+	public static final String ERR_APLIQUE_FACTURA = "Ocurrió un error al generar la factura %s. ";
+	public static final String ERR_CONCEPTO_DUPLICADO = "Se está ingresando un código duplicado (%s) para la instalación %s.";
+	public static final String ERROR_HISTORICO = "Ocurrió un error al obtener el histórico de la factura %s.";
+	public static final String FORMATO_HISTORICO = "%d-%s;";
+	public static final String VACIO = "";
 	
 	public static String getMensaje(String mensaje, Long codigo) {
 		return getMensaje(mensaje, String.valueOf(codigo));
@@ -111,6 +118,10 @@ public final class Constantes {
 
 	public static String getMensaje(String mensaje, String param1, String param2) {
 		return String.format(mensaje, param1, param2);
+	}
+
+	public static String getMensaje(String mensaje, String param1, Long param2) {
+		return getMensaje(mensaje, param1, String.valueOf(param2));
 	}
 
 

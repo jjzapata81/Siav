@@ -1,11 +1,11 @@
 /*global define*/
 'use strict';
 
-define(['siav-module', 'instalaciones-services', 'usuarios-services', 'veredas-services', 'ramal-services', 'modal-factory', 'modal-usuario-factory', 'constantes', 'factoria-usuario'], function (app) {
+define(['siav-module', 'instalaciones-services', 'usuarios-services', 'veredas-services', 'ramal-services', 'modal-factory', 'modal-usuario-factory', 'constantes'], function (app) {
 	
     return app.controller('instalaciones-controller',
-    		['$scope', '$location', '$filter', 'instalacionesServices', 'usuariosServices', 'veredasServices', 'ramalServices', 'modalFactory', 'modalUsuario', 'CONSTANTES', 'usuarioFactory',
-    		 function($scope, $location, $filter, instalacionesServices, usuariosServices, veredasServices, ramalServices, modalFactory, modalUsuario, CONSTANTES, usuarioFactory){
+    		['$scope', '$location', '$filter', 'instalacionesServices', 'usuariosServices', 'veredasServices', 'ramalServices', 'modalFactory', 'modalUsuario', 'CONSTANTES',
+    		 function($scope, $location, $filter, instalacionesServices, usuariosServices, veredasServices, ramalServices, modalFactory, modalUsuario, CONSTANTES){
 
     		$scope.estratos = [1, 2, 3, 4, 5, 6];
     			
@@ -67,7 +67,7 @@ define(['siav-module', 'instalaciones-services', 'usuarios-services', 'veredas-s
     		$scope.limpiar();
     		$scope.estaEditando = true;
     		$scope.esNueva = true;
-    		$scope.accionPropietario = CONSTANTES.ACCION.AGREGAR_PROPPIETARIO;
+    		$scope.accionPropietario = CONSTANTES.ACCION.AGREGAR_PROPIETARIO;
     		$scope.accion = CONSTANTES.ACCION.CREAR;
     	}
     	
@@ -114,22 +114,6 @@ define(['siav-module', 'instalaciones-services', 'usuarios-services', 'veredas-s
     	
     	$scope.limpiar = function (){
     		$scope.esNueva = false;
-    		$scope.instalacion = usuarioFactory.getInstalacion();
-    		if($scope.instalacion){
-    			$scope.existeInstalacion = true;
-    			$scope.estaEditando = true;
-    			if($scope.instalacion.numeroInstalacion){
-	    			$scope.buscarInstalacion = $scope.instalacion.numeroInstalacion;
-	    			$scope.onBuscar();
-	    			$scope.accion = CONSTANTES.ACCION.EDITAR;
-    			}
-    			usuarioFactory.deleteInstalacion();
-    		}else{
-    			$scope.initBusqueda();
-    		}
-    	}
-    	
-    	$scope.initBusqueda = function(){
     		$scope.instalacion = {};
 			$scope.instalacion.usuario = null;
 			$scope.estaEditando = false;
@@ -138,25 +122,14 @@ define(['siav-module', 'instalaciones-services', 'usuarios-services', 'veredas-s
     	}
     	
     	$scope.onEditarPropietario = function(){
-    		if(!$scope.existeInstalacion){
-    			modalUsuario
-        		.abrir()
-        		.result
-        		.then(function(cedula){
-        			if(null==cedula){
-        				$scope.goToUsuarios();
-        			}else{
-        				$scope.buscarPorCedula(cedula);
-        			}
-        		});
-    		}else{
-    			$scope.goToUsuarios();
-    		}
-    	}
-    	
-    	$scope.goToUsuarios = function(){
-    		usuarioFactory.setInstalacion($scope.instalacion);
-    		$location.path("/usuarios");
+    		modalUsuario
+    		.abrir()
+    		.result
+    		.then(function(cedula){
+    			if(null!=cedula){
+    				$scope.buscarPorCedula(cedula);
+    			}
+    		});
     	}
     	
     	$scope.camposValidos = function(){
@@ -177,6 +150,11 @@ define(['siav-module', 'instalaciones-services', 'usuarios-services', 'veredas-s
     	
     	$scope.onChangeDigitos = function(){
     		$scope.instalacion.digitosMedidor = $scope.instalacion.digitosMedidor < 0 ? 1 : $scope.instalacion.digitosMedidor;
+    	}
+    	
+    	$scope.onCancelarEditar = function(){
+    		$scope.instalacion = $scope.instalacionTemp;
+    		$scope.estaEditando = false;
     	}
     	
     	$scope.onCancelar = function(){

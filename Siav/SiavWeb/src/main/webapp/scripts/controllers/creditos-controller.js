@@ -7,12 +7,17 @@ define(['siav-module', 'instalaciones-services', 'tarifas-services', 'creditos-s
                                                   function($scope, $filter, instalacionesServices, tarifasServices, creditosServices, contabilidadServices, modalFactory, CONSTANTES){
     	
     	$scope.init = function (){
-    		$scope.limpiar();
     		$scope.consultarTarifas();
+    		$scope.mostrarUsuario = false;
+    		$scope.mostrarTarifa = false;
+    		$scope.mostrarComprobante = false;
+    		$scope.credito = {};
+    		$scope.instalacion = null;
+    		$scope.tarifa = null;
     	}
     	
     	$scope.onCancelar = function(){
-    		$scope.limpiar();
+    		$scope.init();
     	}
     	
     	$scope.onBuscar = function(){
@@ -37,15 +42,6 @@ define(['siav-module', 'instalaciones-services', 'tarifas-services', 'creditos-s
     		.consultar()
     		.then(function(tarifas){
     			$scope.tarifas = tarifas;
-    			$scope.consultarSistema();
-    		});
-    	}
-    	
-    	$scope.consultarSistema = function(){
-    		contabilidadServices
-    		.consultar()
-    		.then(function(sistema){
-    			$scope.sistema = sistema;
     		});
     	}
     	
@@ -57,7 +53,6 @@ define(['siav-module', 'instalaciones-services', 'tarifas-services', 'creditos-s
     			$scope.esFijo = false;
     			$scope.credito.valor = null; 
     		}
-    		$scope.mostrarComprobante = $scope.sistema.idMatricula == $scope.tarifaCredito.codigo;
     	}
     	
     	$scope.onGuardar = function(){
@@ -68,7 +63,7 @@ define(['siav-module', 'instalaciones-services', 'tarifas-services', 'creditos-s
     			creditosServices
     			.guardar($scope.credito)
     			.then(function(){
-    				$scope.limpiar();
+    				$scope.init();
     				modalFactory.abrir(CONSTANTES.ESTADO.OK, CONSTANTES.CREDITO.GUARDAR_EXITO);
     			});
     			
@@ -97,24 +92,15 @@ define(['siav-module', 'instalaciones-services', 'tarifas-services', 'creditos-s
     			modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.CREDITO.ERR_VALOR_OBLIGATORIO);
     			return false;
     		}
-    		if($scope.mostrarComprobante && !$scope.comprobante){
+    		if($scope.credito && $scope.credito.inicial > 0 && !$scope.comprobante){
     			modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.CREDITO.ERR_COMPROBANTE_OBLIGATORIO);
     			return false;
     		}
     		return true;
     	}
     	
-    	$scope.limpiar = function(){
-    		$scope.mostrarUsuario = false;
-    		$scope.mostrarTarifa = false;
-    		$scope.mostrarComprobante = false;
-    		$scope.credito = {};
-    		$scope.instalacion = null;
-    		$scope.tarifa = null;
-    	}
-    	
     	$scope.calculoCuotas = function(){
-    		if($scope.credito && $scope.credito.valor && $scope.credito.inicial && $scope.credito.numeroCuotas > 0){
+    		if($scope.credito && ($scope.credito.valor || $scope.credito.valor >= 0) && ($scope.credito.inicial || $scope.credito.inicial >= 0) && $scope.credito.numeroCuotas > 0){
     			$scope.valorCuota = (parseInt($scope.credito.valor) - $scope.credito.inicial) / $scope.credito.numeroCuotas;
     		}
     	}

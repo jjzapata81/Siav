@@ -193,6 +193,7 @@ public class Tarifador {
 	
 	private void agregarConcepto(Concepto concepto, boolean isAux){
 		if(concepto != null && (concepto.getValor() != 0L || concepto.getVencido() != 0L)){
+			validarCodigoDuplicado(concepto);
 			DetalleFactura conceptoFactura = new DetalleFactura();
 			conceptoFactura.setIdFactura(numeroFactura);
 			conceptoFactura.setCiclo(ciclo);
@@ -210,9 +211,17 @@ public class Tarifador {
 			}
 		}
 	}
+
+
+	private void validarCodigoDuplicado(Concepto concepto) {
+		if(conceptos.stream().filter(item -> item.getCodigo().equals(concepto.getCodigo())).findAny().isPresent()){
+			throw new ExcepcionNegocio(Constantes.getMensaje(Constantes.ERR_CONCEPTO_DUPLICADO, concepto.getCodigo(), instalacion) );
+		}
+	}
 	
 	private void agregarConceptoCredito(ConceptoCredito concepto){
 		if(concepto != null && (concepto.getValor() != 0L || concepto.getVencido() != 0L)){
+			validarCodigoDuplicado(concepto);
 			DetalleFactura conceptoFactura = new DetalleFactura();
 			conceptoFactura.setIdFactura(numeroFactura);
 			conceptoFactura.setCiclo(ciclo);

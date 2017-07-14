@@ -5,25 +5,14 @@
 	<div class="modal-body">
 		<div class="mensaje-body">
 			<div class="icono-modal"><i class="{{clase}}" aria-hidden="true"></i></div>
-			<div class="mensaje-modal">Desea crear un usuario nuevo o asignar la instalaci&oacute;n a uno existente?</div>
+			<div class="mensaje-modal">Ingrese el n&uacute;mero de c&eacute;dula del usuario a quien va a asignar la instalaci&oacute;n:</div>
 		</div>
 		<div class="opciones-usuario">
 			<div class="icon-div">
-				<a ng-click="onSeleccionar('NUEVO')"  class="font-20">
-					<i class="fa fa-user-plus icon-float icon-add" aria-hidden="true"></i>
-					<br>Nuevo <i class="fa fa-check modal-check" aria-hidden="true" ng-show="esNuevo"></i>
-				</a>
+				<i class="fa fa-user icon-float icon-save" aria-hidden="true"></i>
+				<input type="text" ng-model="cedula" placeholder="N&uacute;mero de documento" ng-change="onChange()" class="input-existente">
+				<br><span class="modal-obligatorio">{{obligatorio}}</span>
 			</div>
-			<div class="icon-div">
-				<a ng-click="onSeleccionar('EXISTENTE')" class="font-20">
-					<i class="fa fa-user icon-float icon-save" aria-hidden="true"></i>
-					<br>Existente <i class="fa fa-check modal-check" aria-hidden="true" ng-show="!esNuevo"></i>
-				</a>
-			</div>
-		</div>
-		<div class="input-existente" ng-show="!esNuevo">
-			<span class="modal-obligatorio">{{obligatorio}}</span>
-			<input type="text" ng-model="cedula" placeholder="N&uacute;mero de documento" ng-change="onChange()">
 		</div>
 	</div>
 	<div class="modal-footer">

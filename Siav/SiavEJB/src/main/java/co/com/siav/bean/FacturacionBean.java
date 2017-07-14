@@ -14,6 +14,7 @@ import co.com.siav.entities.Exceso;
 import co.com.siav.entities.Factura;
 import co.com.siav.entities.Sistema;
 import co.com.siav.entities.Tarifa;
+import co.com.siav.exception.ExcepcionNegocio;
 import co.com.siav.facturacion.EstratoManager;
 import co.com.siav.facturacion.FacturadorManager;
 import co.com.siav.facturacion.IFacturador;
@@ -100,36 +101,42 @@ public class FacturacionBean {
 	}
 
 	private Factura crearFactura(Consumo consumo) {
-		Factura factura = new Factura();
-		Factura facturaAnterior = facturasRep.findByFacturaCuentasVencidas(consumo.getInstalacion().getNumeroInstalacion(), cicloAnterior);
-		factura.setCedula(consumo.getInstalacion().getUsuario().getCedula());
-		factura.setCiclo(cicloActual);
-		factura.setCuentasVencidas(facturaAnterior == null ? 0L : facturaAnterior.getCancelado() ? 0L : facturaAnterior.getCuentasVencidas() + 1L);
-		factura.setDireccion(consumo.getInstalacion().getDireccion());
-		factura.setCancelado(false);
-		factura.setNombres(consumo.getInstalacion().getUsuario().getNombreCompleto());
-		factura.setEstrato(consumo.getInstalacion().getEstrato());
-		factura.setSerieMedidor(consumo.getInstalacion().getSerieMedidor());
-		factura.setNombreVereda(consumo.getInstalacion().getVereda().getNombre());
 		Long numeroFactura = numerador.getNumeroFactura().next();
-		factura.setNumeroFactura(numeroFactura);
-		factura.setCausaNoLectura(consumo.getCodigoCausaNoLectura());
-		factura.setNumeroInstalacion(consumo.getInstalacion().getNumeroInstalacion());
-		factura.setFechaDesde(consumo.getFechaDesde());
-		factura.setFechaHasta(consumo.getFechaHasta());
-		factura.setAjustado(consumo.getAjustado());
-		factura.setAbono(false);
-		factura.setLecturaAnterior(consumo.getLecturaAnterior());
-		factura.setLecturaActual(consumo.getLecturaActual());
-		factura.setConsumo(consumo.getConsumoDefinitivo());
-		factura.setConsumoPromedio(consumo.getConsumoPromedio());
-		List<DetalleFactura> detalles = crearDetalle(consumo, numeroFactura, facturaAnterior);
-		if(sistema.getCuentasVencidas().equals(factura.getCuentasVencidas())){
-			detalles.add(crearRecargoCV(numeroFactura, cicloActual, factura.getNumeroInstalacion()));
+		try{
+			Factura factura = new Factura();
+			Factura facturaAnterior = facturasRep.findByFacturaCuentasVencidas(consumo.getInstalacion().getNumeroInstalacion(), cicloAnterior);
+			factura.setCedula(consumo.getInstalacion().getUsuario().getCedula());
+			factura.setCiclo(cicloActual);
+			factura.setCuentasVencidas(facturaAnterior == null ? 0L : facturaAnterior.getCancelado() ? 0L : facturaAnterior.getCuentasVencidas() + 1L);
+			factura.setDireccion(consumo.getInstalacion().getDireccion());
+			factura.setCancelado(false);
+			factura.setNombres(consumo.getInstalacion().getUsuario().getNombreCompleto());
+			factura.setEstrato(consumo.getInstalacion().getEstrato());
+			factura.setSerieMedidor(consumo.getInstalacion().getSerieMedidor());
+			factura.setNombreVereda(consumo.getInstalacion().getVereda().getNombre());
+			factura.setNumeroFactura(numeroFactura);
+			factura.setCausaNoLectura(consumo.getCodigoCausaNoLectura());
+			factura.setNumeroInstalacion(consumo.getInstalacion().getNumeroInstalacion());
+			factura.setFechaDesde(consumo.getFechaDesde());
+			factura.setFechaHasta(consumo.getFechaHasta());
+			factura.setAjustado(consumo.getAjustado());
+			factura.setAbono(false);
+			factura.setLecturaAnterior(consumo.getLecturaAnterior());
+			factura.setLecturaActual(consumo.getLecturaActual());
+			factura.setConsumo(consumo.getConsumoDefinitivo());
+			factura.setConsumoPromedio(consumo.getConsumoPromedio());
+			List<DetalleFactura> detalles = crearDetalle(consumo, numeroFactura, facturaAnterior);
+			if(sistema.getCuentasVencidas().equals(factura.getCuentasVencidas())){
+				detalles.add(crearRecargoCV(numeroFactura, cicloActual, factura.getNumeroInstalacion()));
+			}
+			factura.setDetalles(detalles);
+			facturasRep.save(factura);
+			return factura;
+		
+		}catch(Exception e){
+			throw new ExcepcionNegocio(Constantes.getMensaje(Constantes.ERR_APLIQUE_FACTURA, numeroFactura) + e.getMessage());
 		}
-		factura.setDetalles(detalles);
-		facturasRep.save(factura);
-		return factura;
+			
 	}
 
 	private DetalleFactura crearRecargoCV(Long numeroFactura, Long ciclo, Long numeroInstalacion) {

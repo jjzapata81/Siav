@@ -5,7 +5,8 @@ define(['siav-module'], function (app) {
     app.service('novedadesServices', ['$http', '$q', function ($http, $q) {
     	 var contrato = {
     			 guardar : guardar,
-    			 consultar : consultar
+    			 consultar : consultar,
+    			 eliminar : eliminar
     	 };
     	 
     	 function guardar(novedad){
@@ -17,6 +18,13 @@ define(['siav-module'], function (app) {
     	 
     	 function consultar(numeroInstalacion){
     		 var request = $http.get("rest/novedades/consultar/" + numeroInstalacion, {isArray : true});
+    		 return (request.then(function(response) {
+ 	    		return response.data;
+	    	}));
+    	 }
+    	 
+    	 function eliminar(novedad){
+    		 var request = $http.put("rest/novedades/eliminar", novedad);
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));

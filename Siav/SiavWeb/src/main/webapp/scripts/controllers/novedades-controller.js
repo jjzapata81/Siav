@@ -59,6 +59,22 @@ define(['siav-module', 'instalaciones-services', 'tarifas-services', 'novedades-
     		}
     	}
     	
+    	$scope.onEliminarNovedad = function(novedad){
+    		modalFactory.abrir(CONSTANTES.ESTADO.INFO, CONSTANTES.NOVEDAD.CONFIRMAR_ELIMINAR)
+			.result
+			.then(function(resultado) {
+    			if(resultado){
+    				delete(novedad.descripcion);
+    				novedadesServices
+    				.eliminar(novedad)
+    				.then(function(respuesta){
+    					modalFactory.abrirDialogo(respuesta);
+    					$scope.consultarDetalle();
+    				});
+    			}
+			});
+    	}
+    	
     	$scope.formularioValido = function(){
     		if(!$scope.instalacion || !$scope.tarifaNovedad || !$scope.novedad.valor){
     			modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.ERR.OBLIGATORIO);

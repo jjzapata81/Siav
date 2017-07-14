@@ -25,6 +25,14 @@ public class NovedadesServices {
 	private NovedadesBean bean;
 	
 	@PUT
+	@Path("eliminar")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public MensajeResponse eliminarNovedad(Novedad request){
+		return bean.eliminar(request);
+	}
+	
+	@PUT
 	@Path("guardar")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)

@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import co.com.siav.entities.Novedad;
 import co.com.siav.repositories.IRepositoryCiclos;
 import co.com.siav.repositories.IRepositoryNovedades;
+import co.com.siav.response.EstadoEnum;
 import co.com.siav.response.MensajeResponse;
 import co.com.siav.utils.Constantes;
 
@@ -33,6 +34,15 @@ public class NovedadesBean {
 	public List<Novedad> consultarPorCedula(Long numeroInstalacion) {
 		Long ciclo = consultarCiclo();
 		return novedadesRep.findByIdInstalacionAndIdCiclo(numeroInstalacion, ciclo);
+	}
+
+	public MensajeResponse eliminar(Novedad request) {
+		try{
+			novedadesRep.delete(request.getId());
+			return new MensajeResponse(Constantes.ELIMINAR_NOVEDAD_OK);
+		}catch(Exception e){
+			return new MensajeResponse(EstadoEnum.ERROR, Constantes.ERR_ELIMINAR_NOVEDAD + e.getMessage());
+		}
 	}
 
 }

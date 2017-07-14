@@ -76,7 +76,7 @@ public class Usuario implements Serializable{
 	}
 
 	public void setDireccion(String direccion) {
-		this.direccion = direccion.toUpperCase();
+		this.direccion = direccion == null ? direccion : direccion.toUpperCase();
 	}
 	
 	public String getEmail() {

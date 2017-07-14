@@ -1,25 +1,16 @@
 /*global define*/
 'use strict';
 
-define(['siav-module', 'instalaciones-services', 'usuarios-services', 'veredas-services', 'modal-factory', 'constantes', 'factoria-usuario'], function (app) {
+define(['siav-module', 'instalaciones-services', 'usuarios-services', 'veredas-services', 'modal-factory', 'constantes'], function (app) {
 	
     return app.controller('usuarios-controller',
-    		['$scope', '$location', 'instalacionesServices', 'usuariosServices', 'veredasServices', 'modalFactory', 'CONSTANTES', 'usuarioFactory',
-    		 function($scope, $location, instalacionesServices, usuariosServices, veredasServices, modalFactory, CONSTANTES, usuarioFactory){	
+    		['$scope', '$location', 'instalacionesServices', 'usuariosServices', 'veredasServices', 'modalFactory', 'CONSTANTES', 
+    		 function($scope, $location, instalacionesServices, usuariosServices, veredasServices, modalFactory, CONSTANTES){	
     	
     	$scope.init = function(){
     		$scope.estaEditando = false;
     		$scope.existeUsuario = false;
-    		$scope.editandoInstalacion = false;
     		$scope.usuario = {};
-    		$scope.instalacion = usuarioFactory.getInstalacion();
-    		if($scope.instalacion){
-    			$scope.usuario = $scope.instalacion.usuario;
-    			$scope.estaEditando = true;
-        		$scope.existeUsuario = true;
-        		$scope.editandoInstalacion = true;
-        		$scope.esActualizacion = true;
-    		}
     		$scope.buscarCedula = null;
     	}
     	
@@ -44,6 +35,12 @@ define(['siav-module', 'instalaciones-services', 'usuarios-services', 'veredas-s
     	$scope.onEditar = function(){
     		$scope.estaEditando = true;
     		$scope.esActualizacion = true;
+    		$scope.usuarioTemp = angular.copy($scope.usuario);
+    	}
+    	
+    	$scope.onCancelarEditar = function(){
+    		$scope.estaEditando = false;
+    		$scope.usuario = $scope.usuarioTemp;
     	}
     	
     	$scope.onCrearUsuario = function(){
@@ -58,10 +55,8 @@ define(['siav-module', 'instalaciones-services', 'usuarios-services', 'veredas-s
     			usuariosServices
         		.guardar($scope.usuario, $scope.esActualizacion)
         		.then(function(respuesta){
-        			if(!$scope.editandoInstalacion){
-        				modalFactory.abrirDialogo(respuesta);
-        			}
-        			$scope.goToInstalaciones(respuesta.estado);
+        			modalFactory.abrirDialogo(respuesta);
+        			$scope.init();
         		});
     		}else{
     			modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.USUARIO.ERR_OBLIGATORIO);
@@ -73,15 +68,6 @@ define(['siav-module', 'instalaciones-services', 'usuarios-services', 'veredas-s
     	}
     	
     	$scope.onCancelar = function(){
-    		$scope.goToInstalaciones('CANCELAR');
-    	}
-    	
-    	$scope.goToInstalaciones = function(estado){
-    		if($scope.editandoInstalacion){
-    			$scope.instalacion.usuario = estado === 'ERROR' ? null : $scope.usuario;
-    			usuarioFactory.setInstalacion($scope.instalacion);
-    			$location.path("/instalaciones");
-    		}
     		$scope.init();
     	}
     	

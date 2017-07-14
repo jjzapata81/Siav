@@ -39,13 +39,16 @@ public class CreditosBean {
 	private IRepositoryTarifas tarifasRep;
 
 	public void guardar(CreditoRequest request) {
-		Comprobante comprobantePago = comprobanteRep.findOne(request.getComprobante());
-		if(null != request.getComprobante() && null == comprobantePago){
-			throw new ExcepcionNegocio(Constantes.getMensaje(Constantes.ERR_FALTA_COMPROBANTE, request.getComprobante()));
-		}else if(null != comprobantePago && !comprobantePago.getEsMatricula()){
-			throw new ExcepcionNegocio(Constantes.getMensaje(Constantes.ERR_COMPROBANTE_NO_MATRICULA, request.getComprobante()));
-		}else if(null != comprobantePago && !request.getInicial().equals(comprobantePago.getValor())){
-			throw new ExcepcionNegocio(Constantes.getMensaje(Constantes.ERR_COMPROBANTE_VALOR, comprobantePago.getValor(), request.getInicial()));
+		Comprobante comprobantePago = null;
+		if(null != request.getComprobante()){
+			comprobantePago = comprobanteRep.findOne(request.getComprobante());
+			if(null == comprobantePago){
+				throw new ExcepcionNegocio(Constantes.getMensaje(Constantes.ERR_FALTA_COMPROBANTE, request.getComprobante()));
+			}else if(null != comprobantePago && !comprobantePago.getEsMatricula()){
+				throw new ExcepcionNegocio(Constantes.getMensaje(Constantes.ERR_COMPROBANTE_NO_MATRICULA, request.getComprobante()));
+			}else if(null != comprobantePago && !request.getInicial().equals(comprobantePago.getValor())){
+				throw new ExcepcionNegocio(Constantes.getMensaje(Constantes.ERR_COMPROBANTE_VALOR, comprobantePago.getValor(), request.getInicial()));
+			}
 		}
 		CreditoMaestro credito = new CreditoMaestro();
 		BeanUtils.copyProperties(request, credito);
