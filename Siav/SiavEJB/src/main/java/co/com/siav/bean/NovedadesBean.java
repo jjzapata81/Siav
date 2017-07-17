@@ -5,8 +5,11 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
+import co.com.siav.entities.NotaCreditoAuditoria;
 import co.com.siav.entities.Novedad;
+import co.com.siav.entities.NovedadPK;
 import co.com.siav.repositories.IRepositoryCiclos;
+import co.com.siav.repositories.IRepositoryNotaCreditoAud;
 import co.com.siav.repositories.IRepositoryNovedades;
 import co.com.siav.repositories.IRepositorySistema;
 import co.com.siav.request.NotaCreditoRequest;
@@ -22,6 +25,9 @@ public class NovedadesBean {
 	
 	@Inject
 	private IRepositoryCiclos ciclosRep;
+	
+	@Inject
+	private IRepositoryNotaCreditoAud audRep;
 	
 	public MensajeResponse guardar(Novedad request) {
 		request.getId().setCiclo(consultarCiclo());
@@ -47,14 +53,26 @@ public class NovedadesBean {
 		}
 	}
 
-	public MensajeResponse guardarNotaCredito(NotaCreditoRequest request) {
-		Long ciclo = ciclosRep.findMaximoCicloPorEstado(Constantes.ABIERTO);
-		List<Novedad> novedades = novedadesRep.findByIdInstalacionAndIdCiclo(request.getNumeroInstalacion(), ciclo);
-		Novedad notaCredito = novedades.stream().filter(novedad -> "888888".equals(novedad.getId().getCodigoConcepto())).findFirst().orElse(new Novedad());
-		if(notaCredito.getId()==null){
-			notaCredito.setId(getNovedadPk(request.getNumeroInstalacion(), "888888"));
+	public MensajeResponse guardarNotaCredito(NotaCreditoRequest request, String usuario) {
+		try{
+			Long ciclo = ciclosRep.findMaximoCicloPorEstado(Constantes.ABIERTO);
+			Novedad notaCredito = novedadesRep.findOne(new NovedadPK(ciclo, request.getNumeroInstalacion(), "888888"));
+			if(notaCredito==null){
+				notaCredito = new Novedad();
+				notaCredito.setId(new NovedadPK(ciclo, request.getNumeroInstalacion(), "888888"));
+			}
+			notaCredito.setValor(notaCredito.getValor()-request.getValor());
+			novedadesRep.save(notaCredito);
+			audRep.save(new NotaCreditoAuditoria(ciclo, request.getNumeroInstalacion(), request.getValor(), usuario, request.getObservacion()));
+			return new MensajeResponse(Constantes.ACTUALIZACION_EXITO);
+		}catch(Exception e){
+			return new MensajeResponse(EstadoEnum.ERROR, Constantes.ERR_CREAR_NOTA_CREDITO + e.getMessage());
 		}
-		return null;
+	}
+
+	public List<NotaCreditoAuditoria> consultarNotaCredito(Long numeroInstalacion) {
+		Long ciclo = ciclosRep.findMaximoCicloPorEstado(Constantes.ABIERTO);
+		return audRep.findByInstalacionAndCiclo(numeroInstalacion, ciclo);
 	}
 
 }

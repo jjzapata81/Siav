@@ -4,6 +4,7 @@ public class NotaCreditoRequest {
 
 	private Long numeroInstalacion;
 	private Long valor;
+	private String observacion;
 	
 	public Long getNumeroInstalacion() {
 		return numeroInstalacion;
@@ -16,5 +17,13 @@ public class NotaCreditoRequest {
 	}
 	public void setValor(Long valor) {
 		this.valor = valor;
+	}
+	
+	public String getObservacion() {
+		return observacion;
+	}
+	
+	public void setObservacion(String observacion) {
+		this.observacion = observacion;
 	}
 }

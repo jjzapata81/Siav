@@ -7,7 +7,8 @@ define(['siav-module'], function (app) {
     			 consultarMaestro : consultarMaestro,
     			 guardar : guardar,
     			 crear : crear,
-    			 buscarInstalacion : buscarInstalacion
+    			 buscarInstalacion : buscarInstalacion,
+    			 consultaVencido : consultaVencido
     	 };
     	 
     	 function consultarMaestro(maestro){
@@ -36,6 +37,13 @@ define(['siav-module'], function (app) {
     		 return (request.then(function(response){
     			 return response.data;
     		 }));
+    	 }
+    	 
+    	 function consultaVencido(instalacion){
+    		 var request = $http.get("rest/instalacion/consultar/vencido/" + instalacion, {isArray : false});
+    		 return (request.then(function(response) {
+ 	    		return response.data;
+	    	}));
     	 }
    	 
     	 return contrato;

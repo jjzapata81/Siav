@@ -24,9 +24,27 @@
 			<ul class="flex">
       			<li>
 					<label>Valor:</label><br>
-					<input type="text" ng-model="novedad.valor" ng-disabled="esFijo"/>
+					<input type="text" ng-model="valor"/>
 				</li>
 			</ul>
+			<div class="tabla-siav" ng-show="mostrarNota">
+				<table class="table table-responsive">
+					<thead>
+						<th>Fecha</th>
+						<th>Valor</th>
+						<th>Observaci&oacute;n</th>
+						<th>Usuario</th>
+					</thead>
+					<tbody>
+						<tr ng-repeat="nota in notaCredito">
+							<td>{{nota.fecha | date:'dd/MM/yyyy'}}</td>
+							<td>{{nota.valor | currency:"$":0}}</td>
+							<td>{{nota.observacion}}</td>
+							<td>{{nota.usuario}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</section>
 </div>

@@ -9,6 +9,16 @@ import javax.persistence.Embeddable;
 public class NovedadPK implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
+	
+	public NovedadPK() {
+	}
+	
+	public NovedadPK(Long ciclo, Long instalacion, String codigoConcepto) {
+		super();
+		this.ciclo = ciclo;
+		this.instalacion = instalacion;
+		this.codigoConcepto = codigoConcepto;
+	}
 
 	@Column(name="ciclo", nullable=false)
 	private Long ciclo;

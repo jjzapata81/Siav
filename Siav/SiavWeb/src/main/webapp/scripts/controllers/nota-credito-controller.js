@@ -1,15 +1,17 @@
 /*global define*/
 'use strict';
 
-define(['siav-module', 'instalaciones-services', 'tarifas-services', 'novedades-services', 'modal-factory', 'constantes'], function (app) {
+define(['siav-module', 'instalaciones-services', 'tarifas-services', 'novedades-services', 'modal-factory', 'constantes', 'modal-observacion'], function (app) {
 	
-    return app.controller('nota-credito-controller', ['$scope', '$filter', 'instalacionesServices', 'tarifasServices', 'novedadesServices', 'modalFactory', 'CONSTANTES', function($scope, $filter, instalacionesServices, tarifasServices, novedadesServices, modalFactory, CONSTANTES){
+    return app.controller('nota-credito-controller', ['$scope', '$filter', 'instalacionesServices', 'tarifasServices', 'novedadesServices', 'modalFactory', 'CONSTANTES', 'modalObservacion', 
+                                                      function($scope, $filter, instalacionesServices, tarifasServices, novedadesServices, modalFactory, CONSTANTES, modalObservacion){
     	
     	$scope.init = function (){
     		$scope.mostrarUsuario = false;
     		$scope.numeroInstalacion = null;
-    		$scope.novedad = {};
-    		$scope.novedades = null;
+    		$scope.valor = null;
+    		$scope.notaCredito = [];
+    		$scope.mostrarNota = false;
     	}
     	
     	$scope.onBuscar = function(){
@@ -24,7 +26,7 @@ define(['siav-module', 'instalaciones-services', 'tarifas-services', 'novedades-
         			}else{
         				$scope.mostrarUsuario = true;
         				$scope.instalacion = respuesta.instalacion;
-//        				$scope.consultarNotaCredito();
+        				$scope.consultarNotaCredito();
         			}
         		});
     		}else{
@@ -32,26 +34,33 @@ define(['siav-module', 'instalaciones-services', 'tarifas-services', 'novedades-
     		}
     	}
     	
-//    	$scope.consultarNotaCredito = function(){
-//    		novedadesServices
-//    		.consultarNotaCredito($scope.instalacion.numeroInstalacion)
-//    		.then(function(notaCredito){
-//    			$scope.notaCredito = notaCredito;
-//    		});
-//    	}
+    	$scope.consultarNotaCredito = function(){
+    		novedadesServices
+    		.consultarNotaCredito($scope.instalacion.numeroInstalacion)
+    		.then(function(notaCredito){
+    			$scope.notaCredito = notaCredito;
+    			$scope.mostrarNota = notaCredito.length > 0;
+    		});
+    	}
     	
     	$scope.onGuardar = function(){
     		if($scope.formularioValido()){
-    			var request = {};
-    			request.numeroInstalacion = $scope.instalacion.numeroInstalacion;
-    			request.valor = $scope.valor;
-    			$scope.novedad.id.instalacion = $scope.instalacion.numeroInstalacion;
-    			novedadesServices
-    			.guardarNotaCredito(request)
-    			.then(function(respuesta){
-    				modalFactory.abrirDialogo(respuesta);
-    				$scope.limpiar();
-    			});
+    			modalObservacion
+    			.abrir()
+        		.result
+        		.then(function(observacion){
+        			var request = {};
+        			request.numeroInstalacion = $scope.instalacion.numeroInstalacion;
+        			request.valor = $scope.valor;
+        			request.observacion = observacion;
+        			novedadesServices
+        			.guardarNotaCredito(request)
+        			.then(function(respuesta){
+        				modalFactory.abrirDialogo(respuesta);
+        				$scope.limpiar();
+        			});
+        		});
+    			
     		}
     	}
     	

@@ -40,7 +40,7 @@ define(['siav-module', 'constantes'], function (app) {
     	 }
     	 
     	 function guardarNotaCredito(request){
-    		 var request = $http.post(CONSTANTES.SRV.NOVEDAD_GUARDAR_NOTA_CREDITO, request, {isArray : false});
+    		 var request = $http.put(CONSTANTES.SRV.NOVEDAD_GUARDAR_NOTA_CREDITO, request, {isArray : false});
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));

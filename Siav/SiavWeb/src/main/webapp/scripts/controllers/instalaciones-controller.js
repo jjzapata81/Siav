@@ -43,6 +43,14 @@ define(['siav-module', 'instalaciones-services', 'usuarios-services', 'veredas-s
         				$scope.instalacion.ramal = ramal;
         				$scope.instalacion.facturacion = tipoFacturacion;
         				$scope.existeInstalacion = true;
+        				instalacionesServices
+    					.consultaVencido($scope.instalacion.numeroInstalacion)
+    					.then(function(respuesta){
+    						if(respuesta.estado === CONSTANTES.ESTADO.INFO){
+    							modalFactory.abrir(respuesta.estado, respuesta.mensaje);
+    							$scope.autorizado = respuesta.autorizado;
+    						}
+    					});
         			}
         		});
     		}else{
@@ -114,6 +122,7 @@ define(['siav-module', 'instalaciones-services', 'usuarios-services', 'veredas-s
     	
     	$scope.limpiar = function (){
     		$scope.esNueva = false;
+    		$scope.autorizado = true;
     		$scope.instalacion = {};
 			$scope.instalacion.usuario = null;
 			$scope.estaEditando = false;

@@ -5,8 +5,13 @@ import java.util.Date;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
+import co.com.siav.entities.DetalleFactura;
+import co.com.siav.entities.Factura;
 import co.com.siav.entities.Instalacion;
+import co.com.siav.repositories.IRepositoryCiclos;
+import co.com.siav.repositories.IRepositoryFacturas;
 import co.com.siav.repositories.IRepositoryInstalaciones;
+import co.com.siav.response.CuentasVencidasResponse;
 import co.com.siav.response.EstadoEnum;
 import co.com.siav.response.InstalacionResponse;
 import co.com.siav.response.MensajeResponse;
@@ -18,6 +23,15 @@ public class InstalacionBean {
 	
 	@Inject
 	private IRepositoryInstalaciones instalacionRep;
+	
+	@Inject
+	private IRepositoryFacturas facturasRep;
+	
+	@Inject
+	private IRepositoryCiclos ciclosRep;
+	
+	@Inject
+	private AutorizacionBean autorizacion;
 	
 	public InstalacionResponse consultarInstalacionPorNumero(String numeroInstalacion) {
 		Instalacion instalacion = instalacionRep.findOne(Long.valueOf(numeroInstalacion));
@@ -58,5 +72,19 @@ public class InstalacionBean {
 			return limiteInicial;
 		}
 		return consecutivo  + 1L;
+	}
+
+	public CuentasVencidasResponse consultarVencido(Long numeroInstalacion, String usuario) {
+		Long ciclo = ciclosRep.findMaximoCicloPorEstado(Constantes.CERRADO);
+		Factura factura = facturasRep.findByNumeroInstalacionAndCiclo(numeroInstalacion, ciclo);
+		if(factura.getDetalles().stream().filter(detalle -> !detalle.getCancelado()).findAny().isPresent()){
+			Long vencido = factura.getDetalles().stream().mapToLong(this::getVencido).sum();
+			return new CuentasVencidasResponse(EstadoEnum.INFO, Constantes.getMensaje(Constantes.VALOR_VENCIDO, vencido), autorizacion.get(usuario, Constantes.ACCION_CUENTAS_VENCIDAS));
+		}
+		return new CuentasVencidasResponse(Constantes.ACTUALIZACION_EXITO);
+	}
+	
+	private Long getVencido(DetalleFactura detalle){
+		return detalle.getValor() + detalle.getSaldo() - detalle.getCartera();
 	}
 }

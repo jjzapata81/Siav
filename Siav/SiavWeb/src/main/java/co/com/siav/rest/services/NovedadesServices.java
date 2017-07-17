@@ -14,6 +14,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import co.com.siav.bean.NovedadesBean;
+import co.com.siav.entities.NotaCreditoAuditoria;
 import co.com.siav.entities.Novedad;
 import co.com.siav.request.NotaCreditoRequest;
 import co.com.siav.response.MensajeResponse;
@@ -52,8 +53,15 @@ public class NovedadesServices {
 	@PUT
 	@Path("guardar/nota-credito")
 	@Produces(MediaType.APPLICATION_JSON)
-	public MensajeResponse guardarNotaCredito(@HeaderParam("user") String usuraio, NotaCreditoRequest request){
-		return bean.guardarNotaCredito(request);
+	public MensajeResponse guardarNotaCredito(@HeaderParam("siav_usuario") String usuario, NotaCreditoRequest request){
+		return bean.guardarNotaCredito(request, usuario);
+	}
+	
+	@GET
+	@Path("consultar/nota-credito/{numeroInstalacion}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<NotaCreditoAuditoria> consultarNotaCredito(@PathParam("numeroInstalacion") Long numeroInstalacion){
+		return bean.consultarNotaCredito(numeroInstalacion);
 	}
 	
 

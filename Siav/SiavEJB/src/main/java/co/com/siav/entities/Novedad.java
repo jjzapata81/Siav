@@ -32,7 +32,7 @@ public class Novedad implements Serializable{
 	}
 
 	public Long getValor() {
-		return valor;
+		return valor == null ? 0L : valor;
 	}
 
 	public void setValor(Long valor) {
