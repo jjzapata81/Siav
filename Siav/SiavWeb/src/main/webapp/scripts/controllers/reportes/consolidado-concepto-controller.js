@@ -3,17 +3,17 @@
 
 define(['siav-module', 'reportes-services', 'modal-email', 'modal-factory', 'constantes'], function (app) {
 	
-    return app.controller('consumo-no-facturado-controller', ['$scope', '$sce', 'reportesServices', 'modalEmail', 'modalFactory', 'CONSTANTES',
+    return app.controller('consolidado-concepto-controller', ['$scope', '$sce', 'reportesServices', 'modalEmail', 'modalFactory', 'CONSTANTES',
 	  function($scope, $sce, reportesServices, modalEmail, modalFactory, CONSTANTES){
 
     	$scope.content = {};
     	
-    	var REPORTE = "consumo-no-facturado";
+    	var REPORTE = "consolidado-concepto";
     	
     	$scope.onDescargar = function(){
     		if($scope.validar()){
     			reportesServices
-        		.descargar(REPORTE, "consumo_no_facturado_ciclo" + $scope.filtro.ciclo + ".xlsx", $scope.filtro);
+        		.descargar(REPORTE, "consolidado_concepto_ciclo" + $scope.filtro.ciclo + ".xlsx", $scope.filtro);
     		}
     	}
     	

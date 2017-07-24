@@ -33,6 +33,6 @@ public class EncabezadoBase {
 	}
 
 	public String getCiclo() {
-		return String.valueOf(ciclo);
+		return ciclo == null ? "" : String.valueOf(ciclo);
 	}
 }

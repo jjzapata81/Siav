@@ -1,6 +1,6 @@
 package co.com.siav.reports.response;
 
-public class ConsumoNoFacturado {
+public class EstadisticaConsumo {
 	
 	private Long orden;
 	private String vereda;
@@ -45,5 +45,4 @@ public class ConsumoNoFacturado {
 	public void setConsumoPromedio(Double consumoPromedio) {
 		this.consumoPromedio = consumoPromedio;
 	}
-	
 }

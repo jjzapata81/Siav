@@ -10,7 +10,8 @@ public enum DataType {
 	STRING(""),
 	DATE("yyyy-MM-hh"),
 	CURRENCY("$ %s"),
-	NUMBER("")
+	NUMBER(""),
+	PERCENT("% %d")
 	;
 	
 	private String symbol;
