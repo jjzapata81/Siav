@@ -31,5 +31,9 @@ public class Reporte {
 	public static final String INSTALACIONES_RUTA_CUERPO = "<h3><b>Informe de Instalaciones por Ruta</b></h3><br><h4>Adjunto se encuentra el informe de instalaciones por ruta.</h4>";
 	public static final String INSTALACIONES_RUTA = "instalaciones_ruta.xlsx";
 	
+	public static final String CONSUMO_NO_FACTURADO_ASUNTO = "Informe de consumos no facturados";
+	public static final String CONSUMO_NO_FACTURADO_CUERPO = "<h3><b>Informe de Consumos no facturados</b></h3><br><h4>Adjunto se encuentra el informe de consumos no facturados al ciclo %d.</h4>";
+	public static final String CONSUMO_NO_FACTURADO = "consumo_no_facturado_ciclo_%d.xlsx";
+	
 
 }

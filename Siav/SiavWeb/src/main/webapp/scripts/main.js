@@ -117,6 +117,7 @@ require.config({
     	'instalaciones-usuarios-controller' : 'controllers/reportes/instalaciones-usuarios-controller',
     	'reporte-variacion-consumo-controller' : 'controllers/reportes/reporte-variacion-consumo-controller',
     	'reporte-instalaciones-ruta-controller' : 'controllers/reportes/reporte-instalaciones-ruta-controller',
+    	'consumo-no-facturado-controller' : 'controllers/reportes/consumo-no-facturado-controller',
     	
     	//Directivas
     	

@@ -178,6 +178,10 @@ define(['angularAMD', 'angular-route'], function (angularAMD) {
 	            templateUrl: 'views/reportes/ventas.html', 
 	            controller: 'reporte-ventas-controller'
 	        }))
+	        .when("/consumo-no-facturado", angularAMD.route({
+	            templateUrl: 'views/reportes/consumo-no-facturado.html', 
+	            controller: 'consumo-no-facturado-controller'
+	        }))
 	        .when("/lecturas-consumos", angularAMD.route({
 	            templateUrl: 'views/reportes/lecturas-consumos.html', 
 	            controller: 'lecturas-consumos-controller'

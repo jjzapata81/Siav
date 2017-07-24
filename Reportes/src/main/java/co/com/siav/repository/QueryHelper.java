@@ -434,5 +434,41 @@ public class QueryHelper {
 		sb.append("')");
 		return sb.toString();
 	}
+	
+	public static String getConsumoNoFacturado(Filter filter){
+		StringBuilder sb = new StringBuilder();
+		sb.append("SELECT 1 AS orden, i.nminstalacion AS instalacion, ");
+		sb.append("   (CASE WHEN u.nombres IS NULL THEN u.apellidos ELSE u.nombres  || ' ' || u.apellidos END) nombre, ");
+		sb.append("   c.leanterior, c.leactual, c.consumodefinitivo, ");
+		sb.append("   (CASE WHEN i.cdtipofacturacion = '2' THEN 'N' ELSE '' END) paga, ");
+		sb.append("    c.consumopromedio ");
+		sb.append(" FROM ta_consumos c, ta_instalacion i, ta_usuarios u ");
+		sb.append("WHERE i.nminstalacion = c.nminstalacion and i.cedula = u.cedula and i.cdtipofacturacion='2' ");
+		sb.append("  AND c.ciclo = ");
+		sb.append(filter.getCiclo());
+		sb.append(" UNION ");
+		sb.append("SELECT 2, 9999, 'TOTAL METROS CUBICOS NO FACTURADOS', 0, 0, SUM(c.consumodefinitivo), '' paga, 0 ");
+		sb.append(" FROM ta_consumos c, ta_instalacion i, ta_usuarios u ");
+		sb.append("WHERE i.nminstalacion = c.nminstalacion and i.cedula = u.cedula and i.cdtipofacturacion='2' ");
+		sb.append("  AND c.ciclo = ");
+		sb.append(filter.getCiclo());
+		sb.append(" GROUP BY  c.ciclo ");
+		sb.append("UNION ");
+		sb.append("SELECT 3, 9999, 'TOTAL METROS CUBICOS FACTURADOS', 0, 0, SUM(c.consumodefinitivo), '' paga, 0 ");
+		sb.append(" FROM ta_consumos c, ta_instalacion i, ta_usuarios u ");
+		sb.append("WHERE i.nminstalacion = c.nminstalacion and i.cedula = u.cedula and i.cdtipofacturacion = '1' ");
+		sb.append("  AND c.ciclo = ");
+		sb.append(filter.getCiclo());
+		sb.append(" GROUP BY  c.ciclo ");
+		sb.append("UNION ");
+		sb.append("SELECT 4, 9999, 'TOTAL METROS DESPACHADOS', 0, 0, SUM(c.consumodefinitivo), '' paga, 0 ");
+		sb.append(" FROM ta_consumos c, ta_instalacion i, ta_usuarios u ");
+		sb.append("WHERE i.nminstalacion = c.nminstalacion and i.cedula = u.cedula ");
+		sb.append("  AND c.ciclo = ");
+		sb.append(filter.getCiclo());
+		sb.append(" GROUP BY  c.ciclo ");
+		sb.append("ORDER BY 1, 6, 2 ");
+		return sb.toString();
+	}
 
 }
