@@ -117,7 +117,11 @@ require.config({
     	'instalaciones-usuarios-controller' : 'controllers/reportes/instalaciones-usuarios-controller',
     	'reporte-variacion-consumo-controller' : 'controllers/reportes/reporte-variacion-consumo-controller',
     	'reporte-instalaciones-ruta-controller' : 'controllers/reportes/reporte-instalaciones-ruta-controller',
-    	
+    	'consumo-no-facturado-controller' : 'controllers/reportes/consumo-no-facturado-controller',
+    	'estadisticas-controller' : 'controllers/reportes/estadisticas-controller',
+    	'consolidado-concepto-controller' : 'controllers/reportes/consolidado-concepto-controller',
+    	'detalle-recaudo-controller' : 'controllers/reportes/detalle-recaudo-controller',
+    	'cartera-controller' : 'controllers/reportes/cartera-controller',
     	//Directivas
     	
     	'directiva-menu' : 'directives/directiva-menu',

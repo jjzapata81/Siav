@@ -178,6 +178,26 @@ define(['angularAMD', 'angular-route'], function (angularAMD) {
 	            templateUrl: 'views/reportes/ventas.html', 
 	            controller: 'reporte-ventas-controller'
 	        }))
+	        .when("/consumo-no-facturado", angularAMD.route({
+	            templateUrl: 'views/reportes/consumo-no-facturado.html', 
+	            controller: 'consumo-no-facturado-controller'
+	        }))
+	        .when("/estadisticas", angularAMD.route({
+	            templateUrl: 'views/reportes/estadisticas.html', 
+	            controller: 'estadisticas-controller'
+	        }))
+	        .when("/cartera", angularAMD.route({
+	            templateUrl: 'views/reportes/cartera.html', 
+	            controller: 'cartera-controller'
+	        }))
+	        .when("/consolidado-concepto", angularAMD.route({
+	            templateUrl: 'views/reportes/consolidado-concepto.html', 
+	            controller: 'consolidado-concepto-controller'
+	        }))
+	        .when("/detalle-recaudo", angularAMD.route({
+	            templateUrl: 'views/reportes/detalle-recaudo.html', 
+	            controller: 'detalle-recaudo-controller'
+	        }))
 	        .when("/lecturas-consumos", angularAMD.route({
 	            templateUrl: 'views/reportes/lecturas-consumos.html', 
 	            controller: 'lecturas-consumos-controller'
