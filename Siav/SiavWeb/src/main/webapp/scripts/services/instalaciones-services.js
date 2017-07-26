@@ -40,7 +40,12 @@ define(['siav-module'], function (app) {
     	 }
     	 
     	 function consultaVencido(instalacion){
-    		 var request = $http.get("rest/instalacion/consultar/vencido/" + instalacion, {isArray : false});
+    		 var config = {
+    				 headers: {
+    					 'siav_usuario': getData("user")
+						}
+    		 };
+    		 var request = $http.get("rest/instalacion/consultar/vencido/" + instalacion, config, {isArray : false});
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));
