@@ -3,17 +3,17 @@
 
 define(['siav-module', 'reportes-services', 'modal-email', 'modal-factory', 'constantes'], function (app) {
 	
-    return app.controller('estadisticas-consumo-controller', ['$scope', '$sce', 'reportesServices', 'modalEmail', 'modalFactory', 'CONSTANTES',
+    return app.controller('estadisticas-controller', ['$scope', '$sce', 'reportesServices', 'modalEmail', 'modalFactory', 'CONSTANTES',
 	  function($scope, $sce, reportesServices, modalEmail, modalFactory, CONSTANTES){
 
-    	$scope.content = {};
+    	$scope.content = null;
     	
-    	var REPORTE = "estadisticas-consumo";
+    	var REPORTE = "estadisticas";
     	
     	$scope.onDescargar = function(){
     		if($scope.validar()){
     			reportesServices
-        		.descargar(REPORTE, "estadisticas_consumo_ciclo" + $scope.filtro.ciclo + ".xlsx", $scope.filtro);
+        		.descargar(REPORTE, "estadisticas_ciclo" + $scope.filtro.ciclo + ".xlsx", $scope.filtro);
     		}
     	}
     	

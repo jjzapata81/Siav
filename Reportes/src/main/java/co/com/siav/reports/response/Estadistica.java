@@ -1,6 +1,6 @@
 package co.com.siav.reports.response;
 
-public class EstadisticaConsumo {
+public class Estadistica {
 	
 	private Long orden;
 	private String vereda;

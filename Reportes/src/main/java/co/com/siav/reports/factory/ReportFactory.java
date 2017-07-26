@@ -5,11 +5,12 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import co.com.siav.repository.report.CarteraRepository;
 import co.com.siav.repository.report.ConsolidadoConceptoRepository;
 import co.com.siav.repository.report.ConsumosNoFacturadoRepository;
 import co.com.siav.repository.report.CuentasVencidasRepository;
 import co.com.siav.repository.report.DetalleRecaudoRepository;
-import co.com.siav.repository.report.EstadisticaConsumoRepository;
+import co.com.siav.repository.report.EstadisticasRepository;
 import co.com.siav.repository.report.FacturaRepository;
 import co.com.siav.repository.report.InstalacionesRutaRepository;
 import co.com.siav.repository.report.LecturasConsumosRepository;
@@ -41,7 +42,10 @@ public class ReportFactory {
 	private ConsumosNoFacturadoRepository consumosNoFacturadoRep;
 	
 	@Inject
-	private EstadisticaConsumoRepository estadisticasConsumoRep;
+	private EstadisticasRepository estadisticasRep;
+	
+	@Inject
+	private CarteraRepository carteraRep;
 	
 	@Inject
 	private ConsolidadoConceptoRepository consolidadoConceptoRep;
@@ -69,9 +73,10 @@ public class ReportFactory {
 		typeReport.put("lecturas-consumos", lecturasConsumosRep);
 		typeReport.put("instalaciones-ruta", instalacionesRutaRep);
 		typeReport.put("consumo-no-facturado", consumosNoFacturadoRep);
-		typeReport.put("estadisticas-consumo", estadisticasConsumoRep);
+		typeReport.put("estadisticas", estadisticasRep);
 		typeReport.put("consolidado-concepto", consolidadoConceptoRep);
 		typeReport.put("detalle-recaudo", detalleRecaudoRep);
+		typeReport.put("cartera", carteraRep);
 	}
 
 }

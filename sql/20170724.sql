@@ -5,7 +5,7 @@ INSERT INTO ta_recurso_perfil(nmrecursoperfil, nmperfil, nmrecurso)
     VALUES ((SELECT MAX(nmrecursoperfil) + 1 from ta_recurso_perfil), 1, 455);
 	
 INSERT INTO ta_recursos(nmrecurso, titulo, accion, snsubmenu, nmrelacion, nmgrupo)
-    VALUES (456, 'Estadísticas de consumo', 'estadistica-consumo', 'N', 456, 4);
+    VALUES (456, 'Estadísticas', 'estadisticas', 'N', 456, 4);
 
 INSERT INTO ta_recurso_perfil(nmrecursoperfil, nmperfil, nmrecurso)
     VALUES ((SELECT MAX(nmrecursoperfil) + 1 from ta_recurso_perfil), 1, 456);

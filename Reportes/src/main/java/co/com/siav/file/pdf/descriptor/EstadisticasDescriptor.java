@@ -4,15 +4,13 @@ import co.com.siav.file.pdf.IPdfDescriptor;
 import co.com.siav.utility.Alignment;
 
 
-public enum DetalleRecaudoDescriptor implements IPdfDescriptor{
+public enum EstadisticasDescriptor implements IPdfDescriptor{
 	
-	FECHA_FACTURA("FECHA FACTURA","getFechaFactura", 40, DataType.DATE, Alignment.CENTER),
-	BANCO("BANCO","getBanco", 40, DataType.STRING, Alignment.LEFT),
-	NUMERO_CUENTA("NÚMERO CUENTA","getNumeroCuenta", 80, DataType.STRING, Alignment.CENTER),
-	FECHA_HASTA("FECHA HASTA","getFeHasta", 45, DataType.DATE, Alignment.CENTER),
-	INSTALACION("INSTALACIÓN","getInstalacion", 40, DataType.STRING, Alignment.CENTER),
-	NOMBRES("NOMBRES","getNombres", 230, DataType.STRING, Alignment.LEFT),
-	VALOR("VALOR","getValor", 50, DataType.CURRENCY, Alignment.RIGHT),
+	CONCEPTO("CONCEPTO","getVereda", 180, DataType.STRING, Alignment.LEFT),
+	INSTALACIONES("INSTALACIONES","getInstalaciones", 50, DataType.NUMBER, Alignment.RIGHT),
+	CONSUMO_TOTAL("CONSUMO TOTAL","getConsumoTotal", 110, DataType.NUMBER, Alignment.RIGHT),
+	PORCENTAJE("PORCENTAJE","getPorcentaje", 50, DataType.PERCENT, Alignment.RIGHT),
+	CONSUMO_PROMEDIO("CONSUMO PROMEDIO","getConsumoPromedio", 110, DataType.NUMBER, Alignment.RIGHT),
 	;
 	
 	private String header;
@@ -21,7 +19,7 @@ public enum DetalleRecaudoDescriptor implements IPdfDescriptor{
 	private DataType type;
 	private Alignment alignment;
 	
-	private DetalleRecaudoDescriptor(String header, String attribute, float columnWidth, DataType type, Alignment alignment){
+	private EstadisticasDescriptor(String header, String attribute, float columnWidth, DataType type, Alignment alignment){
 		this.header = header;
 		this.attribute = attribute;
 		this.columnWidth = columnWidth;

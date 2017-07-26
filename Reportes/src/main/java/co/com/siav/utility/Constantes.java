@@ -12,5 +12,9 @@ public class Constantes {
 	public static final String ERR_HISTORICO_CONSUMOS = "Error obteniendo el histórico de consumos. ";
 	public static final String ERR_VALORES_FACTURADOS = "Error al tratar de obtener los valores facturados. ";
 	public static final String YYYY_MM_DD = "yyyy-MM-dd";
+	
+	
+	public static final String CARTERA_JRXML = "cartera.jrxml";
+
 
 }

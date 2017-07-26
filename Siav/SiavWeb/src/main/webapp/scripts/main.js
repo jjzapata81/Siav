@@ -118,10 +118,10 @@ require.config({
     	'reporte-variacion-consumo-controller' : 'controllers/reportes/reporte-variacion-consumo-controller',
     	'reporte-instalaciones-ruta-controller' : 'controllers/reportes/reporte-instalaciones-ruta-controller',
     	'consumo-no-facturado-controller' : 'controllers/reportes/consumo-no-facturado-controller',
-    	'estadisticas-consumo-controller' : 'controllers/reportes/estadisticas-consumo-controller',
+    	'estadisticas-controller' : 'controllers/reportes/estadisticas-controller',
     	'consolidado-concepto-controller' : 'controllers/reportes/consolidado-concepto-controller',
     	'detalle-recaudo-controller' : 'controllers/reportes/detalle-recaudo-controller',
-    	
+    	'cartera-controller' : 'controllers/reportes/cartera-controller',
     	//Directivas
     	
     	'directiva-menu' : 'directives/directiva-menu',

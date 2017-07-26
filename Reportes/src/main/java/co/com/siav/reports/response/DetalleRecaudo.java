@@ -11,6 +11,7 @@ public class DetalleRecaudo {
 	private String nombres;
 	private Long instalacion;
 	private Long valor;
+	
 	public Date getFechaFactura() {
 		return fechaFactura;
 	}

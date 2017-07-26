@@ -2,7 +2,7 @@ package co.com.siav.file.excel.descriptor;
 
 import co.com.siav.file.excel.IExcelDescriptor;
 
-public enum EstadisticaConsumoExcelDescriptor implements IExcelDescriptor{
+public enum EstadisticasExcelDescriptor implements IExcelDescriptor{
 	
 	CONCEPTO("CONCEPTO","getVereda"),
 	INSTALACIONES("INSTALACIONES","getInstalaciones"),
@@ -15,7 +15,7 @@ public enum EstadisticaConsumoExcelDescriptor implements IExcelDescriptor{
 	
 	private String attribute;
 	
-	private EstadisticaConsumoExcelDescriptor(String header, String attribute){
+	private EstadisticasExcelDescriptor(String header, String attribute){
 		this.header = header;
 		this.attribute = attribute;
 	}

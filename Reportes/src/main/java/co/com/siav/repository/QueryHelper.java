@@ -473,7 +473,7 @@ public class QueryHelper {
 		return sb.toString();
 	}
 	
-	public static String getEstadisticaConsumo(Filter filter){
+	public static String getEstadisticas(Filter filter){
 		StringBuilder sb = new StringBuilder();
 		sb.append("SELECT 10 AS ORDEN, 'CONSUMO DISCRIMINADO POR VEREDA' AS vereda,null AS instalaciones,null AS consumototal,null as porcentaje,null as consumopromedio ");
 		sb.append("UNION ");
@@ -639,6 +639,21 @@ public class QueryHelper {
 		sb.append("' AND lp.fehasta <= '");
 		sb.append(Formatter.createStringFromDate(filter.getFechaHasta(), Constantes.YYYY_MM_DD));
 		sb.append("' ORDER BY 1, 2, 3, 4, 5 ");
+		return sb.toString();
+	}
+	
+	public static String getCartera(){
+		StringBuilder sb = new StringBuilder();
+		sb.append("SELECT cm.nminstalacion AS instalacion, ");
+		sb.append("       (CASE WHEN u.nombres IS NULL THEN u.apellidos ELSE u.nombres  || ' ' || u.apellidos END) AS nombre, ");
+		sb.append("       cm.cdconcepto AS codigo, ");
+		sb.append("       (SELECT t.descripcion FROM ta_tarifas t WHERE t.cdconcepto = cm.cdconcepto) concepto, ");
+		sb.append("       cm.saldo ");
+		sb.append("  FROM ta_credito_maestro cm, ta_instalacion i, ta_usuarios u ");
+		sb.append(" WHERE i.nminstalacion = cm.nminstalacion ");
+		sb.append("   AND i.cedula = u.cedula ");
+		sb.append("   AND cm.fechafinal IS NULL AND cm.saldo <> 0 ");
+		sb.append("ORDER BY 3, 1 ");
 		return sb.toString();
 	}
 

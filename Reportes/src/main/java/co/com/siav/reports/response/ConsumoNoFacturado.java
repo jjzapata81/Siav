@@ -3,46 +3,60 @@ package co.com.siav.reports.response;
 public class ConsumoNoFacturado {
 	
 	private Long orden;
-	private String vereda;
-	private Long instalaciones;
-	private Long consumoTotal;
-	private Double porcentaje;
-	private Double consumoPromedio;
-	
+	private Long instalacion;
+	private String nombre;
+	private Long leActual;
+	private Long leAnterior;
+	private Long consumoDefinitivo;
+	private String paga;
+	private Long consumoPromedio;
+
 	public Long getOrden() {
 		return orden;
 	}
 	public void setOrden(Long orden) {
 		this.orden = orden;
 	}
-	public String getVereda() {
-		return vereda;
+	public Long getInstalacion() {
+		return instalacion;
 	}
-	public void setVereda(String vereda) {
-		this.vereda = vereda;
+	public void setInstalacion(Long instalacion) {
+		this.instalacion = instalacion;
 	}
-	public Long getInstalaciones() {
-		return instalaciones;
+	public String getNombre() {
+		return nombre;
 	}
-	public void setInstalaciones(Long instalaciones) {
-		this.instalaciones = instalaciones;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
-	public Long getConsumoTotal() {
-		return consumoTotal;
+	public Long getLeActual() {
+		return leActual;
 	}
-	public void setConsumoTotal(Long consumoTotal) {
-		this.consumoTotal = consumoTotal;
+	public void setLeActual(Long leActual) {
+		this.leActual = leActual;
 	}
-	public Double getPorcentaje() {
-		return porcentaje;
+	public Long getLeAnterior() {
+		return leAnterior;
 	}
-	public void setPorcentaje(Double porcentaje) {
-		this.porcentaje = porcentaje;
+	public void setLeAnterior(Long leAnterior) {
+		this.leAnterior = leAnterior;
 	}
-	public Double getConsumoPromedio() {
+	public Long getConsumoDefinitivo() {
+		return consumoDefinitivo;
+	}
+	public void setConsumoDefinitivo(Long consumoDefinitivo) {
+		this.consumoDefinitivo = consumoDefinitivo;
+	}
+	public String getPaga() {
+		return paga;
+	}
+	public void setPaga(String paga) {
+		this.paga = paga;
+	}
+	public Long getConsumoPromedio() {
 		return consumoPromedio;
 	}
-	public void setConsumoPromedio(Double consumoPromedio) {
+	public void setConsumoPromedio(Long consumoPromedio) {
 		this.consumoPromedio = consumoPromedio;
 	}
 	
