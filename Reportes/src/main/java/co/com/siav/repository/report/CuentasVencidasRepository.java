@@ -17,7 +17,7 @@ import co.com.siav.reports.factory.IReportType;
 import co.com.siav.reports.filters.Filter;
 import co.com.siav.reports.response.CuentasVencidas;
 import co.com.siav.repository.QueryHelper;
-import co.com.siav.repository.ReportFactory;
+import co.com.siav.repository.ReportBDFactory;
 import co.com.siav.repository.entities.Empresa;
 import co.com.siav.repository.utility.Util;
 
@@ -61,7 +61,7 @@ public class CuentasVencidasRepository implements IReportType{
 	
 	private List<CuentasVencidas> getCuentasVencidas(Filter filter) {
 		String query = QueryHelper.getCuentasVencidas(filter);
-		ReportFactory<CuentasVencidas> factory = new ReportFactory<>();
+		ReportBDFactory<CuentasVencidas> factory = new ReportBDFactory<>();
 		return factory.getReportResult(CuentasVencidas.class, query);
 	}
 

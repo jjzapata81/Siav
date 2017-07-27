@@ -1,24 +1,26 @@
 package co.com.siav.repository.report;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
+import co.com.siav.exception.TechnicalException;
 import co.com.siav.file.excel.ExcelReportGeneratorXLSX;
 import co.com.siav.file.excel.descriptor.InstalacionesRutaExcelDescriptor;
-import co.com.siav.file.pdf.PdfGenerator;
-import co.com.siav.file.pdf.descriptor.InstalacionesRutaDescriptor;
-import co.com.siav.file.pdf.utils.InstalacionesRutaEncabezado;
 import co.com.siav.notifier.SendMail;
 import co.com.siav.notifier.config.Attachment;
 import co.com.siav.notifier.reports.name.Reporte;
+import co.com.siav.pdf.generador.GenericoPDF;
 import co.com.siav.reports.factory.IReportType;
 import co.com.siav.reports.filters.Filter;
 import co.com.siav.reports.response.InstalacionesRuta;
 import co.com.siav.repository.QueryHelper;
-import co.com.siav.repository.ReportFactory;
+import co.com.siav.repository.ReportBDFactory;
 import co.com.siav.repository.utility.Util;
+import co.com.siav.utility.Constantes;
 
 public class InstalacionesRutaRepository implements IReportType{
 	
@@ -28,15 +30,23 @@ public class InstalacionesRutaRepository implements IReportType{
 	
 	@Override
 	public byte[] getPDF(Filter filter) {
-		InstalacionesRutaEncabezado encabezado = new InstalacionesRutaEncabezado(Util.getEmpresa().getNombreCorto());
-		PdfGenerator<InstalacionesRuta> generator = new PdfGenerator<InstalacionesRuta>();
-		return generator.generate(getRutas(filter), InstalacionesRutaDescriptor.values(), encabezado);
+//		InstalacionesRutaEncabezado encabezado = new InstalacionesRutaEncabezado(Util.getEmpresa().getNombreCorto());
+//		PdfGenerator<InstalacionesRuta> generator = new PdfGenerator<InstalacionesRuta>();
+//		return generator.generate(getRutas(filter), InstalacionesRutaDescriptor.values(), encabezado);
+		return new GenericoPDF(getData(filter), Constantes.INSTALACIONES_RUTA_JRXML, getParams()).generarPDFStream();
+	}
+
+	private Map<String, Object> getParams() {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put(Constantes.TITULO, Util.getEmpresa().getNombreCorto());
+		params.put(Constantes.SUBTITULO, Reporte.INSTALACIONES_RUTA_REPORTE);
+		return params;
 	}
 
 	@Override
 	public byte[] download(Filter filter) {
 		ExcelReportGeneratorXLSX<InstalacionesRuta> generator = new ExcelReportGeneratorXLSX<InstalacionesRuta>();
-		return generator.generate(getRutas(filter), Arrays.asList(InstalacionesRutaExcelDescriptor.values()));
+		return generator.generate(getData(filter), Arrays.asList(InstalacionesRutaExcelDescriptor.values()));
 	}
 
 	@Override
@@ -52,10 +62,14 @@ public class InstalacionesRutaRepository implements IReportType{
 		return new Attachment(Reporte.INSTALACIONES_RUTA, download(filter));
 	}
 	
-	private List<InstalacionesRuta> getRutas(Filter filter) {
+	private List<InstalacionesRuta> getData(Filter filter) {
 		String query = QueryHelper.getRutas(filter);
-		ReportFactory<InstalacionesRuta> factory = new ReportFactory<>();
-		return factory.getReportResult(InstalacionesRuta.class, query);
+		ReportBDFactory<InstalacionesRuta> factory = new ReportBDFactory<>();
+		List<InstalacionesRuta> data = factory.getReportResult(InstalacionesRuta.class, query);
+		if(data.isEmpty()){
+			throw new TechnicalException(Constantes.ERR_NO_DATA);
+		}
+		return data;
 	}
 
 }

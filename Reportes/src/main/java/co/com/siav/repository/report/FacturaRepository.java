@@ -24,7 +24,7 @@ import co.com.siav.reports.factory.IReportType;
 import co.com.siav.reports.filters.Filter;
 import co.com.siav.repository.ConsultaRango;
 import co.com.siav.repository.QueryHelper;
-import co.com.siav.repository.ReportFactory;
+import co.com.siav.repository.ReportBDFactory;
 import co.com.siav.repository.entities.Ciclo;
 import co.com.siav.repository.entities.Empresa;
 import co.com.siav.repository.entities.Sistema;
@@ -84,7 +84,7 @@ public class FacturaRepository implements IReportType{
 
 	private List<FacturaPDF> getFacturas(Filter filter) {
 		String query = QueryHelper.getFacturaEncabezado(filter);
-		ReportFactory<FacturaBD> factory = new ReportFactory<>();
+		ReportBDFactory<FacturaBD> factory = new ReportBDFactory<>();
 		List<FacturaBD> instalaciones = factory.getReportResult(FacturaBD.class, query);
 		if(null == instalaciones || instalaciones.isEmpty()){
 			throw new TechnicalException(Constantes.FACTURA_NO_EXISTE);
@@ -169,14 +169,14 @@ public class FacturaRepository implements IReportType{
 
 	private List<CreditoPDF> getCreditos(String numeroInstalacion) {
 		String query = QueryHelper.getCreditos(numeroInstalacion);
-		ReportFactory<CreditoPDF> factory = new ReportFactory<>();
+		ReportBDFactory<CreditoPDF> factory = new ReportBDFactory<>();
 		return factory.getReportResult(CreditoPDF.class, query);
 	}
 
 	private List<FacturaDetalleBD> getDetalles(String numeroFactura){
 		try{
 			String query = QueryHelper.getFacturaDetalle(numeroFactura);
-			ReportFactory<FacturaDetalleBD> factory = new ReportFactory<>();
+			ReportBDFactory<FacturaDetalleBD> factory = new ReportBDFactory<>();
 			return factory.getReportResult(FacturaDetalleBD.class, query);
 		}catch(Exception e){
 			throw new TechnicalException(Constantes.ERR_DETALLE_FACTURA + numeroFactura + ". " + e.getMessage());

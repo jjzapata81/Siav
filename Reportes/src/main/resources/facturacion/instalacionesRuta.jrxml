@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="instalacionesRuta" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="186a6e00-499a-46a3-9d65-5d1b6b600902">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="titulo" class="java.lang.String"/>
+	<parameter name="subtitulo" class="java.lang.String"/>
+	<field name="ruta" class="java.lang.String"/>
+	<field name="instalacion" class="java.lang.String"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="tieneMedidor" class="java.lang.String"/>
+	<field name="serieMedidor" class="java.lang.String"/>
+	<field name="factura" class="java.lang.String"/>
+	<field name="vereda" class="java.lang.String"/>
+	<field name="direccion" class="java.lang.String"/>
+	<field name="telefono" class="java.lang.String"/>
+	<variable name="ruta_1" class="java.lang.Integer" resetType="Group" resetGroup="rutaGr" calculation="Count">
+		<variableExpression><![CDATA[$F{ruta}]]></variableExpression>
+	</variable>
+	<variable name="ruta_2" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{ruta}]]></variableExpression>
+	</variable>
+	<group name="rutaGr" isStartNewColumn="true" isReprintHeaderOnEachPage="true" minHeightToStartNewPage="50">
+		<groupExpression><![CDATA[$F{ruta}]]></groupExpression>
+		<groupHeader>
+			<band height="33">
+				<textField isBlankWhenNull="true">
+					<reportElement x="55" y="4" width="85" height="12" uuid="87632d33-05d7-444a-945d-aedee5458b85"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ruta}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="16" y="4" width="39" height="12" uuid="f4ae4624-88d9-44b6-acab-16173f347b86"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[RUTA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="22" width="56" height="10" uuid="f4191dd4-da48-4b26-8616-2f64277752b7"/>
+					<textElement textAlignment="Center">
+						<font size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[INSTALACIÓN]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="269" y="22" width="74" height="10" uuid="9b289afd-9d9b-42d9-ae66-f6cf6f53dfdf"/>
+					<textElement textAlignment="Center">
+						<font size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[VEREDA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="343" y="22" width="92" height="10" uuid="e7d4d58b-cc0f-4fc1-a5c5-72a13d6a7732"/>
+					<textElement>
+						<font size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[DIRECCIÓN]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="56" y="22" width="163" height="10" uuid="e3c34476-98e0-4ef4-84d6-de85fbbb5dd4"/>
+					<textElement>
+						<font size="7" isBold="true"/>
+						<paragraph leftIndent="10"/>
+					</textElement>
+					<text><![CDATA[NOMBRE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="435" y="22" width="59" height="10" uuid="18c807a6-9fb6-42bb-ab05-533f60722d98"/>
+					<textElement textAlignment="Center">
+						<font size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[TELÉFONO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="219" y="12" width="50" height="20" uuid="1217e879-5e74-4ab2-8603-973407aa60b7"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[SERIE MEDIDOR]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="494" y="12" width="40" height="20" uuid="5514e6fc-280b-4769-a531-3f4003657a49"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[TIENE MEDIDOR]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="534" y="22" width="38" height="10" uuid="0ca4d5ab-5b49-4261-8cec-06d078000371"/>
+					<textElement textAlignment="Center">
+						<font size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[FACTURA]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="26">
+				<textField isBlankWhenNull="true">
+					<reportElement x="182" y="9" width="100" height="12" uuid="8c951959-980b-4102-879a-9bcda0348665"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{ruta_1}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="139" y="9" width="43" height="12" uuid="ad4d887a-b60d-46a9-a1d4-3864326ea0c6"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ruta}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="16" y="9" width="123" height="12" uuid="b168a1cb-04bb-44bd-bb39-af4d2b4ce73b"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[TOTAL INSTALACIONES RUTA]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="42" splitType="Stretch">
+			<textField pattern="yyyy-MM-dd">
+				<reportElement x="472" y="0" width="100" height="20" uuid="23f1114e-6f2d-4ab3-9bb6-0dbd0b23c4cf"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="16" y="0" width="456" height="20" uuid="2d7d206a-7b7e-450f-87bb-697584d57108"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{titulo}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="16" y="20" width="456" height="21" uuid="872d29eb-7029-4367-b948-3d095a3e610d"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{subtitulo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="10" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="56" height="10" uuid="d5100069-7b88-47c0-8ca6-53ec0f06c2ce"/>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{instalacion}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="269" y="0" width="74" height="10" uuid="ea6674d0-1c44-4eb6-aa51-58709266d769"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vereda}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="343" y="0" width="92" height="10" uuid="76ae3368-2545-41d1-afdb-96ff430143d2"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{direccion}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="435" y="0" width="59" height="10" uuid="5e6baa49-dd02-4cf7-a955-6a8571687167"/>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{telefono}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="494" y="0" width="40" height="10" uuid="55f0b45f-0671-49ff-bed7-87de538196a9"/>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tieneMedidor}=="S"?"SI":"NO"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="534" y="0" width="38" height="10" uuid="2a743bd2-ad46-46d2-8a77-6a783ab6de81"/>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{factura}=="S"?"SI":"NO"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="219" y="0" width="50" height="10" uuid="90636495-4f2a-44da-a608-870fc75f2096"/>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{serieMedidor}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="56" y="0" width="163" height="10" uuid="2fd6ecc6-28da-4360-a435-9b1938ee5b16"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="21">
+			<textField>
+				<reportElement x="384" y="9" width="159" height="12" uuid="3ba6c7e7-72a8-4c3a-821e-e9c127144a6f"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="543" y="9" width="29" height="12" uuid="34315b95-c948-47a3-8c91-6177cec1ace5"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="23" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="182" y="10" width="100" height="12" uuid="598da3bb-4b0b-4663-986b-cddb908ebc29"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{ruta_2}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="16" y="10" width="123" height="12" uuid="8f36f728-f55c-451a-a7c9-9688bdc40e48"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL INSTALACIONES]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

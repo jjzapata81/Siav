@@ -17,7 +17,7 @@ import co.com.siav.reports.factory.IReportType;
 import co.com.siav.reports.filters.Filter;
 import co.com.siav.reports.response.LecturasConsumos;
 import co.com.siav.repository.QueryHelper;
-import co.com.siav.repository.ReportFactory;
+import co.com.siav.repository.ReportBDFactory;
 import co.com.siav.repository.utility.Util;
 
 public class LecturasConsumosRepository implements IReportType{
@@ -54,7 +54,7 @@ public class LecturasConsumosRepository implements IReportType{
 	
 	private List<LecturasConsumos> getLecturasConsumos(Filter filter) {
 		String query = QueryHelper.getLecturasConsumos(filter);
-		ReportFactory<LecturasConsumos> factory = new ReportFactory<>();
+		ReportBDFactory<LecturasConsumos> factory = new ReportBDFactory<>();
 		return factory.getReportResult(LecturasConsumos.class, query);
 	}
 

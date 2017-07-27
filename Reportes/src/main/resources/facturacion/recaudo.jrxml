@@ -23,15 +23,15 @@
 			<pen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
+	<parameter name="titulo" class="java.lang.String"/>
+	<parameter name="subtitulo" class="java.lang.String"/>
+	<parameter name="resumen" class="java.lang.String"/>
 	<field name="banco" class="java.lang.String"/>
 	<field name="numeroCuenta" class="java.lang.String"/>
 	<field name="feHasta" class="java.util.Date"/>
 	<field name="instalacion" class="java.lang.Long"/>
 	<field name="nombres" class="java.lang.String"/>
 	<field name="valor" class="java.lang.Long"/>
-	<field name="titulo" class="java.lang.String"/>
-	<field name="subtitulo" class="java.lang.String"/>
-	<field name="resumen" class="java.lang.String"/>
 	<variable name="valor_1" class="java.lang.Long" resetType="Group" resetGroup="fechaGr" calculation="Sum">
 		<variableExpression><![CDATA[$F{valor}]]></variableExpression>
 	</variable>
@@ -223,14 +223,14 @@
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{titulo}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{titulo}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="27" y="20" width="407" height="21" uuid="b708898b-1483-4e96-acb6-a8a44135e1a3"/>
 				<textElement>
 					<font size="10" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{subtitulo}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{subtitulo}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -280,7 +280,7 @@
 				<textElement>
 					<font size="7" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{resumen}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{resumen}]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>

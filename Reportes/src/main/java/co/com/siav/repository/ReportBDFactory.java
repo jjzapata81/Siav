@@ -4,7 +4,7 @@ import java.util.List;
 
 import co.com.siav.reports.manager.ReportManager;
 
-public class ReportFactory<T> {
+public class ReportBDFactory<T> {
 	
 	private String DATA_SOURCE = "java:jboss/jdbc/SiavWEBDS";
 	

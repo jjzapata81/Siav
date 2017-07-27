@@ -1,8 +1,9 @@
 package co.com.siav.repository.report;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -11,34 +12,33 @@ import co.com.siav.file.excel.descriptor.DetalleRecaudoExcelDescriptor;
 import co.com.siav.notifier.SendMail;
 import co.com.siav.notifier.config.Attachment;
 import co.com.siav.notifier.reports.name.Reporte;
-import co.com.siav.pdf.dto.RecaudoPDF;
-import co.com.siav.pdf.generador.GeneradorRecaudo;
+import co.com.siav.pdf.generador.GenericoPDF;
 import co.com.siav.reports.factory.IReportType;
 import co.com.siav.reports.filters.Filter;
 import co.com.siav.reports.response.DetalleRecaudo;
 import co.com.siav.repository.QueryHelper;
-import co.com.siav.repository.ReportFactory;
+import co.com.siav.repository.ReportBDFactory;
 import co.com.siav.repository.utility.Util;
+import co.com.siav.utility.Constantes;
 import co.com.siav.utility.Formatter;
 
 public class DetalleRecaudoRepository implements IReportType{
-	
-	private String resumen;
-	private String titulo;
-	private Long ciclo;
-	private static final String NOMBRE_REPORTE = "Recaudo detallado por pagos  -  Ciclo: "; 
 	
 	@Inject
 	private SendMail notifier;
 	
 	@Override
 	public byte[] getPDF(Filter filter) {
-		titulo = Util.getEmpresa().getNombreCorto();
-		ciclo = filter.getCiclo();
-		resumen = getResumen(filter);
 		List<DetalleRecaudo> data = getData(filter);
-		GeneradorRecaudo generador = new GeneradorRecaudo(getData(data));
-		return generador.generarPDFStream();
+		return new GenericoPDF(data,Constantes.RECAUDO_JRXML, getParams(filter)).generarPDFStream();
+	}
+	
+	private Map<String, Object> getParams(Filter filter){
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put(Constantes.TITULO, Util.getEmpresa().getNombreCorto());
+		params.put(Constantes.SUBTITULO, Reporte.DETALLE_RECAUDO_REPORTE + filter.getCiclo());
+		params.put(Constantes.RESUMEN, getResumen(filter));
+		return params;
 	}
 
 	private String getResumen(Filter filter) {
@@ -51,24 +51,6 @@ public class DetalleRecaudoRepository implements IReportType{
 		sb.append(Formatter.createStringFromDate(filter.getFechaHasta(), "yyyy-MM-dd"));
 		sb.append(".");
 		return sb.toString();
-	}
-
-	private List<RecaudoPDF> getData(List<DetalleRecaudo> data) {
-		return data.stream().map(this::transform).collect(Collectors.toList());
-	}
-	
-	private RecaudoPDF transform(DetalleRecaudo recaudo){
-		RecaudoPDF rePDF = new RecaudoPDF();
-		rePDF.setTitulo(titulo);
-		rePDF.setSubtitulo(NOMBRE_REPORTE + ciclo);
-		rePDF.setBanco(recaudo.getBanco());
-		rePDF.setNumeroCuenta(recaudo.getNumeroCuenta());
-		rePDF.setFeHasta(recaudo.getFeHasta());
-		rePDF.setInstalacion(recaudo.getInstalacion());
-		rePDF.setNombre(recaudo.getNombres());
-		rePDF.setValor(recaudo.getValor());
-		rePDF.setResumen(resumen);
-		return rePDF;
 	}
 
 	@Override
@@ -92,7 +74,7 @@ public class DetalleRecaudoRepository implements IReportType{
 	
 	private List<DetalleRecaudo> getData(Filter filter) {
 		String query = QueryHelper.getDetalleRecaudo(filter);
-		ReportFactory<DetalleRecaudo> factory = new ReportFactory<>();
+		ReportBDFactory<DetalleRecaudo> factory = new ReportBDFactory<>();
 		return factory.getReportResult(DetalleRecaudo.class, query);
 	}
 

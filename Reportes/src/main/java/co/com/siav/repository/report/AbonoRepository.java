@@ -8,7 +8,7 @@ import co.com.siav.pdf.generador.GeneradorAbono;
 import co.com.siav.reports.filters.Comprobante;
 import co.com.siav.repository.ConsultaRango;
 import co.com.siav.repository.QueryHelper;
-import co.com.siav.repository.ReportFactory;
+import co.com.siav.repository.ReportBDFactory;
 import co.com.siav.repository.entities.Ciclo;
 import co.com.siav.repository.entities.Empresa;
 import co.com.siav.repository.entities.Parametro;
@@ -81,14 +81,14 @@ public class AbonoRepository {
 
 	private Long getComprobante() {
 		String query = QueryHelper.getComprobante();
-		ReportFactory<Parametro> factory = new ReportFactory<>();
+		ReportBDFactory<Parametro> factory = new ReportBDFactory<>();
 		String parametro = factory.getReportResult(Parametro.class, query).get(0).getParametro();
 		return null == parametro ? 990001L : Long.valueOf(parametro) + 1L;
 	}
 
 	private void guardarBD(Comprobante comprobante) {
 		String query = QueryHelper.saveComprobante(comprobante);
-		ReportFactory<AbonoFacturaBD> factory = new ReportFactory<>();
+		ReportBDFactory<AbonoFacturaBD> factory = new ReportBDFactory<>();
 		factory.save(query);
 	}
 
@@ -124,7 +124,7 @@ public class AbonoRepository {
 	
 	private AbonoFacturaBD getFactura(Comprobante comprobante) {
 		String query = QueryHelper.getFacturaAbono(comprobante.getInstalacion());
-		ReportFactory<AbonoFacturaBD> factory = new ReportFactory<>();
+		ReportBDFactory<AbonoFacturaBD> factory = new ReportBDFactory<>();
 		return factory.getReportResult(AbonoFacturaBD.class, query).get(0);
 	}
 
@@ -137,7 +137,7 @@ public class AbonoRepository {
 
 	private void guardarUsuario(MatriculaRequest request) {
 		String query = QueryHelper.saveUsuario(request);
-		ReportFactory<AbonoFacturaBD> factory = new ReportFactory<>();
+		ReportBDFactory<AbonoFacturaBD> factory = new ReportBDFactory<>();
 		factory.save(query);
 		
 	}

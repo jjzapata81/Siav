@@ -27,9 +27,11 @@ public class Reporte {
 	public static final String LECTURAS_CONSUMOS_ASUNTO = "Informe de lecturas y consumos";
 	public static final String LECTURAS_CONSUMOS_CUERPO = "<h3><b>Informe de Lecturas y Consumos</b></h3><br><h4>Adjunto se encuentra el informe de lecturas y consumos correspondiente al ciclo %d.</h4>";
 	public static final String LECTURAS_CONSUMOS = "lecturas_consumos_ciclo_%d.xlsx";
+	
 	public static final String INSTALACIONES_RUTA_ASUNTO = "Informe de instalaciones por ruta";
 	public static final String INSTALACIONES_RUTA_CUERPO = "<h3><b>Informe de Instalaciones por Ruta</b></h3><br><h4>Adjunto se encuentra el informe de instalaciones por ruta.</h4>";
 	public static final String INSTALACIONES_RUTA = "instalaciones_ruta.xlsx";
+	public static final String INSTALACIONES_RUTA_REPORTE = "Instalaciones por ruta";
 	
 	public static final String CONSUMO_NO_FACTURADO_ASUNTO = "Informe de consumos no facturados";
 	public static final String CONSUMO_NO_FACTURADO_CUERPO = "<h3><b>Informe de Consumos no facturados</b></h3><br><h4>Adjunto se encuentra el informe de consumos no facturados correspondientes al ciclo %d.</h4>";
@@ -46,8 +48,10 @@ public class Reporte {
 	public static final String DETALLE_RECAUDO_ASUNTO = "Informe de Recaudo detallado por pagos";
 	public static final String DETALLE_RECAUDO_CUERPO = "<h3><b>Informe de Recaudo detallado por pagos</b></h3><br><h4>Adjunto se encuentra el informe de recaudo detallado por pagos correspondientes al ciclo %d.</h4>";
 	public static final String DETALLE_RECAUDO = "recaudo_detallado_pagos_ciclo_%d.xlsx";
+	public static final String DETALLE_RECAUDO_REPORTE = "Recaudo detallado por pagos  -  Ciclo: ";
 	
 	public static final String CARTERA_ASUNTO = "Informe de Cartera";
 	public static final String CARTERA_CUERPO = "<h3><b>Informe de Cartera</b></h3><br><h4>Adjunto se encuentra el informe de cartera.</h4>";
 	public static final String CARTERA = "cartera.xlsx";
+	public static final Object CARTERA_REPORTE = "Reporte de cartera";
 }

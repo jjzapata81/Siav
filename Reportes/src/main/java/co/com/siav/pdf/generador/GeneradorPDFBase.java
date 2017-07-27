@@ -52,7 +52,7 @@ public abstract class GeneradorPDFBase {
 		return baos.toByteArray();
 	}
 	
-	private Map<String, Object> getParameters() throws JRException {
+	protected Map<String, Object> getParameters() throws JRException {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put(SUBREPORT_DIR, RUTA_ARCHIVO);
 		return params;

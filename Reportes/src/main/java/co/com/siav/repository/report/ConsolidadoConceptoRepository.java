@@ -18,7 +18,7 @@ import co.com.siav.reports.factory.IReportType;
 import co.com.siav.reports.filters.Filter;
 import co.com.siav.reports.response.ConsolidadoConcepto;
 import co.com.siav.repository.QueryHelper;
-import co.com.siav.repository.ReportFactory;
+import co.com.siav.repository.ReportBDFactory;
 import co.com.siav.repository.utility.Util;
 
 public class ConsolidadoConceptoRepository implements IReportType{
@@ -55,7 +55,7 @@ public class ConsolidadoConceptoRepository implements IReportType{
 	
 	private List<ConsolidadoConcepto> getData(Filter filter) {
 		String query = QueryHelper.getConsolidadoConcepto(filter);
-		ReportFactory<ConsolidadoConcepto> factory = new ReportFactory<>();
+		ReportBDFactory<ConsolidadoConcepto> factory = new ReportBDFactory<>();
 		return factory.getReportResult(ConsolidadoConcepto.class, query).stream().sorted((a, b)-> Long.compare(a.getOrden(), b.getOrden())).collect(Collectors.toList());
 	}
 

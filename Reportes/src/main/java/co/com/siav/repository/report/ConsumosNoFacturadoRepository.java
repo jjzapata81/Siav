@@ -18,7 +18,7 @@ import co.com.siav.reports.factory.IReportType;
 import co.com.siav.reports.filters.Filter;
 import co.com.siav.reports.response.ConsumoNoFacturado;
 import co.com.siav.repository.QueryHelper;
-import co.com.siav.repository.ReportFactory;
+import co.com.siav.repository.ReportBDFactory;
 import co.com.siav.repository.utility.Util;
 
 public class ConsumosNoFacturadoRepository implements IReportType{
@@ -55,7 +55,7 @@ public class ConsumosNoFacturadoRepository implements IReportType{
 	
 	private List<ConsumoNoFacturado> getData(Filter filter) {
 		String query = QueryHelper.getConsumoNoFacturado(filter);
-		ReportFactory<ConsumoNoFacturado> factory = new ReportFactory<>();
+		ReportBDFactory<ConsumoNoFacturado> factory = new ReportBDFactory<>();
 		return factory.getReportResult(ConsumoNoFacturado.class, query).stream().sorted((a, b)-> Long.compare(a.getOrden(), b.getOrden())).collect(Collectors.toList());
 	}
 

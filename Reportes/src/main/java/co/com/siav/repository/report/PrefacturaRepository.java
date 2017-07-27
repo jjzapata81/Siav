@@ -20,7 +20,7 @@ import co.com.siav.reports.factory.IReportType;
 import co.com.siav.reports.filters.Filter;
 import co.com.siav.reports.response.PrefacturaExcel;
 import co.com.siav.repository.QueryHelper;
-import co.com.siav.repository.ReportFactory;
+import co.com.siav.repository.ReportBDFactory;
 import co.com.siav.repository.entities.Empresa;
 import co.com.siav.repository.utility.Util;
 
@@ -73,7 +73,7 @@ public class PrefacturaRepository implements IReportType{
 
 	private List<InstalacionPDF> getInstalaciones(Filter filter) {
 		String query = QueryHelper.getPrefacturaEncabezado(filter);
-		ReportFactory<InstalacionPDFBase> factory = new ReportFactory<>();
+		ReportBDFactory<InstalacionPDFBase> factory = new ReportBDFactory<>();
 		List<InstalacionPDFBase> instalaciones = factory.getReportResult(InstalacionPDFBase.class, query);
 		return instalaciones.stream().map(this::transform).collect(Collectors.toList());
 	}
@@ -95,13 +95,13 @@ public class PrefacturaRepository implements IReportType{
 
 	private List<DetalleInstalacionPDF> getDetalleInstalacion(InstalacionPDFBase instalacion) {
 		String query = QueryHelper.getPrefacturaDetalle(instalacion);
-		ReportFactory<DetalleInstalacionPDF> factory = new ReportFactory<>();
+		ReportBDFactory<DetalleInstalacionPDF> factory = new ReportBDFactory<>();
 		return factory.getReportResult(DetalleInstalacionPDF.class, query);
 	}
 	
 	private List<PrefacturaExcel> getPrefacturaExcel(Filter filter) {
 		String query = QueryHelper.getPrefacturaExcel(filter);
-		ReportFactory<PrefacturaExcel> factory = new ReportFactory<>();
+		ReportBDFactory<PrefacturaExcel> factory = new ReportBDFactory<>();
 		return factory.getReportResult(PrefacturaExcel.class, query);
 	}
 

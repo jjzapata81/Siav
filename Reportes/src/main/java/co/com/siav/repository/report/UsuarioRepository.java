@@ -16,7 +16,7 @@ import co.com.siav.reports.filters.Filter;
 import co.com.siav.reports.response.UsuariosExcel;
 import co.com.siav.reports.response.UsuariosInstalaciones;
 import co.com.siav.repository.QueryHelper;
-import co.com.siav.repository.ReportFactory;
+import co.com.siav.repository.ReportBDFactory;
 import co.com.siav.repository.entities.Instalacion;
 import co.com.siav.repository.entities.UsuariosBD;
 
@@ -43,19 +43,19 @@ public class UsuarioRepository implements IReportType{
 	
 	private List<UsuariosBD> getUsuariosBD(Filter filtro) {
 		String query = QueryHelper.getUsuarios(filtro);
-		ReportFactory<UsuariosBD> factory = new ReportFactory<>();
+		ReportBDFactory<UsuariosBD> factory = new ReportBDFactory<>();
 		return factory.getReportResult(UsuariosBD.class, query);
 	}
 	
 	private List<Instalacion> getInstalaciones(String cedula) {
 		String query = QueryHelper.getInstalaciones(cedula);
-		ReportFactory<Instalacion> factory = new ReportFactory<>();
+		ReportBDFactory<Instalacion> factory = new ReportBDFactory<>();
 		return factory.getReportResult(Instalacion.class, query);
 	}
 	
 	private List<UsuariosExcel> getUsuariosExcel(Filter filtro) {
 		String query = QueryHelper.getUsuariosExcel(filtro);
-		ReportFactory<UsuariosExcel> factory = new ReportFactory<>();
+		ReportBDFactory<UsuariosExcel> factory = new ReportBDFactory<>();
 		return factory.getReportResult(UsuariosExcel.class, query);
 	}
 

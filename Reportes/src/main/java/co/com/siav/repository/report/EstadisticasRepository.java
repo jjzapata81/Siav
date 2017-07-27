@@ -18,7 +18,7 @@ import co.com.siav.reports.factory.IReportType;
 import co.com.siav.reports.filters.Filter;
 import co.com.siav.reports.response.Estadistica;
 import co.com.siav.repository.QueryHelper;
-import co.com.siav.repository.ReportFactory;
+import co.com.siav.repository.ReportBDFactory;
 import co.com.siav.repository.utility.Util;
 
 public class EstadisticasRepository implements IReportType{
@@ -55,7 +55,7 @@ public class EstadisticasRepository implements IReportType{
 	
 	private List<Estadistica> getData(Filter filter) {
 		String query = QueryHelper.getEstadisticas(filter);
-		ReportFactory<Estadistica> factory = new ReportFactory<>();
+		ReportBDFactory<Estadistica> factory = new ReportBDFactory<>();
 		return factory.getReportResult(Estadistica.class, query).stream().sorted((a, b)-> Long.compare(a.getOrden(), b.getOrden())).collect(Collectors.toList());
 	}
 

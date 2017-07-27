@@ -9,7 +9,7 @@ import co.com.siav.exception.TechnicalException;
 import co.com.siav.reports.filters.Filter;
 import co.com.siav.repository.IConsultaParametro;
 import co.com.siav.repository.QueryHelper;
-import co.com.siav.repository.ReportFactory;
+import co.com.siav.repository.ReportBDFactory;
 import co.com.siav.repository.entities.Ciclo;
 import co.com.siav.repository.entities.Empresa;
 import co.com.siav.repository.entities.Parametro;
@@ -24,13 +24,13 @@ public class Util {
 
 	public static Empresa getEmpresa() {
 		String query = QueryHelper.getEmpresa();
-		ReportFactory<Empresa> factory = new ReportFactory<>();
+		ReportBDFactory<Empresa> factory = new ReportBDFactory<>();
 		return factory.getReportResult(Empresa.class, query).get(0);
 	}
 
 	public static Ciclo getCiclo(Filter filter) {
 		String query = QueryHelper.getCiclo(filter);
-		ReportFactory<Ciclo> factory = new ReportFactory<>();
+		ReportBDFactory<Ciclo> factory = new ReportBDFactory<>();
 		List<Ciclo> result = factory.getReportResult(Ciclo.class, query);
 		if(null == result || result.isEmpty()){
 			throw new TechnicalException(Constantes.CICLO_NO_EXISTE);
@@ -40,19 +40,19 @@ public class Util {
 	
 	public static Ciclo getCicloPorEstado(String estado) {
 		String query = QueryHelper.getCicloPorEstado(estado);
-		ReportFactory<Ciclo> factory = new ReportFactory<>();
+		ReportBDFactory<Ciclo> factory = new ReportBDFactory<>();
 		return factory.getReportResult(Ciclo.class, query).get(0);
 	}
 
 	public static Sistema getSistema() {
 		String query = QueryHelper.getSistema();
-		ReportFactory<Sistema> factory = new ReportFactory<>();
+		ReportBDFactory<Sistema> factory = new ReportBDFactory<>();
 		return factory.getReportResult(Sistema.class, query).get(0);
 	}
 	
 	public static String getParametro(IConsultaParametro parametro) {
 		String query = QueryHelper.getParametro(parametro);
-		ReportFactory<Parametro> factory = new ReportFactory<>();
+		ReportBDFactory<Parametro> factory = new ReportBDFactory<>();
 		return factory.getReportResult(Parametro.class, query).get(0).getParametro();
 	}
 	

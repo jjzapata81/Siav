@@ -16,7 +16,7 @@ import co.com.siav.notifier.reports.name.Reporte;
 import co.com.siav.reports.factory.IReportType;
 import co.com.siav.reports.filters.Filter;
 import co.com.siav.repository.QueryHelper;
-import co.com.siav.repository.ReportFactory;
+import co.com.siav.repository.ReportBDFactory;
 import co.com.siav.repository.entities.Empresa;
 import co.com.siav.repository.entities.VariacionConsumoBD;
 import co.com.siav.repository.utility.Util;
@@ -48,7 +48,7 @@ public class VariacionConsumoRepository implements IReportType{
 	private List<VariacionConsumoBD> getVariacionBD(Filter filter) {
 		filter.setValorDesde((-1L)*filter.getValorHasta());
 		String query = QueryHelper.getVariacionConsumo(filter);
-		ReportFactory<VariacionConsumoBD> factory = new ReportFactory<>();
+		ReportBDFactory<VariacionConsumoBD> factory = new ReportBDFactory<>();
 		return factory.getReportResult(VariacionConsumoBD.class, query);
 	}
 	

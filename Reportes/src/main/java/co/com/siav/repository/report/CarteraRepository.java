@@ -1,8 +1,9 @@
 package co.com.siav.repository.report;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -11,13 +12,13 @@ import co.com.siav.file.excel.descriptor.CarteraExcelDescriptor;
 import co.com.siav.notifier.SendMail;
 import co.com.siav.notifier.config.Attachment;
 import co.com.siav.notifier.reports.name.Reporte;
-import co.com.siav.pdf.dto.CarteraPDF;
 import co.com.siav.pdf.generador.GenericoPDF;
 import co.com.siav.reports.factory.IReportType;
 import co.com.siav.reports.filters.Filter;
 import co.com.siav.reports.response.Cartera;
 import co.com.siav.repository.QueryHelper;
-import co.com.siav.repository.ReportFactory;
+import co.com.siav.repository.ReportBDFactory;
+import co.com.siav.repository.utility.Util;
 import co.com.siav.utility.Constantes;
 
 public class CarteraRepository implements IReportType{
@@ -28,12 +29,15 @@ public class CarteraRepository implements IReportType{
 	
 	@Override
 	public byte[] getPDF(Filter filter) {
-//		titulo = Util.getEmpresa().getNombreCorto();
-//		ciclo = filter.getCiclo();
-//		resumen = getResumen(filter);
-		List<CarteraPDF> data = getData().stream().map(CarteraPDF::new).collect(Collectors.toList());
-		GenericoPDF generador = new GenericoPDF(data, Constantes.CARTERA_JRXML);
+		GenericoPDF generador = new GenericoPDF(getData(), Constantes.CARTERA_JRXML, getParams());
 		return generador.generarPDFStream();
+	}
+
+	private Map<String, Object> getParams() {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put(Constantes.TITULO, Util.getEmpresa().getNombreCorto());
+		params.put(Constantes.SUBTITULO, Reporte.CARTERA_REPORTE);
+		return params;
 	}
 
 	@Override
@@ -57,7 +61,7 @@ public class CarteraRepository implements IReportType{
 	
 	private List<Cartera> getData() {
 		String query = QueryHelper.getCartera();
-		ReportFactory<Cartera> factory = new ReportFactory<>();
+		ReportBDFactory<Cartera> factory = new ReportBDFactory<>();
 		return factory.getReportResult(Cartera.class, query);
 	}
 

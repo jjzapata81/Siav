@@ -368,7 +368,7 @@ public class QueryHelper {
 		sb.append("(SELECT nombre FROM ta_veredas WHERE cdvereda = i.cdvereda) AS vereda, i.direccion, i.telefono ");
 		sb.append("FROM ta_instalacion i, ta_usuarios u ");
 		sb.append("WHERE i.cedula = u.cedula AND snactivo = 'S' ");
-		if(null != filter.getCriterio()){
+		if(null != filter.getCriterio() && !filter.getCriterio().isEmpty()){
 			sb.append("AND i.cdramal = '");
 			sb.append(filter.getCriterio().toUpperCase());
 			sb.append("' ");

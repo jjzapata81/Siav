@@ -8,6 +8,8 @@ define(['siav-module', 'reportes-services', 'modal-email', 'modal-factory', 'con
 
     	$scope.content = null;
     	
+    	$scope.filtro = {};
+    	
     	var REPORTE = "cartera";
     	
     	$scope.onDescargar = function(){
