@@ -21,5 +21,7 @@ public class Constantes {
 	public static final String CARTERA_JRXML = "cartera.jrxml";
 	public static final String RECAUDO_JRXML="recaudo.jrxml";
 	public static final String INSTALACIONES_RUTA_JRXML = "instalacionesRuta.jrxml";
+	public static final String LECTURAS_CONSUMOS_JRXML = "lecturasConsumos.jrxml";
+	public static final String CUENTAS_VENCIDAS_JRXML = "cuentasVencidas.jrxml";
 
 }

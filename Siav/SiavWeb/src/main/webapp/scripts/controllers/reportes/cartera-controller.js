@@ -14,7 +14,7 @@ define(['siav-module', 'reportes-services', 'modal-email', 'modal-factory', 'con
     	
     	$scope.onDescargar = function(){
 			reportesServices
-    		.descargar(REPORTE, "cartera" + $scope.filtro.ciclo + ".xlsx", $scope.filtro);
+    		.descargar(REPORTE, "cartera_" + $scope.filtro.ciclo + ".xlsx", $scope.filtro);
     	}
     	
     	$scope.onEnviar = function(){

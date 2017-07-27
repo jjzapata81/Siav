@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="cuentasVencidas" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5c71fbb9-22dc-46c7-8bd5-6ad91b888f06">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="150"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="titulo" class="java.lang.String"/>
+	<parameter name="subtitulo" class="java.lang.String"/>
+	<field name="instalacion" class="java.lang.Long"/>
+	<field name="nombres" class="java.lang.String"/>
+	<field name="total" class="java.lang.Long"/>
+	<field name="cuentasVencidas" class="java.lang.Long"/>
+	<variable name="total_1" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[$F{total}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="43" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="33" y="0" width="453" height="20" uuid="07a3f9c1-4c85-4df5-bd57-48d6e8688d60"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{titulo}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="33" y="20" width="453" height="21" uuid="6ad2c926-3a84-42d0-b4cc-61798010929f"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{subtitulo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="yyyy-MM-dd">
+				<reportElement x="486" y="0" width="60" height="14" uuid="323c24f1-c048-48da-b985-b9ceaedad899"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="28" splitType="Stretch">
+			<staticText>
+				<reportElement x="133" y="14" width="213" height="10" uuid="47d1519c-3b2d-4a6e-965b-65a1386dc3f8"/>
+				<textElement>
+					<font size="7" isBold="true"/>
+					<paragraph leftIndent="15"/>
+				</textElement>
+				<text><![CDATA[NOMBRE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="33" y="14" width="100" height="10" uuid="4c0d88d4-37cd-4085-9f2a-ac8bc5744ac9"/>
+				<textElement textAlignment="Center">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INSTALACIÓN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="346" y="14" width="100" height="10" uuid="4a4cc845-4418-46bc-a4d2-57804f01b684"/>
+				<textElement textAlignment="Center">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="446" y="14" width="100" height="10" uuid="92476960-9a53-4017-9cf9-53838503ac94"/>
+				<textElement textAlignment="Center">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CUENTAS VENCIDAS]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="10" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="133" y="0" width="213" height="10" uuid="60755f13-ca08-45d2-91b1-387ab379595b"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombres}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="33" y="0" width="100" height="10" uuid="c19eb00e-ed71-411d-8603-461834ec832a"/>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{instalacion}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$ #,##0" isBlankWhenNull="true">
+				<reportElement x="346" y="0" width="100" height="10" uuid="0cbb4ae7-a1fa-47a2-be4c-c08beef85848"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+					<paragraph rightIndent="20"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="446" y="0" width="100" height="10" uuid="93cebaed-e663-47c1-803d-cdfa8755a54a"/>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cuentasVencidas}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="24" splitType="Stretch">
+			<textField>
+				<reportElement x="370" y="13" width="142" height="10" uuid="956f45f7-31a9-4d6e-b0b1-5facffe2f0c6"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="512" y="13" width="40" height="10" uuid="ab178144-8ab3-446f-a5e5-a270bddb3ecf"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="26" splitType="Stretch">
+			<staticText>
+				<reportElement x="33" y="14" width="45" height="12" uuid="f86321ff-de86-471c-84d6-7e38788f979a"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+			<textField pattern="$ #,##0" isBlankWhenNull="true">
+				<reportElement x="78" y="14" width="79" height="12" uuid="66cd1d6b-0561-44f8-9d11-0f320becc9db"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{total_1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import co.com.siav.exception.TechnicalException;
 import co.com.siav.file.excel.ExcelReportGeneratorXLSX;
 import co.com.siav.file.excel.descriptor.DetalleRecaudoExcelDescriptor;
 import co.com.siav.notifier.SendMail;
@@ -29,14 +30,13 @@ public class DetalleRecaudoRepository implements IReportType{
 	
 	@Override
 	public byte[] getPDF(Filter filter) {
-		List<DetalleRecaudo> data = getData(filter);
-		return new GenericoPDF(data,Constantes.RECAUDO_JRXML, getParams(filter)).generarPDFStream();
+		return new GenericoPDF(getData(filter),Constantes.RECAUDO_JRXML, getParams(filter)).generarPDFStream();
 	}
 	
 	private Map<String, Object> getParams(Filter filter){
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put(Constantes.TITULO, Util.getEmpresa().getNombreCorto());
-		params.put(Constantes.SUBTITULO, Reporte.DETALLE_RECAUDO_REPORTE + filter.getCiclo());
+		params.put(Constantes.SUBTITULO, Reporte.DETALLE_RECAUDO_SUBTITULO + filter.getCiclo());
 		params.put(Constantes.RESUMEN, getResumen(filter));
 		return params;
 	}
@@ -75,7 +75,11 @@ public class DetalleRecaudoRepository implements IReportType{
 	private List<DetalleRecaudo> getData(Filter filter) {
 		String query = QueryHelper.getDetalleRecaudo(filter);
 		ReportBDFactory<DetalleRecaudo> factory = new ReportBDFactory<>();
-		return factory.getReportResult(DetalleRecaudo.class, query);
+		List<DetalleRecaudo> data = factory.getReportResult(DetalleRecaudo.class, query);
+		if(data.isEmpty()){
+			throw new TechnicalException(Constantes.ERR_NO_DATA);
+		}
+		return data;
 	}
 
 }

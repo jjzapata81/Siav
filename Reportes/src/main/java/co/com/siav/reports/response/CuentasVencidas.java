@@ -2,22 +2,17 @@ package co.com.siav.reports.response;
 
 public class CuentasVencidas {
 	
-	private Long factura;
-	
+	private Long instalacion;
 	private String nombres;
-	
-	private Long valor;
-	
-	private Long cuentasvencidas;
+	private Long total;
+	private Long cuentasVencidas;
 
-	public Long getFactura() {
-		return factura;
+	public Long getInstalacion() {
+		return instalacion;
 	}
-
-	public void setFactura(Long factura) {
-		this.factura = factura;
+	public void setInstalacion(Long instalacion) {
+		this.instalacion = instalacion;
 	}
-
 	public String getNombres() {
 		return nombres;
 	}
@@ -26,20 +21,19 @@ public class CuentasVencidas {
 		this.nombres = nombres;
 	}
 
-	public Long getValor() {
-		return valor;
+	public Long getTotal() {
+		return total;
+	}
+	public void setTotal(Long total) {
+		this.total = total;
 	}
 
-	public void setValor(Long valor) {
-		this.valor = valor;
+	public Long getCuentasVencidas() {
+		return cuentasVencidas;
 	}
 
-	public Long getCuentasvencidas() {
-		return cuentasvencidas;
-	}
-
-	public void setCuentasvencidas(Long cuentasvencidas) {
-		this.cuentasvencidas = cuentasvencidas;
+	public void setCuentasVencidas(Long cuentasVencidas) {
+		this.cuentasVencidas = cuentasVencidas;
 	}
 	
 }

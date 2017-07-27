@@ -11,7 +11,7 @@ public class QueryHelper {
 	
 	public static String getCuentasVencidas(Filter filter) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("select fma.nmfactura as factura, fma.nombres, fdetalle.valorfac as valor, fma.cuentasvencidas ");
+		sb.append("select fma.nminstalacion as instalacion, fma.nombres, fdetalle.valorfac as total, fma.cuentasvencidas ");
 		sb.append("from ta_factura_maestro fma inner join (select (COALESCE(sum(fde.valor),0) + COALESCE(sum(fde.saldo),0)) as valorfac, fde.nmfactura as fac  from ta_factura_detalle fde group by fde.nmfactura) ");
 		sb.append("as fdetalle on fma.nmfactura = fdetalle.fac ");
 		sb.append("where fma.ciclo = ");
@@ -26,7 +26,7 @@ public class QueryHelper {
 			sb.append(" and fma.cuentasvencidas <= ");
 			sb.append(filter.getValorHasta());
 		}
-		sb.append(" order by 4 desc, 2, 1");
+		sb.append(" order by 4 desc, 1, 2");
 		return sb.toString();
 	}
 
@@ -343,7 +343,8 @@ public class QueryHelper {
 		StringBuilder sb = new StringBuilder();
 		sb.append("select i.nminstalacion AS instalacion, ");
 		sb.append("(COALESCE(u.nombres,''))|| ' ' || u.apellidos as nombres, ");
-		sb.append("c.leanterior, c.leactual, c.consumodefinitivo, c.consumopromedio ");
+		sb.append("c.leanterior, c.leactual, c.consumodefinitivo, c.consumopromedio, ");
+		sb.append("(CASE WHEN i.cdtipofacturacion = '2' THEN 'N' ELSE '' END) AS paga ");
 		sb.append("from  ta_consumos c, ta_instalacion i, ta_usuarios u ");
 		sb.append("WHERE i.nminstalacion = c.nminstalacion and i.cedula = u.cedula ");
 		sb.append("and c.ciclo = ");

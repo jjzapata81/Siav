@@ -30,16 +30,13 @@ public class InstalacionesRutaRepository implements IReportType{
 	
 	@Override
 	public byte[] getPDF(Filter filter) {
-//		InstalacionesRutaEncabezado encabezado = new InstalacionesRutaEncabezado(Util.getEmpresa().getNombreCorto());
-//		PdfGenerator<InstalacionesRuta> generator = new PdfGenerator<InstalacionesRuta>();
-//		return generator.generate(getRutas(filter), InstalacionesRutaDescriptor.values(), encabezado);
 		return new GenericoPDF(getData(filter), Constantes.INSTALACIONES_RUTA_JRXML, getParams()).generarPDFStream();
 	}
 
 	private Map<String, Object> getParams() {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put(Constantes.TITULO, Util.getEmpresa().getNombreCorto());
-		params.put(Constantes.SUBTITULO, Reporte.INSTALACIONES_RUTA_REPORTE);
+		params.put(Constantes.SUBTITULO, Reporte.INSTALACIONES_RUTA_SUBTITULO);
 		return params;
 	}
 

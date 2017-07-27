@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="lecturasConsumos" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="df2fe10a-291a-4be4-a72d-4073f6ddec8a">
+	<property name="ireport.zoom" value="3.0"/>
+	<property name="ireport.x" value="90"/>
+	<property name="ireport.y" value="67"/>
+	<parameter name="titulo" class="java.lang.String"/>
+	<parameter name="subtitulo" class="java.lang.String"/>
+	<field name="instalacion" class="java.lang.Long"/>
+	<field name="nombres" class="java.lang.String"/>
+	<field name="leAnterior" class="java.lang.Long"/>
+	<field name="leActual" class="java.lang.Long"/>
+	<field name="consumoDefinitivo" class="java.lang.Long"/>
+	<field name="consumoPromedio" class="java.lang.Long"/>
+	<field name="paga" class="java.lang.String"/>
+	<variable name="consumoDefinitivo_1" class="java.lang.Long" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{consumoDefinitivo}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="41" splitType="Stretch">
+			<textField pattern="yyyy-MM-dd">
+				<reportElement x="479" y="0" width="60" height="14" uuid="5061158a-f795-40cf-916a-2ba3a2c9fff2"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="26" y="0" width="453" height="20" uuid="324788cd-53a6-468e-afcb-c1c150d5eca0"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{titulo}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="26" y="20" width="453" height="21" uuid="9efe757a-faa3-45fc-a215-952d6314d9a0"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{subtitulo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="16" y="12" width="63" height="10" uuid="df6160d8-80a2-434f-bb61-cdf833ea7840"/>
+				<textElement textAlignment="Center">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INSTALACIÓN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="79" y="12" width="183" height="10" uuid="adbb51d0-48fe-4780-a672-842b2e38ccd1"/>
+				<textElement>
+					<font size="7" isBold="true"/>
+					<paragraph leftIndent="15"/>
+				</textElement>
+				<text><![CDATA[NOMBRE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="262" y="2" width="69" height="20" uuid="dcdb1e40-540c-49c5-8983-1b6602528919"/>
+				<textElement textAlignment="Center">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LECTURA ANTERIOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="336" y="2" width="58" height="20" uuid="7ddae195-44f3-40d2-b7cb-387e24a153c0"/>
+				<textElement textAlignment="Center">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LECTURA ACTUAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="2" width="53" height="20" uuid="42e7d740-1d83-40a6-828d-ee5e99cf04fb"/>
+				<textElement textAlignment="Center">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CONSUMO DEFINITIVO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="453" y="2" width="53" height="20" uuid="25b247b8-6d30-4636-8775-21bc83b92ce3"/>
+				<textElement textAlignment="Center">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CONSUMO PROMEDIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="506" y="12" width="55" height="10" uuid="8781128a-be9e-4e29-8cbf-29a8b9ee5da9"/>
+				<textElement textAlignment="Center">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PAGA]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="10" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="16" y="0" width="63" height="10" uuid="2dff587f-f2d7-4340-8ea9-8fb042e2fd10"/>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{instalacion}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="79" y="0" width="183" height="10" uuid="d129f5d5-5405-4167-8b08-51f8226d9145"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombres}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="262" y="0" width="69" height="10" uuid="556a0a5c-6d0e-494a-a682-0318a310a600"/>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{leAnterior}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="331" y="0" width="69" height="10" uuid="4eb72ea0-1460-4ad7-9e70-602b21919ffd"/>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{leActual}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="400" y="0" width="53" height="10" uuid="b709ef57-b9a5-459b-bff7-86549fc93634"/>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{consumoDefinitivo}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="453" y="0" width="53" height="10" uuid="73a69997-7932-4c5b-b33f-ee399316f026"/>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{consumoPromedio}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="506" y="0" width="55" height="10" uuid="02e83386-8e7b-425e-9888-28623670cda6"/>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{paga}=="N" ? "NO" : "SI"]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="31" splitType="Stretch">
+			<textField>
+				<reportElement x="400" y="20" width="128" height="10" uuid="67f89e1f-19ab-446f-959e-55fa51589a74"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="528" y="20" width="33" height="10" uuid="5471fc19-6ce6-467a-811f-326bc52ea22f"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="37" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="199" y="23" width="100" height="14" uuid="61f20006-5fdf-49f5-ad03-85e2b393bb02"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{consumoDefinitivo_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="16" y="23" width="183" height="14" uuid="d705f9ff-075e-4557-9100-824af07fdf01"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL METROS CUBICOS DESPACHADOS]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

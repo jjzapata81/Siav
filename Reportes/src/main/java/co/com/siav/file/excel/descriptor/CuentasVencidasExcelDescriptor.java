@@ -4,10 +4,10 @@ import co.com.siav.file.excel.IExcelDescriptor;
 
 public enum CuentasVencidasExcelDescriptor implements IExcelDescriptor{
 	
-	FACTURA("FACTURA", "getFactura"),
+	INSTALACION("INSTALACIÓN", "getInstalacion"),
 	NOMBRES("NOMBRES", "getNombres"),
-	VALOR("VALOR", "getValor"),
-	CUENTAS_VENCIDAS("CUENTAS VENCIDAS", "getCuentasvencidas")
+	TOTAL("TOTAL", "getTotal"),
+	CUENTAS_VENCIDAS("CUENTAS VENCIDAS", "getCuentasVencidas")
 	;
 	
 	private String header;

@@ -8,6 +8,7 @@ public class LecturasConsumos {
 	private Long leActual;
 	private Long consumoDefinitivo;
 	private Long consumoPromedio;
+	private String paga;
 	
 	public Long getInstalacion() {
 		return instalacion;
@@ -44,6 +45,13 @@ public class LecturasConsumos {
 	}
 	public void setConsumoPromedio(Long consumoPromedio) {
 		this.consumoPromedio = consumoPromedio;
+	}
+	
+	public String getPaga() {
+		return paga;
+	}
+	public void setPaga(String paga) {
+		this.paga = paga;
 	}
 	
 }

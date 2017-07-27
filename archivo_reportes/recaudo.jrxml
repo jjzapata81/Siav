@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="recaudo" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2fef7999-c5f2-49b4-94ac-6dcca85d4c64">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<field name="banco" class="java.lang.String"/>
+	<field name="numeroCuenta" class="java.lang.String"/>
+	<field name="feHasta" class="java.util.Date"/>
+	<field name="instalacion" class="java.lang.Long"/>
+	<field name="nombres" class="java.lang.String"/>
+	<field name="valor" class="java.lang.Long"/>
+	<field name="titulo" class="java.lang.String"/>
+	<field name="subtitulo" class="java.lang.String"/>
+	<field name="resumen" class="java.lang.String"/>
+	<variable name="valor_1" class="java.lang.Long" resetType="Group" resetGroup="fechaGr" calculation="Sum">
+		<variableExpression><![CDATA[$F{valor}]]></variableExpression>
+	</variable>
+	<variable name="valor_2" class="java.lang.Long" resetType="Group" resetGroup="cuentaGr" calculation="Sum">
+		<variableExpression><![CDATA[$F{valor}]]></variableExpression>
+	</variable>
+	<variable name="valor_3" class="java.lang.Long" resetType="Group" resetGroup="bancoGr" calculation="Sum">
+		<variableExpression><![CDATA[$F{valor}]]></variableExpression>
+	</variable>
+	<variable name="valor_4" class="java.lang.Long" resetType="Group" resetGroup="fechaGr" calculation="Sum">
+		<variableExpression><![CDATA[$F{valor}]]></variableExpression>
+	</variable>
+	<variable name="valor_5" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[$F{valor}]]></variableExpression>
+	</variable>
+	<group name="bancoGr" isReprintHeaderOnEachPage="true">
+		<groupExpression><![CDATA[$F{banco}]]></groupExpression>
+		<groupHeader>
+			<band height="12">
+				<textField isBlankWhenNull="true">
+					<reportElement x="127" y="0" width="100" height="12" uuid="67e1b203-0d44-4741-8872-27492e5664a9"/>
+					<textElement>
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{banco}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="27" y="0" width="100" height="12" uuid="3909b127-b3c4-4699-9dea-b87ea274766c"/>
+					<textElement>
+						<font size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[BANCO]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="21">
+				<textField pattern="$ #,##0" isBlankWhenNull="true">
+					<reportElement x="434" y="0" width="60" height="10" uuid="73efdb33-4133-4960-b99a-08cb0a0a5169"/>
+					<textElement textAlignment="Right">
+						<font size="6" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{valor_3}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="362" y="0" width="72" height="10" uuid="9779d5a2-64ad-495c-a82c-17af71234fb1"/>
+					<textElement>
+						<font size="6" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{banco}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="227" y="0" width="135" height="10" uuid="25d5833b-6cb1-47d3-bcf2-d44c1c8e72f7"/>
+					<textElement>
+						<font size="6" isBold="true"/>
+					</textElement>
+					<text><![CDATA[SUBTOTAL BANCO]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="cuentaGr" isReprintHeaderOnEachPage="true">
+		<groupExpression><![CDATA[$F{numeroCuenta}]]></groupExpression>
+		<groupHeader>
+			<band height="12">
+				<textField isBlankWhenNull="true">
+					<reportElement x="127" y="0" width="100" height="12" uuid="dd06bf44-87ad-413a-90c3-0fcf67d75c2e"/>
+					<textElement>
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{numeroCuenta}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="27" y="0" width="100" height="12" uuid="f102cdaa-6ecd-4906-b0bc-560d901b67cb"/>
+					<textElement>
+						<font size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[NÚMERO CUENTA]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="10">
+				<textField pattern="$ #,##0" isBlankWhenNull="true">
+					<reportElement x="434" y="0" width="60" height="10" uuid="ce7a476d-011d-42f0-958f-af09bf496cc3"/>
+					<textElement textAlignment="Right">
+						<font size="6" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{valor_2}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="360" y="0" width="74" height="10" uuid="5dbfabec-8a43-4f1a-bea6-a2267237e498"/>
+					<textElement>
+						<font size="6" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{numeroCuenta}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="227" y="0" width="135" height="10" uuid="2b5c981b-1620-4882-8533-471cc5362604"/>
+					<textElement>
+						<font size="6" isBold="true"/>
+					</textElement>
+					<text><![CDATA[SUBTOTAL NÚMERO CUENTA]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="fechaGr" isReprintHeaderOnEachPage="true" minHeightToStartNewPage="10">
+		<groupExpression><![CDATA[$F{feHasta}]]></groupExpression>
+		<groupHeader>
+			<band height="27">
+				<textField pattern="yyyy-MM-dd" isBlankWhenNull="true">
+					<reportElement x="127" y="0" width="75" height="12" uuid="a87b889c-8747-4629-bf75-c5c4e085af2e"/>
+					<textElement>
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{feHasta}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="75" y="17" width="100" height="10" uuid="85490f39-37b2-4829-b9e6-304b666fe20e"/>
+					<textElement>
+						<font size="6" isBold="true"/>
+					</textElement>
+					<text><![CDATA[INSTALACIÓN]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="175" y="17" width="100" height="10" uuid="6f1a500a-3787-4960-8d0a-09f7be036186"/>
+					<textElement>
+						<font size="6" isBold="true"/>
+					</textElement>
+					<text><![CDATA[NOMBRES]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="434" y="17" width="60" height="10" uuid="84d6f951-86c3-4289-8ba7-ada49441b98e"/>
+					<textElement textAlignment="Center">
+						<font size="6" isBold="true"/>
+					</textElement>
+					<text><![CDATA[VALOR]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="27" y="0" width="100" height="12" uuid="dc63019f-8dab-4158-b45f-6d3bcc07c047"/>
+					<textElement>
+						<font size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[FECHA RECAUDO]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="10">
+				<textField pattern="$ #,##0" isBlankWhenNull="true">
+					<reportElement x="434" y="0" width="60" height="10" uuid="1b2fa808-e7d8-45af-92c4-4ff90e8f2f4b"/>
+					<textElement textAlignment="Right">
+						<font size="6" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{valor_4}]]></textFieldExpression>
+				</textField>
+				<textField pattern="yyyy-MM-dd" isBlankWhenNull="true">
+					<reportElement x="362" y="0" width="72" height="10" uuid="091c58ae-d80f-49f1-b5c0-b3453aad744d"/>
+					<textElement>
+						<font size="6" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{feHasta}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="227" y="0" width="135" height="10" uuid="9c472ba3-1ab0-485e-9675-63197f8735ae"/>
+					<textElement>
+						<font size="6" isBold="true"/>
+					</textElement>
+					<text><![CDATA[SUBTOTAL FECHA RECAUDO]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="41" splitType="Stretch">
+			<textField pattern="yyyy-MM-dd">
+				<reportElement x="434" y="0" width="60" height="14" uuid="b169a262-661b-46ec-be31-6d68cab768e7"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="27" y="0" width="407" height="20" uuid="763402ec-53f3-4275-9a36-0fddc5c633f5"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{titulo}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="27" y="20" width="407" height="21" uuid="b708898b-1483-4e96-acb6-a8a44135e1a3"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{subtitulo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="10" splitType="Stretch">
+			<textField pattern="$ #,##0" isBlankWhenNull="true">
+				<reportElement x="434" y="0" width="60" height="10" uuid="1462d01d-851c-4bbd-a9a7-d52556ec2b72"/>
+				<textElement textAlignment="Right">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="75" y="0" width="100" height="10" uuid="37441515-a30c-4de8-bff8-c3b60d01e983"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{instalacion}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="175" y="0" width="259" height="10" uuid="7b7d8a1b-01f8-4869-bb72-1dcb71a06771"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombres}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="30">
+			<textField pattern="$#,##0" isBlankWhenNull="true">
+				<reportElement x="434" y="0" width="60" height="14" uuid="518af055-64fc-4fb2-93d3-7e66fc74d6a8"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{valor_5}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="345" y="0" width="89" height="14" uuid="44c4d9e3-375b-421b-8914-f05c5b8f3dab"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL RECAUDO]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="27" y="0" width="318" height="30" uuid="f132c789-befd-4266-979f-af119084b1d0"/>
+				<textElement>
+					<font size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{resumen}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

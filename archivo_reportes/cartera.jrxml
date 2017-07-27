@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="recaudo" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2fef7999-c5f2-49b4-94ac-6dcca85d4c64">
 	<property name="ireport.zoom" value="2.0"/>
-	<property name="ireport.x" value="49"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
@@ -23,8 +23,8 @@
 			<pen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
-	<parameter name="titulo" class="java.lang.String"/>
-	<parameter name="subtitulo" class="java.lang.String"/>
+	<field name="titulo" class="java.lang.String"/>
+	<field name="subtitulo" class="java.lang.String"/>
 	<field name="instalacion" class="java.lang.Long"/>
 	<field name="nombre" class="java.lang.String"/>
 	<field name="codigo" class="java.lang.String"/>
@@ -39,37 +39,37 @@
 	<group name="codigoGr">
 		<groupExpression><![CDATA[$F{codigo}]]></groupExpression>
 		<groupHeader>
-			<band height="32">
+			<band height="50">
 				<staticText>
-					<reportElement x="27" y="20" width="65" height="12" uuid="7d0d29d3-5740-4fae-8202-8fe019cc2659"/>
+					<reportElement x="27" y="38" width="65" height="12" uuid="7d0d29d3-5740-4fae-8202-8fe019cc2659"/>
 					<textElement>
 						<font size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[INSTALACIÓN]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="92" y="20" width="221" height="12" uuid="7dc55165-5ba5-47da-b645-a5ad2c7e15ac"/>
+					<reportElement x="92" y="38" width="175" height="12" uuid="7dc55165-5ba5-47da-b645-a5ad2c7e15ac"/>
 					<textElement>
 						<font size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[NOMBRE]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="313" y="20" width="67" height="12" uuid="cc3ee2b5-6cac-4beb-93e6-c4c79e4aa2aa"/>
+					<reportElement x="267" y="38" width="67" height="12" uuid="cc3ee2b5-6cac-4beb-93e6-c4c79e4aa2aa"/>
 					<textElement>
 						<font size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[CODIGO]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="380" y="20" width="100" height="12" uuid="9fb00421-d2f5-4fc4-997d-73a05543ccf9"/>
+					<reportElement x="334" y="38" width="100" height="12" uuid="9fb00421-d2f5-4fc4-997d-73a05543ccf9"/>
 					<textElement>
 						<font size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[CONCEPTO]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="480" y="20" width="60" height="12" uuid="a00fdd02-aba1-4a21-9869-52afcfc78ad8"/>
+					<reportElement x="434" y="38" width="60" height="12" uuid="a00fdd02-aba1-4a21-9869-52afcfc78ad8"/>
 					<textElement textAlignment="Center">
 						<font size="8" isBold="true"/>
 					</textElement>
@@ -78,23 +78,23 @@
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="18">
+			<band height="12">
 				<textField pattern="$ #,##0" isBlankWhenNull="true">
-					<reportElement x="194" y="6" width="60" height="12" uuid="791a8741-046a-42d0-90d4-a96e1c95bf09"/>
+					<reportElement x="434" y="0" width="60" height="12" uuid="791a8741-046a-42d0-90d4-a96e1c95bf09"/>
 					<textElement textAlignment="Right">
 						<font size="8" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{saldo_1}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="27" y="6" width="67" height="12" uuid="a76a9c70-e6de-4d55-bada-d6d9e8ea51ca"/>
+					<reportElement x="267" y="0" width="67" height="12" uuid="a76a9c70-e6de-4d55-bada-d6d9e8ea51ca"/>
 					<textElement>
 						<font size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[SUBTOTAL]]></text>
 				</staticText>
 				<textField isBlankWhenNull="true">
-					<reportElement x="94" y="6" width="100" height="12" uuid="aaabcaa9-25c3-437e-8c04-0f598a9ef064"/>
+					<reportElement x="334" y="0" width="100" height="12" uuid="aaabcaa9-25c3-437e-8c04-0f598a9ef064"/>
 					<textElement>
 						<font size="8" isBold="true"/>
 					</textElement>
@@ -109,25 +109,25 @@
 	<title>
 		<band height="41" splitType="Stretch">
 			<textField pattern="yyyy-MM-dd">
-				<reportElement x="480" y="0" width="60" height="14" uuid="b169a262-661b-46ec-be31-6d68cab768e7"/>
+				<reportElement x="434" y="0" width="60" height="14" uuid="b169a262-661b-46ec-be31-6d68cab768e7"/>
 				<textElement>
 					<font size="7"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new Date()]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="27" y="0" width="453" height="20" uuid="763402ec-53f3-4275-9a36-0fddc5c633f5"/>
+				<reportElement x="27" y="0" width="407" height="20" uuid="763402ec-53f3-4275-9a36-0fddc5c633f5"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{titulo}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{titulo}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="27" y="20" width="453" height="21" uuid="b708898b-1483-4e96-acb6-a8a44135e1a3"/>
+				<reportElement x="27" y="20" width="407" height="21" uuid="b708898b-1483-4e96-acb6-a8a44135e1a3"/>
 				<textElement>
 					<font size="10" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{subtitulo}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{subtitulo}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -141,28 +141,28 @@
 				<textFieldExpression><![CDATA[$F{instalacion}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="92" y="0" width="221" height="12" uuid="6d9e847c-a954-4924-a7d0-f7b9b2792caf"/>
+				<reportElement x="92" y="0" width="175" height="12" uuid="6d9e847c-a954-4924-a7d0-f7b9b2792caf"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="313" y="0" width="67" height="12" uuid="caece367-6cfe-4c56-8411-3e6e1d61c4bb"/>
+				<reportElement x="267" y="0" width="67" height="12" uuid="caece367-6cfe-4c56-8411-3e6e1d61c4bb"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="380" y="0" width="100" height="12" uuid="491b7a8d-6aa5-42f4-9c32-f9b0816c389c"/>
+				<reportElement x="334" y="0" width="100" height="12" uuid="491b7a8d-6aa5-42f4-9c32-f9b0816c389c"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{concepto}]]></textFieldExpression>
 			</textField>
 			<textField pattern="$ #,##0" isBlankWhenNull="true">
-				<reportElement x="480" y="0" width="60" height="12" uuid="11d3305b-dbbc-4079-9768-ffeea4a51382"/>
+				<reportElement x="434" y="0" width="60" height="12" uuid="11d3305b-dbbc-4079-9768-ffeea4a51382"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
@@ -172,20 +172,20 @@
 	</detail>
 	<summary>
 		<band height="30">
-			<staticText>
-				<reportElement x="27" y="18" width="167" height="12" uuid="d07014ae-6a4b-467e-b4de-c380b7dc4542"/>
-				<textElement>
-					<font size="8" isBold="true"/>
-				</textElement>
-				<text><![CDATA[TOTAL CARTERA]]></text>
-			</staticText>
-			<textField pattern="$ #,##0" isBlankWhenNull="true">
-				<reportElement x="194" y="18" width="60" height="12" uuid="9869453a-4ca6-4769-a7b7-3a9d71c0e55c"/>
+			<textField isBlankWhenNull="true">
+				<reportElement x="434" y="18" width="60" height="12" uuid="9869453a-4ca6-4769-a7b7-3a9d71c0e55c"/>
 				<textElement textAlignment="Right">
 					<font size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{saldo_2}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="267" y="18" width="167" height="12" uuid="d07014ae-6a4b-467e-b4de-c380b7dc4542"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL CARTERA]]></text>
+			</staticText>
 		</band>
 	</summary>
 </jasperReport>

@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
+import co.com.siav.exception.TechnicalException;
 import co.com.siav.file.excel.ExcelReportGeneratorXLSX;
 import co.com.siav.file.excel.descriptor.ConsumoNoFacturadoExcelDescriptor;
 import co.com.siav.file.pdf.PdfGenerator;
@@ -20,6 +21,7 @@ import co.com.siav.reports.response.ConsumoNoFacturado;
 import co.com.siav.repository.QueryHelper;
 import co.com.siav.repository.ReportBDFactory;
 import co.com.siav.repository.utility.Util;
+import co.com.siav.utility.Constantes;
 
 public class ConsumosNoFacturadoRepository implements IReportType{
 	
@@ -56,7 +58,11 @@ public class ConsumosNoFacturadoRepository implements IReportType{
 	private List<ConsumoNoFacturado> getData(Filter filter) {
 		String query = QueryHelper.getConsumoNoFacturado(filter);
 		ReportBDFactory<ConsumoNoFacturado> factory = new ReportBDFactory<>();
-		return factory.getReportResult(ConsumoNoFacturado.class, query).stream().sorted((a, b)-> Long.compare(a.getOrden(), b.getOrden())).collect(Collectors.toList());
+		List<ConsumoNoFacturado> data = factory.getReportResult(ConsumoNoFacturado.class, query);
+		if(data.isEmpty()){
+			throw new TechnicalException(Constantes.ERR_NO_DATA);
+		}
+		return data.stream().sorted((a, b)-> Long.compare(a.getOrden(), b.getOrden())).collect(Collectors.toList());
 	}
 
 }

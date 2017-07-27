@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import co.com.siav.exception.TechnicalException;
 import co.com.siav.file.excel.ExcelReportGeneratorXLSX;
 import co.com.siav.file.excel.descriptor.CarteraExcelDescriptor;
 import co.com.siav.notifier.SendMail;
@@ -36,7 +37,7 @@ public class CarteraRepository implements IReportType{
 	private Map<String, Object> getParams() {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put(Constantes.TITULO, Util.getEmpresa().getNombreCorto());
-		params.put(Constantes.SUBTITULO, Reporte.CARTERA_REPORTE);
+		params.put(Constantes.SUBTITULO, Reporte.CARTERA_SUBTITULO);
 		return params;
 	}
 
@@ -62,7 +63,11 @@ public class CarteraRepository implements IReportType{
 	private List<Cartera> getData() {
 		String query = QueryHelper.getCartera();
 		ReportBDFactory<Cartera> factory = new ReportBDFactory<>();
-		return factory.getReportResult(Cartera.class, query);
+		List<Cartera> data = factory.getReportResult(Cartera.class, query);
+		if(data.isEmpty()){
+			throw new TechnicalException(Constantes.ERR_NO_DATA);
+		}
+		return data;
 	}
 
 }
