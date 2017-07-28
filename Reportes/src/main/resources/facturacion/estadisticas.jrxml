@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="estadisticas" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="37541d2d-fded-4612-a6aa-996bdb5f9e3b">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="titulo" class="java.lang.String"/>
+	<parameter name="subtitulo" class="java.lang.String"/>
+	<field name="orden" class="java.lang.Long"/>
+	<field name="concepto" class="java.lang.String"/>
+	<field name="consumoTotal" class="java.lang.Long"/>
+	<field name="porcentaje" class="java.lang.Double"/>
+	<field name="consumoPromedio" class="java.lang.Double"/>
+	<field name="instalaciones" class="java.lang.Long"/>
+	<variable name="orden_1" class="java.lang.Long" resetType="Group" resetGroup="ordenGr" calculation="Sum">
+		<variableExpression><![CDATA[$F{orden}]]></variableExpression>
+	</variable>
+	<variable name="instalaciones_1" class="java.lang.Long" resetType="Group" resetGroup="ordenGr" calculation="Sum">
+		<variableExpression><![CDATA[$F{instalaciones}]]></variableExpression>
+	</variable>
+	<variable name="consumoTotal_1" class="java.lang.Long" resetType="Group" resetGroup="ordenGr" calculation="Sum">
+		<variableExpression><![CDATA[$F{consumoTotal}]]></variableExpression>
+	</variable>
+	<variable name="porcentaje_1" class="java.lang.Double" resetType="Group" resetGroup="ordenGr" calculation="Sum">
+		<variableExpression><![CDATA[$F{porcentaje}]]></variableExpression>
+	</variable>
+	<variable name="consumoPromedio_1" class="java.lang.Double" resetType="Group" resetGroup="ordenGr" calculation="Sum">
+		<variableExpression><![CDATA[$F{consumoPromedio}]]></variableExpression>
+	</variable>
+	<group name="ordenGr">
+		<groupExpression><![CDATA[$F{orden}]]></groupExpression>
+		<groupHeader>
+			<band height="50">
+				<staticText>
+					<reportElement x="34" y="30" width="140" height="20" uuid="9f6d93ec-54d9-4b24-b377-d0846bedc22c"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[CONCEPTO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="174" y="30" width="90" height="20" uuid="1f4ecbb6-a0fc-42cd-bc5f-e748e01b91e8"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[INSTALACIONES]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="264" y="30" width="90" height="20" uuid="16366c17-fc38-4eda-843d-9a28b75c9944"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[CONSUMO TOTAL]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="354" y="30" width="90" height="20" uuid="dd78d9bd-3964-4d11-a437-5cabdff9ecaa"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[PORCENTAJE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="444" y="30" width="90" height="20" uuid="03d6277e-b345-42e0-9365-3f41af35fc2e"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[CONSUMO PROMEDIO]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="34" y="10" width="500" height="20" uuid="2701b194-5658-4bb2-a090-8c7710b7de14"/>
+					<textElement>
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{orden}== 12 ? "CONSUMO DISCRIMINADO POR VEREDA" : "CONSUMO DISCRIMINADO POR RUTA"]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="22">
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="174" y="0" width="52" height="20" uuid="e13f32d7-9079-4368-b043-229f235afe2f"/>
+					<textElement textAlignment="Right" verticalAlignment="Bottom">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{instalaciones_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="264" y="0" width="52" height="20" uuid="b5dc8d6f-b2cb-45d0-8093-65a14335ed5e"/>
+					<textElement textAlignment="Right" verticalAlignment="Bottom">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{consumoTotal_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.00" isBlankWhenNull="true">
+					<reportElement x="354" y="0" width="52" height="20" uuid="cedecff6-ff05-4b57-be1e-4c11e3bccd18"/>
+					<textElement textAlignment="Right" verticalAlignment="Bottom">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{porcentaje_1}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="444" y="0" width="52" height="20" uuid="1fd1585f-5b06-429e-a5f0-fb230ecdebc0"/>
+					<textElement textAlignment="Right" verticalAlignment="Bottom">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{consumoPromedio_1}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="132" y="0" width="42" height="20" uuid="51749032-590d-4d4e-91c3-27b15844eadb"/>
+					<textElement verticalAlignment="Bottom">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[TOTAL]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="406" y="8" width="20" height="12" uuid="ce094d81-4806-47c3-b3da-970acfebe28d"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[%]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="44" splitType="Stretch">
+			<textField pattern="yyyy-MM-dd">
+				<reportElement x="487" y="0" width="60" height="14" uuid="580b5f79-04fa-4057-b3ec-4583c0c28eed"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="34" y="20" width="453" height="21" uuid="33cd31a6-caae-4db6-932d-2361979b1f65"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{subtitulo}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="34" y="0" width="453" height="20" uuid="fa7d31b8-0822-406b-af4a-86838b8f38ea"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{titulo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="12" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="34" y="0" width="140" height="12" uuid="649bae3e-80e6-4d4a-8c1c-10233a218b1e"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{concepto}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="264" y="0" width="52" height="12" uuid="ab641e94-7e8a-42d2-8ba7-15384566e65a"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{consumoTotal}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="174" y="0" width="52" height="12" uuid="47553a34-3f9d-4db5-8b6e-1bba530b9126"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{instalaciones}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00" isBlankWhenNull="true">
+				<reportElement x="354" y="0" width="52" height="12" uuid="14c52219-90a6-4fd7-b555-848ed41d40db"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{porcentaje}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="444" y="0" width="52" height="12" uuid="ec152a44-6095-4f21-a2eb-5dea00d36096"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{consumoPromedio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="406" y="0" width="20" height="12" uuid="2743b5ac-7bc7-46a1-a7c3-ceb9620873b4"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[%]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

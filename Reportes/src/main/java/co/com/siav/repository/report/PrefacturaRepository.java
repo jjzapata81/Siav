@@ -15,28 +15,23 @@ import co.com.siav.pdf.dto.DetalleInstalacionPDF;
 import co.com.siav.pdf.dto.InstalacionPDF;
 import co.com.siav.pdf.dto.InstalacionPDFBase;
 import co.com.siav.pdf.dto.PrefacturaPDF;
-import co.com.siav.pdf.generador.GeneradorPreFactura;
+import co.com.siav.pdf.generador.GeneradorPDF;
 import co.com.siav.reports.factory.IReportType;
 import co.com.siav.reports.filters.Filter;
 import co.com.siav.reports.response.PrefacturaExcel;
 import co.com.siav.repository.QueryHelper;
 import co.com.siav.repository.ReportBDFactory;
-import co.com.siav.repository.entities.Empresa;
 import co.com.siav.repository.utility.Util;
+import co.com.siav.utility.Constantes;
 
 public class PrefacturaRepository implements IReportType{
-	
-	private static final String PREFACTURACION_CICLO = "PREFACTURACIÓN CICLO ";
 
-	private Empresa empresa;
-	
 	@Inject
 	private SendMail notifier;
 		
 	@Override
 	public byte[] getPDF(Filter filter) {
-		GeneradorPreFactura generador = new GeneradorPreFactura(getPrefactura(filter));
-		return generador.generarPDFStream();
+		return new GeneradorPDF(getPrefactura(filter), Constantes.PREFACTURA_JRXML).getStream();
 	}
 
 	@Override
@@ -50,10 +45,6 @@ public class PrefacturaRepository implements IReportType{
 		notifier.send(filter.getEmail(),Reporte.PREFACTURACION_ASUNTO, getTextoMensaje(filter.getCiclo()), getFile(filter));
 	}
 	
-	private void getValoresGenerales() {
-		empresa = Util.getEmpresa();
-	}
-	
 	private String getTextoMensaje(Long ciclo) {
 		return String.format(Reporte.PREFACTURACION_CUERPO, ciclo);
 	}
@@ -62,13 +53,12 @@ public class PrefacturaRepository implements IReportType{
 		return new Attachment(Reporte.PREFACTURACION, download(filter));
 	}
 	
-	private PrefacturaPDF getPrefactura(Filter filter){
-		getValoresGenerales();
+	private List<PrefacturaPDF> getPrefactura(Filter filter){
 		PrefacturaPDF prefacturacion = new PrefacturaPDF();
-		prefacturacion.setNombreAcueducto(empresa.getNombreCorto());
-		prefacturacion.setNombreReporte(PREFACTURACION_CICLO + filter.getCiclo());
+		prefacturacion.setNombreAcueducto(Util.getEmpresa().getNombreCorto());
+		prefacturacion.setNombreReporte(Reporte.PREFACTURACION_SUBTITULO + filter.getCiclo());
 		prefacturacion.setInstalaciones(getInstalaciones(filter));
-		return prefacturacion;
+		return Arrays.asList(prefacturacion);
 	}
 
 	private List<InstalacionPDF> getInstalaciones(Filter filter) {

@@ -9,8 +9,7 @@ public enum ConsumoNoFacturadoExcelDescriptor implements IExcelDescriptor{
 	LECTURA_ANTERIOR("LECTURA ANTERIOR","getLeAnterior"),
 	LECTURA_ACTUAL("LECTURA ACTUAL","getLeActual"),
 	CONSUMO_DEFINITIVO("CONSUMO DEFINITIVO","getConsumoDefinitivo"),
-	CONSUMO_PROMEDIO("CONSUMO PROMEDIO","getConsumoPromedio"),
-	PAGA("PAGA","getPaga")
+	CONSUMO_PROMEDIO("CONSUMO PROMEDIO","getConsumoPromedio")
 	;
 	
 	private String header;

@@ -1,6 +1,6 @@
 package co.com.siav.repository.entities;
 
-public class VariacionConsumoBD {
+public class VariacionConsumo {
 	
 	private Long instalacion;
 	private String nombre;

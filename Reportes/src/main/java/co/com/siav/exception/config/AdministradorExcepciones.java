@@ -1,4 +1,4 @@
-package co.com.siav.rest.config.error;
+package co.com.siav.exception.config;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintWriter;

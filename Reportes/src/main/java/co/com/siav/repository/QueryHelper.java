@@ -20,7 +20,7 @@ public class QueryHelper {
 			sb.append(" and fma.cuentasvencidas >= ");
 			sb.append(filter.getValorDesde());
 		}else{
-			sb.append(" and fma.cuentasvencidas >= 1");
+			sb.append(" and fma.cuentasvencidas >= 0");
 		}
 		if(null != filter.getValorHasta()){
 			sb.append(" and fma.cuentasvencidas <= ");
@@ -413,6 +413,17 @@ public class QueryHelper {
 		sb.append("SELECT MAX(nmcomprobante) AS parametro FROM ta_comprobante_pago");
 		return sb.toString();
 	}
+	
+	public static String getTotalConsumo(Filter filter) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("SELECT SUM(c.consumodefinitivo) AS parametro ");
+		sb.append(" FROM ta_consumos c, ta_instalacion i, ta_usuarios u ");
+		sb.append("WHERE i.nminstalacion = c.nminstalacion and i.cedula = u.cedula ");
+		sb.append("  AND c.ciclo = ");
+		sb.append(filter.getCiclo());
+		sb.append(" GROUP BY  c.ciclo ");
+		return sb.toString();
+	}
 
 	public static String saveUsuario(MatriculaRequest filter) {
 		StringBuilder sb = new StringBuilder();
@@ -440,87 +451,45 @@ public class QueryHelper {
 	
 	public static String getConsumoNoFacturado(Filter filter){
 		StringBuilder sb = new StringBuilder();
-		sb.append("SELECT 1 AS orden, i.nminstalacion AS instalacion, ");
+		sb.append("SELECT i.nminstalacion AS instalacion, ");
 		sb.append("   (CASE WHEN u.nombres IS NULL THEN u.apellidos ELSE u.nombres  || ' ' || u.apellidos END) nombre, ");
-		sb.append("   c.leanterior, c.leactual, c.consumodefinitivo, ");
-		sb.append("   (CASE WHEN i.cdtipofacturacion = '2' THEN 'N' ELSE '' END) paga, ");
-		sb.append("    c.consumopromedio ");
+		sb.append("   c.leanterior, c.leactual, c.consumodefinitivo, c.consumopromedio ");
 		sb.append(" FROM ta_consumos c, ta_instalacion i, ta_usuarios u ");
 		sb.append("WHERE i.nminstalacion = c.nminstalacion and i.cedula = u.cedula and i.cdtipofacturacion='2' ");
 		sb.append("  AND c.ciclo = ");
 		sb.append(filter.getCiclo());
-		sb.append(" UNION ");
-		sb.append("SELECT 2, null, 'TOTAL METROS CUBICOS NO FACTURADOS', null, null, SUM(c.consumodefinitivo), '' paga, null ");
-		sb.append(" FROM ta_consumos c, ta_instalacion i, ta_usuarios u ");
-		sb.append("WHERE i.nminstalacion = c.nminstalacion and i.cedula = u.cedula and i.cdtipofacturacion='2' ");
-		sb.append("  AND c.ciclo = ");
-		sb.append(filter.getCiclo());
-		sb.append(" GROUP BY  c.ciclo ");
-		sb.append("UNION ");
-		sb.append("SELECT 3, null, 'TOTAL METROS CUBICOS FACTURADOS', null, null, SUM(c.consumodefinitivo), '' paga, null ");
-		sb.append(" FROM ta_consumos c, ta_instalacion i, ta_usuarios u ");
-		sb.append("WHERE i.nminstalacion = c.nminstalacion and i.cedula = u.cedula and i.cdtipofacturacion = '1' ");
-		sb.append("  AND c.ciclo = ");
-		sb.append(filter.getCiclo());
-		sb.append(" GROUP BY  c.ciclo ");
-		sb.append("UNION ");
-		sb.append("SELECT 4, null, 'TOTAL METROS DESPACHADOS', null, null, SUM(c.consumodefinitivo), '' paga, null ");
-		sb.append(" FROM ta_consumos c, ta_instalacion i, ta_usuarios u ");
-		sb.append("WHERE i.nminstalacion = c.nminstalacion and i.cedula = u.cedula ");
-		sb.append("  AND c.ciclo = ");
-		sb.append(filter.getCiclo());
-		sb.append(" GROUP BY  c.ciclo ");
-		sb.append("ORDER BY 1, 6, 2 ");
+		sb.append(" ORDER BY 5, 1 ");
 		return sb.toString();
 	}
 	
 	public static String getEstadisticas(Filter filter){
 		StringBuilder sb = new StringBuilder();
-		sb.append("SELECT 10 AS ORDEN, 'CONSUMO DISCRIMINADO POR VEREDA' AS vereda,null AS instalaciones,null AS consumototal,null as porcentaje,null as consumopromedio ");
-		sb.append("UNION ");
-		sb.append("SELECT 12 seccion, (SELECT v.nombre FROM ta_veredas v WHERE v.cdvereda = i.cdvereda) vereda, COUNT(1) instalaciones, SUM(c.consumodefinitivo) consumo_total, ");
+		sb.append("SELECT 12 AS orden, (SELECT v.nombre FROM ta_veredas v WHERE v.cdvereda = i.cdvereda) AS concepto, COUNT(1) instalaciones, SUM(c.consumodefinitivo) consumototal, ");
 		sb.append("  ROUND(SUM(c.consumodefinitivo)*100/ ");
 		sb.append("  ((SELECT  SUM(c.consumodefinitivo) FROM ta_consumos c, ta_instalacion i ");
 		sb.append("WHERE i.nminstalacion = c.nminstalacion AND c.ciclo = ");
 		sb.append(filter.getCiclo());
 		sb.append(" GROUP BY c.ciclo)),2) porcentaje, ");
-		sb.append("  ROUND(SUM(c.consumodefinitivo)/COUNT(1),2) consumo_promedio ");
+		sb.append("  ROUND(SUM(c.consumodefinitivo)/COUNT(1),2) consumopromedio ");
 		sb.append(" FROM ta_consumos c, ta_instalacion i ");
 		sb.append("WHERE i.nminstalacion = c.nminstalacion ");
 		sb.append("  AND c.ciclo = ");
 		sb.append(filter.getCiclo());
 		sb.append(" GROUP BY c.ciclo, (SELECT v.nombre FROM ta_veredas v WHERE v.cdvereda = i.cdvereda) ");
 		sb.append("UNION ");
-		sb.append("SELECT 14 seccion, 'TOTAL', COUNT(1) instalaciones, SUM(c.consumodefinitivo) consumo_total, ");
-		sb.append("  ROUND(100,2) porcentaje, ROUND(SUM(c.consumodefinitivo)/COUNT(1),2) consumo_promedio ");
-		sb.append(" FROM ta_consumos c, ta_instalacion i ");
-		sb.append("WHERE i.nminstalacion = c.nminstalacion ");
-		sb.append("  AND c.ciclo = ");
-		sb.append(filter.getCiclo());
-		sb.append(" GROUP BY c.ciclo ");
-		sb.append("UNION ");
-		sb.append("SELECT 20, 'CONSUMO DISCRIMINADO POR RUTA',null,null,null,null ");
-		sb.append("UNION ");
-		sb.append("SELECT 22 seccion, (SELECT r.nombre FROM ta_ramal r WHERE r.cdramal = i.cdramal) ruta, COUNT(1) instalaciones, SUM(c.consumodefinitivo) consumo_total, ");
+		sb.append("SELECT 22 AS orden, (SELECT r.nombre FROM ta_ramal r WHERE r.cdramal = i.cdramal) AS concepto, COUNT(1) instalaciones, SUM(c.consumodefinitivo) consumototal, ");
 		sb.append("  ROUND(SUM(c.consumodefinitivo)*100/ ");
 		sb.append("  ((SELECT  SUM(c.consumodefinitivo) FROM ta_consumos c, ta_instalacion i ");
 		sb.append("WHERE i.nminstalacion = c.nminstalacion AND c.ciclo = ");
 		sb.append(filter.getCiclo());
 		sb.append(" GROUP BY c.ciclo)),2) porcentaje, ");
-		sb.append("  ROUND(SUM(c.consumodefinitivo)/COUNT(1),2) consumo_promedio ");
+		sb.append("  ROUND(SUM(c.consumodefinitivo)/COUNT(1),2) consumopromedio ");
 		sb.append(" FROM ta_consumos c, ta_instalacion i ");
 		sb.append("WHERE i.nminstalacion = c.nminstalacion ");
 		sb.append("  AND c.ciclo = ");
 		sb.append(filter.getCiclo());
 		sb.append(" GROUP BY c.ciclo, (SELECT r.nombre FROM ta_ramal r WHERE r.cdramal = i.cdramal) ");
-		sb.append("UNION ");
-		sb.append("SELECT 24 seccion, 'TOTAL', COUNT(1) instalaciones, SUM(c.consumodefinitivo) consumo_total, ");
-		sb.append("  ROUND(100,2) porcentaje, ROUND(SUM(c.consumodefinitivo)/COUNT(1),2) consumo_promedio ");
-		sb.append(" FROM ta_consumos c, ta_instalacion i ");
-		sb.append("WHERE i.nminstalacion = c.nminstalacion ");
-		sb.append("  AND c.ciclo = ");
-		sb.append(filter.getCiclo());
-		sb.append(" GROUP BY c.ciclo ORDER BY 1, 2 ");
+		sb.append(" ORDER BY 1, 2 ");
 		return sb.toString();
 	}
 	

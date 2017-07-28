@@ -1,6 +1,7 @@
 package co.com.siav.bean;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.ejb.Asynchronous;
@@ -127,14 +128,22 @@ public class FacturacionBean {
 			factura.setConsumoPromedio(consumo.getConsumoPromedio());
 			List<DetalleFactura> detalles = crearDetalle(consumo, numeroFactura, facturaAnterior);
 			if(sistema.getCuentasVencidas().equals(factura.getCuentasVencidas())){
-				detalles.add(crearRecargoCV(numeroFactura, cicloActual, factura.getNumeroInstalacion()));
+				Optional<DetalleFactura> conceptoRCV = detalles.stream().filter(item -> sistema.getIdRecargo().equals(item.getCodigo())).findFirst();
+				if(conceptoRCV.isPresent()){
+					Tarifa tarifaRecargo = tarifasRep.findOne(sistema.getIdRecargo());
+					conceptoRCV.get().setValor(conceptoRCV.get().getValor() + tarifaRecargo.getEstrato0());
+				}else{
+					detalles.add(crearRecargoCV(numeroFactura, cicloActual, factura.getNumeroInstalacion()));
+				}
 			}
 			factura.setDetalles(detalles);
 			facturasRep.save(factura);
+			System.out.println("Guardando factura " + numeroFactura);
+			System.out.println("Instalacion " + consumo.getInstalacion().getNumeroInstalacion());
 			return factura;
 		
 		}catch(Exception e){
-			throw new ExcepcionNegocio(Constantes.getMensaje(Constantes.ERR_APLIQUE_FACTURA, numeroFactura) + e.getMessage());
+			throw new ExcepcionNegocio(Constantes.getMensaje(Constantes.ERR_APLIQUE_FACTURA, consumo.getInstalacion().getNumeroInstalacion()) + e.getMessage());
 		}
 			
 	}

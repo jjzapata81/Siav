@@ -20,7 +20,7 @@
 	<variable name="ruta_2" class="java.lang.Integer" calculation="Count">
 		<variableExpression><![CDATA[$F{ruta}]]></variableExpression>
 	</variable>
-	<group name="rutaGr" isStartNewColumn="true" isReprintHeaderOnEachPage="true" minHeightToStartNewPage="50">
+	<group name="rutaGr" isReprintHeaderOnEachPage="true" minHeightToStartNewPage="50">
 		<groupExpression><![CDATA[$F{ruta}]]></groupExpression>
 		<groupHeader>
 			<band height="33">

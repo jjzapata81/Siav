@@ -3,7 +3,7 @@ package co.com.siav.reports.response;
 public class Estadistica {
 	
 	private Long orden;
-	private String vereda;
+	private String concepto;
 	private Long instalaciones;
 	private Long consumoTotal;
 	private Double porcentaje;
@@ -15,11 +15,11 @@ public class Estadistica {
 	public void setOrden(Long orden) {
 		this.orden = orden;
 	}
-	public String getVereda() {
-		return vereda;
+	public String getConcepto() {
+		return concepto;
 	}
-	public void setVereda(String vereda) {
-		this.vereda = vereda;
+	public void setConcepto(String concepto) {
+		this.concepto = concepto;
 	}
 	public Long getInstalaciones() {
 		return instalaciones;

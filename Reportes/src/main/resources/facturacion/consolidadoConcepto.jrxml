@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="consolidadoConcepto" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="05b47be7-4e67-47e8-840d-c5995343b69f">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="160"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="titulo" class="java.lang.String"/>
+	<parameter name="subtitulo" class="java.lang.String"/>
+	<field name="orden" class="java.lang.Long"/>
+	<field name="ciclo" class="java.lang.Long"/>
+	<field name="codigo" class="java.lang.String"/>
+	<field name="nombreConcepto" class="java.lang.String"/>
+	<field name="valor" class="java.lang.Long"/>
+	<field name="cartera" class="java.lang.Long"/>
+	<field name="total" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="55" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="30" y="7" width="453" height="20" uuid="46e8848c-acb6-48a4-82d0-462f6b4b5b64"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{titulo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="yyyy-MM-dd">
+				<reportElement x="483" y="7" width="60" height="14" uuid="b2da9591-278e-4d4b-b9ef-2a3bc0efa4c1"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="30" y="27" width="453" height="21" uuid="7b22eb48-1b4d-4fd3-a678-94da0166898d"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{subtitulo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="27" splitType="Stretch">
+			<staticText>
+				<reportElement x="24" y="14" width="100" height="12" uuid="580edebc-43df-4bcf-9db2-ad8a4d874446"/>
+				<textElement textAlignment="Center">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CÓDIGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="124" y="14" width="142" height="12" uuid="8a9f1453-e5da-4f5f-8032-ea1de1093a06"/>
+				<textElement textAlignment="Justified">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CONCEPTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="266" y="14" width="70" height="12" uuid="5191ed53-3829-4266-beaf-fc03bbc21090"/>
+				<textElement textAlignment="Center">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[VALOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="336" y="14" width="70" height="12" uuid="54735d7e-3285-4378-9a0c-908abdb714f2"/>
+				<textElement textAlignment="Center">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CARTERA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="406" y="14" width="70" height="12" uuid="e9a5c128-b56f-400c-be82-288bc39ee8e3"/>
+				<textElement textAlignment="Center">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="12" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="24" y="0" width="100" height="12" uuid="efe8e855-4f3c-4d81-8f4e-ecf4880aeb03"/>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="124" y="0" width="142" height="12" uuid="d8a63a04-0578-4f59-ac7b-c418f2b25866"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombreConcepto}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$ #,##0" isBlankWhenNull="true">
+				<reportElement x="266" y="0" width="50" height="12" uuid="e224a81e-821a-4d3e-870a-cbcd0f806fda"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$ #,##0" isBlankWhenNull="true">
+				<reportElement x="406" y="0" width="50" height="12" uuid="1f2746ea-dfc8-4e0d-94d7-7c213f4cde92"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+			<textField pattern="$ #,##0" isBlankWhenNull="true">
+				<reportElement x="336" y="0" width="50" height="12" uuid="b873858b-a51e-4037-b3a0-8cedcd9df4d3"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cartera}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="43" splitType="Stretch">
+			<textField>
+				<reportElement x="381" y="22" width="128" height="10" uuid="b9edc8df-cb6c-435d-98d4-344a5ef6cb79"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="509" y="22" width="33" height="10" uuid="3c25d4ad-a30c-4b21-8be7-f4d1b4411c81"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

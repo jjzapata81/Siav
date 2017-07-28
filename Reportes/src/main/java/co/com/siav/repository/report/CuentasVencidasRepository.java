@@ -13,7 +13,7 @@ import co.com.siav.file.excel.descriptor.CuentasVencidasExcelDescriptor;
 import co.com.siav.notifier.SendMail;
 import co.com.siav.notifier.config.Attachment;
 import co.com.siav.notifier.reports.name.Reporte;
-import co.com.siav.pdf.generador.GenericoPDF;
+import co.com.siav.pdf.generador.GeneradorPDF;
 import co.com.siav.reports.factory.IReportType;
 import co.com.siav.reports.filters.Filter;
 import co.com.siav.reports.response.CuentasVencidas;
@@ -29,7 +29,7 @@ public class CuentasVencidasRepository implements IReportType{
 	
 	@Override
 	public byte[] getPDF(Filter filter) {
-		return new GenericoPDF(getData(filter), Constantes.CUENTAS_VENCIDAS_JRXML, getParams(filter)).generarPDFStream();
+		return new GeneradorPDF(getData(filter), Constantes.CUENTAS_VENCIDAS_JRXML, getParams(filter)).getStream();
 	}
 
 	private Map<String, Object> getParams(Filter filter) {

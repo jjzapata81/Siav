@@ -13,7 +13,7 @@ import co.com.siav.file.excel.descriptor.CarteraExcelDescriptor;
 import co.com.siav.notifier.SendMail;
 import co.com.siav.notifier.config.Attachment;
 import co.com.siav.notifier.reports.name.Reporte;
-import co.com.siav.pdf.generador.GenericoPDF;
+import co.com.siav.pdf.generador.GeneradorPDF;
 import co.com.siav.reports.factory.IReportType;
 import co.com.siav.reports.filters.Filter;
 import co.com.siav.reports.response.Cartera;
@@ -30,8 +30,7 @@ public class CarteraRepository implements IReportType{
 	
 	@Override
 	public byte[] getPDF(Filter filter) {
-		GenericoPDF generador = new GenericoPDF(getData(), Constantes.CARTERA_JRXML, getParams());
-		return generador.generarPDFStream();
+		return new GeneradorPDF(getData(), Constantes.CARTERA_JRXML, getParams()).getStream();
 	}
 
 	private Map<String, Object> getParams() {

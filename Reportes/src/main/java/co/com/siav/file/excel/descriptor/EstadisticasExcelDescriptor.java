@@ -4,7 +4,8 @@ import co.com.siav.file.excel.IExcelDescriptor;
 
 public enum EstadisticasExcelDescriptor implements IExcelDescriptor{
 	
-	CONCEPTO("CONCEPTO","getVereda"),
+	ORDEN("ORDEN","getOrden"),
+	CONCEPTO("CONCEPTO","getConcepto"),
 	INSTALACIONES("INSTALACIONES","getInstalaciones"),
 	CONSUMO_TOTAL("CONSUMO TOTAL (metros despachados)","getConsumoTotal"),
 	PORCENTAJE("PORCENTAJE","getPorcentaje"),

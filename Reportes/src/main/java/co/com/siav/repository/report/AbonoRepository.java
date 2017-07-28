@@ -1,10 +1,12 @@
 package co.com.siav.repository.report;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import co.com.siav.pdf.dto.AbonoFacturaBD;
 import co.com.siav.pdf.dto.AbonoPDF;
-import co.com.siav.pdf.generador.GeneradorAbono;
+import co.com.siav.pdf.generador.GeneradorPDF;
 import co.com.siav.reports.filters.Comprobante;
 import co.com.siav.repository.ConsultaRango;
 import co.com.siav.repository.QueryHelper;
@@ -15,6 +17,7 @@ import co.com.siav.repository.entities.Parametro;
 import co.com.siav.repository.utility.Util;
 import co.com.siav.rest.request.AbonoRequest;
 import co.com.siav.rest.request.MatriculaRequest;
+import co.com.siav.utility.Constantes;
 
 public class AbonoRepository {
 	
@@ -27,8 +30,7 @@ public class AbonoRepository {
 	public byte[] getPDF(String usuario, AbonoRequest request) {
 		getValoresGenerales();
 		Comprobante comprobante = generarComprobante(usuario, request);
-		GeneradorAbono generador = new GeneradorAbono(getAbono(comprobante));
-		return generador.generarPDFStream();
+		return new GeneradorPDF(getData(comprobante), Constantes.ABONO_JRXML).getStream();
 	}
 	
 	public byte[] getMatriculaPDF(String usuario, MatriculaRequest request) {
@@ -38,11 +40,10 @@ public class AbonoRepository {
 		}
 		request.setEsMatricula("S");
 		Comprobante comprobante = generarComprobante(usuario, request);
-		GeneradorAbono generador = new GeneradorAbono(getAbonoMatricula(request, comprobante));
-		return generador.generarPDFStream();
+		return new GeneradorPDF(getAbonoMatricula(request, comprobante), "siavAbono.jrxml").getStream();
 	}
 
-	private AbonoPDF getAbonoMatricula(MatriculaRequest request,Comprobante comprobante) {
+	private List<AbonoPDF> getAbonoMatricula(MatriculaRequest request,Comprobante comprobante) {
 		AbonoPDF abono = new AbonoPDF();
 		abono.setCiclo(String.valueOf(ciclo.getCiclo()));
 		abono.setDireccion(request.getDireccion());
@@ -62,7 +63,7 @@ public class AbonoRepository {
 		abono.setReferente(getReferente(0L, comprobante.getComprobante(), ciclo.getCiclo()));
 		abono.setResolucion(resolucion);
 		abono.setCodigoBarras(Util.getCodigoBarras(abono.getReferente(), abono.getValorTotal(), abono.getFePagoRecargo() == null ? abono.getFePagoSinRecargo() : abono.getFePagoRecargo()));
-		return abono;
+		return Arrays.asList(abono);
 	}
 
 	private Comprobante generarComprobante(String usuario, AbonoRequest request) {
@@ -98,7 +99,7 @@ public class AbonoRepository {
 		resolucion = Util.getParametro(new ConsultaRango("resolucion", "VIGENTE"));
 	}
 	
-	private AbonoPDF getAbono(Comprobante comprobante) {
+	private List<AbonoPDF> getData(Comprobante comprobante) {
 		AbonoPDF abono = new AbonoPDF();
 		AbonoFacturaBD factura = getFactura(comprobante);
 		abono.setCiclo(String.valueOf(ciclo.getCiclo()));
@@ -119,7 +120,7 @@ public class AbonoRepository {
 		abono.setReferente(getReferente(comprobante.getInstalacion(), comprobante.getComprobante(), ciclo.getCiclo()));
 		abono.setResolucion(resolucion);
 		abono.setCodigoBarras(Util.getCodigoBarras(abono.getReferente(), abono.getValorTotal(), abono.getFePagoRecargo() == null ? abono.getFePagoSinRecargo() : abono.getFePagoRecargo()));
-		return abono;
+		return Arrays.asList(abono);
 	}
 	
 	private AbonoFacturaBD getFactura(Comprobante comprobante) {

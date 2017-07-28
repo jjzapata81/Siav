@@ -10,7 +10,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
-import co.com.siav.file.exception.ExcepcionEscrituraArchivo;
+import co.com.siav.exception.TechnicalException;
 
 
 public class CsvReportGenerator<T> {
@@ -79,7 +79,7 @@ public class CsvReportGenerator<T> {
 			Method method = data.getClass().getDeclaredMethod(columnDescriptor.getColumnDataMapper(), new Class[0]);
 			return method.invoke(data);
 		} catch (Exception e) {
-			throw new ExcepcionEscrituraArchivo("Error de configuracion del archivo", e);
+			throw new TechnicalException("Error de configuracion del archivo", e);
 		}
 	}
 

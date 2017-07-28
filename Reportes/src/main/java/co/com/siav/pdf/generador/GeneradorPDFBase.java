@@ -29,7 +29,7 @@ public abstract class GeneradorPDFBase {
 	public abstract JasperReport getReporte() throws JRException;
 	public abstract List<?> getData() throws JRException;
 	
-	public byte[] generarPDFStream() {
+	public byte[] getStream() {
 		try {
 			JasperPrint jasperPrint = JasperFillManager.fillReport(getReporte(), getParameters(), new JRBeanCollectionDataSource(getData()));
 			return generarArrayStream(jasperPrint);

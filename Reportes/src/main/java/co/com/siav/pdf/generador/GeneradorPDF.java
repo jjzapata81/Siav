@@ -10,20 +10,20 @@ import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperReport;
 import co.com.siav.exception.TechnicalException;
 
-public class GenericoPDF extends GeneradorPDFBase{
+public class GeneradorPDF extends GeneradorPDFBase{
 	
 	private String jrxmlFile;
 	private List<?> data;
 	private Map<String, Object> params;
 
-	public GenericoPDF(List<?> data, String jrxmlFile) {
+	public GeneradorPDF(List<?> data, String jrxmlFile) {
 		this.data = data;
 		this.jrxmlFile = jrxmlFile;
 		params = new HashMap<String, Object>();
 		params.put(SUBREPORT_DIR, RUTA_ARCHIVO);
 	}
 	
-	public GenericoPDF(List<?> data, String jrxmlFile, Map<String, Object> params) {
+	public GeneradorPDF(List<?> data, String jrxmlFile, Map<String, Object> params) {
 		this.data = data;
 		this.jrxmlFile = jrxmlFile;
 		this.params = params;

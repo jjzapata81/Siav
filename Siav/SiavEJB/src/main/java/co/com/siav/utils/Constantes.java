@@ -98,7 +98,7 @@ public final class Constantes {
 	public static final String ERR_NOMBRE_RAMAL_EXISTE = "El nombre del ramal ingresado ya existe.";
 	public static final String ERR_ELIMINAR_NOVEDAD = "Ocurrió un error al tratar de eliminar la novedad. ";
 	public static final String ELIMINAR_NOVEDAD_OK = "Se eliminó la novedad de manera correcta.";
-	public static final String ERR_APLIQUE_FACTURA = "Ocurrió un error al generar la factura %s. ";
+	public static final String ERR_APLIQUE_FACTURA = "Ocurrió un error al generar la factura para la instalación %s. ";
 	public static final String ERR_CONCEPTO_DUPLICADO = "Se está ingresando un código duplicado (%s) para la instalación %s.";
 	public static final String ERROR_HISTORICO = "Ocurrió un error al obtener el histórico de la factura %s.";
 	public static final String FORMATO_HISTORICO = "%d-%s;";

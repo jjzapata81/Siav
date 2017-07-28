@@ -23,5 +23,12 @@ public class Constantes {
 	public static final String INSTALACIONES_RUTA_JRXML = "instalacionesRuta.jrxml";
 	public static final String LECTURAS_CONSUMOS_JRXML = "lecturasConsumos.jrxml";
 	public static final String CUENTAS_VENCIDAS_JRXML = "cuentasVencidas.jrxml";
+	public static final String ESTADISTICAS_JRXML = "estadisticas.jrxml";
+	public static final String VARIACION_CONSUMO_JRXML = "variacionConsumo.jrxml";
+	public static final String CONSUMO_NO_FACTURADO_JRXML = "consumoNoFacturado.jrxml";
+	public static final String CONSOLIDADO_CONCEPTO_JRXML = "consolidadoConcepto.jrxml";
+	public static final String FACTURA_JRXML = "siav.jrxml";
+	public static final String ABONO_JRXML = "siavAbono.jrxml";
+	public static final String PREFACTURA_JRXML = "prefactura.jrxml";
 
 }

@@ -5,7 +5,7 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
-import co.com.siav.file.exception.ExcepcionEscrituraArchivo;
+import co.com.siav.exception.TechnicalException;
 
 
 public abstract class CSVFileDescriptor implements ICSVDescriptor {
@@ -51,7 +51,7 @@ public abstract class CSVFileDescriptor implements ICSVDescriptor {
 				descriptor.add((ICSVDescriptor) f.get(null));
 			}
 		} catch (Exception e) {
-			throw new ExcepcionEscrituraArchivo("Error de configuracion del reporte", e);
+			throw new TechnicalException("Error de configuracion del reporte", e);
 		}
 	}
 }

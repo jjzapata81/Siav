@@ -1,25 +1,27 @@
 package co.com.siav.repository.report;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
+import co.com.siav.exception.TechnicalException;
 import co.com.siav.file.excel.ExcelReportGeneratorXLSX;
 import co.com.siav.file.excel.descriptor.ConsolidadoConceptoExcelDescriptor;
-import co.com.siav.file.pdf.PdfGenerator;
-import co.com.siav.file.pdf.descriptor.ConsolidadoConceptoDescriptor;
-import co.com.siav.file.pdf.utils.ConsolidadoConceptoEncabezado;
 import co.com.siav.notifier.SendMail;
 import co.com.siav.notifier.config.Attachment;
 import co.com.siav.notifier.reports.name.Reporte;
+import co.com.siav.pdf.generador.GeneradorPDF;
 import co.com.siav.reports.factory.IReportType;
 import co.com.siav.reports.filters.Filter;
 import co.com.siav.reports.response.ConsolidadoConcepto;
 import co.com.siav.repository.QueryHelper;
 import co.com.siav.repository.ReportBDFactory;
 import co.com.siav.repository.utility.Util;
+import co.com.siav.utility.Constantes;
 
 public class ConsolidadoConceptoRepository implements IReportType{
 	
@@ -29,10 +31,10 @@ public class ConsolidadoConceptoRepository implements IReportType{
 	
 	@Override
 	public byte[] getPDF(Filter filter) {
-		ConsolidadoConceptoEncabezado encabezado = new ConsolidadoConceptoEncabezado(Util.getEmpresa().getNombreCorto(), filter.getCiclo());
-		PdfGenerator<ConsolidadoConcepto> generator = new PdfGenerator<ConsolidadoConcepto>();
-		return generator.generate(getData(filter), ConsolidadoConceptoDescriptor.values(), encabezado);
+		return new GeneradorPDF(getData(filter), Constantes.CONSOLIDADO_CONCEPTO_JRXML, getParams(filter)).getStream();
 	}
+
+	
 
 	@Override
 	public byte[] download(Filter filter) {
@@ -56,7 +58,18 @@ public class ConsolidadoConceptoRepository implements IReportType{
 	private List<ConsolidadoConcepto> getData(Filter filter) {
 		String query = QueryHelper.getConsolidadoConcepto(filter);
 		ReportBDFactory<ConsolidadoConcepto> factory = new ReportBDFactory<>();
-		return factory.getReportResult(ConsolidadoConcepto.class, query).stream().sorted((a, b)-> Long.compare(a.getOrden(), b.getOrden())).collect(Collectors.toList());
+		List<ConsolidadoConcepto> data = factory.getReportResult(ConsolidadoConcepto.class, query);
+		if(data.isEmpty()){
+			throw new TechnicalException(Constantes.ERR_NO_DATA);
+		}
+		return data.stream().sorted((a, b)-> Long.compare(a.getOrden(), b.getOrden())).collect(Collectors.toList());
+	}
+	
+	private Map<String, Object> getParams(Filter filter) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put(Constantes.TITULO, Util.getEmpresa().getNombreCorto());
+		params.put(Constantes.SUBTITULO, Reporte.CONSOLIDADO_CONCEPTO_SUBTITULO + filter.getCiclo());
+		return params;
 	}
 
 }

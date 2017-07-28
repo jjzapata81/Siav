@@ -1,7 +1,7 @@
 package co.com.siav.exception;
 
 
-public class TechnicalException extends ApplicationException  {
+public class TechnicalException extends RuntimeException {
 	
 	private static final long serialVersionUID = 5563617251114775027L;
 
@@ -18,6 +18,6 @@ public class TechnicalException extends ApplicationException  {
 	}
 	
 	public TechnicalException(String code, String message, Throwable exception){
-		super(code, message, exception);
+		super(message, exception);
 	}
 }

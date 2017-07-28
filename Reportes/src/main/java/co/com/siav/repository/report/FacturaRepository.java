@@ -19,7 +19,7 @@ import co.com.siav.pdf.dto.FacturaDetalleBD;
 import co.com.siav.pdf.dto.FacturaPDF;
 import co.com.siav.pdf.dto.FacturacionPDF;
 import co.com.siav.pdf.dto.ValoresFacturados;
-import co.com.siav.pdf.generador.GeneradorFactura;
+import co.com.siav.pdf.generador.GeneradorPDF;
 import co.com.siav.reports.factory.IReportType;
 import co.com.siav.reports.filters.Filter;
 import co.com.siav.repository.ConsultaRango;
@@ -47,8 +47,7 @@ public class FacturaRepository implements IReportType{
 		if(ciclo.getSnestado().equals(Constantes.ABIERTO)){
 			throw new TechnicalException(Constantes.ERR_CICLO_ABIERTO);
 		}
-		GeneradorFactura generador = new GeneradorFactura(getFactura(filter));
-		return generador.generarPDFStream();
+		return new GeneradorPDF(getFactura(filter), Constantes.FACTURA_JRXML).getStream();
 	}
 
 	@Override
@@ -76,10 +75,10 @@ public class FacturaRepository implements IReportType{
 		resolucion = Util.getParametro(new ConsultaRango(Constantes.ATT_RESOLUCION, Constantes.ESTADO_VIGENTE));
 	}
 	
-	private FacturacionPDF getFactura(Filter filter) {
+	private List<FacturacionPDF> getFactura(Filter filter) {
 		FacturacionPDF factura = new FacturacionPDF();
 		factura.setFacturas(getFacturas(filter));
-		return factura;
+		return Arrays.asList(factura);
 	}
 
 	private List<FacturaPDF> getFacturas(Filter filter) {

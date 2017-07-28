@@ -15,7 +15,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
-import co.com.siav.file.exception.ExcepcionEscrituraArchivo;
+import co.com.siav.exception.TechnicalException;
 
 
 public abstract class ExcelGeneratorBase<T, S extends Workbook> {
@@ -43,7 +43,7 @@ public abstract class ExcelGeneratorBase<T, S extends Workbook> {
 			workbook.write(bos);
 			return bos.toByteArray();
 		} catch (IOException e) {
-			throw new ExcepcionEscrituraArchivo("Error generando el excel", e);
+			throw new TechnicalException("Error generando el excel", e);
 		}
 	}
 	
@@ -79,7 +79,7 @@ public abstract class ExcelGeneratorBase<T, S extends Workbook> {
 			workbook.write(bos);
 			return bos.toByteArray();
 		} catch (IOException | SecurityException | IllegalAccessException e) {
-			throw new ExcepcionEscrituraArchivo("Error generando el excel", e);
+			throw new TechnicalException("Error generando el excel", e);
 		}
 	}
 	
@@ -126,7 +126,7 @@ public abstract class ExcelGeneratorBase<T, S extends Workbook> {
 			Method method = data.getClass().getDeclaredMethod(columnDescriptor.getColumnDataMapper(), new Class[0]);
 			return method.invoke(data);
 		} catch (Exception e) {
-			throw new ExcepcionEscrituraArchivo("Error de configuracion del reporte", e);
+			throw new TechnicalException("Error de configuracion del reporte", e);
 		}
 	}
 	

@@ -13,7 +13,7 @@ import co.com.siav.file.excel.descriptor.LecturasConsumosExcelDescriptor;
 import co.com.siav.notifier.SendMail;
 import co.com.siav.notifier.config.Attachment;
 import co.com.siav.notifier.reports.name.Reporte;
-import co.com.siav.pdf.generador.GenericoPDF;
+import co.com.siav.pdf.generador.GeneradorPDF;
 import co.com.siav.reports.factory.IReportType;
 import co.com.siav.reports.filters.Filter;
 import co.com.siav.reports.response.LecturasConsumos;
@@ -30,7 +30,7 @@ public class LecturasConsumosRepository implements IReportType{
 	
 	@Override
 	public byte[] getPDF(Filter filter) {
-		return new GenericoPDF(getData(filter), Constantes.LECTURAS_CONSUMOS_JRXML, getParams(filter)).generarPDFStream();
+		return new GeneradorPDF(getData(filter), Constantes.LECTURAS_CONSUMOS_JRXML, getParams(filter)).getStream();
 	}
 
 	@Override
