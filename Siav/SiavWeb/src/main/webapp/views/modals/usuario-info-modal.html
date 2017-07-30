@@ -1,0 +1,90 @@
+<div class="ngdialog-message">
+	<div class="modal-header titulo-modal">
+		<h3>Informaci&oacute;n hist&oacute;rica</h3>
+	</div>
+	<div class="modal-body">
+		<div ng-repeat="instalacion in info.instalaciones" class="seccion-instalacion">
+			<section class="sub-titulo-modal">Instalaci&oacute;n {{instalacion.numeroInstalacion}}</section>
+			<section class="sub-titulo-modal">&Uacute;ltimas 6 facturas</section>
+			<table class="table table-responsive table-modal">
+				<thead>
+					<th>Ciclo</th>
+					<th>N&uacute;mero</th>
+					<th>Medidor</th>
+					<th>Valor</th>
+					<th>Fecha de pago</th>
+					<th>Cuentas vencidas</th>
+					<th>Cancelada</th>
+				</thead>
+				<tbody>
+					<tr ng-repeat="factura in instalacion.facturas">
+						<td>{{factura.ciclo}}</td>
+						<td>{{factura.numeroFactura}}</td>
+						<td>{{factura.serieMedidor}}</td>
+						<td>{{factura.valor | currency:"$":0}}</td>
+						<td>{{factura.fechaPago | date:'yyyy-MM-dd'}}</td>
+						<td>{{factura.cuentasVencidas}}</td>
+						<td>{{factura.cancelado}}</td>
+					</tr>
+				</tbody>
+			</table>
+			<section class="sub-titulo-modal">&Uacute;ltimos 6 consumos</section>
+			<table class="table table-responsive table-modal">
+				<thead>
+					<th>Ciclo</th>
+					<th>Desde</th>
+					<th>Hasta</th>
+					<th>Lec anterior</th>
+					<th>Lec actual</th>
+					<th>Consumo</th>
+					<th>Definitivo</th>
+					<th>Promedio</th>
+					<th>No lectura</th>
+				</thead>
+				<tbody>
+					<tr ng-repeat="consumo in instalacion.consumos">
+						<td>{{consumo.id.ciclo}}</td>
+						<td>{{consumo.fechaDesde | date:'yyyy-MM-dd'}}</td>
+						<td>{{consumo.fechaHasta | date:'yyyy-MM-dd'}}</td>
+						<td>{{consumo.lecturaAnterior}}</td>
+						<td>{{consumo.lecturaActual}}</td>
+						<td>{{consumo.consumoMes}}</td>
+						<td>{{consumo.consumoDefinitivo}}</td>
+						<td>{{consumo.consumoPromedio}}</td>
+						<td>{{consumo.causa.codigo == '0' ? '' : consumo.causa.descripcion}}</td>
+					</tr>
+				</tbody>
+			</table>
+			<section class="sub-titulo-modal" ng-if="instalacion.creditos.length > 0">Cr&eacute;ditos</section>
+			<table class="table table-responsive table-modal" ng-if="instalacion.creditos.length > 0">
+				<thead>
+					<th>C&oacute;digo</th>
+					<th>Descripci&oacute;n</th>
+					<th>Valor</th>
+					<th>Saldo</th>
+					<th>Actual</th>
+					<th>Inter&eacute;s</th>
+					<th>Cuotas</th>
+					<th>Cancelado</th>
+				</thead>
+				<tbody>
+					<tr ng-repeat="credito in instalacion.creditos">
+						<td>{{credito.codigo}}</td>
+						<td>{{credito.descripcion}}</td>
+						<td>{{credito.valor | currency:"$":0}}</td>
+						<td>{{credito.saldo | currency:"$":0}}</td>
+						<td>{{credito.actual}}</td>
+						<td>{{credito.interes | currency:"%  ":0}}</td>
+						<td>{{credito.numeroCuotas}}</td>
+						<td>{{credito.cancelado}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<ul class="flex alineacion-derecha" >
+			<li><button type="button" class="btn-siav btn-cancelar" ng-click="cancelar()">Cancelar</button></li>
+		</ul>
+ 	</div>
+</div>

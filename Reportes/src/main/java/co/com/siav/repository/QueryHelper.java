@@ -585,7 +585,7 @@ public class QueryHelper {
 		sb.append("  AND c.codigo = to_number(lp.cdcuenta,'99') ");
 		sb.append("  AND c.nmbanco = b.nmbanco ");
 		sb.append("  AND cp.cedula = u.cedula ");
-		sb.append("  AND cp.snmatricula = 'S' AND cp.sncancelado = 'S' ");
+		sb.append("  AND cp.snmatricula = 'N' AND cp.sncancelado = 'S' ");
 		sb.append("  AND (lp.snerror <> 'S' OR lp.snerror IS NULL) ");
 		sb.append("  AND cp.nminstalacion IS NOT NULL ");
 		sb.append("  AND lp.fehasta >= '");

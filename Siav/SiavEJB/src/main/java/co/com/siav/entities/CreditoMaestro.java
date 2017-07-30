@@ -11,8 +11,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -63,6 +64,10 @@ public class CreditoMaestro implements Serializable{
 	
 	@Column(name="snfinanciado")
 	private String esFinanciado;
+	
+	@JoinColumn(name = "cdconcepto", referencedColumnName="cdconcepto", insertable=false, updatable=false)
+	@ManyToOne
+	private Tarifa concepto;
 	
 	@OneToMany(mappedBy = "credito", fetch=FetchType.LAZY, cascade= {CascadeType.MERGE, CascadeType.PERSIST})
 	private List<CreditoDetalle> cuotas;
@@ -169,6 +174,14 @@ public class CreditoMaestro implements Serializable{
 
 	public void setEsFinanciado(Boolean esFinanciado) {
 		this.esFinanciado = esFinanciado ? "S" : "N";
+	}
+	
+	public Tarifa getConcepto() {
+		return concepto;
+	}
+	
+	public void setConcepto(Tarifa concepto) {
+		this.concepto = concepto;
 	}
 		
 }

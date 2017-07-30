@@ -51,5 +51,7 @@ public interface IRepositoryInstalaciones extends JpaRepository<Instalacion, Lon
 	List<Instalacion> findToActivate(@Param("fechaInstalacion") Date fecha);
 
 	Long countByRamal(String codigoRamal);
+
+	List<Instalacion> findByUsuarioCedula(String cedula);
 	
 }

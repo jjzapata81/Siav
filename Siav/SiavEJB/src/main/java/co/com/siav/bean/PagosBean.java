@@ -148,7 +148,7 @@ public class PagosBean {
 			if(null == comprobante){
 				return null;
 			}
-			if(null==comprobante.getIdCredito() && !comprobante.getEsMatricula()){
+			if(null==comprobante.getIdCredito() && !comprobante.getEsMatricula() && !comprobante.getCancelado()){
 				comprobante.setCancelado(true);
 				comprobanteRep.save(comprobante);
 				return facturasRep.findByNumeroInstalacionAndCiclo(comprobante.getInstalacion(), Long.valueOf(numeroCiclo));

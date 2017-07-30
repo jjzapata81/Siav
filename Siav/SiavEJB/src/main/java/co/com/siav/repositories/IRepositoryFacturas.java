@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import co.com.siav.entities.Consumo;
 import co.com.siav.entities.Factura;
 
 public interface IRepositoryFacturas extends JpaRepository<Factura, Long>{
@@ -34,5 +35,7 @@ public interface IRepositoryFacturas extends JpaRepository<Factura, Long>{
 	
 	@Query("SELECT MAX(f.fechaPagoReal) from Factura f where f.numeroInstalacion = :numeroInstalacion")
 	Date findByUltimaFechaPago(@Param("numeroInstalacion") Long instalacion);
+	
+	List<Factura>findTop6ByNumeroInstalacionOrderByCicloDesc(Long instalacion);
 
 }

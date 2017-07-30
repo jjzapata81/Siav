@@ -44,7 +44,12 @@ define(['siav-module'], function(app) {
     		
     		"RAMAL_CONSULTAR_TODO" : "rest/ramal/consultar/todo",
     		"RAMAL_CONSULTAR" : "rest/ramal/consultar",
-    		"RAMAL_GUARDAR" : "rest/ramal/guardar/"
+    		"RAMAL_GUARDAR" : "rest/ramal/guardar/",
+    		"USUARIOS_BUSCAR" : "rest/usuario/buscar/",
+    		"USUARIOS_BUSCAR_POR_NOMBRE" : "rest/usuario/buscar/nombre",
+    		"USUARIOS_BUSCAR_INFO" : "rest/usuario/buscar/info/",
+    		"USUARIOS_GUARDAR" : "rest/usuario/guardar",
+    		"USUARIOS_ACTUALIZAR" : "rest/usuario/actualizar"
     	},
     	"MSG" : {
     		"CAMBIO_GUARDADO" : "Los cambios han sido guardados de manera correcta.",
@@ -181,8 +186,9 @@ define(['siav-module'], function(app) {
     		"ERR_FALTA_VALOR" : "Debe indicar el valor de la tarifa."
     	},
     	"USUARIO" : {
-    		"ERR_CEDULA_OBLIGATORIO" : "Debe ingresar una cédula.",
-    		"ERR_OBLIGATORIO" : "Existen campos obligatorios sin diligenciar."
+    		"ERR_CEDULA_OBLIGATORIO" : "Debe digitar una cédula o un nombre para continuar la consulta.",
+    		"ERR_OBLIGATORIO" : "Existen campos obligatorios sin diligenciar.",
+    		"ERR_USUARIO_NO_EXISTE" : "No existen usuarios con los criterios de búsqueda ingresados."
     	},
     	"VALOR" : {
     		"FIJO" : "FIJO"

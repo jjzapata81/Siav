@@ -600,6 +600,7 @@ a:hover {
 }
 
 .icon-float {
+	text-align: center;
 	padding: 9px 11px;
 	border-radius: 37px;
 	width: 50px;
@@ -1102,4 +1103,30 @@ a:hover {
 .sel-opt, .sel-opt:hover {
 	color: #fff;
 	cursor: pointer;
+}
+
+.modal-body>.table>tbody>tr>td{
+	padding-bottom: 4px;
+    padding-top: 4px;
+}
+
+.sub-titulo-modal{
+	font-weight: 700;
+	font-size: 20px;
+	padding-bottom: 4px;
+    padding-top: 4px;
+}
+
+.modal-dialog{
+	width: 52%;
+}
+
+.table-modal{
+	font-size: 14px;
+}
+
+.table-modal>tbody>tr>td{
+	text-align: center;
+	padding-bottom: 2px;
+    padding-top: 2px;
 }

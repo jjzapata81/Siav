@@ -60,10 +60,12 @@ require.config({
     	'modal-factory' : 'factories/modal-factory',
     	'modal-email' : 'factories/modal-email',
     	'modal-usuario-factory' : 'factories/modal-usuario-factory',
+    	'modal-resultados-factory' : 'factories/modal-resultados-factory',
     	'reportes-factory' : 'factories/reportes-factory',
     	'factoria-menu' : 'factories/factoria-menu',
     	'modal-consumo-factory' : 'factories/modal-consumo-factory',
     	'modal-observacion' : 'factories/modal-observacion',
+    	'modal-info-usuario-factory': 'factories/modal-info-usuario-factory',
     	
     	//Controladores
     	'menu-controller' : 'controllers/menu-controller',
