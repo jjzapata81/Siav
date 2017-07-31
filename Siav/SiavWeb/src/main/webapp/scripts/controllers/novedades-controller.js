@@ -11,6 +11,8 @@ define(['siav-module', 'instalaciones-services', 'tarifas-services', 'novedades-
     		$scope.novedad = {};
     		$scope.consultarTarifas();
     		$scope.novedades = null;
+    		$scope.mostrarNovedades = false;
+    		$scope.instalacion = null;
     	}
     	
     	$scope.onBuscar = function(){
@@ -38,6 +40,7 @@ define(['siav-module', 'instalaciones-services', 'tarifas-services', 'novedades-
     		.consultar($scope.instalacion.numeroInstalacion)
     		.then(function(novedades){
     			$scope.novedades = novedades;
+    			$scope.mostrarNovedades = $scope.novedades.length > 0;
     			angular.forEach($scope.novedades, function(novedad, key) {
     				var filtro = $filter('filter')($scope.tarifas, { codigo : novedad.id.codigoConcepto })[0];
     				novedad.descripcion = filtro.descripcion;
@@ -54,7 +57,7 @@ define(['siav-module', 'instalaciones-services', 'tarifas-services', 'novedades-
     			.guardar($scope.novedad)
     			.then(function(respuesta){
     				modalFactory.abrirDialogo(respuesta);
-    				$scope.limpiar();
+    				$scope.init();
     			});
     		}
     	}
@@ -91,11 +94,6 @@ define(['siav-module', 'instalaciones-services', 'tarifas-services', 'novedades-
     			$scope.esFijo = false;
     			$scope.novedad.valor = null; 
     		}
-    	}
-    	
-    	$scope.limpiar = function(){
-    		$scope.init();
-    		$scope.instalacion = null;
     	}
     	
     	$scope.onCancelar = function(){

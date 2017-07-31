@@ -11,9 +11,12 @@ define(['siav-module', 'instalaciones-services', 'tarifas-services', 'creditos-s
     		$scope.mostrarUsuario = false;
     		$scope.mostrarTarifa = false;
     		$scope.mostrarComprobante = false;
+    		$scope.numeroInstalacion = null;
     		$scope.credito = {};
     		$scope.instalacion = null;
     		$scope.tarifa = null;
+    		$scope.creditos = null;
+    		$scope.valorCuota = null;
     	}
     	
     	$scope.onCancelar = function(){
@@ -30,6 +33,11 @@ define(['siav-module', 'instalaciones-services', 'tarifas-services', 'creditos-s
         				modalFactory.abrirDialogo(respuesta);
         				$scope.numeroInstalacion = null;
         			}else{
+        				creditosServices
+                		.buscar($scope.numeroInstalacion)
+                		.then(function(respuestaCredito){
+            				$scope.creditos = respuestaCredito.creditos;
+                		});
         				$scope.mostrarUsuario = true;
         				$scope.instalacion = respuesta.instalacion;
         			}
@@ -39,7 +47,7 @@ define(['siav-module', 'instalaciones-services', 'tarifas-services', 'creditos-s
     	
     	$scope.consultarTarifas = function(){
     		tarifasServices
-    		.consultar()
+    		.consultarTarifaCredito()
     		.then(function(tarifas){
     			$scope.tarifas = tarifas;
     		});

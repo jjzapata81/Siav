@@ -92,7 +92,7 @@ public class FacturadorBase {
 	public ConceptoCredito getInteres(CreditoMaestro credito){
 		Long vencido = getVencido(conceptoInteres.getCodigo());
 		if(0 != interes.longValue() || 0 != vencido.longValue()){
-			return new ConceptoCredito(conceptoInteres.getCodigo(), conceptoInteres.getDescripcion(), conceptoInteres.getDescripcion() + " ("+ credito.getSaldo() + " x " + credito.getInteres() + "%)", 0L, interes.longValue(), vencido, credito.getId());	
+			return new ConceptoCredito(conceptoInteres.getCodigo(), conceptoInteres.getDescripcion(), ""+ credito.getSaldo() + " x " + credito.getInteres() + "%", 0L, interes.longValue(), vencido, credito.getId());	
 		}
 		return null;
 	}

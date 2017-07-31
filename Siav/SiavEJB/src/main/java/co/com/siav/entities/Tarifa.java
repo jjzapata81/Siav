@@ -55,6 +55,9 @@ public class Tarifa implements Serializable, IEstrato{
 	@Column(name="snventas")
 	private String esVenta;
 	
+	@Column(name="sncredito")
+	private String esCredito;
+	
 	public String getCodigo() {
 		return codigo;
 	}
@@ -156,6 +159,14 @@ public class Tarifa implements Serializable, IEstrato{
 
 	public void setEsVenta(Boolean esVenta) {
 		this.esVenta = esVenta ? "S" : "N";
+	}
+	
+	public Boolean getEsCredito() {
+		return "S".equals(esCredito);
+	}
+	
+	public void setEsCredito(Boolean esCredito) {
+		this.esCredito = esCredito ? "S" : "N";
 	}
 	
 	@PrePersist

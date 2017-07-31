@@ -24,6 +24,7 @@
 				<th ng-if="esPorEstrato">Estrato 4</th>
 				<th ng-if="esPorEstrato">Estrato 5</th>
 				<th ng-if="esPorEstrato">Estrato 6</th>
+				<th>Aplica Cr&eacute;dito</th>
 				<th></th>
 			</thead>
 			<tbody>
@@ -38,6 +39,7 @@
 					<td ng-if="esPorEstrato">{{tarifa.estrato4}}</td>
 					<td ng-if="esPorEstrato">{{tarifa.estrato5}}</td>
 					<td ng-if="esPorEstrato">{{tarifa.estrato6}}</td>
+					<td>{{tarifa.esCredito ? 'SI' : 'NO'}}</td>
 					<td><a ng-click="onEditar(tarifa)"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a></td>
 				</tr>
 			</tbody>
@@ -68,6 +70,10 @@
 					<label>Valor:</label><br>
 					<input type="number" ng-model="tarifaNueva.estrato0"/>
 				</li>
+				<li>
+					<label>Aplica Cr&eacute;dito:</label><br>
+					<input type="checkbox" ng-model="tarifaNueva.esCredito" class="chk-config"/> {{tarifaNueva.esCredito ? 'SI' : 'NO'}}
+				</li>
 			</ul>
 			<ul class="flex" ng-if="tarifaNueva.tipo.valor=='FIJO'">
 				<li ng-if="esPorEstrato">
@@ -96,7 +102,6 @@
 					<label>Valor estrato 6:</label><br>
 					<input type="number" ng-model="tarifaNueva.estrato6"/>
 				</li>
-
 			</ul>
 		</div>
 		

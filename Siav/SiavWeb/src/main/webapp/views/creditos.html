@@ -9,6 +9,30 @@
 	<section class="titulo-seccion">
 		Cr&eacute;ditos
 	</section>
+	<div class="tabla-siav" ng-if="creditos">
+		<table class="table table-responsive">
+			<thead>
+				<th>C&oacute;digo</th>
+				<th>Concepto</th>
+				<th>Valor</th>
+				<th>Saldo</th>
+				<th>Inter&eacute;s</th>
+				<th>N&uacute;mero cuotas</th>
+				<th>Cuotas pendientes</th>
+			</thead>
+			<tbody>
+				<tr ng-repeat="credito in creditos">
+					<td>{{credito.id}}</td>
+					<td>{{credito.concepto.descripcion}}</td>
+					<td>{{credito.valor | currency:"$":0}}</td>
+					<td>{{credito.saldo | currency:"$":0}}</td>
+					<td>{{credito.interes | currency:"%":2}}</td>
+					<td>{{credito.numeroCuotas}}</td>
+					<td>{{credito.numeroCuotas - credito.actual}}</td>
+				</tr>
+			</tbody>
+		</table>			
+	</div>
 	<section class="formulario form-fijo">
 		<div ng-show="!mostrarUsuario">
 			<section class="sub-titulo">Buscar instalaci&oacute;n</section>
@@ -33,7 +57,7 @@
       			</li>
       			<li>
 					<label>N&uacute;mero de comprobante de pago:</label><br>
-					<input type="text" ng-model="comprobante"/>
+					<input type="text" ng-model="comprobante" uib-tooltip="S&oacute;lo debe ingresar el n&uacute;mero de comprobante de pago cuando se ingrese un valor de cuota inicial." tooltip-placement="right"/>
 				</li>
 			</ul>
 			
@@ -66,4 +90,5 @@
 			</ul>
 		</div>
 	</section>
+	
 </div>

@@ -51,4 +51,8 @@ public class TarifasBean {
 		return new MensajeResponse(Constantes.ACTUALIZACION_EXITO);
 	}
 
+	public List<Tarifa> consultarTarifaCredito() {
+		return tarifasRep.findByEsCredito(Constantes.SI);
+	}
+
 }

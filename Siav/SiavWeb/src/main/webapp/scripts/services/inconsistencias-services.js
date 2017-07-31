@@ -26,21 +26,36 @@ define(['siav-module', 'constantes'], function (app) {
     	 }
     	 
     	 function guardar(request){
-    		 var request = $http.post(CONSTANTES.SRV.CONSUMOS_INCOMPLETOS_GUARDAR, request);
+    		 var config = {
+    				 headers: {
+    					 'siav_usuario': getData("user")
+						}
+    		 };
+    		 var request = $http.post(CONSTANTES.SRV.CONSUMOS_INCOMPLETOS_GUARDAR, request, config);
     		 return(request.then(function(response){
     			 return response.data;
     		 }));
     	 }
     	 
     	 function guardarCorreccion(request){
-    		 var request = $http.post(CONSTANTES.SRV.CONSUMOS_RIESGO_GUARDAR, request);
+    		 var config = {
+    				 headers: {
+    					 'siav_usuario': getData("user")
+						}
+    		 };
+    		 var request = $http.post(CONSTANTES.SRV.CONSUMOS_RIESGO_GUARDAR, request, config);
     		 return(request.then(function(response){
     			 return response.data;
     		 }));
     	 }
     	 
     	 function guardarCorreccionConsumo(request){
-    		 var request = $http.post(CONSTANTES.SRV.CONSUMOS_RIESGO_GUARDAR_CORRECCION_CONSUMO, request);
+    		 var config = {
+    				 headers: {
+    					 'siav_usuario': getData("user")
+						}
+    		 };
+    		 var request = $http.post(CONSTANTES.SRV.CONSUMOS_RIESGO_GUARDAR_CORRECCION_CONSUMO, request, config);
     		 return(request.then(function(response){
     			 return response.data;
     		 }));

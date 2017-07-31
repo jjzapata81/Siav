@@ -18,4 +18,6 @@ public interface IRepositoryTarifas extends JpaRepository<Tarifa, String>{
 	@Query("SELECT t FROM Tarifa t ORDER BY t.orden")
 	List<Tarifa> findAllByOrden();
 
+	List<Tarifa> findByEsCredito(String esCredito);
+
 }

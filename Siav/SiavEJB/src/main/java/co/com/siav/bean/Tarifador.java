@@ -111,11 +111,11 @@ public class Tarifador {
 		creditoDetalle.setInteres(interes.longValue());
 		ConceptoCredito conceptoCredito = facturador.getCredito(creditoDetalle, credito.getCodigoConcepto());
 		if(null!=conceptoCredito){
-			agregarConceptoCredito(conceptoCredito);
+			validarConceptoCredito(conceptoCredito);
 		}
 		ConceptoCredito conceptoInteres = facturador.getInteres(credito);
 		if(null!=conceptoInteres){
-			agregarConceptoCredito(conceptoInteres);
+			validarConceptoCredito(conceptoInteres);
 		}
 		credito.getCuotas().add(creditoDetalle);
 		creditoMaestroRep.save(credito);
@@ -219,20 +219,35 @@ public class Tarifador {
 		}
 	}
 	
-	private void agregarConceptoCredito(ConceptoCredito concepto){
+	private void validarConceptoCredito(ConceptoCredito concepto){
 		if(concepto != null && (concepto.getValor() != 0L || concepto.getVencido() != 0L)){
-			validarCodigoDuplicado(concepto);
-			DetalleFactura conceptoFactura = new DetalleFactura();
-			conceptoFactura.setIdFactura(numeroFactura);
-			conceptoFactura.setCiclo(ciclo);
-			conceptoFactura.setCodigo(concepto.getCodigo());
-			conceptoFactura.setDetalle(concepto.getDetalle());
-			conceptoFactura.setValor(concepto.getValor());
-			conceptoFactura.setNombre(concepto.getNombre());
-			conceptoFactura.setSaldo(concepto.getVencido());
-			conceptoFactura.setInstalacion(instalacion);
-			conceptoFactura.setIdCredito(concepto.getIdCredito());
-			conceptos.add(conceptoFactura);
+			if(sistema.getIdInteres().equals(concepto.getCodigo())){
+				DetalleFactura conceptoInteres = conceptos.stream().filter(item -> concepto.getCodigo().equals(item.getCodigo())).findFirst().orElse(null);
+				if(conceptoInteres == null){
+					agregarConceptoCredito(concepto);
+				}else{
+					conceptoInteres.setValor(conceptoInteres.getValor() + concepto.getValor());
+					conceptoInteres.setDetalle(conceptoInteres.getDetalle() + ", " + concepto.getDetalle());
+				}
+			}else{
+				agregarConceptoCredito(concepto);
+			}
 		}
+	}
+
+
+	private void agregarConceptoCredito(ConceptoCredito concepto) {
+		validarCodigoDuplicado(concepto);
+		DetalleFactura conceptoFactura = new DetalleFactura();
+		conceptoFactura.setIdFactura(numeroFactura);
+		conceptoFactura.setCiclo(ciclo);
+		conceptoFactura.setCodigo(concepto.getCodigo());
+		conceptoFactura.setDetalle(concepto.getDetalle());
+		conceptoFactura.setValor(concepto.getValor());
+		conceptoFactura.setNombre(concepto.getNombre());
+		conceptoFactura.setSaldo(concepto.getVencido());
+		conceptoFactura.setInstalacion(instalacion);
+		conceptoFactura.setIdCredito(concepto.getIdCredito());
+		conceptos.add(conceptoFactura);
 	}
 }

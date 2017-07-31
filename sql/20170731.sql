@@ -1,0 +1,1 @@
+﻿alter table ta_tarifas add sncredito character varying(1) not null default 'N';

@@ -5,6 +5,7 @@ define(['siav-module'], function (app) {
     app.service('tarifasServices', ['$http', '$q', function ($http, $q) {
     	 var contrato = {
     			 consultar : consultar,
+    			 consultarTarifaCredito : consultarTarifaCredito,
     			 consultarPorCodigo : consultarPorCodigo,
     			 crear : crear,
     			 editar : editar,
@@ -27,6 +28,13 @@ define(['siav-module'], function (app) {
     	 
     	 function consultar(){
     		 var request = $http.get("rest/tarifas/consultar", {isArray : true});
+    		 return (request.then(function(response) {
+ 	    		return response.data;
+	    	}));
+    	 }
+    	 
+    	 function consultarTarifaCredito(){
+    		 var request = $http.get("rest/tarifas/consultar/credito", {isArray : true});
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));

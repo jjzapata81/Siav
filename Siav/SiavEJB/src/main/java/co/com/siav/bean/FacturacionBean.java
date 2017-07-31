@@ -138,8 +138,7 @@ public class FacturacionBean {
 			}
 			factura.setDetalles(detalles);
 			facturasRep.save(factura);
-			System.out.println("Guardando factura " + numeroFactura);
-			System.out.println("Instalacion " + consumo.getInstalacion().getNumeroInstalacion());
+			System.out.println("Instalacion: " + consumo.getInstalacion().getNumeroInstalacion() + " - Guardando factura: " + numeroFactura);
 			return factura;
 		
 		}catch(Exception e){

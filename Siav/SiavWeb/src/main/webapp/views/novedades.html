@@ -9,6 +9,22 @@
 	<section class="titulo-seccion">
 		Novedades
 	</section>
+	<div class="tabla-siav" ng-if="mostrarNovedades">
+		<table class="table table-responsive">
+			<thead>
+				<th>Concepto</th>
+				<th>Valor</th>
+				<th></th>
+			</thead>
+			<tbody>
+				<tr ng-repeat="novedad in novedades">
+					<td>{{novedad.descripcion}}</td>
+					<td>{{novedad.valor | currency:"$":0}}</td>
+					<td><a ng-click="onEliminarNovedad(novedad)"><i class="fa fa-trash-o" aria-hidden="true"></i> Eliminar</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 	<section class="formulario form-fijo">
 		<div ng-show="!mostrarUsuario">
 			<section class="sub-titulo">Buscar instalaci&oacute;n</section>
@@ -38,20 +54,4 @@
 			</ul>
 		</div>
 	</section>
-	<div class="tabla-siav" ng-if="novedades">
-		<table class="table table-responsive">
-			<thead>
-				<th>Concepto</th>
-				<th>Valor</th>
-				<th></th>
-			</thead>
-			<tbody>
-				<tr ng-repeat="novedad in novedades">
-					<td>{{novedad.descripcion}}</td>
-					<td>{{novedad.valor | currency:"$":0}}</td>
-					<td><a ng-click="onEliminarNovedad(novedad)"><i class="fa fa-trash-o" aria-hidden="true"></i> Eliminar</a></td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
 </div>

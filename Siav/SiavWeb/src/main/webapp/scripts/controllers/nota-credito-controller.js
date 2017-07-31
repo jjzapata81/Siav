@@ -3,8 +3,8 @@
 
 define(['siav-module', 'instalaciones-services', 'tarifas-services', 'novedades-services', 'modal-factory', 'constantes', 'modal-observacion'], function (app) {
 	
-    return app.controller('nota-credito-controller', ['$scope', '$filter', 'instalacionesServices', 'tarifasServices', 'novedadesServices', 'modalFactory', 'CONSTANTES', 'modalObservacion', 
-                                                      function($scope, $filter, instalacionesServices, tarifasServices, novedadesServices, modalFactory, CONSTANTES, modalObservacion){
+    return app.controller('nota-credito-controller', ['$scope', '$filter', 'instalacionesServices', 'novedadesServices', 'modalFactory', 'CONSTANTES', 'modalObservacion', 
+                                                      function($scope, $filter, instalacionesServices, novedadesServices, modalFactory, CONSTANTES, modalObservacion){
     	
     	$scope.init = function (){
     		$scope.mostrarUsuario = false;

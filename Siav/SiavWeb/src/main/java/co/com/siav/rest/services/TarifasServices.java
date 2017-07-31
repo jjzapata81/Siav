@@ -46,6 +46,13 @@ public class TarifasServices {
 	}
 	
 	@GET
+	@Path("consultar/credito")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Tarifa> getTarifaCreidot(){
+		return bean.consultarTarifaCredito();
+	}
+	
+	@GET
 	@Path("consultar/descripciones")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<String> getDescripciones(){
