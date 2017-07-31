@@ -19,14 +19,24 @@ define(['siav-module', 'constantes'], function (app) {
     	 }
     	 
     	 function abonar(abono){
-    		 var request = $http.post("/Reportes/rest/general/abono/pdf", abono, {responseType: 'arraybuffer'});
+    		 var config = {
+    				 headers: {
+    					 'siav_usuario': getData("user")
+						}
+    		 };
+    		 var request = $http.post("/Reportes/rest/general/abono/pdf", abono, config, {responseType: 'arraybuffer'});
     		 return(request.then(function(response){
     			 return response.data;
     		 }));
     	 }
     	 
     	 function abonoMatricula(matricula){
-    		 var request = $http.post("/Reportes/rest/general/abono/matricula/pdf", matricula, {responseType: 'arraybuffer'});
+    		 var config = {
+    				 headers: {
+    					 'siav_usuario': getData("user")
+						}
+    		 };
+    		 var request = $http.post("/Reportes/rest/general/abono/matricula/pdf", matricula, config, {responseType: 'arraybuffer'});
     		 return(request.then(function(response){
     			 return response.data;
     		 }));
