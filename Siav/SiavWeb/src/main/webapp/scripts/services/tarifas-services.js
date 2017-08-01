@@ -1,8 +1,8 @@
 /*global define*/
 'use strict';
 
-define(['siav-module'], function (app) {
-    app.service('tarifasServices', ['$http', '$q', function ($http, $q) {
+define(['siav-module', 'constantes'], function (app) {
+    app.service('tarifasServices', ['$http', '$q', 'CONSTANTES', function ($http, $q, CONSTANTES) {
     	 var contrato = {
     			 consultar : consultar,
     			 consultarTarifaCredito : consultarTarifaCredito,
@@ -13,42 +13,42 @@ define(['siav-module'], function (app) {
     	 };
     	 
     	 function crear(tarifa){
-    		 var request = $http.post("rest/tarifas/crear", tarifa);
+    		 var request = $http.post(CONSTANTES.SRV.TARIFA_CREAR, tarifa);
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));
     	 }
     	 
     	 function editar(tarifa){
-    		 var request = $http.post("rest/tarifas/editar", tarifa);
+    		 var request = $http.post(CONSTANTES.SRV.TARIFA_EDITAR, tarifa);
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));
     	 }
     	 
     	 function consultar(){
-    		 var request = $http.get("rest/tarifas/consultar", {isArray : true});
+    		 var request = $http.get(CONSTANTES.SRV.TARIFA_CONSULTAR, {isArray : true});
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));
     	 }
     	 
     	 function consultarTarifaCredito(){
-    		 var request = $http.get("rest/tarifas/consultar/credito", {isArray : true});
+    		 var request = $http.get(CONSTANTES.SRV.TARIFA_CONSULTAR_CREDITO, {isArray : true});
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));
     	 }
     	 
     	 function consultarDescripciones(){
-    		 var request = $http.get("rest/tarifas/consultar/descripciones", {isArray : true});
+    		 var request = $http.get(CONSTANTES.SRV.TARIFA_CONSULTAR_DESCRIPCION, {isArray : true});
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));
     	 }
     	 
     	 function consultarPorCodigo(codigo){
-    		 var request = $http.get("rest/tarifas/buscar/" + codigo, {isArray : false});
+    		 var request = $http.get(CONSTANTES.SRV.TARIFA_BUSCAR + codigo, {isArray : false});
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));

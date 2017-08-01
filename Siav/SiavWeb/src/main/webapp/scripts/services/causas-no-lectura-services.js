@@ -1,8 +1,8 @@
 /*global define*/
 'use strict';
 
-define(['siav-module'], function (app) {
-    app.service('causasServices', ['$http', '$q', function ($http, $q) {
+define(['siav-module', 'constantes'], function (app) {
+    app.service('causasServices', ['$http', '$q', 'CONSTANTES', function ($http, $q, CONSTANTES) {
     	 var contrato = {
     			 consultar : consultar,
     			 consultarDescripciones : consultarDescripciones,
@@ -11,28 +11,28 @@ define(['siav-module'], function (app) {
     	 };
     	 
     	 function crear(causa){
-    		 var request = $http.post("rest/nolectura/crear", causa);
+    		 var request = $http.post(CONSTANTES.SRV.CAUSA_NO_LECTURA_CREAR, causa);
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));
     	 }
     	 
     	 function cambiarEstado(causa){
-    		 var request = $http.put("rest/nolectura/activar", causa);
+    		 var request = $http.put(CONSTANTES.SRV.CAUSA_NO_LECTURA_ACTIVAR, causa);
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));
     	 }
     	 
     	 function consultar(){
-    		 var request = $http.get("rest/nolectura/consultar", {isArray : true});
+    		 var request = $http.get(CONSTANTES.SRV.CAUSA_NO_LECTURA_CONSULTAR, {isArray : true});
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));
     	 }
     	 
     	 function consultarDescripciones(){
-    		 var request = $http.get("rest/nolectura/consultar/descripciones", {isArray : true});
+    		 var request = $http.get(CONSTANTES.SRV.CAUSA_NO_LECTURA_CONSULTAR_DESCRIPCIONES, {isArray : true});
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));

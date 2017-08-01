@@ -11,28 +11,28 @@ define(['siav-module', 'constantes'], function (app) {
     	 };
     	 
     	 function crear(banco){
-    		 var request = $http.post(CONSTANTES.SRV.CREAR_BANCO, banco);
+    		 var request = $http.post(CONSTANTES.SRV.BANCO_CREAR, banco);
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));
     	 }
     	 
     	 function editar(banco){
-    		 var request = $http.post(CONSTANTES.SRV.EDITAR_BANCO, banco);
+    		 var request = $http.post(CONSTANTES.SRV.BANCO_EDITAR, banco);
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));
     	 }
     	 
     	 function consultar(){
-    		 var request = $http.get(CONSTANTES.SRV.CONSULTAR_BANCO, {isArray : true});
+    		 var request = $http.get(CONSTANTES.SRV.BANCO_CONSULTAR, {isArray : true});
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));
     	 }
     	 
     	 function consultarCuentas(){
-    		 var request = $http.get(CONSTANTES.SRV.CONSULTAR_CUENTAS, {isArray : true});
+    		 var request = $http.get(CONSTANTES.SRV.BANCO_CONSULTAR_CUENTAS, {isArray : true});
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));

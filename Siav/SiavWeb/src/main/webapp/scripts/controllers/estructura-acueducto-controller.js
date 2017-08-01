@@ -62,7 +62,7 @@ define(['siav-module', 'siav-services', 'usuarios-services', 'instalaciones-serv
     			request.id.cedula = $scope.usuarioEditar.cedula;
     			request.id.empresa = $scope.usuarioEditar.empresa;
     			request.id.fecha = $scope.usuarioEditar.fecha;
-    			request.activo = !$scope.deshabilitar;
+    			request.activo = $scope.usuarioEditar.activo;
     			request.nuevoCargo = $scope.usuarioEditar.cargo.codigo;
     			siavServices
         		.actualizarJunta(request)
@@ -88,7 +88,7 @@ define(['siav-module', 'siav-services', 'usuarios-services', 'instalaciones-serv
     	}
     	
     	$scope.onDeshabilitar = function(){
-    		$scope.deshabilitar = !$scope.deshabilitar;
+    		$scope.usuarioEditar.activo = !$scope.usuarioEditar.activo;
     	}
     	
     	$scope.onGuardar = function(){

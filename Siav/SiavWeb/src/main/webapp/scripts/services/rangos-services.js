@@ -1,8 +1,8 @@
 /*global define*/
 'use strict';
 
-define(['siav-module'], function (app) {
-    app.service('rangosServices', ['$http', '$q', function ($http, $q) {
+define(['siav-module', 'constantes'], function (app) {
+    app.service('rangosServices', ['$http', '$q', 'CONSTANTES', function ($http, $q, CONSTANTES) {
     	 var contrato = {
     			 consultar : consultar,
     			 crear : crear,
@@ -10,21 +10,21 @@ define(['siav-module'], function (app) {
     	 };
     	 
     	 function crear(rango){
-    		 var request = $http.post("rest/rangos/crear", rango);
+    		 var request = $http.post(CONSTANTES.SRV.RANGO_CREAR, rango);
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));
     	 }
     	 
     	 function eliminar(rango){
-    		 var request = $http.post("rest/rangos/eliminar", rango);
+    		 var request = $http.post(CONSTANTES.SRV.RANGO_ELIMINAR, rango);
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));
     	 }
     	 
     	 function consultar(){
-    		 var request = $http.get("rest/rangos/consultar", {isArray : true});
+    		 var request = $http.get(CONSTANTES.SRV.RANGO_CONSULTAR, {isArray : true});
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));

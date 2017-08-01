@@ -1,8 +1,8 @@
 /*global define*/
 'use strict';
 
-define(['siav-module'], function (app) {
-    app.service('instalacionesServices', ['$http', '$q', function ($http, $q) {
+define(['siav-module', 'constantes'], function (app) {
+    app.service('instalacionesServices', ['$http', '$q', 'CONSTANTES', function ($http, $q, CONSTANTES) {
     	 var contrato = {
     			 consultarMaestro : consultarMaestro,
     			 guardar : guardar,
@@ -12,28 +12,28 @@ define(['siav-module'], function (app) {
     	 };
     	 
     	 function consultarMaestro(maestro){
-    		 var request = $http.get("rest/listas/maestros/" + maestro, {isArray : true});
+    		 var request = $http.get(CONSTANTES.SRV.MAESTROS_CONSULTAR + maestro, {isArray : true});
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));
     	 }
     	 
     	 function buscarInstalacion(instalacion){
-    		 var request = $http.get("rest/instalacion/buscar/" + instalacion, {isArray : false});
+    		 var request = $http.get(CONSTANTES.SRV.INSTALACION_BUSCAR + instalacion, {isArray : false});
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));
     	 }
     	 
     	 function guardar(instalacion){
-    		 var request = $http.post("rest/instalacion/guardar", instalacion);
+    		 var request = $http.post(CONSTANTES.SRV.INSTALACION_GUARDAR, instalacion);
     		 return (request.then(function(response){
     			 return response.data;
     		 }));
     	 }
     	 
     	 function crear(instalacion){
-    		 var request = $http.post("rest/instalacion/crear", instalacion);
+    		 var request = $http.post(CONSTANTES.SRV.INSTALACION_CREAR, instalacion);
     		 return (request.then(function(response){
     			 return response.data;
     		 }));
@@ -45,7 +45,7 @@ define(['siav-module'], function (app) {
     					 'siav_usuario': getData("user")
 						}
     		 };
-    		 var request = $http.get("rest/instalacion/consultar/vencido/" + instalacion, config, {isArray : false});
+    		 var request = $http.get(CONSTANTES.SRV.INSTALACION_CONSULTAR_VENCIDO + instalacion, config, {isArray : false});
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));

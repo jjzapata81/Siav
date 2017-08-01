@@ -11,28 +11,28 @@ define(['siav-module', 'constantes'], function (app) {
     	 };
     	 
     	 function editar(ciclo){
-    		 var request = $http.post(CONSTANTES.SRV.EDITAR_CICLOS, ciclo);
+    		 var request = $http.post(CONSTANTES.SRV.CICLO_EDITAR, ciclo);
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));
     	 }
     	 
     	 function cerrar(ciclo){
-    		 var request = $http.post(CONSTANTES.SRV.CERRAR_CICLO + ciclo);
+    		 var request = $http.post(CONSTANTES.SRV.CICLO_CERRAR + ciclo);
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	})); 
     	 }
     	 
     	 function consultar(){
-    		 var request = $http.get(CONSTANTES.SRV.CONSULTAR_CICLOS, {isArray : true});
+    		 var request = $http.get(CONSTANTES.SRV.CICLO_CONSULTAR, {isArray : true});
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));
     	 }
     	 
     	 function consultarTodo(){
-    		 var request = $http.get(CONSTANTES.SRV.CONSULTAR_CICLOS_TODO, {isArray : true});
+    		 var request = $http.get(CONSTANTES.SRV.CICLO_CONSULTAR_TODO, {isArray : true});
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));

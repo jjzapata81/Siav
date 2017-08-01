@@ -12,7 +12,7 @@ define(['siav-module', 'constantes'], function (app) {
     	 };
     	 
     	 function pagar(pago){
-    		 var request = $http.post(CONSTANTES.SRV.GUARDAR_PAGO, pago);
+    		 var request = $http.post(CONSTANTES.SRV.PAGO_GUARDAR, pago);
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));
@@ -24,7 +24,7 @@ define(['siav-module', 'constantes'], function (app) {
     					 'siav_usuario': getData("user")
 						}
     		 };
-    		 var request = $http.post("/Reportes/rest/general/abono/pdf", abono, config, {responseType: 'arraybuffer'});
+    		 var request = $http.post(CONSTANTES.SRV.PAGO_ABONAR, abono, config, {responseType: 'arraybuffer'});
     		 return(request.then(function(response){
     			 return response.data;
     		 }));
@@ -36,14 +36,14 @@ define(['siav-module', 'constantes'], function (app) {
     					 'siav_usuario': getData("user")
 						}
     		 };
-    		 var request = $http.post("/Reportes/rest/general/abono/matricula/pdf", matricula, config, {responseType: 'arraybuffer'});
+    		 var request = $http.post(CONSTANTES.SRV.PAGO_ABONO_MATRICULA, matricula, config, {responseType: 'arraybuffer'});
     		 return(request.then(function(response){
     			 return response.data;
     		 }));
     	 }
     	 
     	 function buscar(numeroInstalacion){
-    		 var request = $http.post(CONSTANTES.SRV.BUSCAR_PAGO + numeroInstalacion);
+    		 var request = $http.post(CONSTANTES.SRV.PAGO_BUSCAR + numeroInstalacion);
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));
@@ -58,7 +58,7 @@ define(['siav-module', 'constantes'], function (app) {
  								'codigoBanco' : codigoBanco
  							}
     		 			}
-    		 var request = $http.put(CONSTANTES.SRV.CARGAR_PAGO, formData, config);
+    		 var request = $http.put(CONSTANTES.SRV.PAGO_CARGAR, formData, config);
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));

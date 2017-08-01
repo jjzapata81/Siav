@@ -1,8 +1,8 @@
 /*global define*/
 'use strict';
 
-define(['siav-module'], function (app) {
-    app.service('excesosServices', ['$http', '$q', function ($http, $q) {
+define(['siav-module', 'constantes'], function (app) {
+    app.service('excesosServices', ['$http', '$q', 'CONSTANTES', function ($http, $q, CONSTANTES) {
     	 var contrato = {
     			 consultar : consultar,
     			 guardar : guardar,
@@ -10,21 +10,21 @@ define(['siav-module'], function (app) {
     	 };
     	 
     	 function guardar(exceso){
-    		 var request = $http.post("rest/excesos/guardar", exceso);
+    		 var request = $http.post(CONSTANTES.SRV.EXCESO_GUARDAR, exceso);
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));
     	 }
     	 
     	 function editarRango(consumos){
-    		 var request = $http.post("rest/excesos/editar/rango", consumos);
+    		 var request = $http.post(CONSTANTES.SRV.EXCESO_EDITAR_RANGO, consumos);
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));
     	 }
     	 
     	 function consultar(){
-    		 var request = $http.get("rest/excesos/consultar", {isArray : true});
+    		 var request = $http.get(CONSTANTES.SRV.EXCESO_CONSULTAR, {isArray : true});
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));

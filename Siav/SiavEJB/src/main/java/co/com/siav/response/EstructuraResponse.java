@@ -13,6 +13,7 @@ public class EstructuraResponse {
 	private String acta;
 	private Date fecha;
 	private Long empresa;
+	private Boolean activo;
 	
 	public String getCedula() {
 		return cedula;
@@ -67,6 +68,12 @@ public class EstructuraResponse {
 	
 	public void setEmpresa(Long empresa) {
 		this.empresa = empresa;
+	}
+	public Boolean getActivo() {
+		return activo;
+	}
+	public void setActivo(Boolean activo) {
+		this.activo = activo;
 	}
 	
 }

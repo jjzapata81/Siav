@@ -79,6 +79,7 @@ public class SistemaBean {
 		response.setActa(estructura.getActa());
 		response.setEmpresa(estructura.getId().getEmpresa());
 		response.setFecha(estructura.getId().getFecha());
+		response.setActivo(estructura.getActivo());
 		return response;
 	}
 

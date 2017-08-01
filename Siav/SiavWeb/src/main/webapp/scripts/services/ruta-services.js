@@ -10,21 +10,21 @@ define(['siav-module', 'constantes'], function (app) {
     	 };
     	 
     	 function consultar(){
-    		 var request = $http.get(CONSTANTES.SRV.CONSULTAR_ORDEN_RUTAS, {isArray : true});
+    		 var request = $http.get(CONSTANTES.SRV.ORDEN_RUTAS_CONSULTAR, {isArray : true});
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));
     	 }
     	 
     	 function consultarPorNumero(instalacion){
-    		 var request = $http.get(CONSTANTES.SRV.CONSULTAR_ORDEN_RUTAS + "/" + instalacion, {isArray : false});
+    		 var request = $http.get(CONSTANTES.SRV.ORDEN_RUTAS_CONSULTAR + "/" + instalacion, {isArray : false});
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));
     	 }
 
     	 function guardar(request){
-    		 var request = $http.post(CONSTANTES.SRV.GUARDAR_ORDEN_RUTAS, request, {isArray : false});
+    		 var request = $http.post(CONSTANTES.SRV.ORDEN_RUTAS_GUARDAR, request, {isArray : false});
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));

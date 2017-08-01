@@ -5,36 +5,53 @@ define(['siav-module'], function(app) {
     app.constant("CONSTANTES", {
     	
     	"SRV" : {
-    		//Cuentas
-    		"CREAR_BANCO" : "rest/bancos/crear",
-    		"EDITAR_BANCO" : "rest/bancos/editar",
-    		"CONSULTAR_BANCO" : "rest/bancos/consultar",
-    		"CONSULTAR_CUENTAS" : "rest/bancos/consultar/cuentas",
-    		//Ciclos
-    		"CONSULTAR_CICLOS" : "rest/ciclos/consultar",
-    		"CONSULTAR_CICLOS_TODO" : "rest/ciclos/consultar/todo",
-    		"EDITAR_CICLOS" : "rest/ciclos/editar",
-    		"CERRAR_CICLO" : "rest/ciclos/cerrar/",
+
+    		"BANCO_CREAR" : "rest/bancos/crear",
+    		"BANCO_EDITAR" : "rest/bancos/editar",
+    		"BANCO_CONSULTAR" : "rest/bancos/consultar",
+    		"BANCO_CONSULTAR" : "rest/bancos/consultar/cuentas",
     		
-    		"GUARDAR_PAGO" : "rest/pagos/guardar",
-    		"ABONAR_PAGO" : "rest/pagos/abonar",
-    		"BUSCAR_PAGO" : "rest/pagos/buscar/",
-    		"CARGAR_PAGO" : "rest/pagos/cargar/",
+    		"CAUSA_NO_LECTURA_CREAR" : "rest/nolectura/crear",
+    		"CAUSA_NO_LECTURA_ACTIVAR" : "rest/nolectura/activar",
+    		"CAUSA_NO_LECTURA_CONSULTAR" : "rest/nolectura/consultar",
+    		"CAUSA_NO_LECTURA_CONSULTAR_DESCRIPCIONES" : "rest/nolectura/consultar/descripciones",
+
+    		"CICLO_CONSULTAR" : "rest/ciclos/consultar",
+    		"CICLO_CONSULTAR_TODO" : "rest/ciclos/consultar/todo",
+    		"CICLO_EDITAR" : "rest/ciclos/editar",
+    		"CICLO_CERRAR" : "rest/ciclos/cerrar/",
+    		
     		"CONSUMOS_INCOMPLETOS" : "rest/consumos/consultar/incompletos",
-    		"CONSUMOS_RANGO" : "rest/consumos/consultar/rango",
     		"CONSUMOS_INCOMPLETOS_GUARDAR" : "rest/consumos/guardar",
+    		"CONSUMOS_RANGO" : "rest/consumos/consultar/rango",
     		"CONSUMOS_RIESGO_GUARDAR" : "rest/consumos/riesgo/guardar",
     		"CONSUMOS_RIESGO_GUARDAR_CORRECCION_CONSUMO" : "rest/consumos/correccion/guardar",
-    		"CONSULTAR_ORDEN_RUTAS" : "rest/ruta/consultar",
-    		"GUARDAR_ORDEN_RUTAS" : "rest/ruta/guardar",
-    		"SISTEMA_CONSULTAR_IP":"rest/general/consultar/ip",
-    		"SISTEMA_CONSULTAR_ESTRUCTURA" : "rest/general/consultar/estructura",
-    		"SISTEMA_CONSULTAR_EMPRESA" : "rest/general/consultar/empresa",
-    		"SISTEMA_ACTUALIZAR_EMPRESA" : "rest/general/actualizar/empresa",
-    		"SISTEMA_AGREGAR_JUNTA" : "rest/general/agregar/junta",
-    		"SISTEMA_ACTUALIZAR_JUNTA" : "rest/general/actualizar/junta",
+    		
+    		"CONTABILIDAD_CONSULTAR" : "rest/contabilidad/consultar",
+    		"CONTABILIDAD_GUARDAR" : "rest/contabilidad/guardar",
+    		
+    		"CREDITO_BUSCAR" : "rest/creditos/buscar/",
+    		"CREDITO_GUARDAR" : "rest/creditos/guardar",
+    		"CREDITO_REFINANCIAR" : "rest/creditos/refinanciar",
+    		
+    		"EXCESO_EDITAR_RANGO" : "rest/excesos/editar/rango",
+    		"EXCESO_GUARDAR" : "rest/excesos/guardar",
+    		"EXCESO_CONSULTAR" : "rest/excesos/consultar",
+    		
+    		"FACTURACION_INICIAR" : "rest/facturacion/iniciar",
+    		
+    		"INSTALACION_BUSCAR" : "rest/instalacion/buscar/",
+    		"INSTALACION_GUARDAR" : "rest/instalacion/guardar",
+    		"INSTALACION_CREAR" : "rest/instalacion/crear",
+    		"INSTALACION_CONSULTAR_VENCIDO" : "rest/instalacion/consultar/vencido/",
+    		
+    		"LOGIN_INGRESAR" : "rest/login/ingresar",
+    		"LOGIN_PERFIL_CONSULTAR" : "rest/login/perfiles/consultar",
+    		
     		"MACROS_CONSULTAR" : "rest/macros/consultar",
     		"MACROS_GUARDAR" : "rest/macros/",
+    		
+    		"MAESTROS_CONSULTAR" : "rest/listas/maestros/",
     		
     		"NOVEDAD_GUARDAR" : "rest/novedades/guardar",
     		"NOVEDAD_CONSULTAR" : "rest/novedades/consultar/",
@@ -42,14 +59,60 @@ define(['siav-module'], function(app) {
     		"NOVEDAD_CONSULTAR_NOTA_CREDITO" : "rest/novedades/consultar/nota-credito/",
     		"NOVEDAD_GUARDAR_NOTA_CREDITO" : "rest/novedades/guardar/nota-credito",
     		
+    		"ORDEN_RUTASCONSULTAR" : "rest/ruta/consultar",
+    		"ORDEN_RUTAS_GUARDAR" : "rest/ruta/guardar",
+    		
+    		"PAGO_GUARDAR" : "rest/pagos/guardar",
+    		"PAGO_BUSCAR" : "rest/pagos/buscar/",
+    		"PAGO_CARGAR" : "rest/pagos/cargar/",
+    		"PAGO_ABONAR" : "/Reportes/rest/general/abono/pdf",
+    		"PAGO_ABONO_MATRICULA" : "/Reportes/rest/general/abono/matricula/pdf",
+    		
     		"RAMAL_CONSULTAR_TODO" : "rest/ramal/consultar/todo",
     		"RAMAL_CONSULTAR" : "rest/ramal/consultar",
     		"RAMAL_GUARDAR" : "rest/ramal/guardar/",
+    		
+    		"RANGO_CREAR" : "rest/rangos/crear",
+    		"RANGO_ELIMINAR" : "rest/rangos/eliminar",
+    		"RANGO_CONSULTAR" : "rest/rangos/consultar",
+    		
+    		"REPORTES_DESCARGAR" : "/Reportes/rest/reports/",
+    		"REPORTES_ENVIAR" : "/Reportes/rest/reports/",
+    		"REPORTES_PDF" : "/Reportes/rest/reports/",
+    		"REPORTES_BUSCAR" : "rest/reportes/buscar/",
+    		"REPORTES_INSTALACIONES_USUARIO" : "/Reportes/rest/general/usuario/instalaciones",
+    		
+    		"SISTEMA_CONSULTAR_IP":"rest/general/consultar/ip",
+    		"SISTEMA_CONSULTAR_ESTRUCTURA" : "rest/general/consultar/estructura",
+    		"SISTEMA_CONSULTAR_EMPRESA" : "rest/general/consultar/empresa",
+    		"SISTEMA_ACTUALIZAR_EMPRESA" : "rest/general/actualizar/empresa",
+    		"SISTEMA_AGREGAR_JUNTA" : "rest/general/agregar/junta",
+    		"SISTEMA_ACTUALIZAR_JUNTA" : "rest/general/actualizar/junta",
+    		
+    		"SEGURIDAD_CLAVE_CAMBIAR" : "rest/seguridad/clave/cambiar",
+    		"SEGURIDAD_USUARIO_CONSULTAR" : "rest/seguridad/usuario/consultar",
+    		"SEGURIDAD_USUARIO_ESTADO" : "rest/seguridad/estado",
+    		"SEGURIDAD_USUARIO_ACTUALIZAR" : "rest/seguridad/usuario/actualizar",
+    		"SEGURIDAD_USUARIO_CREAR" : "rest/seguridad/usuario/crear",
+    		
+    		"TARIFA_CREAR" : "rest/tarifas/crear",
+    		"TARIFA_EDITAR" : "rest/tarifas/editar",
+    		"TARIFA_CONSULTAR" : "rest/tarifas/consultar",
+    		"TARIFA_CONSULTAR_CREDITO" : "rest/tarifas/consultar/credito",
+    		"TARIFA_CONSULTAR_DESCRIPCION" : "rest/tarifas/consultar/descripciones",
+    		"TARIFA_BUSCAR" : "rest/tarifas/buscar/",
+    		
     		"USUARIOS_BUSCAR" : "rest/usuario/buscar/",
     		"USUARIOS_BUSCAR_POR_NOMBRE" : "rest/usuario/buscar/nombre",
     		"USUARIOS_BUSCAR_INFO" : "rest/usuario/buscar/info/",
     		"USUARIOS_GUARDAR" : "rest/usuario/guardar",
-    		"USUARIOS_ACTUALIZAR" : "rest/usuario/actualizar"
+    		"USUARIOS_ACTUALIZAR" : "rest/usuario/actualizar",
+    		
+    		"VEREDA_CONSULTAR_NOMBRES" : "rest/veredas/consultar/nombres",
+    		"VEREDA_CONSULTAR_TODO" : "rest/veredas/consultar/todo",
+    		"VEREDA_CONSULTAR" : "rest/veredas/consultar",
+    		"VEREDA_CREAR" : "rest/veredas/crear"
+    		
     	},
     	"MSG" : {
     		"CAMBIO_GUARDADO" : "Los cambios han sido guardados de manera correcta.",

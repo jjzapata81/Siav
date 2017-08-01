@@ -4,7 +4,7 @@
 <div  class="contenido">
 	<div  class="boton-fijo">
 		<a ng-click="onAgregar()" uib-tooltip="Agregar" tooltip-placement="left" ng-show="!esNuevo && !estaEditando"><i class="fa fa-plus icon-float icon-add" aria-hidden="true"></i></a>
-		<a ng-click="onBuscar()" uib-tooltip="Buscar" tooltip-placement="left" ng-show="!estaEditando && esNuevo"><i class="fa fa-search icon-float icon-search" aria-hidden="true"></i></a>
+		<a ng-click="onBuscar()" uib-tooltip="Buscar" tooltip-placement="left" ng-show="!estaEditando && esNuevo && !existeUsuario"><i class="fa fa-search icon-float icon-search" aria-hidden="true"></i></a>
 		<a ng-click="onGuardar()" uib-tooltip="Guardar" tooltip-placement="left" ng-show="existeUsuario"><i class="fa fa-floppy-o icon-float icon-save" aria-hidden="true"></i></a>
 		<a ng-click="onActualizar()" uib-tooltip="Actualizar" tooltip-placement="left" ng-show="estaEditando"><i class="fa fa-floppy-o icon-float icon-save" aria-hidden="true"></i></a>
 		<a ng-click="onCancelar()" uib-tooltip="Cancelar" tooltip-placement="left" ng-show="esNuevo || estaEditando"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
@@ -39,7 +39,7 @@
 			<ul class="flex">
 				<li>
 					<label>Documento de identidad:</label><br>
-					<input type="text" ng-model="buscarCedula"/>
+					<input type="text" ng-model="buscarCedula" ng-disabled="existeUsuario"/>
 				</li>
 			</ul>
 			<ul class="flex" ng-show="existeUsuario">
@@ -91,8 +91,8 @@
 				<li>
 					<label>&nbsp;</label><br>
 					<label><a class="deshabilitar" ng-click="onDeshabilitar()">
-						<i class="fa fa-check-circle-o" aria-hidden="true" ng-if="deshabilitar"></i>
-						<i class="fa fa-circle-o" aria-hidden="true" ng-if="!deshabilitar"></i>
+						<i class="fa fa-check-circle-o" aria-hidden="true" ng-if="usuarioEditar.activo"></i>
+						<i class="fa fa-circle-o" aria-hidden="true" ng-if="!usuarioEditar.activo"></i>
 						&nbsp;Deshabilitar
 						</a>
 					</label>

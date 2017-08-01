@@ -18,8 +18,8 @@
 			</li>
 			<li>
 				<label>Tipo de recargo:</label><br>
-				<input type="radio" class="rbt-config" ng-model="contabilidad.esRecargoFijo" value="true" ng-disabled="noEstaEditando"> Fijo
-				<input type="radio" class="rbt-config" ng-model="contabilidad.esRecargoFijo" value="false" ng-disabled="noEstaEditando"> Porcentual
+				<input type="radio" class="rbt-config" ng-model="contabilidad.esRecargoFijo" value=true ng-disabled="noEstaEditando"> Fijo
+				<input type="radio" class="rbt-config" ng-model="contabilidad.esRecargoFijo" value=false ng-disabled="noEstaEditando"> Porcentual
 			</li>
 			<li ng-show="!contabilidad.esRecargoFijo">
 				<label>Porcentaje</label><br>
