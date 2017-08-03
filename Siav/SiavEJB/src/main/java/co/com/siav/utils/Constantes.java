@@ -16,7 +16,6 @@ public final class Constantes {
 	//Sirve para los estados de pago de las facturas
 	public static final String PENDIENTE = "P";
 	public static final String CANCELADO = "C";
-
 	
 	public static final String SI = "S";
 	public static final String NO = "N";
@@ -106,6 +105,7 @@ public final class Constantes {
 	public static final String ERR_CREAR_NOTA_CREDITO = "Ocurrió un error al crear la nota a crédito. ";
 	public static final String VALOR_VENCIDO = "El la instalación tiene un saldo pendiente de $%s pesos.";
 	public static final String ACCION_CUENTAS_VENCIDAS = "ACCION_CUENTAS_VENCIDAS";
+	public static final String ERR_ELIMINAR_CREDITO = "No se puede eliminar créditos con cuotas generadas ni refinanciados.";
 	
 	public static String getMensaje(String mensaje, Long codigo) {
 		return getMensaje(mensaje, String.valueOf(codigo));

@@ -6,7 +6,8 @@ define(['siav-module', 'constantes'], function (app) {
     	 var contrato = {
     			 buscar : buscar,
     			 guardar : guardar,
-    			 refinanciar : refinanciar
+    			 refinanciar : refinanciar,
+    			 eliminar: eliminar
     	 };
     	 
     	 function buscar(instalacion){
@@ -18,6 +19,13 @@ define(['siav-module', 'constantes'], function (app) {
     	 
     	 function guardar(credito){
     		 var request = $http.put(CONSTANTES.SRV.CREDITO_GUARDAR, credito);
+    		 return (request.then(function(response) {
+ 	    		return response.data;
+	    	}));
+    	 }
+    	 
+    	 function eliminar(credito){
+    		 var request = $http.put(CONSTANTES.SRV.CREDITO_ELIMINAR, credito);
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));

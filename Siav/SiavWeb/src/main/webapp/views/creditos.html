@@ -19,6 +19,7 @@
 				<th>Inter&eacute;s</th>
 				<th>N&uacute;mero cuotas</th>
 				<th>Cuotas pendientes</th>
+				<th></th>
 			</thead>
 			<tbody>
 				<tr ng-repeat="credito in creditos">
@@ -29,6 +30,7 @@
 					<td>{{credito.interes | currency:"%":2}}</td>
 					<td>{{credito.numeroCuotas}}</td>
 					<td>{{credito.numeroCuotas - credito.actual}}</td>
+					<td><a ng-click="onEliminar(credito)"><i class="fa fa-trash-o" aria-hidden="true"></i> Eliminar</a></td>
 				</tr>
 			</tbody>
 		</table>			
@@ -56,17 +58,15 @@
       				</select>
       			</li>
       			<li>
+					<label>Valor:</label><br>
+					<input type="text" ng-model="credito.valor" ng-blur="calculoCuotas()" ng-disabled="esFijo"/>
+				</li>
+      			<li>
 					<label>N&uacute;mero de comprobante de pago:</label><br>
 					<input type="text" ng-model="comprobante" uib-tooltip="S&oacute;lo debe ingresar el n&uacute;mero de comprobante de pago cuando se ingrese un valor de cuota inicial." tooltip-placement="right"/>
 				</li>
 			</ul>
-			
-			<ul class="flex">
-				<li>
-					<label>Valor:</label><br>
-					<input type="text" ng-model="credito.valor" ng-blur="calculoCuotas()" ng-disabled="esFijo"/>
-				</li>
-			</ul>
+
 		</div>
 		<div ng-show="mostrarUsuario">
 			<section class="sub-titulo">Plan de financiaci&oacute;n</section>

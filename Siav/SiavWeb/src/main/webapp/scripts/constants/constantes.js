@@ -33,6 +33,7 @@ define(['siav-module'], function(app) {
     		"CREDITO_BUSCAR" : "rest/creditos/buscar/",
     		"CREDITO_GUARDAR" : "rest/creditos/guardar",
     		"CREDITO_REFINANCIAR" : "rest/creditos/refinanciar",
+    		"CREDITO_ELIMINAR" : "rest/creditos/eliminar",
     		
     		"EXCESO_EDITAR_RANGO" : "rest/excesos/editar/rango",
     		"EXCESO_GUARDAR" : "rest/excesos/guardar",

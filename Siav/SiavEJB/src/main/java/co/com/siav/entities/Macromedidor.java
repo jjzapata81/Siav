@@ -52,7 +52,7 @@ public class Macromedidor implements Serializable{
 	}
 
 	public void setMarca(String marca) {
-		this.marca = marca.toUpperCase();
+		this.marca = marca != null ? marca.toUpperCase() : null;
 	}
 
 	public String getDireccion() {
@@ -60,7 +60,7 @@ public class Macromedidor implements Serializable{
 	}
 
 	public void setDireccion(String direccion) {
-		this.direccion = direccion.toUpperCase();
+		this.direccion = direccion != null ? direccion.toUpperCase() : null;
 	}
 
 }

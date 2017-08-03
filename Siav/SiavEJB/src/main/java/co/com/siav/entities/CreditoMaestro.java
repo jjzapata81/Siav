@@ -35,6 +35,9 @@ public class CreditoMaestro implements Serializable{
 	@Column(name="nminstalacion")
 	private Long instalacion;
 	
+	@Column(name="ciclo")
+	private Long ciclo;
+	
 	@Column(name="cdconcepto")
 	private String codigoConcepto;
 	
@@ -65,6 +68,9 @@ public class CreditoMaestro implements Serializable{
 	@Column(name="snfinanciado")
 	private String esFinanciado;
 	
+	@Column(name="ref_refinanciado")
+	private Long referencia;
+	
 	@JoinColumn(name = "cdconcepto", referencedColumnName="cdconcepto", insertable=false, updatable=false)
 	@ManyToOne
 	private Tarifa concepto;
@@ -74,6 +80,14 @@ public class CreditoMaestro implements Serializable{
 
 	public Long getId() {
 		return id;
+	}
+	
+	public Long getCiclo() {
+		return ciclo;
+	}
+	
+	public void setCiclo(Long ciclo) {
+		this.ciclo = ciclo;
 	}
 
 	public void setId(Long id) {
@@ -182,6 +196,14 @@ public class CreditoMaestro implements Serializable{
 	
 	public void setConcepto(Tarifa concepto) {
 		this.concepto = concepto;
+	}
+	
+	public Long getReferencia() {
+		return referencia;
+	}
+	
+	public void setReferencia(Long referencia) {
+		this.referencia = referencia;
 	}
 		
 }

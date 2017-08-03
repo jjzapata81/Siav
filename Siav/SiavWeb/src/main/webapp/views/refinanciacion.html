@@ -70,6 +70,10 @@
 					<label class="top-5">Valor cuota</label><br>
 					<label class="label-input">{{valorCuota | currency:"$":0}}</label>
 				</li>
+				<li>
+					<label>N&uacute;mero de comprobante de pago:</label><br>
+					<input type="text" ng-model="comprobante" uib-tooltip="S&oacute;lo debe ingresar el n&uacute;mero de comprobante de pago cuando se ingrese un valor de cuota inicial." tooltip-placement="right"/>
+				</li>
 			</ul>
 		</div>
 	</section>

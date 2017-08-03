@@ -30,6 +30,7 @@ define(['siav-module', 'creditos-services', 'modal-factory', 'constantes'], func
     	
     	$scope.onGuardar = function(){
     		if($scope.formularioValido()){
+    			$scope.credito.comprobante = $scope.comprobante; 
     			creditosServices
     			.refinanciar($scope.credito)
     			.then(function(){
@@ -48,6 +49,10 @@ define(['siav-module', 'creditos-services', 'modal-factory', 'constantes'], func
     		}
     		if($scope.credito.interes < 0 ||  $scope.credito.numeroCuotas < 0 || ($scope.credito.inicial && $scope.credito.inicial < 0)){
     			modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.CREDITO.ERR_NEGATIVO);
+    			return false;
+    		}
+    		if($scope.credito && $scope.credito.inicial > 0 && !$scope.comprobante){
+    			modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.CREDITO.ERR_COMPROBANTE_OBLIGATORIO);
     			return false;
     		}
     		return true;

@@ -23,6 +23,19 @@ define(['siav-module', 'instalaciones-services', 'tarifas-services', 'creditos-s
     		$scope.init();
     	}
     	
+    	$scope.onEliminar = function(credito){
+    		creditosServices
+    		.eliminar(credito)
+    		.then(function(response){
+    			$scope.creditos = null;
+    			creditosServices
+        		.buscar($scope.instalacion.numeroInstalacion)
+        		.then(function(respuestaCredito){
+    				$scope.creditos = respuestaCredito.creditos;
+        		});
+    		});
+    	}
+    	
     	$scope.onBuscar = function(){
     		$scope.mostrarUsuario = false;
     		if($scope.numeroInstalacion){
