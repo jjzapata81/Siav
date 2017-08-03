@@ -11,7 +11,6 @@ import co.com.siav.entities.NovedadPK;
 import co.com.siav.repositories.IRepositoryCiclos;
 import co.com.siav.repositories.IRepositoryNotaCreditoAud;
 import co.com.siav.repositories.IRepositoryNovedades;
-import co.com.siav.repositories.IRepositorySistema;
 import co.com.siav.request.NotaCreditoRequest;
 import co.com.siav.response.EstadoEnum;
 import co.com.siav.response.MensajeResponse;

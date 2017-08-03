@@ -11,7 +11,6 @@ import org.springframework.beans.BeanUtils;
 import co.com.siav.dto.ExcesoDTO;
 import co.com.siav.dto.RangoConsumosDTO;
 import co.com.siav.entities.Exceso;
-import co.com.siav.exception.ExcepcionNegocio;
 import co.com.siav.repositories.IRepositoryExcesos;
 import co.com.siav.response.MensajeResponse;
 import co.com.siav.utils.Constantes;
@@ -23,7 +22,6 @@ public class ExcesosBean {
 	private IRepositoryExcesos excesosRep;
 
 	public MensajeResponse guardar(ExcesoDTO request) {
-//		rangoExcesoEsValido(request);
 		Exceso excesoBD = consultarExceso(request.getCodigo());
 		BeanUtils.copyProperties(request, excesoBD);
 		excesoBD.setFechaCreacion(new Date());
@@ -37,21 +35,6 @@ public class ExcesosBean {
 	
 	private Exceso consultarExceso(String codigo) {
 		return excesosRep.findByCodigo(codigo);
-	}
-	
-	private void rangoExcesoEsValido(ExcesoDTO exceso) {
-		List<Exceso> excesos = consultar();
-		excesos.stream().forEach(excesoBD -> estaEnRango(excesoBD, exceso.getLimInicial(), exceso.getLimFinal()));
-	}
-
-	private void estaEnRango(Exceso excesoBD, Long limInicial, Long limFinal) {
-		if(excesoBD.getLimInicial() <= limInicial  && limInicial <= excesoBD.getLimFinal()){
-			throw new ExcepcionNegocio("El límite inicial está dentro de un rango existente.");
-		}
-		
-		if(excesoBD.getLimInicial() <= limFinal  && limFinal <= excesoBD.getLimFinal()){
-			throw new ExcepcionNegocio("El límite final está dentro de un rango existente.");
-		}
 	}
 
 	public MensajeResponse editarRango(RangoConsumosDTO request) {

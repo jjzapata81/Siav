@@ -3,10 +3,7 @@ package co.com.siav.facturacion;
 import java.util.ArrayList;
 import java.util.List;
 
-import co.com.siav.dto.ConceptoDTO;
-import co.com.siav.entities.Tarifa;
 import co.com.siav.exception.ExcepcionTecnica;
-import co.com.siav.utils.Utilidades;
 
 public class FacturadorRango extends FacturadorBase implements IFacturador{
 

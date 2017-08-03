@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import co.com.siav.entities.Maestros;
-import co.com.siav.request.MaestrosRequest;
 
 public interface IRepositoryMaestros extends JpaRepository<Maestros, Long>{
 

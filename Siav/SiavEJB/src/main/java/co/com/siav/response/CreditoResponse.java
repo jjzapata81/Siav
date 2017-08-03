@@ -2,8 +2,6 @@ package co.com.siav.response;
 
 import java.util.List;
 
-import co.com.siav.entities.CreditoMaestro;
-
 public class CreditoResponse{
 
 	private Long numeroInstalacion;
