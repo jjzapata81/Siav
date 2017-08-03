@@ -5,6 +5,7 @@ CREATE TABLE ta_macro_lectura
 (
   nmlectura numeric(10,0) NOT NULL,
   nmmacro numeric(10,0) NOT NULL,
+  ciclo numeric(10,0) NOT NULL,
   fedesde timestamp without time zone,
   fehasta timestamp without time zone,
   leanterior numeric(10,0),
