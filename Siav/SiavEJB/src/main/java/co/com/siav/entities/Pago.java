@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -36,6 +38,10 @@ public class Pago implements Serializable{
 	
 	@Column(name="cdcuenta")
 	private String codigoCuenta;
+	
+	@JoinColumn(name="cdcuenta",referencedColumnName="codigo", updatable=false, insertable=false)
+	@ManyToOne
+	private CuentaBanco cuenta;
 	
 	@Column(name="snerror")
 	private String error;
@@ -131,6 +137,16 @@ public class Pago implements Serializable{
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
+
+	public CuentaBanco getCuenta() {
+		return cuenta;
+	}
+
+	public void setCuenta(CuentaBanco cuenta) {
+		this.cuenta = cuenta;
+	}
+	
+	
 
 	
 }

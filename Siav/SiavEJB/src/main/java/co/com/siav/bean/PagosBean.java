@@ -25,6 +25,7 @@ import co.com.siav.repositories.IRepositoryCiclos;
 import co.com.siav.repositories.IRepositoryComprobante;
 import co.com.siav.repositories.IRepositoryFacturas;
 import co.com.siav.repositories.IRepositoryFormatoRecaudo;
+import co.com.siav.repositories.IRepositoryPago;
 import co.com.siav.repositories.IRepositoryParametros;
 import co.com.siav.response.EstadoEnum;
 import co.com.siav.response.FacturaResponse;
@@ -53,6 +54,9 @@ public class PagosBean {
 	
 	@Inject
 	private PagosManager manager;
+	
+	@Inject
+	private IRepositoryPago pagosRep;
 	
 	@Inject
 	private IRepositoryFormatoRecaudo formatoRep;
@@ -221,6 +225,10 @@ public class PagosBean {
 		if(codigoCuenta == null || codigoCuenta.trim() == ""){
 			throw new ExcepcionNegocio(Constantes.ERR_SIN_CODIGO_CUENTA);
 		}
+	}
+
+	public List<Pago> consultar() {
+		return pagosRep.findAll();
 	}
 
 }

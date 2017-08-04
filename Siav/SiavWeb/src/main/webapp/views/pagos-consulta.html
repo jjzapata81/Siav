@@ -1,0 +1,31 @@
+<titulo/>
+<menu></menu>
+
+<div  class="contenido">
+	<section class="titulo-seccion">
+		Pagos
+	</section>
+	<div class="tabla-siav">
+		<table class="table table-responsive">
+			<thead>
+				<th>Fecha</th>
+				<th>N&uacute;mero</th>
+				<th>Valor</th>
+				<th>Cuenta</th>
+				<th>Usuario</th>
+				<th>Error</th>
+			</thead>
+			<tbody>
+				<tr ng-repeat="pago in pagos | orderBy: '-fecha' | startFrom:(currentPage-1)*itemsPerPage | limitTo:itemsPerPage">
+					<td>{{pago.fecha | date : 'yyyy-MM-dd'}}</td>
+					<td>{{pago.numeroFactura}}</td>
+					<td>{{pago.valor | currency:"$":0}}</td>
+					<td><a uib-tooltip="{{pago.cuenta.numeroCuenta}}">{{pago.cuenta.nombre}}</a></td>
+					<td>{{pago.usuario}}</td>
+					<td><a uib-tooltip="{{pago.error? pago.mensaje : 'Pago ingresado correctamente'}}">{{pago.error?'SI':'NO'}}</a></td>
+				</tr>
+			</tbody>
+		</table>
+		<uib-pagination total-items="pagos.length" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
+	</div>
+</div>

@@ -1,4 +1,4 @@
-ALTER TABLE ta_credito_maestro ADD ref_refinanciado numeric(10,0);
+﻿ALTER TABLE ta_credito_maestro ADD ref_refinanciado numeric(10,0);
 ALTER TABLE ta_credito_maestro ADD ciclo numeric(10,0);
 
 CREATE TABLE ta_macro_lectura
@@ -83,7 +83,7 @@ INSERT INTO ta_recursos(nmrecurso, titulo, accion, snsubmenu, nmrelacion, nmgrup
     VALUES (464, 'Estadísticas', 'estadisticas', 'N', 454, 4);
 
 	
-INSERT INTO ta_recurso_perfil(nmrecursoperfil, nmperfil, nmrecurso) VALUES ((SELECT MAX(nmrecursoperfil) + 1 from ta_recurso_perfil), 1, 105);
+INSERT INTO ta_recurso_perfil(nmrecursoperfil, nmperfil, nmrecurso) VALUES (1, 1, 105);
 INSERT INTO ta_recurso_perfil(nmrecursoperfil, nmperfil, nmrecurso) VALUES ((SELECT MAX(nmrecursoperfil) + 1 from ta_recurso_perfil), 1, 107);
 INSERT INTO ta_recurso_perfil(nmrecursoperfil, nmperfil, nmrecurso) VALUES ((SELECT MAX(nmrecursoperfil) + 1 from ta_recurso_perfil), 1, 110);
 INSERT INTO ta_recurso_perfil(nmrecursoperfil, nmperfil, nmrecurso) VALUES ((SELECT MAX(nmrecursoperfil) + 1 from ta_recurso_perfil), 1, 120);
@@ -187,3 +187,21 @@ INSERT INTO ta_recurso_perfil(nmrecursoperfil, nmperfil, nmrecurso) VALUES ((SEL
 
 INSERT INTO ta_recurso_perfil(nmrecursoperfil, nmperfil, nmrecurso) VALUES ((SELECT MAX(nmrecursoperfil) + 1 from ta_recurso_perfil), 3, 170);
 INSERT INTO ta_recurso_perfil(nmrecursoperfil, nmperfil, nmrecurso) VALUES ((SELECT MAX(nmrecursoperfil) + 1 from ta_recurso_perfil), 3, 235);
+
+
+INSERT INTO ta_recursos(nmrecurso, titulo, snsubmenu, nmrelacion, nmgrupo)
+    VALUES (280, 'Auditoria', 'S', 280, 2);
+
+INSERT INTO ta_recursos(nmrecurso, titulo, accion, snsubmenu, nmrelacion, nmgrupo)
+    VALUES (284, 'Pagos', 'pagos-consulta', 'N', 280, 2);
+
+INSERT INTO ta_recursos(nmrecurso, titulo, accion, snsubmenu, nmrelacion, nmgrupo)
+    VALUES (288, 'Inconsistencias', 'inconsistencias-consulta', 'N', 280, 2);
+
+INSERT INTO ta_recurso_perfil(nmrecursoperfil, nmperfil, nmrecurso) VALUES ((SELECT MAX(nmrecursoperfil) + 1 from ta_recurso_perfil), 1, 280);
+INSERT INTO ta_recurso_perfil(nmrecursoperfil, nmperfil, nmrecurso) VALUES ((SELECT MAX(nmrecursoperfil) + 1 from ta_recurso_perfil), 1, 284);
+INSERT INTO ta_recurso_perfil(nmrecursoperfil, nmperfil, nmrecurso) VALUES ((SELECT MAX(nmrecursoperfil) + 1 from ta_recurso_perfil), 1, 288);
+
+INSERT INTO ta_recurso_perfil(nmrecursoperfil, nmperfil, nmrecurso) VALUES ((SELECT MAX(nmrecursoperfil) + 1 from ta_recurso_perfil), 2, 280);
+INSERT INTO ta_recurso_perfil(nmrecursoperfil, nmperfil, nmrecurso) VALUES ((SELECT MAX(nmrecursoperfil) + 1 from ta_recurso_perfil), 2, 284);
+INSERT INTO ta_recurso_perfil(nmrecursoperfil, nmperfil, nmrecurso) VALUES ((SELECT MAX(nmrecursoperfil) + 1 from ta_recurso_perfil), 2, 288);

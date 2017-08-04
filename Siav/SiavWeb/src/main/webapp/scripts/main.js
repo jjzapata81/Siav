@@ -109,6 +109,8 @@ require.config({
     	'red-controller' : 'controllers/red-controller',
     	'empresa-controller' : 'controllers/empresa-controller',
     	'nota-credito-controller' : 'controllers/nota-credito-controller',
+    	'pagos-consulta-controller' : 'controllers/pagos-consulta-controller',
+    	'inconsistencias-consulta-controller' : 'controllers/inconsistencias-consulta-controller',
     	
     	//Reportes
     	

@@ -78,6 +78,14 @@ define(['angularAMD', 'angular-route'], function (angularAMD) {
 	            templateUrl: 'views/cuentas-bancarias.html', 
 	            controller: 'cuentas-bancarias-controller'
 	        }))
+	        .when("/pagos-consulta", angularAMD.route({
+	            templateUrl: 'views/pagos-consulta.html', 
+	            controller: 'pagos-consulta-controller'
+	        }))
+	        .when("/inconsistencias-consulta", angularAMD.route({
+	            templateUrl: 'views/inconsistencias-consulta.html', 
+	            controller: 'inconsistencias-consulta-controller'
+	        }))
 	        .when("/materiales", angularAMD.route({
 	            templateUrl: 'views/materiales.html', 
 	            controller: 'materiales-controller'

@@ -5,6 +5,7 @@ define(['siav-module', 'constantes'], function (app) {
     app.service('inconsistenciasServices', ['$http', '$q', 'CONSTANTES', function ($http, $q, CONSTANTES) {
     	 var contrato = {
     			 consultar : consultar,
+    			 consultarLog : consultarLog,
     			 consultarRango : consultarRango,
     			 guardar : guardar,
     			 guardarCorreccion : guardarCorreccion,
@@ -13,6 +14,13 @@ define(['siav-module', 'constantes'], function (app) {
     	 
     	 function consultar(){
     		 var request = $http.get(CONSTANTES.SRV.CONSUMOS_INCOMPLETOS, {isArray : true});
+    		 return(request.then(function(response){
+    			 return response.data;
+    		 }));
+    	 }
+    	 
+    	 function consultarLog(){
+    		 var request = $http.get(CONSTANTES.SRV.CONSUMOS_INCOMPLETOS_LOG, {isArray : true});
     		 return(request.then(function(response){
     			 return response.data;
     		 }));

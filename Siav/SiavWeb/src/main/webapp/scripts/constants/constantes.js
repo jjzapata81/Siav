@@ -22,6 +22,7 @@ define(['siav-module'], function(app) {
     		"CICLO_CERRAR" : "rest/ciclos/cerrar/",
     		
     		"CONSUMOS_INCOMPLETOS" : "rest/consumos/consultar/incompletos",
+    		"CONSUMOS_INCOMPLETOS_LOG" : "rest/consumos/consultar/log",
     		"CONSUMOS_INCOMPLETOS_GUARDAR" : "rest/consumos/guardar",
     		"CONSUMOS_RANGO" : "rest/consumos/consultar/rango",
     		"CONSUMOS_RIESGO_GUARDAR" : "rest/consumos/riesgo/guardar",
@@ -65,6 +66,7 @@ define(['siav-module'], function(app) {
     		
     		"PAGO_GUARDAR" : "rest/pagos/guardar",
     		"PAGO_BUSCAR" : "rest/pagos/buscar/",
+    		"PAGO_CONSULTAR" : "rest/pagos/consultar",
     		"PAGO_CARGAR" : "rest/pagos/cargar/",
     		"PAGO_ABONAR" : "/Reportes/rest/general/abono/pdf",
     		"PAGO_ABONO_MATRICULA" : "/Reportes/rest/general/abono/matricula/pdf",

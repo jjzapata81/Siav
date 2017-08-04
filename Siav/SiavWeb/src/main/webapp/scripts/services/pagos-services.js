@@ -4,12 +4,20 @@
 define(['siav-module', 'constantes'], function (app) {
     app.service('pagosServices', ['$http', '$q', 'CONSTANTES', function ($http, $q, CONSTANTES) {
     	 var contrato = {
+    			 consultar : consultar,
     			 pagar : pagar,
     			 abonar : abonar,
     			 buscar : buscar,
     			 cargarPagos : cargarPagos,
     			 abonoMatricula : abonoMatricula
     	 };
+    	 
+    	 function consultar(){
+    		 var request = $http.get(CONSTANTES.SRV.PAGO_CONSULTAR, { isArray : true});
+    		 return (request.then(function(response) {
+ 	    		return response.data;
+	    	}));
+    	 }
     	 
     	 function pagar(pago){
     		 var request = $http.post(CONSTANTES.SRV.PAGO_GUARDAR, pago);
