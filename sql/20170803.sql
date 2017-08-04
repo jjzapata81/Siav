@@ -1,6 +1,16 @@
 ﻿ALTER TABLE ta_credito_maestro ADD ref_refinanciado numeric(10,0);
 ALTER TABLE ta_credito_maestro ADD ciclo numeric(10,0);
 
+UPDATE ta_log_pagos set snerror = 'N' where snerror is null;
+alter table ta_log_pagos ALTER COLUMN snerror SET not null;
+alter table ta_log_pagos ALTER COLUMN snerror SET  default 'N';
+
+UPDATE ta_log_pagos set sncredito = 'N' where sncredito is null;
+alter table ta_log_pagos ALTER COLUMN sncredito SET not null;
+alter table ta_log_pagos ALTER COLUMN sncredito SET  default 'N';
+
+ALTER TABLE ta_credito_maestro ADD ciclo numeric(10,0);
+
 CREATE TABLE ta_macro_lectura
 (
   nmlectura numeric(10,0) NOT NULL,
