@@ -19,8 +19,8 @@ define(['siav-module', 'constantes'], function (app) {
     		 }));
     	 }
     	 
-    	 function consultarLog(){
-    		 var request = $http.get(CONSTANTES.SRV.CONSUMOS_INCOMPLETOS_LOG, {isArray : true});
+    	 function consultarLog(filtro){
+    		 var request = $http.post(CONSTANTES.SRV.CONSUMOS_INCOMPLETOS_LOG, filtro, {isArray : true});
     		 return(request.then(function(response){
     			 return response.data;
     		 }));

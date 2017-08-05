@@ -1,5 +1,6 @@
 package co.com.siav.bean;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,11 +13,14 @@ import co.com.siav.entities.Consumo;
 import co.com.siav.entities.ConsumoAuditoria;
 import co.com.siav.entities.ConsumoPK;
 import co.com.siav.entities.Instalacion;
+import co.com.siav.exception.ExcepcionNegocio;
 import co.com.siav.repositories.IRepositoryCiclos;
 import co.com.siav.repositories.IRepositoryConsumoAuditoria;
 import co.com.siav.repositories.IRepositoryConsumos;
 import co.com.siav.repositories.IRepositoryInstalaciones;
 import co.com.siav.request.CorreccionConsumoRequest;
+import co.com.siav.request.FiltroRequest;
+import co.com.siav.response.ConsumoAuditoriaResponse;
 import co.com.siav.response.ConsumoRiesgo;
 import co.com.siav.response.EstadoEnum;
 import co.com.siav.response.MensajeResponse;
@@ -142,6 +146,21 @@ public class ConsumosBean {
 		auditoria.setObservacion(observacion);
 		auditoria.setUsuario(usuario);
 		audiRep.save(auditoria);
+	}
+
+	public List<ConsumoAuditoriaResponse> consultarAuditoria(FiltroRequest request) {
+		Long ciclo = ciclosRep.findMaximoCicloPorEstado(Constantes.ABIERTO);
+		if(request.getNumeroDesde() == null)
+			request.setNumeroDesde(ciclo);
+		if(request.getNumeroHasta() == null)
+			request.setNumeroHasta(ciclo);
+		List<ConsumoAuditoria> consumos = audiRep.findByCicloBetween(request.getNumeroDesde(), request.getNumeroHasta());
+		if(consumos.isEmpty()){
+			throw new ExcepcionNegocio(Constantes.ERR_CONSULTA);
+		}
+		List<ConsumoAuditoriaResponse> response = new ArrayList<ConsumoAuditoriaResponse>();
+		consumos.stream().collect(Collectors.groupingBy(ConsumoAuditoria::getCiclo)).forEach((key, value) -> response.add(new ConsumoAuditoriaResponse(key, value)));
+		return response;
 	}
 
 }

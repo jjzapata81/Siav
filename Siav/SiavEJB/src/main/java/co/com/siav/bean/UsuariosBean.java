@@ -70,6 +70,7 @@ public class UsuariosBean {
 			usuario.setEmail(request.getEmail());
 			usuario.setCelular(request.getCelular());
 			usuario.setCiudad(request.getCiudad());
+			usuario.setEnvioMail(request.getEnvioMail());
 			usuariosRep.save(usuario);
 			return new MensajeResponse(Constantes.ACTUALIZACION_EXITO);
 		}catch(Exception e){

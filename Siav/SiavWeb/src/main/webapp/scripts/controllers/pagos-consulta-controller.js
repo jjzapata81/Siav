@@ -6,19 +6,30 @@ define(['siav-module', 'pagos-services'], function (app) {
     return app.controller('pagos-consulta-controller', ['$scope', 'pagosServices', function($scope, pagosServices){
     	
     	$scope.init = function(){
+    		$scope.filtro = {};
+            $scope.hayResultado = false;
+            $scope.resultado = null;
+            $scope.lista = null;
+    	}
+    	
+        
+    	$scope.onBuscar = function(){
     		pagosServices
-    		.consultar()
-    		.then(function(pagos){
-    			$scope.pagos = pagos;
+    		.consultar($scope.filtro)
+    		.then(function(resultado){
+    			$scope.hayResultado = resultado.length > 0;
+    			$scope.resultado = resultado;
     		});
     	}
     	
-    	$scope.itemsPerPage = 20;
-        $scope.currentPage = 1;
-
-        $scope.setPage = function (pageNo) {
-          $scope.currentPage = pageNo;
-        };
+    	$scope.onSeleccionar = function(pago){
+    		$scope.lista = pago.pagos;
+    	}
+    	
+    	
+    	$scope.onCancelar = function(){
+    		$scope.init();
+    	}
     	
     	$scope.init();
 

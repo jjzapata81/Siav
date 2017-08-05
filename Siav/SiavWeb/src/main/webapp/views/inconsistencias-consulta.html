@@ -1,24 +1,53 @@
 <titulo/>
 <menu></menu>
-
-<div  class="contenido">
+	<div  class="contenido">
+	<div  class="boton-fijo">
+		<a ng-click="onBuscar()" uib-tooltip="Buscar"  ng-show="!hayResultado" tooltip-placement="left"><i class="fa fa-search icon-float icon-search" aria-hidden="true"></i></a>
+		<a ng-click="onCancelar()" uib-tooltip="Cancelar" tooltip-placement="left"  ng-show="hayResultado"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
+	</div>
 	<section class="titulo-seccion">
 		Inconsistencias
 	</section>
-	<div class="tabla-siav">
-		<table class="table table-responsive">
+	<section class="formulario form-fijo" ng-show="!hayResultado">
+		<section class="sub-titulo">Buscar</section>
+		<ul class="flex">
+			<li>
+				<label>Ciclo desde:</label><br>
+				<input type="numeric" ng-model="filtro.numeroDesde"/>
+			</li>
+			<li>
+				<label>Ciclo hasta:</label><br>
+				<input type="numeric" ng-model="filtro.numeroHasta"/>
+			</li>
+		</ul>
+	</section>
+	<div>
+		<ul class="flex">
+			<li ng-repeat="item in resultado | orderBy : '-ciclo'">
+				<a ng-click="onSeleccionar(item)" class="a-grupo">{{item.ciclo}}</a>
+			</li>
+		</ul>
+		<table class="table table-responsive" ng-if="lista">
 			<thead>
-				<th>C&oacute;digo</th>
-				<th>Nombre</th>
-				<th>Usuarios</th>
-				<th>Instalaciones</th>
+				<th>Instalaci&oacute;n</th>
+				<th>Fecha</th>
+				<th>Lectura</th>
+				<th>L. corregida</th>
+				<th>Consumo</th>
+				<th>C. corregido</th>
+				<th>Usuario</th>
+				<th>Observaci&oacute;n</th>
 			</thead>
 			<tbody>
-				<tr ng-repeat="vereda in veredas | orderBy: 'codigo'">
-					<td>{{vereda.codigo}}</td>
-					<td>{{vereda.nombre}}</td>
-					<td>{{vereda.cantidadUsuarios}}</td>
-					<td>{{vereda.cantidadInstalaciones}}</td>
+				<tr ng-repeat="consumo in lista | orderBy : 'numeroFactura'">
+					<td>{{consumo.instalacion}}</td>
+					<td>{{consumo.fecha | date:'yyyy-MM-dd'}}</td>
+					<td>{{consumo.lectura}}</td>
+					<td>{{consumo.lecturaCorregida}}</td>
+					<td>{{consumo.consumo}}</td>
+					<td>{{consumo.consumoCorregido}}</td>
+					<td>{{consumo.usuario}}</td>
+					<td>{{consumo.observacion}}</td>
 				</tr>
 			</tbody>
 		</table>

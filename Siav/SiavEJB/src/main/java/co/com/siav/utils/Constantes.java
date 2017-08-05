@@ -103,9 +103,11 @@ public final class Constantes {
 	public static final String FORMATO_HISTORICO = "%d-%s;";
 	public static final String VACIO = "";
 	public static final String ERR_CREAR_NOTA_CREDITO = "Ocurrió un error al crear la nota a crédito. ";
-	public static final String VALOR_VENCIDO = "El la instalación tiene un saldo pendiente de $%s pesos.";
+	public static final String VALOR_VENCIDO = "La instalación tiene un saldo pendiente de $%s pesos.";
+	public static final String SALDO_FAVOR = "La instalación tiene un saldo a favor de $%s pesos.";
 	public static final String ACCION_CUENTAS_VENCIDAS = "ACCION_CUENTAS_VENCIDAS";
 	public static final String ERR_ELIMINAR_CREDITO = "No se puede eliminar créditos con cuotas generadas ni refinanciados.";
+	public static final String ERR_CONSULTA = "No existen resultados con los criterios de búsqueda seleccionados.";
 	
 	public static String getMensaje(String mensaje, Long codigo) {
 		return getMensaje(mensaje, String.valueOf(codigo));

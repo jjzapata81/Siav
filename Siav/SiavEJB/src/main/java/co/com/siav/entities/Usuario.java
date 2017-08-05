@@ -38,6 +38,9 @@ public class Usuario implements Serializable{
 	
 	@Column(name="ciudad")
 	private String ciudad;
+	
+	@Column(name="snenvioemail")
+	private String envioMail;
 
 	public String getCedula() {
 		return cedula;
@@ -105,6 +108,14 @@ public class Usuario implements Serializable{
 	
 	public String getNombreCompleto(){
 		return null == nombres ? apellidos : nombres + " " + apellidos;
+	}
+	
+	public Boolean getEnvioMail() {
+		return "S".equals(envioMail);
+	}
+	
+	public void setEnvioMail(Boolean envioMail) {
+		this.envioMail = envioMail ? "S" : "N";
 	}
 		
 }

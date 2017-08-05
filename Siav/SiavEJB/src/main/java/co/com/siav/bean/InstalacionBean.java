@@ -79,7 +79,10 @@ public class InstalacionBean {
 		Factura factura = facturasRep.findByNumeroInstalacionAndCiclo(numeroInstalacion, ciclo);
 		if(factura.getDetalles().stream().filter(detalle -> !detalle.getCancelado()).findAny().isPresent()){
 			Long vencido = factura.getDetalles().stream().mapToLong(this::getVencido).sum();
-			return new CuentasVencidasResponse(EstadoEnum.INFO, Constantes.getMensaje(Constantes.VALOR_VENCIDO, vencido), autorizacion.get(usuario, Constantes.ACCION_CUENTAS_VENCIDAS));
+			if(vencido!=0){
+				String mensaje = vencido > 0 ? Constantes.VALOR_VENCIDO : Constantes.SALDO_FAVOR;
+				return new CuentasVencidasResponse(EstadoEnum.INFO, Constantes.getMensaje(mensaje, vencido), autorizacion.get(usuario, Constantes.ACCION_CUENTAS_VENCIDAS));
+			}
 		}
 		return new CuentasVencidasResponse(Constantes.ACTUALIZACION_EXITO);
 	}

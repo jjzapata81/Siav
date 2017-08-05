@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,9 +28,11 @@ import co.com.siav.repositories.IRepositoryFacturas;
 import co.com.siav.repositories.IRepositoryFormatoRecaudo;
 import co.com.siav.repositories.IRepositoryPago;
 import co.com.siav.repositories.IRepositoryParametros;
+import co.com.siav.request.FiltroRequest;
 import co.com.siav.response.EstadoEnum;
 import co.com.siav.response.FacturaResponse;
 import co.com.siav.response.MensajeResponse;
+import co.com.siav.response.PagoResponse;
 import co.com.siav.utils.Constantes;
 import co.com.siav.utils.Filtro;
 
@@ -227,8 +230,18 @@ public class PagosBean {
 		}
 	}
 
-	public List<Pago> consultar() {
-		return pagosRep.findAll();
+	public List<PagoResponse> consultar(FiltroRequest request) {
+		if(request.getFechaDesde() == null)
+			request.setFechaDesde(new Date());
+		if(request.getFechaHasta() == null)
+			request.setFechaHasta(new Date());
+		List<Pago> pagos = pagosRep.findByFechaBetween(request.getFechaDesde(), request.getFechaHasta());
+		if(pagos.isEmpty()){
+			throw new ExcepcionNegocio(Constantes.ERR_CONSULTA);
+		}
+		List<PagoResponse> response = new ArrayList<PagoResponse>();
+		pagos.stream().collect(Collectors.groupingBy(Pago::getFecha)).forEach((key, value) -> response.add(new PagoResponse(key, value)));
+		return response;
 	}
 
 }

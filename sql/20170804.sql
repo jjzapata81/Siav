@@ -1,0 +1,1 @@
+﻿ALTER TABLE ta_usuarios ADD snenvioemail character varying (1) NOT NULL DEFAULT 'N';

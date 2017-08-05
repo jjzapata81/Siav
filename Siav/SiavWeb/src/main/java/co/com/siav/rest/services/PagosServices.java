@@ -3,12 +3,13 @@ package co.com.siav.rest.services;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URISyntaxException;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -19,8 +20,10 @@ import javax.ws.rs.core.MediaType;
 
 import co.com.siav.bean.PagosBean;
 import co.com.siav.entities.Pago;
+import co.com.siav.request.FiltroRequest;
 import co.com.siav.response.FacturaResponse;
 import co.com.siav.response.MensajeResponse;
+import co.com.siav.response.PagoResponse;
 
 @RequestScoped
 @Path("pagos")
@@ -37,11 +40,11 @@ public class PagosServices {
 		return bean.guardar(request, usuario);
 	}
 	
-	@GET
+	@POST
 	@Path("/consultar")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Pago> consultar(){
-		return bean.consultar();
+	public List<PagoResponse> consultar(FiltroRequest request){
+		return bean.consultar(request);
 	}
 	
 	

@@ -12,8 +12,8 @@ define(['siav-module', 'constantes'], function (app) {
     			 abonoMatricula : abonoMatricula
     	 };
     	 
-    	 function consultar(){
-    		 var request = $http.get(CONSTANTES.SRV.PAGO_CONSULTAR, { isArray : true});
+    	 function consultar(filtro){
+    		 var request = $http.post(CONSTANTES.SRV.PAGO_CONSULTAR, filtro, { isArray : true});
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));

@@ -18,28 +18,28 @@ import co.com.siav.response.RamalResponse;
 
 
 @RequestScoped
-@Path("ramal/")
+@Path("/ramal")
 public class RamalServices {
 	
 	@Inject
 	private RamalBean bean;
 	
 	@GET
-	@Path("consultar/todo")
+	@Path("/consultar/todo")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Ramal> consultar(){
 		return bean.consultar();
 	}
 	
 	@GET
-	@Path("consultar")
+	@Path("/consultar")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<RamalResponse> consultarCompleto(){
 		return bean.consultarTodo();
 	}
 	
 	@POST
-	@Path("guardar/nuevo")
+	@Path("/guardar/nuevo")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public MensajeResponse crear(Ramal request){
@@ -47,7 +47,7 @@ public class RamalServices {
 	}
 	
 	@POST
-	@Path("guardar/editar")
+	@Path("/guardar/editar")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public MensajeResponse actualizar(Ramal request){

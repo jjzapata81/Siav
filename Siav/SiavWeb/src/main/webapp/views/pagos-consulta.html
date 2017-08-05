@@ -2,13 +2,34 @@
 <menu></menu>
 
 <div  class="contenido">
+	<div  class="boton-fijo">
+		<a ng-click="onBuscar()" uib-tooltip="Buscar"  ng-show="!hayResultado" tooltip-placement="left"><i class="fa fa-search icon-float icon-search" aria-hidden="true"></i></a>
+		<a ng-click="onCancelar()" uib-tooltip="Cancelar" tooltip-placement="left"  ng-show="hayResultado"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
+	</div>
 	<section class="titulo-seccion">
 		Pagos
 	</section>
-	<div class="tabla-siav">
-		<table class="table table-responsive">
+	<section class="formulario form-fijo" ng-show="!hayResultado">
+		<section class="sub-titulo">Buscar pago</section>
+		<ul class="flex">
+			<li>
+				<label>Fecha desde:</label><br>
+				<input type="date" ng-model="filtro.fechaDesde"/>
+			</li>
+			<li>
+				<label>Fecha hasta:</label><br>
+				<input type="date" ng-model="filtro.fechaHasta"/>
+			</li>
+		</ul>
+	</section>
+	<div>
+		<ul class="flex">
+			<li ng-repeat="item in resultado | orderBy : '-fecha'">
+				<a ng-click="onSeleccionar(item)" class="a-grupo">{{item.fecha | date : 'yyyy-MM-dd'}}</a>
+			</li>
+		</ul>
+		<table class="table table-responsive" ng-if="lista">
 			<thead>
-				<th>Fecha</th>
 				<th>N&uacute;mero</th>
 				<th>Valor</th>
 				<th>Cuenta</th>
@@ -16,8 +37,7 @@
 				<th>Error</th>
 			</thead>
 			<tbody>
-				<tr ng-repeat="pago in pagos | orderBy: '-fecha' | startFrom:(currentPage-1)*itemsPerPage | limitTo:itemsPerPage">
-					<td>{{pago.fecha | date : 'yyyy-MM-dd'}}</td>
+				<tr ng-repeat="pago in lista | orderBy : 'numeroFactura'">
 					<td>{{pago.numeroFactura}}</td>
 					<td>{{pago.valor | currency:"$":0}}</td>
 					<td><a uib-tooltip="{{pago.cuenta.numeroCuenta}}">{{pago.cuenta.nombre}}</a></td>
@@ -26,6 +46,5 @@
 				</tr>
 			</tbody>
 		</table>
-		<uib-pagination total-items="pagos.length" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
 	</div>
 </div>
