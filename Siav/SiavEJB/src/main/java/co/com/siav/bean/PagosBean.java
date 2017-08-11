@@ -88,6 +88,7 @@ public class PagosBean {
 	public MensajeResponse guardar(Pago pago, String usuario) {
 		manager.run(CONSIGNACION_FAX);
 		pago.setRutaPago(DIGITADO);
+		pago.setValor(pago.getValor() == null ? 0L : pago.getValor());
 		pago.setUsuario(usuario);
 		Ciclo cicloAnterior = ciclosRep.findFirstByEstadoOrderByCicloDesc(Constantes.CERRADO);
 		numeroCiclo = cicloAnterior.getCiclo();
@@ -173,12 +174,16 @@ public class PagosBean {
 			String[] atributos = linea.split(formatoRecaudo.getSeparador());
 			Pago pago = new Pago();
 			pago.setFecha(setFecha(atributos[formatoRecaudo.getFecha()].trim(), formatoRecaudo.getFormatoFecha()));
-			pago.setValor(atributos[formatoRecaudo.getValor()].trim());
+			pago.setValor(getValor(atributos));
 			pago.setNumeroFactura(getValorAuxiliar(atributos[formatoRecaudo.getReferencia()], formatoRecaudo.getSeparadorAux(), formatoRecaudo.getPosicionAux()));
 			return pago;
 		}catch(Exception e){
 			throw new ExcepcionNegocio(Constantes.ERR_ESTRUCTURA_ARCHIVO);
 		}
+	}
+
+	private Long getValor(String[] atributos) {
+		return Long.valueOf(atributos[formatoRecaudo.getValor()].trim());
 	}
 	
 	public Date setFecha(String fecha, String formato) {

@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 
@@ -116,6 +117,12 @@ public class Usuario implements Serializable{
 	
 	public void setEnvioMail(Boolean envioMail) {
 		this.envioMail = envioMail ? "S" : "N";
+	}
+	
+	@PrePersist
+	private void onPrePersist(){
+		if (envioMail == null)
+			envioMail = "N";
 	}
 		
 }

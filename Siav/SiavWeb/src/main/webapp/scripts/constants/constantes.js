@@ -9,7 +9,7 @@ define(['siav-module'], function(app) {
     		"BANCO_CREAR" : "rest/bancos/crear",
     		"BANCO_EDITAR" : "rest/bancos/editar",
     		"BANCO_CONSULTAR" : "rest/bancos/consultar",
-    		"BANCO_CONSULTAR" : "rest/bancos/consultar/cuentas",
+    		"BANCO_CONSULTAR_CUENTAS" : "rest/bancos/consultar/cuentas",
     		
     		"CAUSA_NO_LECTURA_CREAR" : "rest/nolectura/crear",
     		"CAUSA_NO_LECTURA_ACTIVAR" : "rest/nolectura/activar",
@@ -254,6 +254,7 @@ define(['siav-module'], function(app) {
     	"USUARIO" : {
     		"ERR_CEDULA_OBLIGATORIO" : "Debe digitar una cédula o un nombre para continuar la consulta.",
     		"ERR_OBLIGATORIO" : "Existen campos obligatorios sin diligenciar.",
+    		"ERR_MAIL_OBLIGATORIO" : "Para suscribirse al envío de factura por correo electrónico debe ingresar un email válido.",
     		"ERR_USUARIO_NO_EXISTE" : "No existen usuarios con los criterios de búsqueda ingresados."
     	},
     	"VALOR" : {

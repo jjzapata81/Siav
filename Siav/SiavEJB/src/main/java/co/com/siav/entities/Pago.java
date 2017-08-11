@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -74,8 +75,8 @@ public class Pago implements Serializable{
 		return valor;
 	}
 
-	public void setValor(String valor) {
-		this.valor = Long.valueOf(valor);
+	public void setValor(Long valor) {
+		this.valor = valor;
 	}
 
 	public Long getNumeroFactura() {
@@ -85,14 +86,15 @@ public class Pago implements Serializable{
 	public void setNumeroFactura(String numeroFactura) {
 		this.numeroFactura = Long.valueOf(numeroFactura);
 	}
-
-	public boolean isError() {
+	
+	public Boolean getError() {
 		return "S".equals(error);
 	}
-
-	public void setError(boolean error) {
+	
+	public void setError(Boolean error) {
 		this.error = error ? "S" : "N";
 	}
+
 	
 	public boolean getEsCredito() {
 		return "S".equals(esCredito);
@@ -146,7 +148,14 @@ public class Pago implements Serializable{
 		this.cuenta = cuenta;
 	}
 	
-	
+	@PrePersist
+	private void onPrePersist(){
+		if (error == null)
+			error = "N";
+		if(esCredito == null){
+			esCredito = "N";
+		}
+	}
 
 	
 }

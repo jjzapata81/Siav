@@ -2,6 +2,7 @@ package co.com.siav.rest.request;
 
 public class AbonoRequest {
 	
+	private String usuario;
 	private Long numeroInstalacion;
 	private Long numeroCredito;
 	private Long valor;
@@ -46,6 +47,14 @@ public class AbonoRequest {
 	
 	public void setEsMatricula(String esMatricula) {
 		this.esMatricula = esMatricula;
+	}
+	
+	public String getUsuario() {
+		return usuario;
+	}
+	
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
 	}
 	
 }

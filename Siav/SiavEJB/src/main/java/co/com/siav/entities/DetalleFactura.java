@@ -194,6 +194,8 @@ public class DetalleFactura implements Serializable{
 	@PrePersist
 	private void onPrePersist(){
 		cartera = 0L;
+		valor = valor == null ? 0L : valor;
+		saldo = saldo == null ? 0L : saldo;
 		acumulado = Constantes.NO;
 		cancelado = Constantes.NO;
 	}

@@ -27,24 +27,14 @@ define(['siav-module', 'constantes'], function (app) {
     	 }
     	 
     	 function abonar(abono){
-    		 var config = {
-    				 headers: {
-    					 'siav_usuario': getData("user")
-						}
-    		 };
-    		 var request = $http.post(CONSTANTES.SRV.PAGO_ABONAR, abono, config, {responseType: 'arraybuffer'});
+    		 var request = $http.post(CONSTANTES.SRV.PAGO_ABONAR, abono, {responseType: 'arraybuffer'});
     		 return(request.then(function(response){
     			 return response.data;
     		 }));
     	 }
     	 
     	 function abonoMatricula(matricula){
-    		 var config = {
-    				 headers: {
-    					 'siav_usuario': getData("user")
-						}
-    		 };
-    		 var request = $http.post(CONSTANTES.SRV.PAGO_ABONO_MATRICULA, matricula, config, {responseType: 'arraybuffer'});
+    		 var request = $http.post(CONSTANTES.SRV.PAGO_ABONO_MATRICULA, matricula, {responseType: 'arraybuffer'});
     		 return(request.then(function(response){
     			 return response.data;
     		 }));

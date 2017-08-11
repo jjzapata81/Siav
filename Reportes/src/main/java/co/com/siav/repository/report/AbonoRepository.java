@@ -27,20 +27,20 @@ public class AbonoRepository {
 	private String resolucion;
 	private static final String SIN_INFO = "SIN INFO"; 
 
-	public byte[] getPDF(String usuario, AbonoRequest request) {
+	public byte[] getPDF(AbonoRequest request) {
 		getValoresGenerales();
-		Comprobante comprobante = generarComprobante(usuario, request);
+		Comprobante comprobante = generarComprobante(request);
 		return new GeneradorPDF(getData(comprobante), Constantes.ABONO_JRXML).getStream();
 	}
 	
-	public byte[] getMatriculaPDF(String usuario, MatriculaRequest request) {
+	public byte[] getMatriculaPDF(MatriculaRequest request) {
 		getValoresGenerales();
 		if(request.isNuevo()){
 			guardarUsuario(request);
 		}
 		request.setEsMatricula("S");
-		Comprobante comprobante = generarComprobante(usuario, request);
-		return new GeneradorPDF(getAbonoMatricula(request, comprobante), "siavAbono.jrxml").getStream();
+		Comprobante comprobante = generarComprobante(request);
+		return new GeneradorPDF(getAbonoMatricula(request, comprobante), Constantes.MATRICULA_JRXML).getStream();
 	}
 
 	private List<AbonoPDF> getAbonoMatricula(MatriculaRequest request,Comprobante comprobante) {
@@ -66,14 +66,14 @@ public class AbonoRepository {
 		return Arrays.asList(abono);
 	}
 
-	private Comprobante generarComprobante(String usuario, AbonoRequest request) {
+	private Comprobante generarComprobante(AbonoRequest request) {
 		Comprobante comprobante = new Comprobante();
 		comprobante.setComprobante(getComprobante());
 		comprobante.setInstalacion(request.getNumeroInstalacion());
 		comprobante.setCedula(request.getCedula());
 		comprobante.setValor(request.getValor());
 		comprobante.setFecha(new Date());
-		comprobante.setUsuario(usuario);
+		comprobante.setUsuario(request.getUsuario());
 		comprobante.setCredito(request.getNumeroCredito());
 		comprobante.setEsMatricula(request.getEsMatricula());
 		guardarBD(comprobante);

@@ -27,7 +27,7 @@ define(['siav-module', 'instalaciones-services', 'usuarios-services', 'veredas-s
     	}
     	
     	$scope.onBuscarPropietario = function(){
-    		if($scope.validar()){
+    		if($scope.validarBuscar()){
     			if($scope.buscarCedula){
     				$scope.bucarPorCedula();
     			}else{
@@ -73,7 +73,7 @@ define(['siav-module', 'instalaciones-services', 'usuarios-services', 'veredas-s
     		});
     	}
     	
-    	$scope.validar = function(){
+    	$scope.validarBuscar = function(){
     		if($scope.buscarCedula || $scope.filtro.nombres || $scope.filtro.apellidos){
     			return true;
     		}
@@ -107,8 +107,6 @@ define(['siav-module', 'instalaciones-services', 'usuarios-services', 'veredas-s
         			modalFactory.abrirDialogo(respuesta);
         			$scope.init();
         		});
-    		}else{
-    			modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.USUARIO.ERR_OBLIGATORIO);
     		}
     	}
     	
@@ -126,7 +124,15 @@ define(['siav-module', 'instalaciones-services', 'usuarios-services', 'veredas-s
     	}
     	
     	$scope.usuarioValido = function(){
-    		return $scope.usuario.cedula && $scope.usuario.nombres && $scope.usuario.apellidos;
+    		if(!$scope.usuario.cedula || !$scope.usuario.nombres || !$scope.usuario.apellidos){
+       			modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.USUARIO.ERR_OBLIGATORIO);
+    			return false;
+    		}
+    		if($scope.usuario.envioMail && !$scope.usuario.email){
+    			modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.USUARIO.ERR_MAIL_OBLIGATORIO);
+    			return false;
+    		}
+    		return true;
     	}
     	
     	$scope.onCancelar = function(){

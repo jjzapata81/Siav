@@ -428,7 +428,7 @@ public class QueryHelper {
 	public static String saveUsuario(MatriculaRequest filter) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("INSERT INTO ta_usuarios ");
-		sb.append("(cedula, nombres, apellidos, telefono, celular, direccion, ciudad, email) ");
+		sb.append("(cedula, nombres, apellidos, telefono, celular, direccion, ciudad, email, snenvioemail) ");
 		sb.append("VALUES ('");
 		sb.append(filter.getCedula());
 		sb.append("', '");
@@ -445,7 +445,7 @@ public class QueryHelper {
 		sb.append(filter.getCiudad());
 		sb.append("', '");
 		sb.append(filter.getEmail());
-		sb.append("')");
+		sb.append("', 'N')");
 		return sb.toString();
 	}
 	

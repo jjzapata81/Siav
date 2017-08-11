@@ -16,6 +16,8 @@ define(['siav-module', 'pagos-services', 'usuarios-services', 'modal-factory', '
     	$scope.onGuardar = function(){
     		if($scope.validar()){
     			delete($scope.matricula.nombreCompleto);
+    			delete($scope.matricula.envioMail);
+    			$scope.matricula.usuario = getData("user");
     			pagosServices
     			.abonoMatricula($scope.matricula)
     			.then(function(data){

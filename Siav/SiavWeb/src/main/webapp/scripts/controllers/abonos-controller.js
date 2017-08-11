@@ -39,6 +39,7 @@ define(['siav-module', 'pagos-services', 'modal-factory', 'constantes'], functio
     		if($scope.validarCampos()){
     			$scope.abono.numeroInstalacion = $scope.factura.numeroInstalacion;
     			$scope.abono.cedula = $scope.factura.cedula;
+    			$scope.abono.usuario = getData("user");
     			pagosServices
     			.abonar($scope.abono)
     			.then(function(data){

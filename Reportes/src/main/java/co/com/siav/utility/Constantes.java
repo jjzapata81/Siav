@@ -30,5 +30,6 @@ public class Constantes {
 	public static final String FACTURA_JRXML = "siav.jrxml";
 	public static final String ABONO_JRXML = "siavAbono.jrxml";
 	public static final String PREFACTURA_JRXML = "prefactura.jrxml";
+	public static final String MATRICULA_JRXML = "siavAbono.jrxml";
 
 }

@@ -39,6 +39,7 @@ define(['siav-module', 'creditos-services', 'pagos-services', 'modal-factory', '
     			$scope.abono.cedula = $scope.instalacion.cedula;
     			$scope.abono.numeroCredito = $scope.credito.id;
     			$scope.abono.valor = $scope.esTotal ? $scope.credito.valor : $scope.credito.otroValor;
+    			$scope.abono.usuario = getData("user");
     			pagosServices
     			.abonar($scope.abono)
     			.then(function(data){
