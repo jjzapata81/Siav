@@ -41,7 +41,7 @@ public class PagosManager {
 	@Inject
 	private Ordenador ordenador;
 	
-	private Long controlPago;
+	private Long valorRecaudo;
 	
 	private String codigoPuntoPago; 
 	
@@ -60,34 +60,35 @@ public class PagosManager {
 	}
 	
 	public Factura process(Factura factura, Pago pago) {
-		Long saldo = factura.getDetalles().stream().mapToLong(DetalleFactura::getSaldo).sum();
-		Long valor = factura.getDetalles().stream().mapToLong(DetalleFactura::getValor).sum();
-		Long cartera = factura.getDetalles().stream().mapToLong(DetalleFactura::getCartera).sum();
+		Long neto = factura.getDetalles().stream().mapToLong(DetalleFactura::getValor).sum()
+				+ factura.getDetalles().stream().mapToLong(DetalleFactura::getSaldo).sum()
+				- factura.getDetalles().stream().mapToLong(DetalleFactura::getCartera).sum();
 		factura.setCancelado(true);
 		factura.setCodigoCuenta(pago.getCodigoCuenta());
 		factura.setCodigoPuntoPago(codigoPuntoPago);
 		factura.setFechaConsignacion(pago.getFecha());
 		factura.setFechaPagoReal(pago.getFecha());
-		if(pago.getValor() == saldo + valor -  cartera){
+		if(pago.getValor() >= neto){
 			factura.getDetalles().stream().forEach(item -> item.setCancelado(true));
 			factura.setAbono(false);
+			saveExcedent(pago.getValor(), neto, factura);
 		}else{
 			factura.setAbono(true);
-			controlPago = pago.getValor();
+			valorRecaudo = pago.getValor();
 			ordenador.get().stream().forEachOrdered(o -> partialPay(o, factura));
-			saveExcedent(controlPago, factura);
 		}
 		pagosRep.save(pago);
 		instalacionRep.updateCuentasVencidasInstalacion(factura.getNumeroInstalacion());
 		return factura;
 	}
 	
-	private void saveExcedent(Long controlPago, Factura factura) {
-		if(controlPago > 0){
+	private void saveExcedent(Long valorRecaudo, Long neto, Factura factura) {
+		Long excedente = valorRecaudo - neto;
+		if(excedente > 0){
 			Novedad novedad = new Novedad();
 			novedad.setId(buildId(factura));
 			novedad.setBorrable(false);
-			novedad.setValor(-1 * controlPago);
+			novedad.setValor(-1 * excedente);
 			novedadRep.save(novedad);
 		}
 	}
@@ -106,13 +107,13 @@ public class PagosManager {
 
 	private void pay(DetalleFactura detalleFactura) {
 		if(!detalleFactura.getCancelado()){
-			Long nuevaCartera = detalleFactura.getValor() + detalleFactura.getSaldo() - detalleFactura.getCartera();
-			if(controlPago < nuevaCartera){
-				detalleFactura.setCartera(controlPago + detalleFactura.getCartera());
-				controlPago = 0L;
+			Long netoRegistro = detalleFactura.getValor() + detalleFactura.getSaldo() - detalleFactura.getCartera();
+			if(valorRecaudo < netoRegistro){
+				detalleFactura.setCartera(valorRecaudo + detalleFactura.getCartera());
+				valorRecaudo = 0L;
 			}else{
 				detalleFactura.setCartera(detalleFactura.getValor() + detalleFactura.getSaldo());
-				controlPago = controlPago - nuevaCartera;
+				valorRecaudo = valorRecaudo - netoRegistro;
 			}
 			detalleFactura.setCancelado(detalleFactura.getValor() + detalleFactura.getSaldo() == detalleFactura.getCartera());
 		}

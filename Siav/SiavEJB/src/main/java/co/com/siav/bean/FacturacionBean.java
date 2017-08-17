@@ -106,11 +106,13 @@ public class FacturacionBean {
 		try{
 			Factura factura = new Factura();
 			Factura facturaAnterior = facturasRep.findByFacturaCuentasVencidas(consumo.getInstalacion().getNumeroInstalacion(), cicloAnterior);
+			verificarNegativo(facturaAnterior);
 			factura.setCedula(consumo.getInstalacion().getUsuario().getCedula());
 			factura.setCiclo(cicloActual);
 			factura.setCuentasVencidas(facturaAnterior == null ? 0L : facturaAnterior.getCancelado() ? 0L : facturaAnterior.getCuentasVencidas() + 1L);
 			factura.setDireccion(consumo.getInstalacion().getDireccion());
 			factura.setCancelado(false);
+			factura.setAbono(false);
 			factura.setNombres(consumo.getInstalacion().getUsuario().getNombreCompleto());
 			factura.setEstrato(consumo.getInstalacion().getEstrato());
 			factura.setSerieMedidor(consumo.getInstalacion().getSerieMedidor());
@@ -121,7 +123,6 @@ public class FacturacionBean {
 			factura.setFechaDesde(consumo.getFechaDesde());
 			factura.setFechaHasta(consumo.getFechaHasta());
 			factura.setAjustado(consumo.getAjustado());
-			factura.setAbono(false);
 			factura.setLecturaAnterior(consumo.getLecturaAnterior());
 			factura.setLecturaActual(consumo.getLecturaActual());
 			factura.setConsumo(consumo.getConsumoDefinitivo());
@@ -145,6 +146,21 @@ public class FacturacionBean {
 			throw new ExcepcionNegocio(Constantes.getMensaje(Constantes.ERR_APLIQUE_FACTURA, consumo.getInstalacion().getNumeroInstalacion()) + e.getMessage());
 		}
 			
+	}
+
+	private void verificarNegativo(Factura facturaAnterior) {
+		if(facturaAnterior != null){
+			Long totalFactura = facturaAnterior.getDetalles().stream().mapToLong(item -> totalizar(item)).sum();
+			if(totalFactura < 0){
+				facturaAnterior.setCancelado(true);
+				facturasRep.save(facturaAnterior);
+			}
+			
+		}
+	}
+	
+	private Long totalizar(DetalleFactura detalle){
+		return detalle.getValor() + detalle.getSaldo() - detalle.getCartera();
 	}
 
 	private DetalleFactura crearRecargoCV(Long numeroFactura, Long ciclo, Long numeroInstalacion) {

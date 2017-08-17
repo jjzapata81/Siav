@@ -33,8 +33,8 @@ public class Ordenador {
 
 	public void prepare() {
 		orden = new ArrayList<OrdenPago>();
-		tarifasRep.findAllByOrden().stream().forEachOrdered(item -> add(item));
-		excesosRep.findAllByOrden().stream().forEachOrdered(item -> add(item));
+		tarifasRep.findByOrdenGreaterThan(0L).stream().forEachOrdered(this::add);
+		excesosRep.findAllByOrden().stream().forEachOrdered(this::add);
 	}
 
 }

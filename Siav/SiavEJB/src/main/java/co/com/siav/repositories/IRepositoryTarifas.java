@@ -20,4 +20,6 @@ public interface IRepositoryTarifas extends JpaRepository<Tarifa, String>{
 
 	List<Tarifa> findByEsCredito(String esCredito);
 
+	List<Tarifa> findByOrdenGreaterThan(Long orden);
+
 }
