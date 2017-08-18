@@ -38,7 +38,7 @@ public class Pqr implements Serializable{
 	private Long numeroInstalacion;
 	
 	@OneToOne
-	@JoinColumn(name="nminstalacion", updatable=true, insertable=true)
+	@JoinColumn(name="nminstalacion", updatable=false, insertable=false)
 	private Instalacion instalacion;
 	
 	private Date fechaInicio;
