@@ -1,0 +1,63 @@
+<titulo/>
+<menu></menu>
+
+<div  class="contenido">
+ 	<div  class="boton-fijo">
+		<a ng-click="onAgregar()" uib-tooltip="Agregar" tooltip-placement="left" ng-show="!esNuevo"><i class="fa fa-plus icon-float icon-add" aria-hidden="true"></i></a>
+		<a ng-click="onCrear()" uib-tooltip="Guardar" tooltip-placement="left" ng-show="esNuevo"><i class="fa fa-floppy-o icon-float icon-save" aria-hidden="true"></i></a>
+		<a ng-click="onCancelar()" uib-tooltip="Cancelar" tooltip-placement="left" ng-show="esNuevo"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
+	</div>
+	<section class="titulo-seccion">
+		Atenci&oacute;n al cliente
+	</section>
+	<section class="formulario form-fijo">
+		<div ng-show="!esNuevo">
+			<ul class="flex">
+				<li>
+					<label>Estado:</label><br>
+					<select ng-model="estadoFiltro"
+				    	ng-options="estado as estado.valor for estado in estados track by estado.codigo">
+      				</select>
+				</li>
+			</ul>
+		</div>
+		<div ng-show="esNuevo">
+			<ul class="flex">
+				<li>
+					<label>Instalaci&oacute;n</label>
+					<input type="number" ng-model="pqrNuevo.instalacion.numeroInstalacion">
+				</li>
+				<li>
+					<label>Descripci&oacute;n</label>
+					<input type="text" ng-model="pqrNuevo.descripcion">
+				</li>
+			</ul>
+		</div>
+	</section>
+	<div class="tabla-siav" ng-show="!esNuevo">
+		<table class="table table-responsive">
+			<thead>
+				<th>C&oacute;digo</th>
+				<th>Instalaci&oacute;n</th>
+				<th>Fecha inicio</th>
+				<th>Fecha fin</th>
+				<th>Estado</th>
+				<th>Descripci&oacute;n</th>
+				<th>Usuario</th>
+			</thead>
+			<tbody>
+				<tr ng-repeat="pqr in pqrs | orderBy:'id' | startFrom:(currentPage-1)*itemsPerPage | limitTo:itemsPerPage">
+					<td>{{pqr.id}}</td>
+					<td>{{pqr.instalacion.numeroInstalacion}}</td>
+					<td>{{pqr.fechaInicio}}</td>
+					<td>{{pqr.fechaFin}}</td>
+					<td>{{pqr.estado}}</td>
+					<td>{{pqr.descripcion}}</td>
+					<td>{{pqr.usuario.nombreCompleto}}</td>
+				</tr>
+			</tbody>
+		</table>
+		<uib-pagination total-items="tarifas.length" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
+	</div>
+	
+</div>

@@ -15,6 +15,8 @@ public class UsuarioSistemaResponse {
 	
 	private String activo;
 	
+	private String email;
+	
 	private PerfilResponse perfil;
 
 	public String getId() {
@@ -75,6 +77,14 @@ public class UsuarioSistemaResponse {
 	
 	public void setPerfil(PerfilResponse perfil) {
 		this.perfil = perfil;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+	
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 }

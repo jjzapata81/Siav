@@ -20,6 +20,7 @@ import co.com.siav.response.InstalacionInfo;
 import co.com.siav.response.MensajeResponse;
 import co.com.siav.response.UsuarioInfo;
 import co.com.siav.utils.Constantes;
+import co.com.siav.utils.Utilidades;
 
 @Stateless
 public class UsuariosBean {
@@ -49,6 +50,9 @@ public class UsuariosBean {
 
 	public MensajeResponse guardar(Usuario request) {
 		try{
+			if(Utilidades.emailNoValido(request.getEmail())){
+				return new MensajeResponse(EstadoEnum.ERROR, Constantes.EMAIL_NO_VALIDO);
+			}
 			if(null != usuariosRep.findOne(request.getCedula())){
 				return new MensajeResponse(EstadoEnum.ERROR, Constantes.getMensaje(Constantes.USUARIO_EXISTE, request.getCedula()));
 			}
@@ -61,6 +65,9 @@ public class UsuariosBean {
 
 	public MensajeResponse actualizar(Usuario request) {
 		try{
+			if(Utilidades.emailNoValido(request.getEmail())){
+				return new MensajeResponse(EstadoEnum.ERROR, Constantes.EMAIL_NO_VALIDO);
+			}
 			Usuario usuario = usuariosRep.findOne(request.getCedula());
 			usuario.setCedula(request.getCedula());
 			usuario.setNombres(request.getNombres());

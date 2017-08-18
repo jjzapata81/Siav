@@ -6,6 +6,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public final class Utilidades {
@@ -75,6 +77,14 @@ public final class Utilidades {
 		c.set(Calendar.SECOND, 0);
 		c.set(Calendar.MILLISECOND, 0);
 		return c.getTime();
+	}
+
+	public static boolean emailNoValido(String email) {
+		if(email == null || email.trim().isEmpty())
+			return false;
+		Pattern pattern = Pattern.compile(Constantes.PATTERN_EMAIL);
+        Matcher matcher = pattern.matcher(email);
+        return !matcher.matches();	
 	}
 }
 

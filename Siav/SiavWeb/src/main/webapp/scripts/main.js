@@ -52,6 +52,7 @@ require.config({
     	"inconsistencias-services" : "services/inconsistencias-services",
     	"ruta-services" : "services/ruta-services",
     	"macros-services" : "services/macros-services",
+    	"pqr-services" : "services/pqr-services",
     	// constantes
     	'constantes' :  'constants/constantes',
     	//Interceptor
@@ -111,6 +112,7 @@ require.config({
     	'nota-credito-controller' : 'controllers/nota-credito-controller',
     	'pagos-consulta-controller' : 'controllers/pagos-consulta-controller',
     	'inconsistencias-consulta-controller' : 'controllers/inconsistencias-consulta-controller',
+    	'pqr-controller' : 'controllers/pqr-controller',
     	
     	//Reportes
     	

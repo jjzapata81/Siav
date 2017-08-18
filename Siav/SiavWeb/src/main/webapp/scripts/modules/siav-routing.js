@@ -86,6 +86,10 @@ define(['angularAMD', 'angular-route'], function (angularAMD) {
 	            templateUrl: 'views/inconsistencias-consulta.html', 
 	            controller: 'inconsistencias-consulta-controller'
 	        }))
+	        .when("/pqr", angularAMD.route({
+	            templateUrl: 'views/pqr.html', 
+	            controller: 'pqr-controller'
+	        }))
 	        .when("/materiales", angularAMD.route({
 	            templateUrl: 'views/materiales.html', 
 	            controller: 'materiales-controller'

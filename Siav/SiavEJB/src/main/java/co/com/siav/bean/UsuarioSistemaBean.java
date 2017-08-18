@@ -18,6 +18,7 @@ import co.com.siav.response.MensajeResponse;
 import co.com.siav.response.PerfilResponse;
 import co.com.siav.response.UsuarioSistemaResponse;
 import co.com.siav.utils.Constantes;
+import co.com.siav.utils.Utilidades;
 
 @Stateless
 public class UsuarioSistemaBean {
@@ -29,6 +30,9 @@ public class UsuarioSistemaBean {
 	private IRepositoryPerfiles perfilesRep;
 
 	public MensajeResponse crear(UsuarioSistema usuario) {
+		if(Utilidades.emailNoValido(usuario.getEmail())){
+			return new MensajeResponse(EstadoEnum.ERROR, Constantes.EMAIL_NO_VALIDO);
+		}
 		UsuarioSistema usuarioBD = usuarioRep.findOne(usuario.getId());
 		if(null == usuarioBD){
 			usuarioBD = new UsuarioSistema();
@@ -38,6 +42,47 @@ public class UsuarioSistemaBean {
 		usuarioBD.setPerfil(usuario.getPerfil());
 		usuarioRep.save(usuarioBD);
 		return new MensajeResponse(Constantes.ACTUALIZACION_EXITO);
+	}
+	
+	public MensajeResponse actualizar(UsuarioSistema usuario) {
+		if(Utilidades.emailNoValido(usuario.getEmail())){
+			return new MensajeResponse(EstadoEnum.ERROR, Constantes.EMAIL_NO_VALIDO);
+		}
+		UsuarioSistema usuarioBD = usuarioRep.findOne(usuario.getId());
+		if(null == usuarioBD){
+			return new MensajeResponse(EstadoEnum.ERROR, Constantes.getMensaje(Constantes.USUARIO_SISTEMA_NO_EXISTE, usuario.getId()));
+		}
+		usuarioBD.setNombres(usuario.getNombres());
+		usuarioBD.setApellidos(usuario.getApellidos());
+		usuarioBD.setPerfil(usuario.getPerfil());
+		usuarioBD.setEmail(usuario.getEmail());
+		usuarioRep.save(usuarioBD);
+		return new MensajeResponse(Constantes.ACTUALIZACION_EXITO);
+	}
+	
+	public List<UsuarioSistemaResponse> consultarUsuarios() {
+		return usuarioRep.findAll().stream().map(this::transform).collect(Collectors.toList());
+	}
+	
+	public void cambioEstado(UsuarioSistema usuario) {
+		UsuarioSistema usuarioBD = usuarioRep.findOne(usuario.getId());
+		usuarioBD.setActivo(usuario.getActivo());
+		usuarioRep.save(usuarioBD);
+		
+	}
+	
+	public MensajeResponse cambiarClave(CambioClaveRequest request) {
+		UsuarioSistema usuarioBD = usuarioRep.findByNombreUsuario(request.getUsuario());
+		if(null == usuarioBD || !usuarioBD.getPassword().equals(request.getPassword())){
+			return new MensajeResponse(EstadoEnum.ERROR, Constantes.CAMBIO_CLAVE_ERR);
+		}
+		usuarioBD.setPassword(request.getNuevoPassword());
+		usuarioRep.save(usuarioBD);
+		return new MensajeResponse(Constantes.CAMBIO_CLAVE_OK);
+	}
+
+	public List<PerfilResponse> consultarPerfiles() {
+		return perfilesRep.findAll().stream().map(this::transformPerfil).collect(Collectors.toList());
 	}
 
 	private String crearNombreUsuario(UsuarioSistema usuarioBD) {
@@ -52,27 +97,6 @@ public class UsuarioSistemaBean {
 		}
 		return nombres[0].substring(0, posicion).toLowerCase() + apellidos[0].toLowerCase();
 	}
-
-	public List<UsuarioSistemaResponse> consultarUsuarios() {
-		return usuarioRep.findAll().stream().map(this::transform).collect(Collectors.toList());
-	}
-
-	public void cambioEstado(UsuarioSistema usuario) {
-		UsuarioSistema usuarioBD = usuarioRep.findOne(usuario.getId());
-		usuarioBD.setActivo(usuario.getActivo());
-		usuarioRep.save(usuarioBD);
-		
-	}
-
-	public MensajeResponse cambiarClave(CambioClaveRequest request) {
-		UsuarioSistema usuarioBD = usuarioRep.findByNombreUsuario(request.getUsuario());
-		if(null == usuarioBD || !usuarioBD.getPassword().equals(request.getPassword())){
-			return new MensajeResponse(EstadoEnum.ERROR, Constantes.CAMBIO_CLAVE_ERR);
-		}
-		usuarioBD.setPassword(request.getNuevoPassword());
-		usuarioRep.save(usuarioBD);
-		return new MensajeResponse(Constantes.CAMBIO_CLAVE_OK);
-	}
 	
 	private UsuarioSistemaResponse transform(UsuarioSistema usuarioBD){
 		UsuarioSistemaResponse response = new UsuarioSistemaResponse();
@@ -81,12 +105,9 @@ public class UsuarioSistemaBean {
 		response.setApellidos(usuarioBD.getApellidos());
 		response.setNombres(usuarioBD.getNombres());
 		response.setNombreUsuario(usuarioBD.getNombreUsuario());
+		response.setEmail(usuarioBD.getEmail());
 		response.setPerfil(transformPerfil(usuarioBD.getPerfil()));
 		return response;
-	}
-
-	public List<PerfilResponse> consultarPerfiles() {
-		return perfilesRep.findAll().stream().map(this::transformPerfil).collect(Collectors.toList());
 	}
 	
 	private PerfilResponse transformPerfil(Perfil perfilBD){
@@ -94,19 +115,6 @@ public class UsuarioSistemaBean {
 		response.setCodigoPerfil(perfilBD.getCodigoPerfil());
 		response.setNombrePerfil(perfilBD.getNombrePerfil());
 		return response;
-		
-	}
-
-	public MensajeResponse actualizar(UsuarioSistema usuario) {
-		UsuarioSistema usuarioBD = usuarioRep.findOne(usuario.getId());
-		if(null == usuarioBD){
-			return new MensajeResponse(EstadoEnum.ERROR, Constantes.getMensaje(Constantes.USUARIO_SISTEMA_NO_EXISTE, usuario.getId()));
-		}
-		usuarioBD.setNombres(usuario.getNombres());
-		usuarioBD.setApellidos(usuario.getApellidos());
-		usuarioBD.setPerfil(usuario.getPerfil());
-		usuarioRep.save(usuarioBD);
-		return new MensajeResponse(Constantes.ACTUALIZACION_EXITO);
 	}
 
 }

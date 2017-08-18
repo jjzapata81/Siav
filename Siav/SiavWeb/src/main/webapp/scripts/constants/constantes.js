@@ -71,6 +71,9 @@ define(['siav-module'], function(app) {
     		"PAGO_ABONAR" : "/Reportes/rest/general/abono/pdf",
     		"PAGO_ABONO_MATRICULA" : "/Reportes/rest/general/abono/matricula/pdf",
     		
+    		"PQR_CONSULTAR" : "rest/pqr/consultar",
+    		"PQR_CREAR" : "rest/pqr/crear",
+    		
     		"RAMAL_CONSULTAR_TODO" : "rest/ramal/consultar/todo",
     		"RAMAL_CONSULTAR" : "rest/ramal/consultar",
     		"RAMAL_GUARDAR" : "rest/ramal/guardar/",
