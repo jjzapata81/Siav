@@ -34,6 +34,9 @@ public class Pqr implements Serializable{
 	@Column(name="nmpqr")
 	private Long id;
 	
+	@Column(name="nminstalacion")
+	private Long numeroInstalacion;
+	
 	@OneToOne
 	@JoinColumn(name="nminstalacion", updatable=true, insertable=true)
 	private Instalacion instalacion;
@@ -45,6 +48,9 @@ public class Pqr implements Serializable{
 	private Long estado;
 	
 	private String descripcion;
+	
+	@Column(name="usuario")
+	private String nombreUsuario;
 	
 	@OneToOne
 	@JoinColumn(name="usuario",referencedColumnName="nombreusuario", updatable=false, insertable=false)
@@ -58,6 +64,14 @@ public class Pqr implements Serializable{
 	}
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public Long getNumeroInstalacion() {
+		return numeroInstalacion;
+	}
+	
+	public void setNumeroInstalacion(Long numeroInstalacion) {
+		this.numeroInstalacion = numeroInstalacion;
 	}
 	
 	public Instalacion getInstalacion() {
@@ -96,6 +110,15 @@ public class Pqr implements Serializable{
 	public void setUsuario(UsuarioSistema usuario) {
 		this.usuario = usuario;
 	}
+	
+	public String getNombreUsuario() {
+		return nombreUsuario;
+	}
+	
+	public void setNombreUsuario(String nombreUsuario) {
+		this.nombreUsuario = nombreUsuario;
+	}
+	
 	public List<PqrDetalle> getDetalles() {
 		if(null == detalles){
 			detalles = new ArrayList<PqrDetalle>();

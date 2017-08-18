@@ -21,12 +21,12 @@ public class PqrBean {
 	@Inject
 	private IRepositoryPqr pqrRep;
 	
-
-	@Inject
-	private IRepositoryInstalaciones instalacionesRep;
-	
-	@Inject
-	private IRepositoryUsuarioSistema usuarioSistemaRep;
+//
+//	@Inject
+//	private IRepositoryInstalaciones instalacionesRep;
+//	
+//	@Inject
+//	private IRepositoryUsuarioSistema usuarioSistemaRep;
 
 	public List<Pqr> consultarTodo(){
 		return pqrRep.findAll();
@@ -34,10 +34,10 @@ public class PqrBean {
 
 	public MensajeResponse crear(Pqr request) {
 		try{
-			UsuarioSistema usuario = usuarioSistemaRep.findByNombreUsuario(request.getUsuario().getNombreUsuario());
-			Instalacion instalacion = instalacionesRep.findOne(request.getInstalacion().getNumeroInstalacion());
-			request.setInstalacion(instalacion);
-			request.setUsuario(usuario);
+//			UsuarioSistema usuario = usuarioSistemaRep.findByNombreUsuario(request.getUsuario().getNombreUsuario());
+//			Instalacion instalacion = instalacionesRep.findOne(request.getInstalacion().getNumeroInstalacion());
+//			request.setInstalacion(instalacion);
+//			request.setUsuario(usuario);
 			pqrRep.save(request);
 			return new MensajeResponse(Constantes.ACTUALIZACION_EXITO);
 		}catch(Exception e){

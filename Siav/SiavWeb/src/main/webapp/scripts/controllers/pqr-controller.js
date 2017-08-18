@@ -39,7 +39,7 @@ define(['siav-module', 'pqr-services', 'instalaciones-services', 'modal-factory'
     	}
     	
     	$scope.onCrear = function(){
-    		$scope.pqrNuevo.usuario.nombreUsuario = getData("user");
+    		$scope.pqrNuevo.nombreUsuario = getData("user");
     		pqrServices
     		.crear($scope.pqrNuevo)
     		.then(function(response){
