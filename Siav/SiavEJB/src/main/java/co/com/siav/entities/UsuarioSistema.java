@@ -39,6 +39,9 @@ public class UsuarioSistema implements Serializable{
 	@Column(name="snactivo")
 	private String activo;
 	
+	@Column(name="email")
+	private String email;
+	
 	@JoinColumn(name="nmperfil",referencedColumnName="nmperfil", updatable=true, insertable=true)
 	@OneToOne
 	private Perfil perfil;
@@ -97,6 +100,14 @@ public class UsuarioSistema implements Serializable{
 	
 	public void setPerfil(Perfil perfil) {
 		this.perfil = perfil;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+	
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 	@PrePersist

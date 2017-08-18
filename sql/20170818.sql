@@ -1,0 +1,1 @@
+﻿ALTER TABLE ta_usuario_sistema ADD email character varying(50);

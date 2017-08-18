@@ -108,6 +108,8 @@ public final class Constantes {
 	public static final String ACCION_CUENTAS_VENCIDAS = "ACCION_CUENTAS_VENCIDAS";
 	public static final String ERR_ELIMINAR_CREDITO = "No se puede eliminar créditos con cuotas generadas ni refinanciados.";
 	public static final String ERR_CONSULTA = "No existen resultados con los criterios de búsqueda seleccionados.";
+	public static final String ERR_NO_HAY_TARIFA = "No se han asignado las tarifas de consumos.";
+	public static final String PATTERN_EMAIL = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 	
 	public static String getMensaje(String mensaje, Long codigo) {
 		return getMensaje(mensaje, String.valueOf(codigo));

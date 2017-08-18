@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import co.com.siav.exception.ExcepcionTecnica;
+import co.com.siav.utils.Constantes;
 
 public class FacturadorRango extends FacturadorBase implements IFacturador{
 
 	@Override
 	public List<Concepto> generar(Long consumoPeriodo, String estrato) {
 		if(null == basico || null == complementario || null == suntuario){
-			throw new ExcepcionTecnica("No se han asignado las tarifas de consumos");
+			throw new ExcepcionTecnica(Constantes.ERR_NO_HAY_TARIFA);
 		}
 		
 		Long consumoBasico = 0L;
