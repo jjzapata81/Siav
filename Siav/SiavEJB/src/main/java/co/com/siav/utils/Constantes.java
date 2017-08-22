@@ -112,6 +112,7 @@ public final class Constantes {
 	public static final String PATTERN_EMAIL = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 	public static final String EMAIL_NO_VALIDO = "El email ingresado no es válido.";
 	public static final String ERR_CREAR_PQR = "Ocurrió un error al crear la PQR.";
+	public static final String PQR_ESTADO = "PQR_ESTADO";
 	
 	public static String getMensaje(String mensaje, Long codigo) {
 		return getMensaje(mensaje, String.valueOf(codigo));

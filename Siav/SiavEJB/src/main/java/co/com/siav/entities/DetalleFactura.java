@@ -29,7 +29,7 @@ public class DetalleFactura implements Serializable{
 	@SequenceGenerator(name = DetalleFactura.NOMBRE_SECUENCIA, sequenceName = "sq_ta_detalle_factura", allocationSize=1)
 	@GeneratedValue(generator = DetalleFactura.NOMBRE_SECUENCIA, strategy = GenerationType.SEQUENCE)
 	@Column(name="id ")
-	private Long Id;
+	private Long id;
 	
 	@JoinColumn(name="nmfactura",referencedColumnName="nmfactura", updatable=false, insertable=false)
 	@ManyToOne
@@ -101,10 +101,10 @@ public class DetalleFactura implements Serializable{
 		this.valor = valor;
 	}
 	public Long getId() {
-		return Id;
+		return id;
 	}
 	public void setId(Long id) {
-		Id = id;
+		this.id = id;
 	}
 	
 	public Factura getFactura() {

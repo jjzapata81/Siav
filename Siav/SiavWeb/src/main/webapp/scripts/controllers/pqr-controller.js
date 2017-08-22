@@ -43,7 +43,7 @@ define(['siav-module', 'pqr-services', 'instalaciones-services', 'modal-factory'
     		pqrServices
     		.crear($scope.pqrNuevo)
     		.then(function(response){
-    			modalFactory.abrirDialogo(respuesta);
+    			modalFactory.abrirDialogo(response);
     			$scope.init();
     		});
     	}
