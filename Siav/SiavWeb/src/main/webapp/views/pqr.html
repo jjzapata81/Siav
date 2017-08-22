@@ -31,6 +31,16 @@
 					<label>Descripci&oacute;n</label><br>
 					<input type="text" ng-model="pqrNuevo.descripcion">
 				</li>
+				<li>
+					<label>Asignar usuario</label><br>
+					<select ng-model="pqrNuevo.usuarioAsignar"
+				    	ng-options="usuario as usuario.nombres for usuario in usuarios">
+      				</select>
+				</li>
+				<li>
+					<label>Observaci&oacute;n</label><br>
+					<textarea class="mensaje-institucional" rows="5" ng-model="pqrNuevo.accion" maxlength="500"></textarea>
+				</li>
 			</ul>
 		</div>
 	</section>
@@ -49,8 +59,8 @@
 				<tr ng-repeat="pqr in pqrs | orderBy:'id' | startFrom:(currentPage-1)*itemsPerPage | limitTo:itemsPerPage">
 					<td>{{pqr.id}}</td>
 					<td>{{pqr.numeroInstalacion}}</td>
-					<td>{{pqr.fechaInicio}}</td>
-					<td>{{pqr.fechaFin}}</td>
+					<td>{{pqr.fechaInicio | date:'yyyy-MM-dd'}}</td>
+					<td>{{pqr.fechaFin | date:'yyyy-MM-dd'}}</td>
 					<td>{{pqr.estado}}</td>
 					<td>{{pqr.descripcion}}</td>
 					<td>{{pqr.nombreCompleto}}</td>

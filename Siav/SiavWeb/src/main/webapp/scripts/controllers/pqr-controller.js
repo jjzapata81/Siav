@@ -1,9 +1,9 @@
 /*global define*/
 'use strict';
 
-define(['siav-module', 'pqr-services', 'instalaciones-services', 'modal-factory'], function (app) {
+define(['siav-module', 'pqr-services', 'instalaciones-services', 'usuario-sistema-services', 'modal-factory'], function (app) {
 	
-    return app.controller('pqr-controller', ['$scope','$filter', 'pqrServices', 'instalacionesServices', 'modalFactory', function($scope, $filter, pqrServices, instalacionesServices, modalFactory){
+    return app.controller('pqr-controller', ['$scope','$filter', 'pqrServices', 'instalacionesServices', 'usuarioSistemaServices', 'modalFactory', function($scope, $filter, pqrServices, instalacionesServices, usuarioSistemaServices, modalFactory){
     	
     	$scope.init = function(){
     		$scope.pqrs = [];
@@ -11,8 +11,20 @@ define(['siav-module', 'pqr-services', 'instalaciones-services', 'modal-factory'
     		$scope.esNuevo = false;
     		$scope.itemsPerPage = 10;
             $scope.currentPage = 1;
-    		$scope.cargarEstados();
     		$scope.consultar();
+    	}
+    	
+    	$scope.cargarListas = function(){
+    		$scope.cargarEstados();
+    		$scope.cargarUsuarios();
+    	}
+    	
+    	$scope.cargarUsuarios = function(){
+    		usuarioSistemaServices
+    		.consultar()
+    		.then(function(usuarios){
+    			$scope.usuarios =  usuarios;
+    		});
     	}
     	
     	$scope.cargarEstados = function(){
@@ -34,12 +46,11 @@ define(['siav-module', 'pqr-services', 'instalaciones-services', 'modal-factory'
     	
     	$scope.onAgregar = function(){
     		$scope.esNuevo = true;
-    		$scope.pqrNuevo.instalacion = {};
-    		$scope.pqrNuevo.usuario = {};
     	}
     	
     	$scope.onCrear = function(){
     		$scope.pqrNuevo.nombreUsuario = getData("user");
+    		delete($scope.pqrNuevo.usuarioAsignar.nombreCompleto);
     		pqrServices
     		.crear($scope.pqrNuevo)
     		.then(function(response){
@@ -56,6 +67,8 @@ define(['siav-module', 'pqr-services', 'instalaciones-services', 'modal-factory'
           $scope.currentPage = pageNo;
         };
     	
+        $scope.cargarListas();
+        
     	$scope.init();
     	
     }])

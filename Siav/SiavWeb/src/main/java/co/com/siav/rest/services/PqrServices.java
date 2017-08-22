@@ -12,8 +12,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import co.com.siav.bean.PqrBean;
-import co.com.siav.entities.Pqr;
+import co.com.siav.request.PqrRequest;
 import co.com.siav.response.MensajeResponse;
+import co.com.siav.response.PqrResponse;
 
 
 @RequestScoped
@@ -26,7 +27,7 @@ public class PqrServices {
 	@GET
 	@Path("consultar")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Pqr> consultar(){
+	public List<PqrResponse> consultar(){
 		return bean.consultarTodo();
 	}
 	
@@ -34,7 +35,7 @@ public class PqrServices {
 	@Path("crear")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public MensajeResponse crear(Pqr request){
+	public MensajeResponse crear(PqrRequest request){
 		return bean.crear(request);
 	}
 

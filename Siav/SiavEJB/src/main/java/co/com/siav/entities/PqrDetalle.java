@@ -36,6 +36,9 @@ public class PqrDetalle implements Serializable{
 
 	private Date fechaAccion;
 	
+	@Column(name="usuario")
+	private String usuarioAsignar;
+	
 	@OneToOne
 	@JoinColumn(name="usuario",referencedColumnName="nombreusuario", updatable=false, insertable=false)
 	private UsuarioSistema usuario;
@@ -78,6 +81,14 @@ public class PqrDetalle implements Serializable{
 	}
 	public void setAccion(String accion) {
 		this.accion = accion;
+	}
+	
+	public String getUsuarioAsignar() {
+		return usuarioAsignar;
+	}
+	
+	public void setUsuarioAsignar(String usuarioAsignar) {
+		this.usuarioAsignar = usuarioAsignar;
 	}
 	
 }

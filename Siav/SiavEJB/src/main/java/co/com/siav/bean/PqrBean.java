@@ -1,5 +1,7 @@
 package co.com.siav.bean;
 
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -8,11 +10,13 @@ import javax.inject.Inject;
 
 import co.com.siav.entities.Instalacion;
 import co.com.siav.entities.Pqr;
+import co.com.siav.entities.PqrDetalle;
 import co.com.siav.entities.UsuarioSistema;
 import co.com.siav.repositories.IRepositoryInstalaciones;
 import co.com.siav.repositories.IRepositoryMaestros;
 import co.com.siav.repositories.IRepositoryPqr;
 import co.com.siav.repositories.IRepositoryUsuarioSistema;
+import co.com.siav.request.PqrRequest;
 import co.com.siav.response.EstadoEnum;
 import co.com.siav.response.MensajeResponse;
 import co.com.siav.response.PqrResponse;
@@ -38,16 +42,24 @@ public class PqrBean {
 		return pqrRep.findAll().stream().map(this::transform).collect(Collectors.toList());
 	}
 
-	public MensajeResponse crear(Pqr request) {
+	public MensajeResponse crear(PqrRequest request) {
 		try{
 			UsuarioSistema usuario = usuarioSistemaRep.findByNombreUsuario(request.getNombreUsuario());
 			Instalacion instalacion = instalacionesRep.findOne(request.getNumeroInstalacion());
 			if(instalacion == null){
-				return new MensajeResponse(EstadoEnum.ERROR, Constantes.getMensaje(Constantes.INSTALACION_NO_EXISTE, request.getInstalacion().getNumeroInstalacion()));
+				return new MensajeResponse(EstadoEnum.ERROR, Constantes.getMensaje(Constantes.INSTALACION_NO_EXISTE, request.getNumeroInstalacion()));
 			}
-			request.setInstalacion(instalacion);
-			request.setUsuario(usuario);
-			pqrRep.save(request);
+			Long id = pqrRep.findMaxPqr() + 1L;
+			Pqr pqr = new Pqr();
+			pqr.setId(id);
+			List<PqrDetalle> detalles = crearDetalle(request, id);
+			pqr.setInstalacion(instalacion);
+			pqr.setNumeroInstalacion(request.getNumeroInstalacion());
+			pqr.setNombreUsuario(request.getNombreUsuario());
+			pqr.setUsuario(usuario);
+			pqr.setDetalles(detalles);
+			pqr.setDescripcion(request.getDescripcion());
+			pqrRep.save(pqr);
 			return new MensajeResponse(Constantes.ACTUALIZACION_EXITO);
 		}catch(Exception e){
 			return new MensajeResponse(EstadoEnum.ERROR, Constantes.ERR_CREAR_PQR + " " + e.getMessage());
@@ -55,6 +67,16 @@ public class PqrBean {
 		
 	}
 	
+	private List<PqrDetalle> crearDetalle(PqrRequest request, Long id) {
+		PqrDetalle detalle = new PqrDetalle();
+		detalle.setIdPqr(id);
+		detalle.setAccion(request.getAccion());
+		detalle.setUsuario(request.getUsuarioAsignar());
+		detalle.setUsuarioAsignar(request.getUsuarioAsignar().getNombreUsuario());
+		detalle.setFechaAccion(new Date());
+		return Arrays.asList(detalle);
+	}
+
 	private PqrResponse transform(Pqr pqr){
 		PqrResponse response = new PqrResponse();
 		response.setId(pqr.getId());
