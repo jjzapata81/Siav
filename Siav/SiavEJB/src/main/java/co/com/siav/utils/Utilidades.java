@@ -86,5 +86,24 @@ public final class Utilidades {
         Matcher matcher = pattern.matcher(email);
         return !matcher.matches();	
 	}
+
+	public static String getMensajePQR(Long id, String descripcion, String info, String estado, String mensaje) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<h3>Se ha asignado el incidente ");
+		sb.append(id);
+		sb.append("</h3><br>");
+		sb.append("<h4><b>Descripci&oacute;n: </b>");
+		sb.append(descripcion);
+		sb.append("<br><b>Instalaci&oacute;n: </b>");
+		sb.append(info);
+		sb.append("<br><b>Estado: </b>");
+		sb.append(estado);
+		sb.append("</h4><br>");
+		sb.append("<h5>");
+		sb.append(mensaje);
+		sb.append("</h5><br><br>");
+		sb.append("<h6>Esta es una notificaci&oacute;n autom&aacute;tica, por favor no responda este mensaje.</h6>");
+		return sb.toString();
+	}
 }
 

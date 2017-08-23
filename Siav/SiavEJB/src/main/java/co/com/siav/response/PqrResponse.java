@@ -12,6 +12,7 @@ public class PqrResponse {
 	private String descripcion;
 	private String nombreCompleto;
 	private String nombreUsuario;
+	private String usuarioAsignado;
 	
 	public Long getId() {
 		return id;
@@ -60,6 +61,14 @@ public class PqrResponse {
 	}
 	public void setNombreUsuario(String nombreUsuario) {
 		this.nombreUsuario = nombreUsuario;
+	}
+	
+	public String getUsuarioAsignado() {
+		return usuarioAsignado;
+	}
+	
+	public void setUsuarioAsignado(String usuarioAsignado) {
+		this.usuarioAsignado = usuarioAsignado;
 	}
 	
 }

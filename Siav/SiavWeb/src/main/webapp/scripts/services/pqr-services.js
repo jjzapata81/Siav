@@ -17,8 +17,8 @@ define(['siav-module', 'constantes'], function (app) {
 	    	}));
     	 }
     	 
-    	 function consultarDetalle(id){
-    		 var request = $http.get(CONSTANTES.SRV.PQR_CONSULTAR_DETALLE + id, {isArray : true});
+    	 function consultarDetalle(request){
+    		 var request = $http.post(CONSTANTES.SRV.PQR_CONSULTAR_DETALLE, request, {isArray : true});
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));

@@ -113,6 +113,18 @@ public final class Constantes {
 	public static final String EMAIL_NO_VALIDO = "El email ingresado no es válido.";
 	public static final String ERR_CREAR_PQR = "Ocurrió un error al crear la PQR.";
 	public static final String PQR_ESTADO = "PQR_ESTADO";
+	public static final String ERR_ENVIO_NOTIFICACION = "Error enviando el correo de notificación.";
+	public static final String EMAIL_ENVIO_CORREO = "EMAIL_ENVIO_CORREO";
+	public static final String PASS_ENVIO_CORREO = "PASS_ENVIO_CORREO";
+	public static final String ALIAS_ENVIO_CORREO = "ALIAS_ENVIO_CORREO";
+	public static final String NOTIFICACION_ASUNTO = "Se ha asignado un incidente";
+	public static final String ERR_PQR_NUMERO_INSTALACION = "Debe especificar un número de instalación.";
+	public static final String ERR_PQR_USUARIO_CREACION = "Debe indicar un usuario de creación.";
+	public static final String ERR_PQR_USUARIO_ASIGNACION = "Debe especificar el usuario a quien va a asignar el incidente.";
+	public static final String ERR_PQR_DESCRIPCION = "Debe ingresar una descripción.";
+	public static final String ERR_PQR_ESTADO = "Debe indicar en que estado queda el incidente.";
+	public static final String ERR_PQR_ACCION = "Debe indicar una acción a realizar.";
+
 	
 	public static String getMensaje(String mensaje, Long codigo) {
 		return getMensaje(mensaje, String.valueOf(codigo));

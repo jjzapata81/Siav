@@ -14,6 +14,7 @@ define(['siav-module', 'pqr-services', 'instalaciones-services', 'usuario-sistem
     		$scope.itemsPerPage = 10;
             $scope.currentPage = 1;
     		$scope.consultar();
+    		$scope.filtro = {};
     	}
     	
     	$scope.cargarListas = function(){
@@ -34,7 +35,7 @@ define(['siav-module', 'pqr-services', 'instalaciones-services', 'usuario-sistem
     		.consultarMaestro('PQR_ESTADO')
     		.then(function(estados){
     			$scope.estados =  estados;
-    			$scope.estadoFiltro = $filter('filter')($scope.estados, { codigo : '1' }, true)[0];
+    			$scope.estado = $filter('filter')($scope.estados, { codigo : '1' }, true)[0];
     		});
     	}
     	
@@ -49,11 +50,15 @@ define(['siav-module', 'pqr-services', 'instalaciones-services', 'usuario-sistem
     	$scope.onConsultarDetalle = function(pqr){
     		$scope.pqrEditar = pqr;
     		$scope.cerrado = "CERRADO" === $scope.pqrEditar.estado;
+    		var request = {};
+    		request.user = getData("user");
+    		request.idPqr = pqr.id;
     		pqrServices
-    		.consultarDetalle(pqr.id)
-    		.then(function(detalles){
-    			$scope.detalles = detalles;
+    		.consultarDetalle(request)
+    		.then(function(response){
+    			$scope.detalles = response.detalles;
     			$scope.mostrarDetalle = true;
+    			$scope.puedeEditar = response.puedeEditar;
     		});
     	}
     	
@@ -66,6 +71,7 @@ define(['siav-module', 'pqr-services', 'instalaciones-services', 'usuario-sistem
     		delete($scope.pqrEditar.nombreCompleto);
     		delete($scope.pqrEditar.fechaInicio);
     		delete($scope.pqrEditar.fechaFin);
+    		delete($scope.pqrEditar.usuarioAsignado);
     		$scope.pqrEditar.estado = $scope.pqrEditar.estado.codigo;
     		pqrServices
     		.actualizar($scope.pqrEditar)
@@ -77,7 +83,9 @@ define(['siav-module', 'pqr-services', 'instalaciones-services', 'usuario-sistem
     	
     	$scope.onCrear = function(){
     		$scope.pqrNuevo.nombreUsuario = getData("user");
-    		delete($scope.pqrNuevo.usuarioAsignar.nombreCompleto);
+    		if($scope.pqrNuevo.usuarioAsignar){
+    			delete($scope.pqrNuevo.usuarioAsignar.nombreCompleto);
+    		}
     		pqrServices
     		.crear($scope.pqrNuevo)
     		.then(function(response){

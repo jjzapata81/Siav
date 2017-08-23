@@ -5,7 +5,7 @@
  	<div  class="boton-fijo">
 		<a ng-click="onAgregar()" uib-tooltip="Agregar" tooltip-placement="left" ng-show="!esNuevo && !mostrarDetalle"><i class="fa fa-plus icon-float icon-add" aria-hidden="true"></i></a>
 		<a ng-click="onCrear()" uib-tooltip="Guardar" tooltip-placement="left" ng-show="esNuevo"><i class="fa fa-floppy-o icon-float icon-save" aria-hidden="true"></i></a>
-		<a ng-click="onActualizar()" uib-tooltip="Guardar" tooltip-placement="left" ng-show="mostrarDetalle && !cerrado"><i class="fa fa-floppy-o icon-float icon-save" aria-hidden="true"></i></a>
+		<a ng-click="onActualizar()" uib-tooltip="Guardar" tooltip-placement="left" ng-show="mostrarDetalle && puedeEditar && !cerrado"><i class="fa fa-floppy-o icon-float icon-save" aria-hidden="true"></i></a>
 		<a ng-click="onCancelar()" uib-tooltip="Cancelar" tooltip-placement="left" ng-show="esNuevo || mostrarDetalle"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
 	</div>
 	<section class="titulo-seccion">
@@ -15,10 +15,18 @@
 		<div ng-show="!esNuevo && !mostrarDetalle">
 			<ul class="flex">
 				<li>
+					<label>Instalaci&oacute;n:</label><br>
+					<input type="number" ng-model="numeroInstalacion" />
+				</li>
+				<li>
 					<label>Estado:</label><br>
-					<select ng-model="estadoFiltro"
+					<select ng-model="estado"
 				    	ng-options="estado as estado.valor for estado in estados track by estado.codigo">
       				</select>
+				</li>
+				<li>
+					<label>Usuario:</label><br>
+					<input type="text" ng-model="usuario" />
 				</li>
 			</ul>
 		</div>
@@ -55,22 +63,27 @@
 					<label>Descripci&oacute;n</label><br>
 					<input type="text" ng-model="pqrEditar.descripcion" ng-disabled="true">
 				</li>
-				<li ng-show="!cerrado">
+				<li>
+					<label>Creado por</label><br>
+					<input type="text" ng-model="pqrEditar.nombreCompleto" ng-disabled="true">
+				</li>
+				<li ng-show="!cerrado && puedeEditar">
 					<label>Asignar usuario</label><br>
 					<select ng-model="pqrEditar.usuarioAsignar"
 				    	ng-options="usuario as usuario.nombreCompleto for usuario in usuarios track by usuario.id">
       				</select>
 				</li>
-				<li ng-show="!cerrado">
-					<label>Observaci&oacute;n</label><br>
-					<textarea class="mensaje-institucional" rows="5" ng-model="pqrEditar.accion" maxlength="500"></textarea>
-				</li>
-				<li ng-show="!cerrado">
+				<li ng-show="!cerrado && puedeEditar">
 					<label>Estado:</label><br>
 					<select ng-model="pqrEditar.estado"
 				    	ng-options="estado as estado.valor for estado in estados track by estado.codigo">
       				</select>
 				</li>
+				<li ng-show="!cerrado && puedeEditar">
+					<label>Observaci&oacute;n</label><br>
+					<textarea class="mensaje-institucional" rows="5" ng-model="pqrEditar.accion" maxlength="500"></textarea>
+				</li>
+				
 			</ul>
 		</div>
 	</section>
@@ -83,17 +96,17 @@
 				<th>Fecha fin</th>
 				<th>Estado</th>
 				<th>Descripci&oacute;n</th>
-				<th>Usuario</th>
+				<th>Usuario asignado</th>
 			</thead>
 			<tbody>
-				<tr ng-repeat="pqr in pqrs | orderBy:'id' | startFrom:(currentPage-1)*itemsPerPage | limitTo:itemsPerPage">
+				<tr ng-repeat="pqr in pqrs | filter:numeroInstalacion | filter:estado.valor:'estado' | filter:usuario:'usuarioAsignado' | orderBy:'-id' | startFrom:(currentPage-1)*itemsPerPage | limitTo:itemsPerPage">
 					<td>{{pqr.id}}</td>
-					<td>{{pqr.numeroInstalacion}}</td>
-					<td>{{pqr.fechaInicio | date:'yyyy-MM-dd'}}</td>
-					<td>{{pqr.fechaFin | date:'yyyy-MM-dd'}}</td>
+					<td nowrap>{{pqr.numeroInstalacion}}</td>
+					<td nowrap>{{pqr.fechaInicio | date:'yyyy-MM-dd'}}</td>
+					<td nowrap>{{pqr.fechaFin | date:'yyyy-MM-dd'}}</td>
 					<td>{{pqr.estado}}</td>
 					<td><a ng-click="onConsultarDetalle(pqr)">{{pqr.descripcion}}</a></td>
-					<td>{{pqr.nombreCompleto}}</td>
+					<td nowrap>{{pqr.usuarioAsignado}}</td>
 				</tr>
 			</tbody>
 		</table>
@@ -102,17 +115,15 @@
 	<div class="tabla-siav" ng-show="mostrarDetalle">
 		<table class="table table-responsive">
 			<thead>
-				<th>C&oacute;digo</th>
 				<th>Fecha</th>
 				<th>Acci&oacute;n</th>
 				<th>Usuario</th>
 			</thead>
 			<tbody>
 				<tr ng-repeat="detalle in detalles | orderBy:'-id'">
-					<td>{{detalle.id}}</td>
-					<td>{{detalle.fechaAccion | date:'yyyy-MM-dd'}}</td>
+					<td nowrap>{{detalle.fechaAccion | date:'yyyy-MM-dd'}}</td>
 					<td>{{detalle.accion}}</td>
-					<td>{{detalle.usuario.nombreCompleto}}</td>
+					<td nowrap>{{detalle.usuario.nombreCompleto}}</td>
 				</tr>
 			</tbody>
 		</table>
