@@ -3,15 +3,16 @@
 
 <div  class="contenido">
  	<div  class="boton-fijo">
-		<a ng-click="onAgregar()" uib-tooltip="Agregar" tooltip-placement="left" ng-show="!esNuevo"><i class="fa fa-plus icon-float icon-add" aria-hidden="true"></i></a>
+		<a ng-click="onAgregar()" uib-tooltip="Agregar" tooltip-placement="left" ng-show="!esNuevo && !mostrarDetalle"><i class="fa fa-plus icon-float icon-add" aria-hidden="true"></i></a>
 		<a ng-click="onCrear()" uib-tooltip="Guardar" tooltip-placement="left" ng-show="esNuevo"><i class="fa fa-floppy-o icon-float icon-save" aria-hidden="true"></i></a>
-		<a ng-click="onCancelar()" uib-tooltip="Cancelar" tooltip-placement="left" ng-show="esNuevo"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
+		<a ng-click="onActualizar()" uib-tooltip="Guardar" tooltip-placement="left" ng-show="mostrarDetalle && !cerrado"><i class="fa fa-floppy-o icon-float icon-save" aria-hidden="true"></i></a>
+		<a ng-click="onCancelar()" uib-tooltip="Cancelar" tooltip-placement="left" ng-show="esNuevo || mostrarDetalle"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
 	</div>
 	<section class="titulo-seccion">
 		Atenci&oacute;n al cliente
 	</section>
 	<section class="formulario form-fijo">
-		<div ng-show="!esNuevo">
+		<div ng-show="!esNuevo && !mostrarDetalle">
 			<ul class="flex">
 				<li>
 					<label>Estado:</label><br>
@@ -34,17 +35,46 @@
 				<li>
 					<label>Asignar usuario</label><br>
 					<select ng-model="pqrNuevo.usuarioAsignar"
-				    	ng-options="usuario as usuario.nombres for usuario in usuarios">
+				    	ng-options="usuario as usuario.nombreCompleto for usuario in usuarios track by usuario.id">
       				</select>
 				</li>
 				<li>
 					<label>Observaci&oacute;n</label><br>
 					<textarea class="mensaje-institucional" rows="5" ng-model="pqrNuevo.accion" maxlength="500"></textarea>
 				</li>
+				
+			</ul>
+		</div>
+		<div ng-show="mostrarDetalle">
+			<ul class="flex">
+				<li>
+					<label>Instalaci&oacute;n</label><br>
+					<input type="number" ng-model="pqrEditar.numeroInstalacion" ng-disabled="true">
+				</li>
+				<li>
+					<label>Descripci&oacute;n</label><br>
+					<input type="text" ng-model="pqrEditar.descripcion" ng-disabled="true">
+				</li>
+				<li ng-show="!cerrado">
+					<label>Asignar usuario</label><br>
+					<select ng-model="pqrEditar.usuarioAsignar"
+				    	ng-options="usuario as usuario.nombreCompleto for usuario in usuarios track by usuario.id">
+      				</select>
+				</li>
+				<li ng-show="!cerrado">
+					<label>Observaci&oacute;n</label><br>
+					<textarea class="mensaje-institucional" rows="5" ng-model="pqrEditar.accion" maxlength="500"></textarea>
+				</li>
+				<li ng-show="!cerrado">
+					<label>Estado:</label><br>
+					<select ng-model="pqrEditar.estado"
+				    	ng-options="estado as estado.valor for estado in estados track by estado.codigo">
+      				</select>
+				</li>
 			</ul>
 		</div>
 	</section>
-	<div class="tabla-siav" ng-show="!esNuevo">
+	<div class="tabla-siav" ng-show="!esNuevo && !mostrarDetalle">
 		<table class="table table-responsive">
 			<thead>
 				<th>C&oacute;digo</th>
@@ -62,12 +92,29 @@
 					<td>{{pqr.fechaInicio | date:'yyyy-MM-dd'}}</td>
 					<td>{{pqr.fechaFin | date:'yyyy-MM-dd'}}</td>
 					<td>{{pqr.estado}}</td>
-					<td>{{pqr.descripcion}}</td>
+					<td><a ng-click="onConsultarDetalle(pqr)">{{pqr.descripcion}}</a></td>
 					<td>{{pqr.nombreCompleto}}</td>
 				</tr>
 			</tbody>
 		</table>
 		<uib-pagination total-items="tarifas.length" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
 	</div>
-	
+	<div class="tabla-siav" ng-show="mostrarDetalle">
+		<table class="table table-responsive">
+			<thead>
+				<th>C&oacute;digo</th>
+				<th>Fecha</th>
+				<th>Acci&oacute;n</th>
+				<th>Usuario</th>
+			</thead>
+			<tbody>
+				<tr ng-repeat="detalle in detalles | orderBy:'-id'">
+					<td>{{detalle.id}}</td>
+					<td>{{detalle.fechaAccion | date:'yyyy-MM-dd'}}</td>
+					<td>{{detalle.accion}}</td>
+					<td>{{detalle.usuario.nombreCompleto}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </div>

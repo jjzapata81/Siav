@@ -5,6 +5,8 @@ import co.com.siav.entities.UsuarioSistema;
 
 public class PqrRequest {
 	
+	private Long id;
+	
 	private Long numeroInstalacion;
 	
 	private Long estado;
@@ -17,7 +19,14 @@ public class PqrRequest {
 	
 	private UsuarioSistema usuarioAsignar;
 
-
+	public Long getId() {
+		return id;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
 	public Long getNumeroInstalacion() {
 		return numeroInstalacion;
 	}

@@ -19,6 +19,7 @@ import co.com.siav.repositories.IRepositoryUsuarioSistema;
 import co.com.siav.request.PqrRequest;
 import co.com.siav.response.EstadoEnum;
 import co.com.siav.response.MensajeResponse;
+import co.com.siav.response.PqrDetalleResponse;
 import co.com.siav.response.PqrResponse;
 import co.com.siav.utils.Constantes;
 
@@ -52,7 +53,7 @@ public class PqrBean {
 			Long id = pqrRep.findMaxPqr() + 1L;
 			Pqr pqr = new Pqr();
 			pqr.setId(id);
-			List<PqrDetalle> detalles = crearDetalle(request, id);
+			List<PqrDetalle> detalles = Arrays.asList(crearDetalle(request, id));
 			pqr.setInstalacion(instalacion);
 			pqr.setNumeroInstalacion(request.getNumeroInstalacion());
 			pqr.setNombreUsuario(request.getNombreUsuario());
@@ -66,17 +67,36 @@ public class PqrBean {
 		}
 		
 	}
+
+	public List<PqrDetalleResponse> consultarDetalle(Long idPqr) {
+		return pqrRep.findOne(idPqr).getDetalles().stream().map(this::toDetalleResponse).collect(Collectors.toList());
+	}
 	
-	private List<PqrDetalle> crearDetalle(PqrRequest request, Long id) {
+	public MensajeResponse actualizar(PqrRequest request) {
+		try{
+			Pqr pqrBD = pqrRep.findOne(request.getId());
+			pqrBD.setEstado(request.getEstado());
+			if(getEstado(request.getEstado()).equals(Constantes.CERRADO)){
+				pqrBD.setFechaFin(new Date());
+			}
+			pqrBD.getDetalles().add(crearDetalle(request, request.getId()));
+			pqrRep.save(pqrBD);
+			return new MensajeResponse(Constantes.ACTUALIZACION_EXITO);
+		}catch(Exception e){
+			return new MensajeResponse(EstadoEnum.ERROR, Constantes.ERR_CREAR_PQR + " " + e.getMessage());
+		}
+	}
+	
+	private PqrDetalle crearDetalle(PqrRequest request, Long id) {
 		PqrDetalle detalle = new PqrDetalle();
 		detalle.setIdPqr(id);
 		detalle.setAccion(request.getAccion());
 		detalle.setUsuario(request.getUsuarioAsignar());
 		detalle.setUsuarioAsignar(request.getUsuarioAsignar().getNombreUsuario());
 		detalle.setFechaAccion(new Date());
-		return Arrays.asList(detalle);
+		return detalle;
 	}
-
+	
 	private PqrResponse transform(Pqr pqr){
 		PqrResponse response = new PqrResponse();
 		response.setId(pqr.getId());
@@ -92,6 +112,16 @@ public class PqrBean {
 
 	private String getEstado(Long estado) {
 		return mestrosRep.findByCodigoAndGrupo(String.valueOf(estado), Constantes.PQR_ESTADO).getValor();
+	}
+	
+	private PqrDetalleResponse toDetalleResponse(PqrDetalle detalleBD){
+		PqrDetalleResponse response = new PqrDetalleResponse();
+		response.setId(detalleBD.getId());
+		response.setIdPqr(detalleBD.getIdPqr());
+		response.setFechaAccion(detalleBD.getFechaAccion());
+		response.setAccion(detalleBD.getAccion());
+		response.setUsuario(detalleBD.getUsuario());
+		return response;
 	}
 
 }

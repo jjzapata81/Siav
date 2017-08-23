@@ -9,6 +9,8 @@ define(['siav-module', 'pqr-services', 'instalaciones-services', 'usuario-sistem
     		$scope.pqrs = [];
     		$scope.pqrNuevo = {};
     		$scope.esNuevo = false;
+    		$scope.mostrarDetalle = false;
+    		$scope.cerrado = false;
     		$scope.itemsPerPage = 10;
             $scope.currentPage = 1;
     		$scope.consultar();
@@ -44,8 +46,33 @@ define(['siav-module', 'pqr-services', 'instalaciones-services', 'usuario-sistem
     		});
     	}
     	
+    	$scope.onConsultarDetalle = function(pqr){
+    		$scope.pqrEditar = pqr;
+    		$scope.cerrado = "CERRADO" === $scope.pqrEditar.estado;
+    		pqrServices
+    		.consultarDetalle(pqr.id)
+    		.then(function(detalles){
+    			$scope.detalles = detalles;
+    			$scope.mostrarDetalle = true;
+    		});
+    	}
+    	
     	$scope.onAgregar = function(){
     		$scope.esNuevo = true;
+    	}
+    	
+    	$scope.onActualizar = function(){
+    		delete($scope.pqrEditar.usuarioAsignar.nombreCompleto);
+    		delete($scope.pqrEditar.nombreCompleto);
+    		delete($scope.pqrEditar.fechaInicio);
+    		delete($scope.pqrEditar.fechaFin);
+    		$scope.pqrEditar.estado = $scope.pqrEditar.estado.codigo;
+    		pqrServices
+    		.actualizar($scope.pqrEditar)
+    		.then(function(response){
+    			modalFactory.abrirDialogo(response);
+    			$scope.init();
+    		});
     	}
     	
     	$scope.onCrear = function(){

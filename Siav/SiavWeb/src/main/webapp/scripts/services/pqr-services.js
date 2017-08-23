@@ -5,7 +5,9 @@ define(['siav-module', 'constantes'], function (app) {
     app.service('pqrServices', ['$http', 'CONSTANTES', function ($http, CONSTANTES) {
     	 var contrato = {
     			 consultar : consultar,
-    			 crear : crear
+    			 consultarDetalle : consultarDetalle,
+    			 crear : crear,
+    			 actualizar : actualizar
     	 };
     	 
     	 function consultar(){
@@ -15,8 +17,22 @@ define(['siav-module', 'constantes'], function (app) {
 	    	}));
     	 }
     	 
-    	 function crear(request){
-    		 var request = $http.post(CONSTANTES.SRV.PQR_CREAR, request);
+    	 function consultarDetalle(id){
+    		 var request = $http.get(CONSTANTES.SRV.PQR_CONSULTAR_DETALLE + id, {isArray : true});
+    		 return (request.then(function(response) {
+ 	    		return response.data;
+	    	}));
+    	 }
+    	 
+    	 function crear(pqr){
+    		 var request = $http.post(CONSTANTES.SRV.PQR_CREAR, pqr);
+    		 return (request.then(function(response) {
+ 	    		return response.data;
+	    	}));
+    	 }
+    	 
+    	 function actualizar(pqr){
+    		 var request = $http.post(CONSTANTES.SRV.PQR_ACTUALIZAR, pqr);
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));
