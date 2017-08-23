@@ -2,14 +2,22 @@
 
 INSERT INTO ta_recursos(nmrecurso, titulo, snsubmenu, nmrelacion, nmgrupo)
     VALUES (290, 'Servicio al cliente', 'S', 290, 2);
+    
 INSERT INTO ta_recurso_perfil(nmrecursoperfil, nmperfil, nmrecurso)
     VALUES ((SELECT MAX(r.nmrecursoperfil) FROM ta_recurso_perfil r)+1, 1, 290);
-
+    
+INSERT INTO ta_recurso_perfil(nmrecursoperfil, nmperfil, nmrecurso)
+    VALUES ((SELECT MAX(r.nmrecursoperfil) FROM ta_recurso_perfil r)+1, 2, 290);
+    
 INSERT INTO ta_recursos(nmrecurso, titulo, accion, snsubmenu, nmrelacion, nmgrupo)
     VALUES (294, 'PQR', 'pqr', 'N', 290, 2);
+    
 INSERT INTO ta_recurso_perfil(nmrecursoperfil, nmperfil, nmrecurso)
     VALUES ((SELECT MAX(r.nmrecursoperfil) FROM ta_recurso_perfil r)+1, 1, 294);
 
+INSERT INTO ta_recurso_perfil(nmrecursoperfil, nmperfil, nmrecurso)
+    VALUES ((SELECT MAX(r.nmrecursoperfil) FROM ta_recurso_perfil r)+1, 2, 294);
+    
 INSERT INTO ta_datosmaestros(id, grupo, cdcodigo, dsvalor) VALUES ((SELECT MAX(d.id) FROM ta_datosmaestros d)+1, 'PQR_ESTADO', 1,'ABIERTO');
 INSERT INTO ta_datosmaestros(id, grupo, cdcodigo, dsvalor) VALUES ((SELECT MAX(d.id) FROM ta_datosmaestros d)+1, 'PQR_ESTADO', 2,'CERRADO');
 
