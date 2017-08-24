@@ -74,6 +74,7 @@ public class PqrBean {
 			pqr.setUsuario(usuario);
 			pqr.setDetalles(detalles);
 			pqr.setDescripcion(request.getDescripcion());
+			pqr.setEstado(1L);
 			pqrRep.save(pqr);
 			notificar(pqr, detalle);
 			return new MensajeResponse(Constantes.ACTUALIZACION_EXITO);
