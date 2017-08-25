@@ -5,6 +5,11 @@ define(['siav-module'], function(app) {
     app.constant("CONSTANTES", {
     	
     	"SRV" : {
+    		
+    		"ARTICULO_CONSULTAR" : "rest/articulo/consultar",
+    		"ARTICULO_CONSULTAR_NOMBRES" : "rest/articulo/consultar/nombres",
+    		"ARTICULO_CONSULTAR_CREAR" : "rest/articulo/crear",
+    		"ARTICULO_CONSULTAR_ACTUALIZAR" : "rest/articulo/actualizar",
 
     		"BANCO_CREAR" : "rest/bancos/crear",
     		"BANCO_EDITAR" : "rest/bancos/editar",
@@ -75,6 +80,12 @@ define(['siav-module'], function(app) {
     		"PQR_CONSULTAR_DETALLE" : "rest/pqr/consultar/detalle",
     		"PQR_CREAR" : "rest/pqr/crear",
     		"PQR_ACTUALIZAR" : "rest/pqr/actualizar",
+    		
+    		"PROVEEDOR_CONSULTAR" : "rest/proveedor/consultar",
+    		"PROVEEDOR_CONSULTAR_NOMBRES" : "rest/proveedor/consultar/nombres",
+    		"PROVEEDOR_CONSULTAR_CREAR" : "rest/proveedor/crear",
+    		"PROVEEDOR_CONSULTAR_ACTUALIZAR" : "rest/proveedor/actualizar",
+    		
     		
     		"RAMAL_CONSULTAR_TODO" : "rest/ramal/consultar/todo",
     		"RAMAL_CONSULTAR" : "rest/ramal/consultar",
@@ -226,6 +237,10 @@ define(['siav-module'], function(app) {
     		"NO_CANCELADO" : "Ha seleccionado pago no cancelado. ¿Está seguro que desea continuar?",
     		"ERR_EXTENSION" : "Sólo se permiten cargar archivos con extensión .csv",
     		"ERR_NUMERO_CUENTA" : "Debe seleccionar una cuenta bancaria para asociar el pago."
+    	},
+    	"PROVEEDOR" : {
+    		"ERR_NIT" : "El Nit es obligatorio.",
+    		"ERR_RAZON_SOCIAL" : "La Razón social es obligatoria."
     	},
     	"RANGO_FACTURACION" : {
     		"ELIMINAR_RANGO" : "Se procede a eliminar un rango de facturación. ¿Desea continuar?",

@@ -226,6 +226,14 @@ define(['angularAMD', 'angular-route'], function (angularAMD) {
 	            templateUrl: 'views/reportes/instalaciones-ruta.html', 
 	            controller: 'reporte-instalaciones-ruta-controller'
 	        }))
+	        .when("/proveedores", angularAMD.route({
+	            templateUrl: 'views/proveedores.html', 
+	            controller: 'proveedor-controller'
+	        }))
+	        .when("/articulos", angularAMD.route({
+	            templateUrl: 'views/articulos.html', 
+	            controller: 'articulo-controller'
+	        }))
 	        .otherwise(angularAMD.route({
 	        	templateUrl: 'views/login.html', 
 	            controller: 'login-controller'

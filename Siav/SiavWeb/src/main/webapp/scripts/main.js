@@ -53,6 +53,9 @@ require.config({
     	"ruta-services" : "services/ruta-services",
     	"macros-services" : "services/macros-services",
     	"pqr-services" : "services/pqr-services",
+    	"proveedor-services" : "services/proveedor-services",
+    	"articulo-services" : "services/articulo-services",
+    	
     	// constantes
     	'constantes' :  'constants/constantes',
     	//Interceptor
@@ -113,6 +116,8 @@ require.config({
     	'pagos-consulta-controller' : 'controllers/pagos-consulta-controller',
     	'inconsistencias-consulta-controller' : 'controllers/inconsistencias-consulta-controller',
     	'pqr-controller' : 'controllers/pqr-controller',
+    	'proveedor-controller' : 'controllers/proveedor-controller',
+    	'articulo-controller' : 'controllers/articulo-controller',
     	
     	//Reportes
     	

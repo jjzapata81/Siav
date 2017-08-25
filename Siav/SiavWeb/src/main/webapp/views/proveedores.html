@@ -1,0 +1,70 @@
+<titulo/>
+<menu></menu>
+
+<div  class="contenido">
+	<div  class="boton-fijo">
+		<a ng-click="onAgregar()" uib-tooltip="Agregar" tooltip-placement="left" ng-show="!esNuevo && !estaEditando"><i class="fa fa-plus icon-float icon-add" aria-hidden="true"></i></a>
+		<a ng-click="onCrear()" uib-tooltip="Guardar" tooltip-placement="left" ng-show="esNuevo"><i class="fa fa-floppy-o icon-float icon-save" aria-hidden="true"></i></a>
+		<a ng-click="onActualizar()" uib-tooltip="Guardar" tooltip-placement="left" ng-show="estaEditando"><i class="fa fa-floppy-o icon-float icon-save" aria-hidden="true"></i></a>
+		<a ng-click="onCancelar()" uib-tooltip="Cancelar" tooltip-placement="left" ng-show="esNuevo || estaEditando"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
+	</div>
+	<section class="titulo-seccion">
+		Proveedores
+	</section>
+	<div class="tabla-siav"  ng-show="!esNuevo && !estaEditando">
+		<table class="table table-responsive">
+			<thead>
+				<th>Nit</th>
+				<th>Raz&oacute;n social</th>
+				<th>Direcci&oacute;n</th>
+				<th>Tel&eacute;fono</th>
+				<th>Email</th>
+				<th>Observaci&oacute;n</th>
+			</thead>
+			<tbody>
+				<tr ng-repeat="proveedor in proveedores | orderBy: 'razonSocial' | startFrom:(currentPage-1)*itemsPerPage | limitTo:itemsPerPage">
+					<td>{{proveedor.nit}}</td>
+					<td><a ng-click="onEditar(proveedor)">{{proveedor.razonSocial}}</a></td>
+					<td>{{proveedor.direccion}}</td>
+					<td>{{proveedor.telefono}}</td>
+					<td>{{proveedor.correo}}</td>
+					<td>{{proveedor.observacion}}</td>
+				</tr>
+			</tbody>
+		</table>
+		<uib-pagination total-items="proveedores.length" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
+	</div>
+	<section class="formulario form-fijo" ng-show="esNuevo || estaEditando">
+		<div>
+			<ul class="flex">
+				<li>
+					<label>Nit:</label><br>
+					<input type="number" ng-model="proveedorNuevo.nit"/>
+				</li>
+				<li>
+					<label>Raz&oacute;n social:</label><br>
+					<input type="text" ng-model="proveedorNuevo.razonSocial"
+						uib-typeahead="item as item for item in nombresProveedor | filter:$viewValue | limitTo:5" 
+						uib-typeahead-min-length="2" 
+						uib-typeahead-wait-ms="1"/>
+				</li>
+				<li>
+					<label>Direcci&oacute;n:</label><br>
+					<input type="text" ng-model="proveedorNuevo.direccion"/>
+				</li>
+				<li>
+					<label>Tel&eacute;fono:</label><br>
+					<input type="number" ng-model="proveedorNuevo.telefono"/>
+				</li>
+				<li>
+					<label>Email:</label><br>
+					<input type="text" ng-model="proveedorNuevo.correo"/>
+				</li>
+				<li>
+					<label>Observaci&oacute;n:</label><br>
+					<input type="text" ng-model="proveedorNuevo.observacion"/>
+				</li>
+			</ul>
+		</div>
+	</section>
+</div>

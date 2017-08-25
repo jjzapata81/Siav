@@ -1,0 +1,74 @@
+<titulo/>
+<menu></menu>
+
+<div  class="contenido">
+	<div  class="boton-fijo">
+		<a ng-click="onAgregar()" uib-tooltip="Agregar" tooltip-placement="left" ng-show="!esNuevo && !estaEditando"><i class="fa fa-plus icon-float icon-add" aria-hidden="true"></i></a>
+		<a ng-click="onCrear()" uib-tooltip="Guardar" tooltip-placement="left" ng-show="esNuevo"><i class="fa fa-floppy-o icon-float icon-save" aria-hidden="true"></i></a>
+		<a ng-click="onActualizar()" uib-tooltip="Guardar" tooltip-placement="left" ng-show="estaEditando"><i class="fa fa-floppy-o icon-float icon-save" aria-hidden="true"></i></a>
+		<a ng-click="onCancelar()" uib-tooltip="Cancelar" tooltip-placement="left" ng-show="esNuevo || estaEditando"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
+	</div>
+	<section class="titulo-seccion">
+		Art&iacute;culos
+	</section>
+	<div class="tabla-siav"  ng-show="!esNuevo && !estaEditando">
+		<table class="table table-responsive">
+			<thead>
+				<th>Nombre</th>
+				<th>Unidad</th>
+				<th>Precio unitario</th>
+				<th>Precio inventario</th>
+				<th>Porcentaje ganancia</th>
+				<th>Precio comercial</th>
+				<th>Observaci&oacute;n</th>
+				<th>Estado</th>
+			</thead>
+			<tbody>
+				<tr ng-repeat="articulo in articulos | orderBy: 'razonSocial' | startFrom:(currentPage-1)*itemsPerPage | limitTo:itemsPerPage">
+					<td><a ng-click="onEditar(articulo)">{{articulo.nombre}}</a></td>
+					<td>{{articulo.unidad}}</td>
+					<td>{{articulo.precioUnitario}}</td>
+					<td>{{articulo.precioInventario}}</td>
+					<td>{{articulo.porcentajeGanancia}}</td>
+					<td>{{articulo.precioComercial}}</td>
+					<td>{{articulo.observacion}}</td>
+					<td>{{articulo.activo ? 'ACTIVO':'INACTIVO'}}</td>
+				</tr>
+			</tbody>
+		</table>
+		<uib-pagination total-items="articulos.length" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
+	</div>
+	<section class="formulario form-fijo" ng-show="esNuevo || estaEditando">
+		<div>
+			<ul class="flex">
+				<li>
+					<label>Nombre:</label><br>
+					<input type="text" ng-model="articuloNuevo.nombre"
+						uib-typeahead="item as item for item in nombresArticulo | filter:$viewValue | limitTo:5" 
+						uib-typeahead-min-length="2" 
+						uib-typeahead-wait-ms="1"/>
+				</li>
+				<li>
+					<label>Unidad:</label><br>
+					<input type="text" ng-model="articuloNuevo.unidad"/>
+				</li>
+				<li>
+					<label>Direcci&oacute;n:</label><br>
+					<input type="text" ng-model="articuloNuevo.precioUnitario"/>
+				</li>
+				<li>
+					<label>Tel&eacute;fono:</label><br>
+					<input type="number" ng-model="articuloNuevo.telefono"/>
+				</li>
+				<li>
+					<label>Email:</label><br>
+					<input type="text" ng-model="articuloNuevo.correo"/>
+				</li>
+				<li>
+					<label>Observaci&oacute;n:</label><br>
+					<input type="text" ng-model="articuloNuevo.observacion"/>
+				</li>
+			</ul>
+		</div>
+	</section>
+</div>
