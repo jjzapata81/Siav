@@ -1059,6 +1059,10 @@ a:hover {
 	text-align: center;
 }
 
+.column-currency {
+	text-align: right;
+}
+
 .margin-55 {
 	margin-left: 55px;
 }

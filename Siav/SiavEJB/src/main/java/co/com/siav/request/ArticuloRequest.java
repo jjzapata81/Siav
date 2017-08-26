@@ -1,5 +1,7 @@
 package co.com.siav.request;
 
+import co.com.siav.entities.Maestros;
+
 
 public class ArticuloRequest {
 	
@@ -7,7 +9,7 @@ public class ArticuloRequest {
 	
 	private String nombre;
 	
-	private String unidad;
+	private Maestros unidad;
 	
 	private Double precioUnitario;
 	
@@ -37,11 +39,11 @@ public class ArticuloRequest {
 		this.nombre = nombre;
 	}
 
-	public String getUnidad() {
+	public Maestros getUnidad() {
 		return unidad;
 	}
 
-	public void setUnidad(String unidad) {
+	public void setUnidad(Maestros unidad) {
 		this.unidad = unidad;
 	}
 

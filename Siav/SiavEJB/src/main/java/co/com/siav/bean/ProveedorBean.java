@@ -51,7 +51,7 @@ public class ProveedorBean {
 	public MensajeResponse actualizar(ProveedorRequest request) {
 		Proveedor proveedorBD = proveedorRep.findOne(request.getCodigo());
 		if(proveedorBD == null){
-			return new MensajeResponse(EstadoEnum.ERROR, Constantes.PROVEEDOR_NO_EXISTE);
+			return new MensajeResponse(EstadoEnum.ERROR, Constantes.ERR_PROVEEDOR_NO_EXISTE);
 		}
 		try{
 			if(Utilidades.emailNoValido(request.getCorreo())){

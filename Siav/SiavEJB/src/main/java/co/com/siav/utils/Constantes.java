@@ -124,8 +124,10 @@ public final class Constantes {
 	public static final String ERR_PQR_DESCRIPCION = "Debe ingresar una descripción.";
 	public static final String ERR_PQR_ESTADO = "Debe indicar en que estado queda el incidente.";
 	public static final String ERR_PQR_ACCION = "Debe indicar una acción a realizar.";
-	public static final String PROVEEDOR_NO_EXISTE = "No existe el proveedor.";
-	public static final String ARTICULO_NO_EXISTE = "No existe el artículo.";
+	public static final String ERR_PROVEEDOR_NO_EXISTE = "No existe el proveedor.";
+	public static final String ERR_ARTICULO_NO_EXISTE = "No existe el artículo.";
+	public static final String UNIDAD_ARTICULO = "UNIDAD_ARTICULO";
+	public static final String ERR_ARTICULO_NOMBRE_DUPLICADO = "Ya existe un artículo con el mismo nombre.";
 
 	
 	public static String getMensaje(String mensaje, Long codigo) {

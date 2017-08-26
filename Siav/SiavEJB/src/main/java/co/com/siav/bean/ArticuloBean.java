@@ -17,10 +17,12 @@ import co.com.siav.utils.Constantes;
 public class ArticuloBean {
 	
 	@Inject
-	private IRepositoryArticulo articuloRep;
-	
+	private IRepositoryArticulo articuloRep;	
 
 	public MensajeResponse crear(ArticuloRequest request) {
+		if(request.getNombre() != null && !articuloRep.findByNombre(request.getNombre().trim()).isEmpty()){
+			return new MensajeResponse(EstadoEnum.ERROR, Constantes.ERR_ARTICULO_NOMBRE_DUPLICADO);
+		}
 		try{
 			Articulo articulo = new Articulo();
 			articulo.setNombre(request.getNombre());
@@ -29,6 +31,7 @@ public class ArticuloBean {
 			articulo.setPrecioInventario(request.getPrecioInventario());
 			articulo.setPrecioUnitario(request.getPrecioUnitario());
 			articulo.setObservacion(request.getObservacion());
+			articulo.setUnidad(request.getUnidad().getCodigo());
 			articulo.setActivo(true);
 			articuloRep.save(articulo);
 			return new MensajeResponse(Constantes.ACTUALIZACION_EXITO);
@@ -48,7 +51,7 @@ public class ArticuloBean {
 	public MensajeResponse actualizar(ArticuloRequest request) {
 		Articulo articuloBD = articuloRep.findOne(request.getCodigo());
 		if(articuloBD == null){
-			return new MensajeResponse(EstadoEnum.ERROR, Constantes.ARTICULO_NO_EXISTE);
+			return new MensajeResponse(EstadoEnum.ERROR, Constantes.ERR_ARTICULO_NO_EXISTE);
 		}
 		try{
 			articuloBD.setNombre(request.getNombre());
@@ -57,7 +60,8 @@ public class ArticuloBean {
 			articuloBD.setPrecioInventario(request.getPrecioInventario());
 			articuloBD.setPrecioUnitario(request.getPrecioUnitario());
 			articuloBD.setObservacion(request.getObservacion());
-			articuloBD.setActivo(true);
+			articuloBD.setUnidad(request.getUnidad().getCodigo());
+			articuloBD.setActivo(request.getActivo());
 			articuloRep.save(articuloBD);
 			return new MensajeResponse(Constantes.ACTUALIZACION_EXITO);
 		}catch(Exception e){

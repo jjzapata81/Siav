@@ -24,15 +24,15 @@
 				<th>Estado</th>
 			</thead>
 			<tbody>
-				<tr ng-repeat="articulo in articulos | orderBy: 'razonSocial' | startFrom:(currentPage-1)*itemsPerPage | limitTo:itemsPerPage">
-					<td><a ng-click="onEditar(articulo)">{{articulo.nombre}}</a></td>
-					<td>{{articulo.unidad}}</td>
-					<td>{{articulo.precioUnitario}}</td>
-					<td>{{articulo.precioInventario}}</td>
-					<td>{{articulo.porcentajeGanancia}}</td>
-					<td>{{articulo.precioComercial}}</td>
+				<tr ng-repeat="articulo in articulos | orderBy: 'nombre' | startFrom:(currentPage-1)*itemsPerPage | limitTo:itemsPerPage">
+					<td nowrap><a ng-click="onEditar(articulo)">{{articulo.nombre}}</a></td>
+					<td nowrap>{{articulo.unidad.valor}}</td>
+					<td class="column-currency">{{articulo.precioUnitario | currency:"$":2}}</td>
+					<td class="column-currency">{{articulo.precioInventario | currency:"$":2}}</td>
+					<td class="column-currency">{{articulo.porcentajeGanancia | currency:"%":2}}</td>
+					<td class="column-currency">{{articulo.precioComercial | currency:"$":2}}</td>
 					<td>{{articulo.observacion}}</td>
-					<td>{{articulo.activo ? 'ACTIVO':'INACTIVO'}}</td>
+					<td><a ng-click="onDesactivar(articulo)">{{articulo.activo ? 'ACTIVO':'INACTIVO'}}</a></td>
 				</tr>
 			</tbody>
 		</table>
@@ -50,19 +50,25 @@
 				</li>
 				<li>
 					<label>Unidad:</label><br>
-					<input type="text" ng-model="articuloNuevo.unidad"/>
+					<select ng-model="articuloNuevo.unidad"
+				    	ng-options="unidad as unidad.valor for unidad in unidades track by unidad.codigo">
+      				</select>
 				</li>
 				<li>
-					<label>Direcci&oacute;n:</label><br>
-					<input type="text" ng-model="articuloNuevo.precioUnitario"/>
+					<label>Precio unitario:</label><br>
+					<input type="number" ng-model="articuloNuevo.precioUnitario"/>
 				</li>
 				<li>
-					<label>Tel&eacute;fono:</label><br>
-					<input type="number" ng-model="articuloNuevo.telefono"/>
+					<label>Precio inventario:</label><br>
+					<input type="number" ng-model="articuloNuevo.precioInventario"/>
 				</li>
 				<li>
-					<label>Email:</label><br>
-					<input type="text" ng-model="articuloNuevo.correo"/>
+					<label>Porcentaje ganancia:</label><br>
+					<input type="number" ng-model="articuloNuevo.porcentajeGanancia"/>
+				</li>
+				<li>
+					<label>Precio comercial:</label><br>
+					<input type="number" ng-model="articuloNuevo.precioComercial"/>
 				</li>
 				<li>
 					<label>Observaci&oacute;n:</label><br>

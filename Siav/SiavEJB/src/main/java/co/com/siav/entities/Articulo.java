@@ -51,11 +51,11 @@ public class Articulo implements Serializable{
 	}
 
 	public String getNombre() {
-		return nombre;
+		return nombre == null ? "" : nombre.toUpperCase();
 	}
 
 	public void setNombre(String nombre) {
-		this.nombre = nombre;
+		this.nombre = nombre == null ? "" : nombre.trim();
 	}
 	
 	public String getUnidad() {
@@ -99,7 +99,7 @@ public class Articulo implements Serializable{
 	}
 
 	public String getObservacion() {
-		return observacion;
+		return observacion == null ? "" : observacion.toUpperCase();
 	}
 
 	public void setObservacion(String observacion) {

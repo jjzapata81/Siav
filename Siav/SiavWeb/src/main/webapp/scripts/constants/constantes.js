@@ -168,6 +168,10 @@ define(['siav-module'], function(app) {
     		"MODIFICAR_PROPIETARIO" : "Modificar propietario",
     		"AGREGAR_PROPIETARIO" : "Agregar propietario"
     	},
+    	"ARTICULO" : {
+    		"INFO_MODIFICAR" : "Se procede a cambiar el estado de un artículo. ¿Desea continuar?",
+    		"ERR_NOMBRE" : "Debe ingresar un nombre para el artículo."
+    	},
     	"BANCO" : {
     		"INFO_MODIFICAR_CUENTA" : "Se procede a modificar la cuenta. ¿Desea continuar?",
     		"ERR_OBLIGATORIO" : "Los campos de nombre y número de cuenta son obligatorios."
@@ -229,6 +233,10 @@ define(['siav-module'], function(app) {
     	},
     	"MACROS" :{
     		"ERR_MACRO_NOMBRE" : "Debe ingresar el nombre del macromedidor."
+    	},
+    	"MAESTROS": {
+    		"PQR_ESTADO" : "PQR_ESTADO",
+    		"UNIDAD_ARTICULO" : "UNIDAD_ARTICULO"
     	},
     	"NOVEDAD" : {
     		"CONFIRMAR_ELIMINAR" : "Se procede a eliminar una novedad. ¿Desea continuar?"

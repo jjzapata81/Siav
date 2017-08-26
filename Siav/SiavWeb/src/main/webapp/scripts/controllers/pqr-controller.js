@@ -32,7 +32,7 @@ define(['siav-module', 'pqr-services', 'instalaciones-services', 'usuario-sistem
     	
     	$scope.cargarEstados = function(){
     		instalacionesServices
-    		.consultarMaestro('PQR_ESTADO')
+    		.consultarMaestro(CONSTANTES.MAESTROS.PQR_ESTADO)
     		.then(function(estados){
     			$scope.estados =  estados;
     			$scope.estado = $filter('filter')($scope.estados, { codigo : '1' }, true)[0];

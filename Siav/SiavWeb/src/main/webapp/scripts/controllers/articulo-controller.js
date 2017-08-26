@@ -1,31 +1,45 @@
 /*global define*/
 'use strict';
 
-define(['siav-module', 'proveedor-services', 'modal-factory', 'constantes'], function (app) {
+define(['siav-module', 'articulo-services', 'instalaciones-services', 'modal-factory', 'constantes'], function (app) {
 	
-    return app.controller('proveedor-controller', ['$scope', 'proveedorServices', 'modalFactory', 'CONSTANTES', function($scope, proveedorServices, modalFactory, CONSTANTES){
+    return app.controller('articulo-controller', ['$scope', '$filter', 'articuloServices', 'instalacionesServices', 'modalFactory', 'CONSTANTES', function($scope, $filter, articuloServices, instalacionesServices, modalFactory, CONSTANTES){
     	
     	$scope.init = function(){
-    		$scope.proveedorNuevo = {};
+    		$scope.articuloNuevo = {};
     		$scope.esNuevo = false;
     		$scope.estaEditando = false;
-    		$scope.proveedores = [];
-    		$scope.consultarProveedores();
-    		$scope.consultarNombresProveedores();
+    		$scope.articulos = [];
+    		$scope.consultarArticulos();
+    		$scope.consultarNombresArticulos();
+    		
     	}
     	
-    	$scope.consultarProveedores = function(){
-    		proveedorServices
+    	$scope.consultarArticulos = function(){
+    		articuloServices
     		.consultar()
-    		.then(function(proveedores){
-    			$scope.proveedores = proveedores;
+    		.then(function(articulos){
+    			$scope.articulos = articulos;
+    			$scope.cargarTiposUnidad();
     		});
     	}
-    	$scope.consultarNombresProveedores = function(){
-    		proveedorServices
+    	$scope.consultarNombresArticulos = function(){
+    		articuloServices
     		.consultarNombres()
-    		.then(function(nombresProveedor){
-    			$scope.nombresProveedor = nombresProveedor;
+    		.then(function(nombresArticulo){
+    			$scope.nombresArticulo = nombresArticulo;
+    		});
+    	}
+    	
+    	$scope.cargarTiposUnidad = function(){
+    		instalacionesServices
+    		.consultarMaestro(CONSTANTES.MAESTROS.UNIDAD_ARTICULO)
+    		.then(function(unidades){
+    			$scope.unidades = unidades;
+    			angular.forEach($scope.articulos, function(articulo, key) {
+    				var filtro = $filter('filter')($scope.unidades, { codigo : articulo.unidad })[0];
+    				articulo.unidad = filtro;
+    			});
     		});
     	}
     	
@@ -38,19 +52,34 @@ define(['siav-module', 'proveedor-services', 'modal-factory', 'constantes'], fun
     	
     	$scope.onActualizar = function(){
     		if($scope.validar()){
-    			proveedorServices
-        		.actualizar($scope.proveedorNuevo)
+    			articuloServices
+        		.actualizar($scope.articuloNuevo)
         		.then(function(respuesta){
         			modalFactory.abrirDialogo(respuesta);
         			$scope.init();
         		});
     		}
+    	}
+    	
+    	$scope.onDesactivar = function(articulo){
+    		modalFactory
+    		.abrir(CONSTANTES.ESTADO.INFO, CONSTANTES.ARTICULO.INFO_MODIFICAR)
+    		.result
+    		.then(function(respuesta){
+    			articulo.activo = !articulo.activo;
+    			articuloServices
+        		.actualizar(articulo)
+        		.then(function(respuesta){
+        			modalFactory.abrirDialogo(respuesta);
+        			$scope.init();
+        		});
+    		});
     	}
     	
     	$scope.onCrear = function(){
     		if($scope.validar()){
-    			proveedorServices
-        		.crear($scope.proveedorNuevo)
+    			articuloServices
+        		.crear($scope.articuloNuevo)
         		.then(function(respuesta){
         			modalFactory.abrirDialogo(respuesta);
         			$scope.init();
@@ -58,18 +87,14 @@ define(['siav-module', 'proveedor-services', 'modal-factory', 'constantes'], fun
     		}
     	}
     	
-    	$scope.onEditar = function(proveedor){
+    	$scope.onEditar = function(articulo){
     		$scope.estaEditando = true;
-    		$scope.proveedorNuevo = angular.copy(proveedor);
+    		$scope.articuloNuevo = angular.copy(articulo);
     	}
     	
     	$scope.validar = function(){
-    		if(!$scope.proveedorNuevo.nit){
-    			modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.PROVEEDOR.ERR_NIT);
-    			return false;
-    		}
-    		if(!$scope.proveedorNuevo.razonSocial){
-    			modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.PROVEEDOR.ERR_RAZON_SOCIAL);
+    		if(!$scope.articuloNuevo.nombre){
+    			modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.ARTICULO.ERR_NOMBRE);
     			return false;
     		}
     		return true;

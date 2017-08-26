@@ -23,8 +23,8 @@
 			</thead>
 			<tbody>
 				<tr ng-repeat="proveedor in proveedores | orderBy: 'razonSocial' | startFrom:(currentPage-1)*itemsPerPage | limitTo:itemsPerPage">
-					<td>{{proveedor.nit}}</td>
-					<td><a ng-click="onEditar(proveedor)">{{proveedor.razonSocial}}</a></td>
+					<td nowrap>{{proveedor.nit}}</td>
+					<td nowrap><a ng-click="onEditar(proveedor)">{{proveedor.razonSocial}}</a></td>
 					<td>{{proveedor.direccion}}</td>
 					<td>{{proveedor.telefono}}</td>
 					<td>{{proveedor.correo}}</td>

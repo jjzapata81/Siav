@@ -63,3 +63,12 @@ INSERT INTO ta_recurso_perfil(nmrecursoperfil, nmperfil, nmrecurso)
     
 INSERT INTO ta_recurso_perfil(nmrecursoperfil, nmperfil, nmrecurso)
     VALUES ((SELECT MAX(r.nmrecursoperfil) FROM ta_recurso_perfil r)+1, 2, 612);
+
+    INSERT INTO ta_recursos(nmrecurso, titulo, accion, snsubmenu, nmrelacion, nmgrupo)
+    VALUES (616, 'Artículos', 'articulos', 'N', 610, 2);
+    
+INSERT INTO ta_recurso_perfil(nmrecursoperfil, nmperfil, nmrecurso)
+    VALUES ((SELECT MAX(r.nmrecursoperfil) FROM ta_recurso_perfil r)+1, 1, 616);
+    
+INSERT INTO ta_recurso_perfil(nmrecursoperfil, nmperfil, nmrecurso)
+    VALUES ((SELECT MAX(r.nmrecursoperfil) FROM ta_recurso_perfil r)+1, 2, 616);
