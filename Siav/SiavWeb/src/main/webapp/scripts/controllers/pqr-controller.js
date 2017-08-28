@@ -1,9 +1,9 @@
 /*global define*/
 'use strict';
 
-define(['siav-module', 'pqr-services', 'instalaciones-services', 'usuario-sistema-services', 'modal-factory'], function (app) {
+define(['siav-module', 'pqr-services', 'instalaciones-services', 'usuario-sistema-services', 'modal-factory', 'constantes'], function (app) {
 	
-    return app.controller('pqr-controller', ['$scope','$filter', 'pqrServices', 'instalacionesServices', 'usuarioSistemaServices', 'modalFactory', function($scope, $filter, pqrServices, instalacionesServices, usuarioSistemaServices, modalFactory){
+    return app.controller('pqr-controller', ['$scope','$filter', 'pqrServices', 'instalacionesServices', 'usuarioSistemaServices', 'modalFactory', 'CONSTANTES', function($scope, $filter, pqrServices, instalacionesServices, usuarioSistemaServices, modalFactory, CONSTANTES){
     	
     	$scope.init = function(){
     		$scope.pqrs = [];
