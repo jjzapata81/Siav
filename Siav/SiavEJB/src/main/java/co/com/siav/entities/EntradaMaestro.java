@@ -2,19 +2,10 @@ package co.com.siav.entities;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -22,12 +13,8 @@ import javax.persistence.Table;
 public class EntradaMaestro implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-
-	private static final String NOMBRE_SECUENCIA = "EntradaMaestro.codigo";
 	
 	@Id
-	@SequenceGenerator(name = EntradaMaestro.NOMBRE_SECUENCIA, sequenceName = "sq_ta_entrada_maestro", allocationSize=1)
-	@GeneratedValue(generator = EntradaMaestro.NOMBRE_SECUENCIA, strategy = GenerationType.SEQUENCE)
 	@Column(name="nmentrada")
 	private Long codigo;
 
@@ -35,13 +22,6 @@ public class EntradaMaestro implements Serializable{
 	
 	@Column(name="nmproveedor")
 	private Long codProveedor;
-	
-	@OneToOne
-	@JoinColumn(name="nmproveedor", updatable=false, insertable=false)
-	private Proveedor proveedor;
-	
-	@OneToMany(mappedBy = "codigo.codEntrada", fetch=FetchType.LAZY, cascade= {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE})
-	private List<EntradaDetalle> detalles;
 	
 	@Column(name="nmfacturacompra")
 	private Long codFacturaCompra;
@@ -71,22 +51,6 @@ public class EntradaMaestro implements Serializable{
 
 	public void setCodProveedor(Long codProveedor) {
 		this.codProveedor = codProveedor;
-	}
-
-	public Proveedor getProveedor() {
-		return proveedor;
-	}
-
-	public void setProveedor(Proveedor proveedor) {
-		this.proveedor = proveedor;
-	}
-
-	public List<EntradaDetalle> getDetalles() {
-		return detalles;
-	}
-
-	public void setDetalles(List<EntradaDetalle> detalles) {
-		this.detalles = detalles;
 	}
 
 	public Long getCodFacturaCompra() {

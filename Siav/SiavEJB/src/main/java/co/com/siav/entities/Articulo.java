@@ -29,15 +29,12 @@ public class Articulo implements Serializable{
 	
 	private String unidad;
 	
-	private Double precioUnitario;
-	
-	private Double precioInventario;
-	
-	private Double porcentajeGanancia;
-	
-	private Double precioComercial;
-	
 	private String observacion;
+	
+	private Double porcentajeIva;
+	
+	@Column(name="sniva")
+	private String tieneIva;
 	
 	@Column(name="snactivo")
 	private String activo;
@@ -66,38 +63,6 @@ public class Articulo implements Serializable{
 		this.unidad = unidad;
 	}
 
-	public Double getPrecioUnitario() {
-		return precioUnitario == null ? 0D : precioUnitario;
-	}
-
-	public void setPrecioUnitario(Double precioUnitario) {
-		this.precioUnitario = precioUnitario;
-	}
-
-	public Double getPrecioInventario() {
-		return precioInventario == null ? 0D : precioInventario;
-	}
-
-	public void setPrecioInventario(Double precioInventario) {
-		this.precioInventario = precioInventario;
-	}
-
-	public Double getPorcentajeGanancia() {
-		return porcentajeGanancia == null ? 0D : porcentajeGanancia;
-	}
-
-	public void setPorcentajeGanancia(Double porcentajeGanancia) {
-		this.porcentajeGanancia = porcentajeGanancia;
-	}
-
-	public Double getPrecioComercial() {
-		return precioComercial == null ? 0D : precioComercial;
-	}
-
-	public void setPrecioComercial(Double precioComercial) {
-		this.precioComercial = precioComercial;
-	}
-
 	public String getObservacion() {
 		return observacion == null ? "" : observacion.toUpperCase();
 	}
@@ -112,6 +77,22 @@ public class Articulo implements Serializable{
 
 	public void setActivo(Boolean activo) {
 		this.activo = activo ? "S" : "N";
+	}
+	
+	public Double getPorcentajeIva() {
+		return porcentajeIva == null ? 0D : porcentajeIva;
+	}
+
+	public void setPorcentajeIva(Double porcentajeIva) {
+		this.porcentajeIva = porcentajeIva;
+	}
+
+	public Boolean getTieneIva() {
+		return "S".equals(tieneIva);
+	}
+
+	public void setTieneIva(Boolean tieneIva) {
+		this.tieneIva = tieneIva ? "S" : "N";
 	}
 
 	@PrePersist

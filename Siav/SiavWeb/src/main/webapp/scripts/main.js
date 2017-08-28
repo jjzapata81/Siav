@@ -55,6 +55,7 @@ require.config({
     	"pqr-services" : "services/pqr-services",
     	"proveedor-services" : "services/proveedor-services",
     	"articulo-services" : "services/articulo-services",
+    	"materiales-services" : "services/materiales-services",
     	
     	// constantes
     	'constantes' :  'constants/constantes',
@@ -118,6 +119,8 @@ require.config({
     	'pqr-controller' : 'controllers/pqr-controller',
     	'proveedor-controller' : 'controllers/proveedor-controller',
     	'articulo-controller' : 'controllers/articulo-controller',
+    	'entradas-materiales-controller' : 'controllers/entradas-materiales-controller',
+    	'salida-materiales-controller' : 'controllers/salida-materiales-controller',
     	
     	//Reportes
     	

@@ -16,10 +16,8 @@
 			<thead>
 				<th>Nombre</th>
 				<th>Unidad</th>
-				<th>Precio unitario</th>
-				<th>Precio inventario</th>
-				<th>Porcentaje ganancia</th>
-				<th>Precio comercial</th>
+				<th>Tiene IVA</th>
+				<th>Porcentaje IVA</th>
 				<th>Observaci&oacute;n</th>
 				<th>Estado</th>
 			</thead>
@@ -27,10 +25,8 @@
 				<tr ng-repeat="articulo in articulos | orderBy: 'nombre' | startFrom:(currentPage-1)*itemsPerPage | limitTo:itemsPerPage">
 					<td nowrap><a ng-click="onEditar(articulo)">{{articulo.nombre}}</a></td>
 					<td nowrap>{{articulo.unidad.valor}}</td>
-					<td class="column-currency">{{articulo.precioUnitario | currency:"$":2}}</td>
-					<td class="column-currency">{{articulo.precioInventario | currency:"$":2}}</td>
-					<td class="column-currency">{{articulo.porcentajeGanancia | currency:"%":2}}</td>
-					<td class="column-currency">{{articulo.precioComercial | currency:"$":2}}</td>
+					<td>{{articulo.tieneIva ? 'SI' : 'NO'}}</td>
+					<td>{{articulo.porcentajeIva | currency:"%":2}}</td>
 					<td>{{articulo.observacion}}</td>
 					<td><a ng-click="onDesactivar(articulo)">{{articulo.activo ? 'ACTIVO':'INACTIVO'}}</a></td>
 				</tr>
@@ -54,25 +50,19 @@
 				    	ng-options="unidad as unidad.valor for unidad in unidades track by unidad.codigo">
       				</select>
 				</li>
+			</ul>
+			<ul class="flex">
 				<li>
-					<label>Precio unitario:</label><br>
-					<input type="number" ng-model="articuloNuevo.precioUnitario"/>
+					<label>Porcentaje IVA:</label><br>
+					<input type="number" ng-model="articuloNuevo.porcentajeIva"/>
 				</li>
 				<li>
-					<label>Precio inventario:</label><br>
-					<input type="number" ng-model="articuloNuevo.precioInventario"/>
+					<label>¿Tiene IVA?:</label><br>
+					<input type="checkbox" class="chk-config" ng-model="articuloNuevo.tieneIva"/>{{articuloNuevo.tieneIva ? 'SI' : 'NO'}}
 				</li>
 				<li>
-					<label>Porcentaje ganancia:</label><br>
-					<input type="number" ng-model="articuloNuevo.porcentajeGanancia"/>
-				</li>
-				<li>
-					<label>Precio comercial:</label><br>
-					<input type="number" ng-model="articuloNuevo.precioComercial"/>
-				</li>
-				<li>
-					<label>Observaci&oacute;n:</label><br>
-					<input type="text" ng-model="articuloNuevo.observacion"/>
+					<label>Observaci&oacute;n</label><br>
+					<textarea class="mensaje-institucional" rows="3" ng-model="articuloNuevo.observacion" maxlength="200"></textarea>
 				</li>
 			</ul>
 		</div>

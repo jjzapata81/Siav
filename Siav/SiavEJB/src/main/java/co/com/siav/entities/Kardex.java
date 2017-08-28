@@ -28,9 +28,6 @@ public class Kardex implements Serializable{
 	
 	private String tipo;
 	
-	@Column(name="nmdocumento")
-	private Long codDocumento;
-	
 	private Long saldoAnterior;
 	
 	private Long cantidadEntrada;
@@ -39,26 +36,24 @@ public class Kardex implements Serializable{
 	
 	private Long saldoActual;
 	
-	private Double valorSaldoAnterior;
-	
 	private Double precioCompra;
+	
+	private Double ivaPrecioCompra;
+	
+	private Double precioUnitario;
+	
+	private Double ivaPrecioUnitario;
 	
 	private Double precioComercial;
 	
-	private Double valorSaldoActual;
+	@Column(name="nmentrada")
+	private Long codEntrada;
 	
+	@Column(name="nmsalida")
+	private Long codSalida;
 
-	@OneToOne
-	@JoinColumn(name="nmentrada", updatable=false, insertable=false)
-	private EntradaMaestro entrada;
-
-	@OneToOne
-	@JoinColumn(name="nmsalida", updatable=false, insertable=false)
-	private SalidaMaestro salida;
-	
-	@OneToOne
-	@JoinColumn(name="nmarticulo", updatable=false, insertable=false)
-	private Articulo articulo;
+	@Column(name="nmarticulo")
+	private Long codArticulo;
 	
 	public Long getCodigo() {
 		return codigo;
@@ -67,21 +62,21 @@ public class Kardex implements Serializable{
 	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
 	}
-	
-	public Articulo getArticulo() {
-		return articulo;
+
+	public Long getCodSalida() {
+		return codSalida;
 	}
-	
-	public void setArticulo(Articulo articulo) {
-		this.articulo = articulo;
+
+	public void setCodSalida(Long codSalida) {
+		this.codSalida = codSalida;
 	}
-	
-	public SalidaMaestro getSalida() {
-		return salida;
+
+	public Long getCodArticulo() {
+		return codArticulo;
 	}
-	
-	public void setSalida(SalidaMaestro salida) {
-		this.salida = salida;
+
+	public void setCodArticulo(Long codArticulo) {
+		this.codArticulo = codArticulo;
 	}
 
 	public String getTipo() {
@@ -90,14 +85,6 @@ public class Kardex implements Serializable{
 
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
-	}
-
-	public Long getCodDocumento() {
-		return codDocumento;
-	}
-
-	public void setCodDocumento(Long codDocumento) {
-		this.codDocumento = codDocumento;
 	}
 
 	public Long getSaldoAnterior() {
@@ -132,14 +119,6 @@ public class Kardex implements Serializable{
 		this.saldoActual = saldoActual;
 	}
 
-	public Double getValorSaldoAnterior() {
-		return valorSaldoAnterior;
-	}
-
-	public void setValorSaldoAnterior(Double valorSaldoAnterior) {
-		this.valorSaldoAnterior = valorSaldoAnterior;
-	}
-
 	public Double getPrecioCompra() {
 		return precioCompra;
 	}
@@ -156,20 +135,36 @@ public class Kardex implements Serializable{
 		this.precioComercial = precioComercial;
 	}
 
-	public Double getValorSaldoActual() {
-		return valorSaldoActual;
+	public Double getIvaPrecioCompra() {
+		return ivaPrecioCompra == null ? 0D : ivaPrecioCompra;
 	}
 
-	public void setValorSaldoActual(Double valorSaldoActual) {
-		this.valorSaldoActual = valorSaldoActual;
+	public void setIvaPrecioCompra(Double ivaPrecioCompra) {
+		this.ivaPrecioCompra = ivaPrecioCompra;
 	}
 
-	public EntradaMaestro getEntrada() {
-		return entrada;
+	public Double getPrecioUnitario() {
+		return precioUnitario == null ? 0D : precioUnitario;
 	}
 
-	public void setEntrada(EntradaMaestro entrada) {
-		this.entrada = entrada;
+	public void setPrecioUnitario(Double precioUnitario) {
+		this.precioUnitario = precioUnitario;
+	}
+
+	public Double getIvaPrecioUnitario() {
+		return ivaPrecioUnitario == null ? 0D : ivaPrecioUnitario;
+	}
+
+	public void setIvaPrecioUnitario(Double ivaPrecioUnitario) {
+		this.ivaPrecioUnitario = ivaPrecioUnitario;
+	}
+	
+	public Long getCodEntrada() {
+		return codEntrada;
+	}
+	
+	public void setCodEntrada(Long codEntrada) {
+		this.codEntrada = codEntrada;
 	}
 		
 }

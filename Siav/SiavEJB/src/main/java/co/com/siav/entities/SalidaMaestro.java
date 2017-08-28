@@ -2,17 +2,10 @@ package co.com.siav.entities;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -20,12 +13,8 @@ import javax.persistence.Table;
 public class SalidaMaestro implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-
-	private static final String NOMBRE_SECUENCIA = "SalidaMaestro.codigo";
 	
 	@Id
-	@SequenceGenerator(name = SalidaMaestro.NOMBRE_SECUENCIA, sequenceName = "sq_ta_salida_maestro", allocationSize=1)
-	@GeneratedValue(generator = SalidaMaestro.NOMBRE_SECUENCIA, strategy = GenerationType.SEQUENCE)
 	@Column(name="nmsalida")
 	private Long codigo;
 
@@ -39,10 +28,6 @@ public class SalidaMaestro implements Serializable{
 	
 	@Column(name="feordensalida")
 	private Date fechaOrdenSalida;
-	
-	@OneToMany(mappedBy = "codigo.codSalida", fetch=FetchType.LAZY, cascade= {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE})
-	private List<SalidaDetalle> detalles;
-	
 	
 	public Long getCodigo() {
 		return codigo;
@@ -58,14 +43,6 @@ public class SalidaMaestro implements Serializable{
 
 	public void setCiclo(Long ciclo) {
 		this.ciclo = ciclo;
-	}
-
-	public List<SalidaDetalle> getDetalles() {
-		return detalles;
-	}
-
-	public void setDetalles(List<SalidaDetalle> detalles) {
-		this.detalles = detalles;
 	}
 
 	public Long getCodDestino() {

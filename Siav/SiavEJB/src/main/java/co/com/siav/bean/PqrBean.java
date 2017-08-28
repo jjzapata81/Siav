@@ -49,7 +49,7 @@ public class PqrBean {
 	private IRepositoryParametros parametrosRep;
 	
 	@Inject
-	private IRepositoryMaestros mestrosRep;
+	private IRepositoryMaestros maestrosRep;
 
 	public List<PqrResponse> consultarTodo(){
 		return pqrRep.findAll().stream().map(this::transform).collect(Collectors.toList());
@@ -152,7 +152,7 @@ public class PqrBean {
 	}
 
 	private String getEstado(Long estado) {
-		return mestrosRep.findByCodigoAndGrupo(String.valueOf(estado), Constantes.PQR_ESTADO).getValor();
+		return maestrosRep.findByCodigoAndGrupo(String.valueOf(estado), Constantes.PQR_ESTADO).getValor();
 	}
 	
 	private PqrDetalleResponse toDetalleResponse(PqrDetalle detalleBD){

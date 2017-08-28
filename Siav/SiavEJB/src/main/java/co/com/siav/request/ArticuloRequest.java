@@ -11,15 +11,11 @@ public class ArticuloRequest {
 	
 	private Maestros unidad;
 	
-	private Double precioUnitario;
-	
-	private Double precioInventario;
-	
-	private Double porcentajeGanancia;
-	
-	private Double precioComercial;
-	
 	private String observacion;
+	
+	private Double porcentajeIva;
+	
+	private Boolean tieneIva;
 	
 	private Boolean activo;
 
@@ -47,38 +43,6 @@ public class ArticuloRequest {
 		this.unidad = unidad;
 	}
 
-	public Double getPrecioUnitario() {
-		return precioUnitario;
-	}
-
-	public void setPrecioUnitario(Double precioUnitario) {
-		this.precioUnitario = precioUnitario;
-	}
-
-	public Double getPrecioInventario() {
-		return precioInventario;
-	}
-
-	public void setPrecioInventario(Double precioInventario) {
-		this.precioInventario = precioInventario;
-	}
-
-	public Double getPorcentajeGanancia() {
-		return porcentajeGanancia;
-	}
-
-	public void setPorcentajeGanancia(Double porcentajeGanancia) {
-		this.porcentajeGanancia = porcentajeGanancia;
-	}
-
-	public Double getPrecioComercial() {
-		return precioComercial;
-	}
-
-	public void setPrecioComercial(Double precioComercial) {
-		this.precioComercial = precioComercial;
-	}
-
 	public String getObservacion() {
 		return observacion;
 	}
@@ -93,6 +57,22 @@ public class ArticuloRequest {
 
 	public void setActivo(Boolean activo) {
 		this.activo = activo;
+	}
+
+	public Double getPorcentajeIva() {
+		return porcentajeIva;
+	}
+
+	public void setPorcentajeIva(Double porcentajeIva) {
+		this.porcentajeIva = porcentajeIva;
+	}
+
+	public Boolean getTieneIva() {
+		return tieneIva;
+	}
+
+	public void setTieneIva(Boolean tieneIva) {
+		this.tieneIva = tieneIva;
 	}
 	
 }

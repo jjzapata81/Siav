@@ -128,6 +128,9 @@ public final class Constantes {
 	public static final String ERR_ARTICULO_NO_EXISTE = "No existe el artículo.";
 	public static final String UNIDAD_ARTICULO = "UNIDAD_ARTICULO";
 	public static final String ERR_ARTICULO_NOMBRE_DUPLICADO = "Ya existe un artículo con el mismo nombre.";
+	public static final String ENTRADA = "ENTRADA";
+	public static final String TIPO_KARDEX = "TIPO_KARDEX";
+	public static final String SALIDA = "SALIDA";
 
 	
 	public static String getMensaje(String mensaje, Long codigo) {

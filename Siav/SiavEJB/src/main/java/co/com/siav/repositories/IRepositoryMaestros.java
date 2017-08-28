@@ -13,5 +13,7 @@ public interface IRepositoryMaestros extends JpaRepository<Maestros, Long>{
 	Maestros findByCodigo(String codigo);
 
 	Maestros findByCodigoAndGrupo(String codigo, String grupo);
+	
+	Maestros findByGrupoAndValor(String grupo, String valor);
 
 }

@@ -26,10 +26,8 @@ public class ArticuloBean {
 		try{
 			Articulo articulo = new Articulo();
 			articulo.setNombre(request.getNombre());
-			articulo.setPorcentajeGanancia(request.getPorcentajeGanancia());
-			articulo.setPrecioComercial(request.getPrecioComercial());
-			articulo.setPrecioInventario(request.getPrecioInventario());
-			articulo.setPrecioUnitario(request.getPrecioUnitario());
+			articulo.setPorcentajeIva(request.getPorcentajeIva());
+			articulo.setTieneIva(request.getTieneIva());
 			articulo.setObservacion(request.getObservacion());
 			articulo.setUnidad(request.getUnidad().getCodigo());
 			articulo.setActivo(true);
@@ -55,10 +53,8 @@ public class ArticuloBean {
 		}
 		try{
 			articuloBD.setNombre(request.getNombre());
-			articuloBD.setPorcentajeGanancia(request.getPorcentajeGanancia());
-			articuloBD.setPrecioComercial(request.getPrecioComercial());
-			articuloBD.setPrecioInventario(request.getPrecioInventario());
-			articuloBD.setPrecioUnitario(request.getPrecioUnitario());
+			articuloBD.setPorcentajeIva(request.getPorcentajeIva());
+			articuloBD.setTieneIva(request.getTieneIva());
 			articuloBD.setObservacion(request.getObservacion());
 			articuloBD.setUnidad(request.getUnidad().getCodigo());
 			articuloBD.setActivo(request.getActivo());

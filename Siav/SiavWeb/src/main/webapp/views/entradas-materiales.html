@@ -1,0 +1,67 @@
+<titulo/>
+<menu></menu>
+
+<div  class="contenido">
+	<div  class="boton-fijo">
+		<a ng-click="onAgregar()" uib-tooltip="Agregar" tooltip-placement="left"><i class="fa fa-plus icon-float icon-add" aria-hidden="true"></i></a>
+		<a ng-click="onGuardar()" uib-tooltip="Guardar" tooltip-placement="left" ng-show="!nuevaFactura"><i class="fa fa-floppy-o icon-float icon-save" aria-hidden="true"></i></a>
+		<a ng-click="onCancelar()" uib-tooltip="Cancelar" tooltip-placement="left"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
+	</div>
+	<section class="titulo-seccion">
+		Entrada de materiales
+	</section>	
+	
+	<section class="formulario form-fijo">
+		<div>
+			<ul class="flex">
+				<li>
+					<label>Proveedor:</label><br>
+					<select
+						ng-model="entrada.proveedor"
+				    	ng-options="proveedor as proveedor.razonSocial for proveedor in proveedores"
+				    	ng-disabled="!nuevaFactura">
+      				</select>
+				</li>
+				<li>
+					<label>N&uacute;mero factura:</label><br>
+					<input type="text" ng-model="entrada.factura" ng-disabled="!nuevaFactura"/>
+				</li>
+				<li>
+					<label>Fecha de factura:</label><br>
+					<input type="date" ng-model="entrada.fecha" ng-disabled="!nuevaFactura"/>
+				</li>
+				<li>
+					<label>Art&iacute;culo:</label><br>
+					<select
+						ng-model="detalle.articulo"
+				    	ng-options="articulo as articulo.nombre for articulo in articulos">
+      				</select>
+				</li>
+				<li>
+					<label>Cantidad:</label><br>
+					<input type="number" ng-model="detalle.cantidad"/>
+				</li>
+				<li>
+					<label>Precio de compra:</label><br>
+					<input type="number" ng-model="detalle.precio"/>
+				</li>
+			</ul>
+		</div>
+	</section>
+	<div class="tabla-siav">
+		<table class="table table-responsive">
+			<thead>
+				<th>Art&iacute;culo</th>
+				<th>Cantidad</th>
+				<th>Precio compra</th>
+			</thead>
+			<tbody>
+				<tr ng-repeat="detalle in entrada.detalles">
+					<td>{{detalle.articulo.nombre}}</td>
+					<td>{{detalle.cantidad}}</td>
+					<td>{{detalle.precio}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

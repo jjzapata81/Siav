@@ -60,6 +60,9 @@ define(['siav-module'], function(app) {
     		
     		"MAESTROS_CONSULTAR" : "rest/listas/maestros/",
     		
+    		"MATERIAL_ENTRADA_CREAR" : "rest/material/entrada/crear",
+    		"MATERIAL_SALIDA_CREAR" : "rest/material/salida/crear",
+    		
     		"NOVEDAD_GUARDAR" : "rest/novedades/guardar",
     		"NOVEDAD_CONSULTAR" : "rest/novedades/consultar/",
     		"NOVEDAD_ELIMINAR" : "rest/novedades/eliminar",
@@ -202,6 +205,9 @@ define(['siav-module'], function(app) {
     		"ERR_VALOR_SUPERIOR" : "El valor ingresado no debe ser superior al saldo del crédito.",
     		"ERR_COMPROBANTE_OBLIGATORIO" : "Debe ingresar un número de comprobante de pago."
     	},
+    	"ENTRADA" : {
+    		"INFO_CANCELAR" : "La factura aún no se ha guardado, al cancelar perderá la información ya ingresada. ¿Desea continuar?"
+    	},
     	"ESTADO" : {
     		"OK" : "OK",
     		"ERROR" : "ERROR",
@@ -263,6 +269,9 @@ define(['siav-module'], function(app) {
     		"ARCHIVO_ENVIADO" : "El archivo se ha enviado de manera exitosa.",
     		"ERR_LIMITE" : "El límite superior no debe ser mayor al límite inferior",
     		"ERR_VARIACION_NEGATIVO" : "El porcentaje de variación debe ser mayor que cero."
+    	},
+    	"SALIDA" : {
+    		"INFO_CANCELAR" : "La orden aún no se ha guardado, al cancelar perderá la información ya ingresada. ¿Desea continuar?"
     	},
     	"SEGURIDAD" : {
     		"ERR_PASS" : "La contraseña ingresada no coincide con la confirmación.",
