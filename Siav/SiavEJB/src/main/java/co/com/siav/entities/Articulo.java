@@ -4,11 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -16,12 +13,8 @@ import javax.persistence.Table;
 public class Articulo implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-
-	private static final String NOMBRE_SECUENCIA = "Articulo.codigo";
 	
 	@Id
-	@SequenceGenerator(name = Articulo.NOMBRE_SECUENCIA, sequenceName = "sq_ta_articulo", allocationSize=1)
-	@GeneratedValue(generator = Articulo.NOMBRE_SECUENCIA, strategy = GenerationType.SEQUENCE)
 	@Column(name="nmarticulo")
 	private Long codigo;
 	

@@ -7,6 +7,9 @@ define(['siav-module', 'materiales-services', 'articulo-services', 'proveedor-se
     	
     	$scope.init = function(){
     		$scope.entrada = {};
+    		$scope.incluyeIva = false;
+    		$scope.mostrarTotal = false;
+    		$scope.totalFactura = 0;
     		$scope.entrada.detalles = [];
     		$scope.nuevaFactura = true;
     		$scope.consultarArticulos();
@@ -45,7 +48,9 @@ define(['siav-module', 'materiales-services', 'articulo-services', 'proveedor-se
     	
     	$scope.onAgregar = function(){
     		$scope.nuevaFactura = false;
+    		$scope.mostrarTotal = true;
     		$scope.entrada.detalles.push(angular.copy($scope.detalle));
+    		$scope.totalFactura = $scope.totalFactura + $scope.detalle.precio;
     		$scope.detalle = null;
     	} 
     	  	

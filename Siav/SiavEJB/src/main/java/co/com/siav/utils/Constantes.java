@@ -131,6 +131,7 @@ public final class Constantes {
 	public static final String ENTRADA = "ENTRADA";
 	public static final String TIPO_KARDEX = "TIPO_KARDEX";
 	public static final String SALIDA = "SALIDA";
+	public static final String INICIAL = "INICIAL";
 
 	
 	public static String getMensaje(String mensaje, Long codigo) {

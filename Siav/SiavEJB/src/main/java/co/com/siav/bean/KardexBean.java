@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
+import co.com.siav.entities.Articulo;
 import co.com.siav.entities.Kardex;
 import co.com.siav.repositories.IRepositoryKardex;
 import co.com.siav.repositories.IRepositoryMaestros;
@@ -29,6 +30,15 @@ public class KardexBean {
 		detalles.stream().forEach(item-> crearDetalle(item, codigo, getTipo(Constantes.SALIDA), false));
 	}
 	
+	public void grabarArticulo(Articulo articulo) {
+		Kardex kardex = new Kardex();
+		kardex.setCodArticulo(articulo.getCodigo());
+		kardex.setTipo(getTipo(Constantes.INICIAL));
+		kardex.setValorizado(true);
+		kardexRep.save(kardex);
+		
+	}
+	
 	private void crearDetalle(MaterialDetalleRequest requestDetalle, Long codigo, String tipo, boolean esEntrada){
 		Kardex kardex = new Kardex();
 		kardex.setTipo(tipo);
@@ -48,5 +58,5 @@ public class KardexBean {
 	private String getTipo(String tipo) {
 		return maestrosRep.findByGrupoAndValor(Constantes.TIPO_KARDEX, tipo).getCodigo();
 	}
-	
+
 }

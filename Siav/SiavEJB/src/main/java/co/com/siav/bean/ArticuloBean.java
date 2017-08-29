@@ -17,21 +17,27 @@ import co.com.siav.utils.Constantes;
 public class ArticuloBean {
 	
 	@Inject
-	private IRepositoryArticulo articuloRep;	
+	private IRepositoryArticulo articuloRep;
+	
+	@Inject
+	private KardexBean kardexBean;
 
 	public MensajeResponse crear(ArticuloRequest request) {
 		if(request.getNombre() != null && !articuloRep.findByNombre(request.getNombre().trim()).isEmpty()){
 			return new MensajeResponse(EstadoEnum.ERROR, Constantes.ERR_ARTICULO_NOMBRE_DUPLICADO);
 		}
 		try{
+			Long codigo = articuloRep.findMaxArticulo() + 1L;
 			Articulo articulo = new Articulo();
-			articulo.setNombre(request.getNombre());
+			articulo.setCodigo(codigo);
+			articulo.setNombre(request.getNombre().trim());
 			articulo.setPorcentajeIva(request.getPorcentajeIva());
 			articulo.setTieneIva(request.getTieneIva());
 			articulo.setObservacion(request.getObservacion());
 			articulo.setUnidad(request.getUnidad().getCodigo());
 			articulo.setActivo(true);
 			articuloRep.save(articulo);
+			kardexBean.grabarArticulo(articulo);
 			return new MensajeResponse(Constantes.ACTUALIZACION_EXITO);
 		}catch(Exception e){
 			return new MensajeResponse(EstadoEnum.ERROR, Constantes.ACTUALIZACION_FALLO);

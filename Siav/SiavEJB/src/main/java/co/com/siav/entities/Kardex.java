@@ -7,8 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -54,6 +54,9 @@ public class Kardex implements Serializable{
 
 	@Column(name="nmarticulo")
 	private Long codArticulo;
+	
+	@Column(name="snvalorizado")
+	private String valorizado;
 	
 	public Long getCodigo() {
 		return codigo;
@@ -165,6 +168,29 @@ public class Kardex implements Serializable{
 	
 	public void setCodEntrada(Long codEntrada) {
 		this.codEntrada = codEntrada;
+	}
+	
+	public Boolean getValorizado() {
+		return "S".equals(valorizado);
+	}
+
+	public void setValorizado(Boolean valorizado) {
+		this.valorizado = valorizado ? "S" : "N";
+	}
+
+	@PrePersist
+	@PreUpdate
+	private void ceroPorDefecto(){
+		saldoAnterior = saldoAnterior == null ? 0L : saldoAnterior;
+		cantidadEntrada = cantidadEntrada == null ? 0L : cantidadEntrada;
+		cantidadSalida = cantidadSalida == null ? 0L : cantidadSalida;
+		saldoActual = saldoActual == null ? 0L : saldoActual;
+		precioCompra = precioCompra == null ? 0D : precioCompra;
+		ivaPrecioCompra = ivaPrecioCompra == null ? 0D : ivaPrecioCompra;
+		precioUnitario = precioUnitario == null ? 0D : precioUnitario;
+		ivaPrecioUnitario = ivaPrecioUnitario == null ? 0D : ivaPrecioUnitario;
+		precioComercial = precioComercial == null ? 0D : precioComercial;
+		valorizado = valorizado == null ? "N" : valorizado;
 	}
 		
 }

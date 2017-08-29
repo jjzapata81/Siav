@@ -1,17 +1,26 @@
-﻿INSERT INTO ta_recursos(nmrecurso, titulo, accion, snsubmenu, nmrelacion, nmgrupo)
-    VALUES (618, 'Entrada materiales', 'entradas-materiales', 'N', 610, 2);
+﻿INSERT INTO ta_recursos(nmrecurso, titulo, snsubmenu, nmrelacion, nmgrupo)
+    VALUES (710, 'Kardex', 'S', 710, 3);
     
 INSERT INTO ta_recurso_perfil(nmrecursoperfil, nmperfil, nmrecurso)
-    VALUES ((SELECT MAX(r.nmrecursoperfil) FROM ta_recurso_perfil r)+1, 1, 618);
+    VALUES ((SELECT MAX(r.nmrecursoperfil) FROM ta_recurso_perfil r)+1, 1, 710);
     
 INSERT INTO ta_recurso_perfil(nmrecursoperfil, nmperfil, nmrecurso)
-    VALUES ((SELECT MAX(r.nmrecursoperfil) FROM ta_recurso_perfil r)+1, 2, 618);
+    VALUES ((SELECT MAX(r.nmrecursoperfil) FROM ta_recurso_perfil r)+1, 2, 710);
 
 INSERT INTO ta_recursos(nmrecurso, titulo, accion, snsubmenu, nmrelacion, nmgrupo)
-    VALUES (620, 'Salida materiales', 'salida-materiales', 'N', 610, 2);
+    VALUES (718, 'Entradas', 'entradas-materiales', 'N', 710, 3);
     
 INSERT INTO ta_recurso_perfil(nmrecursoperfil, nmperfil, nmrecurso)
-    VALUES ((SELECT MAX(r.nmrecursoperfil) FROM ta_recurso_perfil r)+1, 1, 620);
+    VALUES ((SELECT MAX(r.nmrecursoperfil) FROM ta_recurso_perfil r)+1, 1, 718);
     
 INSERT INTO ta_recurso_perfil(nmrecursoperfil, nmperfil, nmrecurso)
-    VALUES ((SELECT MAX(r.nmrecursoperfil) FROM ta_recurso_perfil r)+1, 2, 620);
+    VALUES ((SELECT MAX(r.nmrecursoperfil) FROM ta_recurso_perfil r)+1, 2, 718);
+
+INSERT INTO ta_recursos(nmrecurso, titulo, accion, snsubmenu, nmrelacion, nmgrupo)
+    VALUES (720, 'Salidas', 'salida-materiales', 'N', 710, 3);
+    
+INSERT INTO ta_recurso_perfil(nmrecursoperfil, nmperfil, nmrecurso)
+    VALUES ((SELECT MAX(r.nmrecursoperfil) FROM ta_recurso_perfil r)+1, 1, 720);
+    
+INSERT INTO ta_recurso_perfil(nmrecursoperfil, nmperfil, nmrecurso)
+    VALUES ((SELECT MAX(r.nmrecursoperfil) FROM ta_recurso_perfil r)+1, 2, 720);

@@ -7,10 +7,12 @@
 		<a ng-click="onGuardar()" uib-tooltip="Guardar" tooltip-placement="left" ng-show="!nuevaFactura"><i class="fa fa-floppy-o icon-float icon-save" aria-hidden="true"></i></a>
 		<a ng-click="onCancelar()" uib-tooltip="Cancelar" tooltip-placement="left"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
 	</div>
+	<div ng-show="mostrarTotal" class="total-factura">
+		Total factura {{totalFactura | currency:"$":2}}
+	</div>
 	<section class="titulo-seccion">
-		Entrada de materiales
-	</section>	
-	
+		Entradas
+	</section>		
 	<section class="formulario form-fijo">
 		<div>
 			<ul class="flex">
@@ -31,6 +33,10 @@
 					<input type="date" ng-model="entrada.fecha" ng-disabled="!nuevaFactura"/>
 				</li>
 				<li>
+					<label>Precio incluye iva:</label><br>
+					<input type="checkbox" class="chk-config" ng-model="incluyeIva" ng-disabled="!nuevaFactura"/>{{incluyeIva ? 'SI' : 'NO'}}
+				</li>
+				<li>
 					<label>Art&iacute;culo:</label><br>
 					<select
 						ng-model="detalle.articulo"
@@ -41,8 +47,16 @@
 					<label>Cantidad:</label><br>
 					<input type="number" ng-model="detalle.cantidad"/>
 				</li>
-				<li>
+				<li ng-show="incluyeIva">
 					<label>Precio de compra:</label><br>
+					<input type="number" ng-model="detalle.precio"/>
+				</li>
+				<li ng-show="incluyeIva">
+					<label>Iva:</label><br>
+					<input type="number" ng-model="detalle.precio"/>
+				</li>
+				<li>
+					<label>Total:</label><br>
 					<input type="number" ng-model="detalle.precio"/>
 				</li>
 			</ul>
@@ -59,7 +73,7 @@
 				<tr ng-repeat="detalle in entrada.detalles">
 					<td>{{detalle.articulo.nombre}}</td>
 					<td>{{detalle.cantidad}}</td>
-					<td>{{detalle.precio}}</td>
+					<td>{{detalle.precio | currency:"$":2}}</td>
 				</tr>
 			</tbody>
 		</table>

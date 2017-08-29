@@ -7,6 +7,7 @@ define(['siav-module', 'articulo-services', 'instalaciones-services', 'modal-fac
     	
     	$scope.init = function(){
     		$scope.articuloNuevo = {};
+    		$scope.filtro = {};
     		$scope.esNuevo = false;
     		$scope.estaEditando = false;
     		$scope.articulos = [];
@@ -44,6 +45,7 @@ define(['siav-module', 'articulo-services', 'instalaciones-services', 'modal-fac
     	}
     	
     	$scope.onAgregar = function(){
+    		$scope.articuloNuevo.tieneIva = false;
     		$scope.esNuevo = true;
     	}
     	$scope.onCancelar= function(){
