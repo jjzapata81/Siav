@@ -1,5 +1,5 @@
 ﻿INSERT INTO ta_recursos(nmrecurso, titulo, accion, snsubmenu, nmrelacion, nmgrupo)
-    VALUES (618, 'Entradas materiales', 'entradas-materiales', 'N', 610, 2);
+    VALUES (618, 'Entrada materiales', 'entradas-materiales', 'N', 610, 2);
     
 INSERT INTO ta_recurso_perfil(nmrecursoperfil, nmperfil, nmrecurso)
     VALUES ((SELECT MAX(r.nmrecursoperfil) FROM ta_recurso_perfil r)+1, 1, 618);

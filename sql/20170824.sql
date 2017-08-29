@@ -77,6 +77,8 @@ CREATE TABLE ta_kardex
 );
 
 
+DELETE FROM ta_datosmaestros WHERE grupo IN ('TIPO_KARDEX', 'UNIDAD_ARTICULO');
+
 INSERT INTO ta_datosmaestros(id, grupo, cdcodigo, dsvalor) VALUES ((SELECT MAX(d.id) FROM ta_datosmaestros d)+1, 'TIPO_KARDEX', 1,'INICIAL');
 INSERT INTO ta_datosmaestros(id, grupo, cdcodigo, dsvalor) VALUES ((SELECT MAX(d.id) FROM ta_datosmaestros d)+1, 'TIPO_KARDEX', 2,'ENTRADA');
 INSERT INTO ta_datosmaestros(id, grupo, cdcodigo, dsvalor) VALUES ((SELECT MAX(d.id) FROM ta_datosmaestros d)+1, 'TIPO_KARDEX', 3,'SALIDA');
