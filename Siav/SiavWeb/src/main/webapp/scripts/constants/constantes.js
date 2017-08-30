@@ -206,7 +206,13 @@ define(['siav-module'], function(app) {
     		"ERR_COMPROBANTE_OBLIGATORIO" : "Debe ingresar un número de comprobante de pago."
     	},
     	"ENTRADA" : {
-    		"INFO_CANCELAR" : "La factura aún no se ha guardado, al cancelar perderá la información ya ingresada. ¿Desea continuar?"
+    		"INFO_CANCELAR" : "La factura aún no se ha guardado, al cancelar perderá la información ya ingresada. ¿Desea continuar?",
+    		"ERR_PROVEEDOR" : "Debe seleccionar un proveedor. Si no lo encuentra en la lista, debe crearlo primero.",
+    		"ERR_FACTURA" : "Debe ingresar un número de factura.",
+    		"ERR_FECHA" : "Debe ingresar una fecha de factura.",
+    		"ERR_DETALLE_ARTICULO" : "Debe seleccionar un artículo. Si no lo encuentra en la lista, debe crearlo primero.",
+    		"ERR_DETALLE_CANTIDAD" : "Debe ingresar una cantidad.",
+    		"ERR_DETALLE_PRECIO_UNITARIO" : "Debe ingresar el precio unitario del artículo."
     	},
     	"ESTADO" : {
     		"OK" : "OK",

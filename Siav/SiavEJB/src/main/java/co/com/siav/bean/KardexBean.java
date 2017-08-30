@@ -44,9 +44,13 @@ public class KardexBean {
 		kardex.setTipo(tipo);
 		kardex.setCodArticulo(requestDetalle.getArticulo().getCodigo());
 		if(esEntrada){
+			Kardex kardexAnterior = kardexRep.findFirstByCodArticuloOrderByCodigoDesc(requestDetalle.getArticulo().getCodigo());
 			kardex.setCodEntrada(codigo);
 			kardex.setCantidadEntrada(requestDetalle.getCantidad());
+			kardex.setSaldoAnterior(kardexAnterior.getSaldoActual());
+			kardex.setSaldoActual(kardex.getCantidadEntrada() + kardex.getSaldoAnterior());
 			kardex.setPrecioCompra(requestDetalle.getPrecio());
+			kardex.setIvaPrecioCompra(kardex.getPrecioCompra() * requestDetalle.getArticulo().getPorcentajeIva());
 		}else{
 			kardex.setCodSalida(codigo);
 			kardex.setCantidadSalida(requestDetalle.getCantidad());

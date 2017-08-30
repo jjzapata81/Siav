@@ -36,44 +36,59 @@
 					<label>Precio incluye iva:</label><br>
 					<input type="checkbox" class="chk-config" ng-model="incluyeIva" ng-disabled="!nuevaFactura"/>{{incluyeIva ? 'SI' : 'NO'}}
 				</li>
-				<li>
-					<label>Art&iacute;culo:</label><br>
-					<select
-						ng-model="detalle.articulo"
-				    	ng-options="articulo as articulo.nombre for articulo in articulos">
-      				</select>
-				</li>
-				<li>
-					<label>Cantidad:</label><br>
-					<input type="number" ng-model="detalle.cantidad"/>
-				</li>
-				<li ng-show="incluyeIva">
-					<label>Precio de compra:</label><br>
-					<input type="number" ng-model="detalle.precio"/>
-				</li>
-				<li ng-show="incluyeIva">
-					<label>Iva:</label><br>
-					<input type="number" ng-model="detalle.precio"/>
-				</li>
-				<li>
-					<label>Total:</label><br>
-					<input type="number" ng-model="detalle.precio"/>
-				</li>
 			</ul>
 		</div>
+	</section>
+	<section class="detalle-entrada">
+		<ul class="flex">
+			<li>
+				<label>Art&iacute;culo:</label><br>
+				<select
+					ng-model="detalle.articulo"
+				    ng-options="articulo as articulo.nombre for articulo in articulos"
+				    ng-change="onCalcularPrecio()">
+      			</select>
+			</li>
+			<li>
+				<label>Cantidad:</label><br>
+				<input type="number" ng-model="detalle.cantidad" ng-change="onCalcularPrecio()"/>
+			</li>
+			<li>
+				<label>Precio unitario:</label><br>
+				<input type="number" ng-model="detalle.precioUnitario" ng-change="onCalcularPrecio()"/>
+			</li>
+			<li ng-show="!incluyeIva">
+				<label>Precio de compra:</label><br>
+				<input type="number" ng-model="detalle.precio" ng-disabled="true"/>
+			</li>
+			<li ng-show="!incluyeIva">
+				<label>Iva:</label><br>
+				<input type="number" ng-model="detalle.valorIva" ng-disabled="true"/>
+			</li>
+			<li>
+				<label>Total:</label><br>
+				<input type="number" ng-model="detalle.valorConIva" ng-disabled="true"/>
+			</li>
+		</ul>
 	</section>
 	<div class="tabla-siav">
 		<table class="table table-responsive">
 			<thead>
 				<th>Art&iacute;culo</th>
 				<th>Cantidad</th>
+				<th>Precio unitario</th>
 				<th>Precio compra</th>
+				<th ng-show="!incluyeIva">Iva</th>
+				<th ng-show="!incluyeIva">Total</th>
 			</thead>
 			<tbody>
 				<tr ng-repeat="detalle in entrada.detalles">
 					<td>{{detalle.articulo.nombre}}</td>
 					<td>{{detalle.cantidad}}</td>
+					<td>{{detalle.precioUnitario | currency:"$":2}}</td>
 					<td>{{detalle.precio | currency:"$":2}}</td>
+					<td ng-show="!incluyeIva">{{detalle.valorIva | currency:"$":2}}</td>
+					<td ng-show="!incluyeIva">{{detalle.valorConIva | currency:"$":2}}</td>
 				</tr>
 			</tbody>
 		</table>

@@ -31,7 +31,7 @@ public class ArticuloBean {
 			Articulo articulo = new Articulo();
 			articulo.setCodigo(codigo);
 			articulo.setNombre(request.getNombre().trim());
-			articulo.setPorcentajeIva(request.getPorcentajeIva());
+			articulo.setPorcentajeIva(request.getPorcentajeIva()/100);
 			articulo.setTieneIva(request.getTieneIva());
 			articulo.setObservacion(request.getObservacion());
 			articulo.setUnidad(request.getUnidad().getCodigo());

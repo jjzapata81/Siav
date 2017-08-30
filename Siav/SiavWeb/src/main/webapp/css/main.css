@@ -1156,14 +1156,24 @@ a:hover {
     font-size: 20px;
     color: #FFF;
     background: #f77b23;
-    width: 200px;
+    width: 180px;
     text-align: center;
     padding: 10px 9px;
     border-radius: 8px;
     font-weight: 700;
     position: fixed;
     bottom: 50px;
-    right: 88px;
+    left: 40px;
     margin-bottom: 20px;
     box-shadow: 5px 5px 8px #555;	
+}
+
+.detalle-entrada{
+    display: inline-block;
+    margin-left: 10px;	
+}
+
+.detalle-entrada>ul>li>input{
+    width: 130px;
+    text-align: right;
 }
