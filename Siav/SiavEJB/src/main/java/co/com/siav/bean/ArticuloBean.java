@@ -7,8 +7,11 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import co.com.siav.entities.Articulo;
+import co.com.siav.entities.Kardex;
+import co.com.siav.exception.ExcepcionNegocio;
 import co.com.siav.repositories.IRepositoryArticulo;
 import co.com.siav.request.ArticuloRequest;
+import co.com.siav.response.ArticuloResponse;
 import co.com.siav.response.EstadoEnum;
 import co.com.siav.response.MensajeResponse;
 import co.com.siav.utils.Constantes;
@@ -69,5 +72,26 @@ public class ArticuloBean {
 		}catch(Exception e){
 			return new MensajeResponse(EstadoEnum.ERROR, Constantes.ACTUALIZACION_FALLO);
 		}
+	}
+
+	public List<ArticuloResponse> consultarSalidas() {
+		return articuloRep.findByActivo(Constantes.SI).stream().filter(articulo-> !articulo.getNombre().trim().equals(Constantes.MEDIDOR))
+				.map(this::transform).collect(Collectors.toList());
+	}
+	
+	private ArticuloResponse transform(Articulo articulo){
+		Kardex kardex = kardexBean.getKardex(articulo.getCodigo());
+		if(kardex == null){
+			throw new ExcepcionNegocio(Constantes.getMensaje(Constantes.ERR_ARTICULO_SIN_KARDEX, articulo.getNombre()));
+		}
+		ArticuloResponse response = new ArticuloResponse();
+		response.setCodigo(articulo.getCodigo());
+		response.setNombre(articulo.getNombre());
+		response.setUnidad(articulo.getUnidad());
+		response.setCantidadDisponible(kardex.getSaldoActual());
+		response.setPrecioUnitario(kardex.getPrecioUnitario());
+		response.setIvaUnitario(kardex.getIvaPrecioUnitario());
+		response.setPrecioComercial(kardex.getPrecioComercial());
+		return response;
 	}
 }

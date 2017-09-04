@@ -32,5 +32,5 @@ public class MaterialesServices {
 	public MensajeResponse crear(MaterialRequest request){
 		return bean.crearSalida(request);
 	}
-
+	
 }

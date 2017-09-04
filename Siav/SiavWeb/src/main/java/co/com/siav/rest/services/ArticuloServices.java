@@ -14,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 import co.com.siav.bean.ArticuloBean;
 import co.com.siav.entities.Articulo;
 import co.com.siav.request.ArticuloRequest;
+import co.com.siav.response.ArticuloResponse;
 import co.com.siav.response.MensajeResponse;
 
 @RequestScoped
@@ -44,6 +45,13 @@ public class ArticuloServices {
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Articulo> consultar(){
 		return bean.consultar();
+	}
+	
+	@GET
+	@Path("consultar/salidas")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<ArticuloResponse> consultarSalidas(){
+		return bean.consultarSalidas();
 	}
 	
 	@GET

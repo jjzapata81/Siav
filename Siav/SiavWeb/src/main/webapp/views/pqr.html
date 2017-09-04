@@ -97,6 +97,7 @@
 				<th>Estado</th>
 				<th>Descripci&oacute;n</th>
 				<th>Usuario asignado</th>
+				<th>D&iacute;as abierto</th>
 			</thead>
 			<tbody>
 				<tr ng-repeat="pqr in pqrs | filter:numeroInstalacion | filter:estado.valor:'estado' | filter:usuario:'usuarioAsignado' | orderBy:'-id' | startFrom:(currentPage-1)*itemsPerPage | limitTo:itemsPerPage">
@@ -107,6 +108,7 @@
 					<td>{{pqr.estado}}</td>
 					<td><a ng-click="onConsultarDetalle(pqr)">{{pqr.descripcion}}</a></td>
 					<td nowrap>{{pqr.usuarioAsignado}}</td>
+					<td>{{pqr.diasAtencion}}</td>
 				</tr>
 			</tbody>
 		</table>

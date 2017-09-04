@@ -631,6 +631,11 @@ a:hover {
 	font-size: 20px !important;
 }
 
+.mensaje-modal-entrada{
+	font-size: 16px !important;
+    margin-bottom: 30px;
+}
+
 .mensaje-body {
 	display: flex;
 	margin: 15px 0px;
@@ -1152,20 +1157,34 @@ a:hover {
 	color: #FFF;
 }
 
-.total-factura{
+.total-factura,
+.subtotal-factura,
+.total-iva{
     font-size: 20px;
     color: #FFF;
-    background: #f77b23;
     width: 180px;
     text-align: center;
     padding: 10px 9px;
     border-radius: 8px;
     font-weight: 700;
     position: fixed;
-    bottom: 50px;
     left: 40px;
     margin-bottom: 20px;
-    box-shadow: 5px 5px 8px #555;	
+    box-shadow: 5px 5px 8px #555;
+    height: 56px;
+}
+
+.total-factura{
+	background: #3fad70;
+	bottom: 50px;
+}
+.subtotal-factura{
+	background: #f77b23;
+	bottom: 180px;
+}
+.total-iva{
+	background: #8b8d9a;
+	bottom: 115px;
 }
 
 .detalle-entrada{
@@ -1174,6 +1193,12 @@ a:hover {
 }
 
 .detalle-entrada>ul>li>input{
-    width: 130px;
+    width: 120px;
     text-align: right;
+}
+.ancho-220{
+	width: 225px;
+}
+.detalle-salidas>ul>li>input{
+	width: 200px;
 }

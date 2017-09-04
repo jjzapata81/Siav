@@ -1,6 +1,10 @@
 package co.com.siav.response;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
+
+import static java.time.temporal.ChronoUnit.DAYS;
 
 public class PqrResponse {
 	
@@ -13,6 +17,7 @@ public class PqrResponse {
 	private String nombreCompleto;
 	private String nombreUsuario;
 	private String usuarioAsignado;
+	private Long diasAtencion;
 	
 	public Long getId() {
 		return id;
@@ -69,6 +74,21 @@ public class PqrResponse {
 	
 	public void setUsuarioAsignado(String usuarioAsignado) {
 		this.usuarioAsignado = usuarioAsignado;
+	}
+	
+	public Long getDiasAtencion() {
+		LocalDate before = convertDateToLocalDate(fechaInicio);
+		LocalDate after = convertDateToLocalDate(fechaFin == null ? new Date() : fechaFin);
+		return DAYS.between(before,after);
+	}
+	
+	public void setDiasAtencion(Long diasAtencion) {
+		this.diasAtencion = diasAtencion;
+	}
+	
+	private LocalDate convertDateToLocalDate(Date date){
+		return  date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		
 	}
 	
 }

@@ -6,10 +6,11 @@ define(['siav-module'], function(app) {
     	
     	"SRV" : {
     		
+    		"ARTICULO_CREAR" : "rest/articulo/crear",
+    		"ARTICULO_ACTUALIZAR" : "rest/articulo/actualizar",
     		"ARTICULO_CONSULTAR" : "rest/articulo/consultar",
     		"ARTICULO_CONSULTAR_NOMBRES" : "rest/articulo/consultar/nombres",
-    		"ARTICULO_CONSULTAR_CREAR" : "rest/articulo/crear",
-    		"ARTICULO_CONSULTAR_ACTUALIZAR" : "rest/articulo/actualizar",
+    		"ARTICULO_CONSULTAR_SALIDAS" : "rest/articulo/consultar/salidas",
 
     		"BANCO_CREAR" : "rest/bancos/crear",
     		"BANCO_EDITAR" : "rest/bancos/editar",
@@ -50,6 +51,8 @@ define(['siav-module'], function(app) {
     		"INSTALACION_BUSCAR" : "rest/instalacion/buscar/",
     		"INSTALACION_GUARDAR" : "rest/instalacion/guardar",
     		"INSTALACION_CREAR" : "rest/instalacion/crear",
+    		"INSTALACION_ACTIVAR" : "rest/instalacion/activar/",
+    		"INSTALACION_DESACTIVAR" : "rest/instalacion/desactivar",
     		"INSTALACION_CONSULTAR_VENCIDO" : "rest/instalacion/consultar/vencido/",
     		
     		"LOGIN_INGRESAR" : "rest/login/ingresar",
@@ -212,7 +215,8 @@ define(['siav-module'], function(app) {
     		"ERR_FECHA" : "Debe ingresar una fecha de factura.",
     		"ERR_DETALLE_ARTICULO" : "Debe seleccionar un artículo. Si no lo encuentra en la lista, debe crearlo primero.",
     		"ERR_DETALLE_CANTIDAD" : "Debe ingresar una cantidad.",
-    		"ERR_DETALLE_PRECIO_UNITARIO" : "Debe ingresar el precio unitario del artículo."
+    		"ERR_DETALLE_PRECIO_UNITARIO" : "Debe ingresar el precio unitario del artículo.",
+    		"ERR_SIN_DATOS" : "Aún no se ha ingresado información para guardar."
     	},
     	"ESTADO" : {
     		"OK" : "OK",
@@ -248,7 +252,8 @@ define(['siav-module'], function(app) {
     	},
     	"MAESTROS": {
     		"PQR_ESTADO" : "PQR_ESTADO",
-    		"UNIDAD_ARTICULO" : "UNIDAD_ARTICULO"
+    		"UNIDAD_ARTICULO" : "UNIDAD_ARTICULO",
+    		"SALIDA_DESTINO" : "SALIDA_DESTINO"
     	},
     	"NOVEDAD" : {
     		"CONFIRMAR_ELIMINAR" : "Se procede a eliminar una novedad. ¿Desea continuar?"
@@ -277,7 +282,11 @@ define(['siav-module'], function(app) {
     		"ERR_VARIACION_NEGATIVO" : "El porcentaje de variación debe ser mayor que cero."
     	},
     	"SALIDA" : {
-    		"INFO_CANCELAR" : "La orden aún no se ha guardado, al cancelar perderá la información ya ingresada. ¿Desea continuar?"
+    		"INFO_CANCELAR" : "La orden aún no se ha guardado, al cancelar perderá la información ya ingresada. ¿Desea continuar?",
+    		"DEST_INSTALACION" : "INSTALACIÓN",
+    		"ERR_INSTALACION" : "Debe ingresar un número de instalación.",
+    		"ERR_PRECIO_MENOR" : "El precio comercial del artículo no debe ser menor al precio unitario de compra más el IVA.",
+    		"ERR_CANTIDAD_MAYOR" : "La cantidad indicada supera la cantidad de unidades disponibles."
     	},
     	"SEGURIDAD" : {
     		"ERR_PASS" : "La contraseña ingresada no coincide con la confirmación.",

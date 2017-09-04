@@ -8,50 +8,83 @@
 		<a ng-click="onCancelar()" uib-tooltip="Cancelar" tooltip-placement="left"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
 	</div>
 	<section class="titulo-seccion">
-		Salida de materiales
+		Salidas
 	</section>	
 	
 	<section class="formulario form-fijo">
-		<div>
+		<div class="detalle-salidas">
 			<ul class="flex">
 				<li>
-					<label>N&uacute;mero orden:</label><br>
-					<input type="text" ng-model="salida.factura" ng-disabled="!nuevaOrden"/>
+					<label>Destino:</label><br>
+					<select
+						ng-model="destinoSeleccionado"
+				    	ng-options="destino as destino.valor for destino in destinos track by destino.codigo"
+				    	ng-change="cambiarDestino()"
+				    	ng-disabled="!nuevaOrden">
+	      			</select>
+				</li>
+				<li>
+					<label>Instalaci&oacute;n:</label><br>
+					<input type="number" ng-model="salida.instalacion" ng-disabled="!nuevaOrden || !mostrarInstalacion"/>
 				</li>
 				<li>
 					<label>Fecha de factura:</label><br>
 					<input type="date" ng-model="salida.fecha" ng-disabled="!nuevaOrden"/>
 				</li>
-				<li>
-					<label>Art&iacute;culo:</label><br>
-					<select
-						ng-model="detalle.articulo"
-				    	ng-options="articulo as articulo.nombre for articulo in articulos">
-      				</select>
-				</li>
-				<li>
-					<label>Cantidad:</label><br>
-					<input type="number" ng-model="detalle.cantidad"/>
-				</li>
-				<li>
-					<label>Precio de compra:</label><br>
-					<input type="number" ng-model="detalle.precio"/>
-				</li>
 			</ul>
 		</div>
+	</section>
+	<section class="detalle-entrada">
+		<ul class="flex">
+			<li>
+				<label>Art&iacute;culo:</label><br>
+				<select
+					class="ancho-220"
+					ng-model="detalle.articulo"
+			    	ng-options="articulo as articulo.nombre for articulo in articulos"
+			    	ng-change="calcularPrecio()">
+      			</select>
+			</li>
+			<li>
+				<label>Cantidad:</label><br>
+				<input type="number" ng-model="detalle.cantidad" ng-change="calcularPrecio()"/>
+			</li>
+			<li>
+				<label>Precio</label><br>
+				<input type="number" ng-model="detalle.articulo.precioComercial" ng-change="calcularPrecio()"/>
+			</li>
+			<li>
+				<label>Precio total:</label><br>
+				<input type="number" ng-model="detalle.precio" ng-disabled="true"/>
+			</li>
+			<li>
+				<label>Dsiponibles:</label><br>
+				<input type="number" ng-model="detalle.articulo.cantidadDisponible" ng-disabled="true"/>
+			</li>
+			<li>
+				<label>Precio unitario:</label><br>
+				<input type="number" ng-model="detalle.articulo.precioUnitario" ng-disabled="true"/>
+			</li>
+			<li>
+				<label>Iva:</label><br>
+				<input type="number" ng-model="detalle.articulo.ivaUnitario" ng-disabled="true"/>
+			</li>
+		</ul>
 	</section>
 	<div class="tabla-siav">
 		<table class="table table-responsive">
 			<thead>
 				<th>Art&iacute;culo</th>
-				<th>Cantidad</th>
-				<th>Precio compra</th>
+				<th class="column-numeric">Cantidad</th>
+				<th class="column-numeric">Precio</th>
+				<th class="column-numeric">Precio total</th>
 			</thead>
 			<tbody>
 				<tr ng-repeat="detalle in salida.detalles">
-					<td>{{detalle.articulo.nombre}}</td>
-					<td>{{detalle.cantidad}}</td>
-					<td>{{detalle.precio}}</td>
+					<td nowrap>{{detalle.articulo.nombre}}</td>
+					<td class="column-currency">{{detalle.cantidad}}</td>
+					<td class="column-currency">{{detalle.articulo.precioComercial | currency:"$":2}}</td>
+					<td class="column-currency">{{detalle.precio | currency:"$":2}}</td>
 				</tr>
 			</tbody>
 		</table>

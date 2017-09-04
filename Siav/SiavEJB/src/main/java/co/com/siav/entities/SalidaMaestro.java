@@ -23,9 +23,6 @@ public class SalidaMaestro implements Serializable{
 	@Column(name="nmdestino")
 	private Long codDestino;
 	
-	@Column(name="nmordensalida")
-	private Long codOrdenSalida;
-	
 	@Column(name="feordensalida")
 	private Date fechaOrdenSalida;
 	
@@ -51,14 +48,6 @@ public class SalidaMaestro implements Serializable{
 
 	public void setCodDestino(Long codDestino) {
 		this.codDestino = codDestino;
-	}
-
-	public Long getCodOrdenSalida() {
-		return codOrdenSalida == null ? 0L : codOrdenSalida;
-	}
-
-	public void setCodOrdenSalida(Long codOrdenSalida) {
-		this.codOrdenSalida = codOrdenSalida;
 	}
 
 	public Date getFechaOrdenSalida() {

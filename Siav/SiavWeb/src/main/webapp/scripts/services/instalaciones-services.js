@@ -7,6 +7,8 @@ define(['siav-module', 'constantes'], function (app) {
     			 consultarMaestro : consultarMaestro,
     			 guardar : guardar,
     			 crear : crear,
+    			 activar : activar,
+    			 desactivar : desactivar,
     			 buscarInstalacion : buscarInstalacion,
     			 consultaVencido : consultaVencido
     	 };
@@ -37,6 +39,20 @@ define(['siav-module', 'constantes'], function (app) {
     		 return (request.then(function(response){
     			 return response.data;
     		 }));
+    	 }
+    	 
+    	 function desactivar(request){
+    		 var request = $http.post(CONSTANTES.SRV.INSTALACION_DESACTIVAR, request);
+    		 return (request.then(function(response){
+    			 return response.data;
+    		 }));
+    	 }
+    	 
+    	 function activar(instalacion){
+    		 var request = $http.get(CONSTANTES.SRV.INSTALACION_ACTIVAR + instalacion, {isArray : false});
+    		 return (request.then(function(response) {
+ 	    		return response.data;
+	    	}));
     	 }
     	 
     	 function consultaVencido(instalacion){

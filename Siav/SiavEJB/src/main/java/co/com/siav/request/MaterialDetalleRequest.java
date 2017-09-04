@@ -9,6 +9,12 @@ public class MaterialDetalleRequest {
 	private Long cantidad;
 	
 	private Double precio;
+	
+	private Double precioUnitario;
+	
+	private Double valorIva;
+	
+	private Double valorConIva;
 
 	public Articulo getArticulo() {
 		return articulo;
@@ -32,6 +38,30 @@ public class MaterialDetalleRequest {
 
 	public void setPrecio(Double precio) {
 		this.precio = precio;
+	}
+	
+	public Double getValorConIva() {
+		return valorConIva;
+	}
+	
+	public void setValorConIva(Double valorConIva) {
+		this.valorConIva = valorConIva;
+	}
+	
+	public Double getValorIva() {
+		return valorIva;
+	}
+	
+	public void setValorIva(Double valorIva) {
+		this.valorIva = valorIva;
+	}
+	
+	public Double getPrecioUnitario() {
+		return precioUnitario;
+	}
+	
+	public void setPrecioUnitario(Double precioUnitario) {
+		this.precioUnitario = precioUnitario;
 	}
 	
 }

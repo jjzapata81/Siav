@@ -51,6 +51,10 @@ public class CiclosBean {
 	public Ciclo consultar() {
 		return ciclosRep.findFirstByEstadoOrderByCicloDesc(Constantes.ABIERTO);
 	}
+	
+	public Ciclo getPorEstado(String estado) {
+		return ciclosRep.findFirstByEstadoOrderByCicloDesc(estado);
+	}
 
 	public MensajeResponse editar(Ciclo ciclo) {
 		try{
@@ -90,13 +94,13 @@ public class CiclosBean {
 
 	private void actualizarInstalaciones(Ciclo cicloActual) {
 		List<Instalacion> inactivas = instalacionesRep.findToActivate(cicloActual.getFecha());
-		inactivas.stream().forEach(instalacion -> actualizar(instalacion, cicloActual));
+		inactivas.stream().forEach(instalacion -> actualizar(instalacion));
 	}
 
-	private void actualizar(Instalacion instalacion, Ciclo cicloActual) {
+	public void actualizar(Instalacion instalacion) {
 		instalacion.setActivo(true);
 		instalacionesRep.save(instalacion);
-		crearConsumo(instalacion, cicloActual);
+		crearConsumo(instalacion);
 	}
 
 	private void actualzarCreditos(Long ciclo) {
@@ -167,7 +171,8 @@ public class CiclosBean {
 		}
 	}
 	
-	private Consumo crearConsumo(Instalacion instalacion, Ciclo ciclo) {
+	private Consumo crearConsumo(Instalacion instalacion) {
+		Ciclo ciclo = getPorEstado(Constantes.ABIERTO);
 		Consumo consumo = new Consumo();
 		consumo.setId(crearConsumoPK(instalacion.getNumeroInstalacion(), ciclo, instalacion.getSerieMedidor()));
 		consumo.setLecturaActual(0L);

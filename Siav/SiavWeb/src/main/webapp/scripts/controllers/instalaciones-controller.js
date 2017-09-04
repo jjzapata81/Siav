@@ -1,16 +1,17 @@
 /*global define*/
 'use strict';
 
-define(['siav-module', 'instalaciones-services', 'usuarios-services', 'veredas-services', 'ramal-services', 'modal-factory', 'modal-usuario-factory', 'constantes'], function (app) {
+define(['siav-module', 'instalaciones-services', 'usuarios-services', 'veredas-services', 'ramal-services', 'modal-factory', 'modal-observacion', 'modal-usuario-factory', 'constantes'], function (app) {
 	
     return app.controller('instalaciones-controller',
-    		['$scope', '$location', '$filter', 'instalacionesServices', 'usuariosServices', 'veredasServices', 'ramalServices', 'modalFactory', 'modalUsuario', 'CONSTANTES',
-    		 function($scope, $location, $filter, instalacionesServices, usuariosServices, veredasServices, ramalServices, modalFactory, modalUsuario, CONSTANTES){
+    		['$scope', '$location', '$filter', 'instalacionesServices', 'usuariosServices', 'veredasServices', 'ramalServices', 'modalFactory', 'modalUsuario', 'modalObservacion', 'CONSTANTES',
+    		 function($scope, $location, $filter, instalacionesServices, usuariosServices, veredasServices, ramalServices, modalFactory, modalUsuario, modalObservacion, CONSTANTES){
 
-    		$scope.estratos = [1, 2, 3, 4, 5, 6];
+    	$scope.estratos = [1, 2, 3, 4, 5, 6];
     			
-    		$scope.init = function(){
+    	$scope.init = function(){
     		$scope.limpiar();
+    		$scope.puedeActivar = false;
     		veredasServices
     		.consultar()
     		.then(function(veredas){
@@ -25,6 +26,15 @@ define(['siav-module', 'instalaciones-services', 'usuarios-services', 'veredas-s
     		.consultarMaestro('FACTURACION')
     		.then(function(tiposFacturacion){
     			$scope.tiposFacturacion =  tiposFacturacion;
+    		});
+    	}
+    		
+    	$scope.onActivar = function(){
+    		instalacionesServices
+    		.activar($scope.instalacion.numeroInstalacion)
+    		.then(function(respuesta){
+    			modalFactory.abrirDialogo(respuesta);
+    			$scope.init();
     		});
     	}
     	
@@ -43,6 +53,7 @@ define(['siav-module', 'instalaciones-services', 'usuarios-services', 'veredas-s
         				$scope.instalacion.ramal = ramal;
         				$scope.instalacion.facturacion = tipoFacturacion;
         				$scope.existeInstalacion = true;
+        				$scope.puedeActivar = respuesta.activar;
         				instalacionesServices
     					.consultaVencido($scope.instalacion.numeroInstalacion)
     					.then(function(respuesta){
@@ -84,6 +95,25 @@ define(['siav-module', 'instalaciones-services', 'usuarios-services', 'veredas-s
     		$scope.accionPropietario = CONSTANTES.ACCION.MODIFICAR_PROPIETARIO;
     		$scope.accion = CONSTANTES.ACCION.EDITAR;
     		$scope.estaEditando = true;
+    	}
+    	
+    	$scope.onDesactivar = function(){
+    		modalObservacion
+			.abrir()
+    		.result
+    		.then(function(observacion){
+    			var request = {};
+        		request.usuario = getData("user");
+        		request.observacion = observacion;
+        		request.instalacion = $scope.instalacion.numeroInstalacion;
+        		instalacionesServices
+        		.desactivar(request)
+        		.then(function(respuesta){
+        			modalFactory.abrirDialogo(respuesta);
+        			$scope.init();
+        		});
+    		});
+    		
     	}
     	
     	$scope.onGuardar = function(){

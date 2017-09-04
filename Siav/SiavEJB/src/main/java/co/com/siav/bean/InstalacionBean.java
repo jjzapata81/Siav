@@ -1,16 +1,20 @@
 package co.com.siav.bean;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
+import co.com.siav.entities.Consumo;
+import co.com.siav.entities.Desactivacion;
 import co.com.siav.entities.DetalleFactura;
 import co.com.siav.entities.Factura;
 import co.com.siav.entities.Instalacion;
-import co.com.siav.repositories.IRepositoryCiclos;
+import co.com.siav.repositories.IRepositoryDesactivacion;
 import co.com.siav.repositories.IRepositoryFacturas;
 import co.com.siav.repositories.IRepositoryInstalaciones;
+import co.com.siav.request.DesactivacionRequest;
 import co.com.siav.response.CuentasVencidasResponse;
 import co.com.siav.response.EstadoEnum;
 import co.com.siav.response.InstalacionResponse;
@@ -28,10 +32,16 @@ public class InstalacionBean {
 	private IRepositoryFacturas facturasRep;
 	
 	@Inject
-	private IRepositoryCiclos ciclosRep;
+	private CiclosBean ciclosBean;
+	
+	@Inject
+	private ConsumosBean consumosBean;
 	
 	@Inject
 	private AutorizacionBean autorizacion;
+	
+	@Inject
+	private IRepositoryDesactivacion desactivacionRep;
 	
 	public InstalacionResponse consultarInstalacionPorNumero(String numeroInstalacion) {
 		Instalacion instalacion = instalacionRep.findOne(Long.valueOf(numeroInstalacion));
@@ -39,6 +49,8 @@ public class InstalacionBean {
 			return new InstalacionResponse(EstadoEnum.ERROR, Constantes.getMensaje(Constantes.INSTALACION_NO_EXISTE, numeroInstalacion));
 		}
 		InstalacionResponse response = new InstalacionResponse(instalacion);
+		List<Consumo> consumos = consumosBean.porInstalacion(instalacion.getNumeroInstalacion());
+		response.setActivar(!instalacion.getActivo() && consumos.isEmpty());
 		return response;
 	}
 	
@@ -75,9 +87,9 @@ public class InstalacionBean {
 	}
 
 	public CuentasVencidasResponse consultarVencido(Long numeroInstalacion, String usuario) {
-		Long ciclo = ciclosRep.findMaximoCicloPorEstado(Constantes.CERRADO);
+		Long ciclo = ciclosBean.getPorEstado(Constantes.CERRADO).getCiclo();
 		Factura factura = facturasRep.findByNumeroInstalacionAndCiclo(numeroInstalacion, ciclo);
-		if(factura.getDetalles().stream().filter(detalle -> !detalle.getCancelado()).findAny().isPresent()){
+		if(factura != null && factura.getDetalles().stream().filter(detalle -> !detalle.getCancelado()).findAny().isPresent()){
 			Long vencido = factura.getDetalles().stream().mapToLong(this::getVencido).sum();
 			if(vencido!=0){
 				String mensaje = vencido > 0 ? Constantes.VALOR_VENCIDO : Constantes.SALDO_FAVOR;
@@ -89,5 +101,31 @@ public class InstalacionBean {
 	
 	private Long getVencido(DetalleFactura detalle){
 		return detalle.getValor() + detalle.getSaldo() - detalle.getCartera();
+	}
+
+	public MensajeResponse activar(String numeroInstalacion) {
+		try{
+			Instalacion instalacion = instalacionRep.findOne(Long.valueOf(numeroInstalacion));
+			ciclosBean.actualizar(instalacion);
+			return new MensajeResponse(Constantes.ACTUALIZACION_EXITO);
+		}catch(Exception e){
+			return new MensajeResponse(EstadoEnum.ERROR, Constantes.ACTUALIZACION_FALLO);
+		}
+	}
+	
+	public MensajeResponse desactivar(DesactivacionRequest request){
+		try{
+			Instalacion instalacion = instalacionRep.findOne(request.getInstalacion());
+			instalacion.setActivo(false);
+			instalacionRep.save(instalacion);
+			Desactivacion desactivacion = new Desactivacion();
+			desactivacion.setInstalacion(request.getInstalacion());
+			desactivacion.setUsuario(request.getUsuario());
+			desactivacion.setObservacion(request.getObservacion());
+			desactivacionRep.save(desactivacion);
+			return new MensajeResponse(Constantes.ACTUALIZACION_EXITO);
+		}catch(Exception e){
+			return new MensajeResponse(EstadoEnum.ERROR, Constantes.ACTUALIZACION_FALLO);
+		}
 	}
 }

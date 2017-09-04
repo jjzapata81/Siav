@@ -162,5 +162,9 @@ public class ConsumosBean {
 		consumos.stream().collect(Collectors.groupingBy(ConsumoAuditoria::getCiclo)).forEach((key, value) -> response.add(new ConsumoAuditoriaResponse(key, value)));
 		return response;
 	}
+	
+	public List<Consumo> porInstalacion(Long numeroInstalacion) {
+		return consumosRep.findByIdInstalacion(numeroInstalacion);
+	}
 
 }

@@ -105,5 +105,9 @@ public final class Utilidades {
 		sb.append("<h6>Esta es una notificaci&oacute;n autom&aacute;tica, por favor no responda este mensaje.</h6>");
 		return sb.toString();
 	}
+
+	public static boolean validateDate(Date fecha) {
+		return fecha.before(new Date());
+	}
 }
 

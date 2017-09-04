@@ -40,4 +40,6 @@ public interface IRepositoryConsumos extends JpaRepository<Consumo, ConsumoPK>{
 	@Query("UPDATE Consumo c SET c.id.serieMedidor = :nuevoMedidor WHERE c.id.ciclo = :ciclo AND c.id.instalacion = :instalacion")
 	void updateMedidor(@Param(value="ciclo") Long ciclo, @Param(value="instalacion") Long instalacion, @Param("nuevoMedidor")String nuevoMedidor);
 
+	List<Consumo> findByIdInstalacion(Long numeroInstalacion);
+
 }

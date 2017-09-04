@@ -14,4 +14,6 @@ public interface IRepositoryArticulo extends JpaRepository<Articulo, Long>{
 	@Query("SELECT COALESCE(MAX(a.codigo), '0') FROM Articulo a")
 	Long findMaxArticulo();
 
+	List<Articulo> findByActivo(String activo);
+
 }

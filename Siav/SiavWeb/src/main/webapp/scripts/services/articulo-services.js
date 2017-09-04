@@ -6,19 +6,20 @@ define(['siav-module', 'constantes'], function (app) {
     	 var contrato = {
     			 consultar : consultar,
     			 consultarNombres : consultarNombres,
+    			 consultarSalidas : consultarSalidas,
     			 crear : crear,
     			 actualizar : actualizar
     	 };
     	 
     	 function crear(proveedor){
-    		 var request = $http.post(CONSTANTES.SRV.ARTICULO_CONSULTAR_CREAR, proveedor);
+    		 var request = $http.post(CONSTANTES.SRV.ARTICULO_CREAR, proveedor);
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));
     	 }
     	 
     	 function actualizar(proveedor){
-    		 var request = $http.post(CONSTANTES.SRV.ARTICULO_CONSULTAR_ACTUALIZAR, proveedor);
+    		 var request = $http.post(CONSTANTES.SRV.ARTICULO_ACTUALIZAR, proveedor);
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));
@@ -33,6 +34,13 @@ define(['siav-module', 'constantes'], function (app) {
     	 
     	 function consultarNombres(){
     		 var request = $http.get(CONSTANTES.SRV.ARTICULO_CONSULTAR_NOMBRES, {isArray : true});
+    		 return (request.then(function(response) {
+ 	    		return response.data;
+	    	}));
+    	 }
+    	 
+    	 function consultarSalidas(){
+    		 var request = $http.get(CONSTANTES.SRV.ARTICULO_CONSULTAR_SALIDAS, {isArray : true});
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));

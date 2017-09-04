@@ -3,12 +3,20 @@
 
 <div  class="contenido">
 	<div  class="boton-fijo">
-		<a ng-click="onAgregar()" uib-tooltip="Agregar" tooltip-placement="left"><i class="fa fa-plus icon-float icon-add" aria-hidden="true"></i></a>
-		<a ng-click="onGuardar()" uib-tooltip="Guardar" tooltip-placement="left" ng-show="!nuevaFactura"><i class="fa fa-floppy-o icon-float icon-save" aria-hidden="true"></i></a>
-		<a ng-click="onCancelar()" uib-tooltip="Cancelar" tooltip-placement="left"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
+		<a ng-click="onAgregar()" uib-tooltip="Agregar" tooltip-placement="left" ng-show="!estaEditando"><i class="fa fa-plus icon-float icon-add" aria-hidden="true"></i></a>
+		<a ng-click="onGuardar()" uib-tooltip="Guardar" tooltip-placement="left" ng-show="!nuevaFactura && !estaEditando"><i class="fa fa-floppy-o icon-float icon-save" aria-hidden="true"></i></a>
+		<a ng-click="onActualizar()" uib-tooltip="Actualizar" tooltip-placement="left" ng-show="estaEditando"><i class="fa fa-floppy-o icon-float icon-save" aria-hidden="true"></i></a>
+		<a ng-click="onCancelar()" uib-tooltip="Cancelar" tooltip-placement="left" ng-show="!estaEditando"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
+		<a ng-click="onCancelarEditar()" uib-tooltip="Cancelar" tooltip-placement="left" ng-show="estaEditando"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
+	</div>
+	<div ng-show="mostrarTotal" class="subtotal-factura">
+		Subtotal factura {{entrada.totalFactura - entrada.totalIva | currency:"$":2}}
+	</div>
+	<div ng-show="mostrarTotal" class="total-iva">
+		Total iva {{entrada.totalIva | currency:"$":2}}
 	</div>
 	<div ng-show="mostrarTotal" class="total-factura">
-		Total factura {{totalFactura | currency:"$":2}}
+		Total factura {{entrada.totalFactura | currency:"$":2}}
 	</div>
 	<section class="titulo-seccion">
 		Entradas
@@ -34,18 +42,26 @@
 				</li>
 				<li>
 					<label>Precio incluye iva:</label><br>
-					<input type="checkbox" class="chk-config" ng-model="incluyeIva" ng-disabled="!nuevaFactura"/>{{incluyeIva ? 'SI' : 'NO'}}
+					<input type="checkbox" class="chk-config" ng-model="entrada.incluyeIva" ng-disabled="!nuevaFactura"/>{{entrada.incluyeIva ? 'SI' : 'NO'}}
 				</li>
 			</ul>
 		</div>
 	</section>
 	<section class="detalle-entrada">
 		<ul class="flex">
-			<li>
+			<li ng-show="!estaEditando">
 				<label>Art&iacute;culo:</label><br>
 				<select
 					ng-model="detalle.articulo"
 				    ng-options="articulo as articulo.nombre for articulo in articulos"
+				    ng-change="onCalcularPrecio()">
+      			</select>
+			</li>
+			<li ng-show="estaEditando">
+				<label>Art&iacute;culo:</label><br>
+				<select
+					ng-model="detalle.articulo"
+				    ng-options="articulo as articulo.nombre for articulo in articulosTemp track by articulo.codigo"
 				    ng-change="onCalcularPrecio()">
       			</select>
 			</li>
@@ -57,11 +73,11 @@
 				<label>Precio unitario:</label><br>
 				<input type="number" ng-model="detalle.precioUnitario" ng-change="onCalcularPrecio()"/>
 			</li>
-			<li ng-show="!incluyeIva">
+			<li ng-show="!entrada.incluyeIva">
 				<label>Precio de compra:</label><br>
 				<input type="number" ng-model="detalle.precio" ng-disabled="true"/>
 			</li>
-			<li ng-show="!incluyeIva">
+			<li ng-show="!entrada.incluyeIva">
 				<label>Iva:</label><br>
 				<input type="number" ng-model="detalle.valorIva" ng-disabled="true"/>
 			</li>
@@ -71,24 +87,25 @@
 			</li>
 		</ul>
 	</section>
-	<div class="tabla-siav">
+	<div class="tabla-siav" ng-show="!estaEditando">
 		<table class="table table-responsive">
 			<thead>
 				<th>Art&iacute;culo</th>
-				<th>Cantidad</th>
-				<th>Precio unitario</th>
-				<th>Precio compra</th>
-				<th ng-show="!incluyeIva">Iva</th>
-				<th ng-show="!incluyeIva">Total</th>
+				<th class="column-numeric">Cantidad</th>
+				<th class="column-numeric">Precio unitario</th>
+				<th class="column-numeric">Precio compra</th>
+				<th class="column-numeric" ng-show="!entrada.incluyeIva">Iva</th>
+				<th class="column-numeric" ng-show="!entrada.incluyeIva">Total</th>
+				
 			</thead>
 			<tbody>
 				<tr ng-repeat="detalle in entrada.detalles">
-					<td>{{detalle.articulo.nombre}}</td>
-					<td>{{detalle.cantidad}}</td>
-					<td>{{detalle.precioUnitario | currency:"$":2}}</td>
-					<td>{{detalle.precio | currency:"$":2}}</td>
-					<td ng-show="!incluyeIva">{{detalle.valorIva | currency:"$":2}}</td>
-					<td ng-show="!incluyeIva">{{detalle.valorConIva | currency:"$":2}}</td>
+					<td nowrap><a ng-click="onEditarDetalle(detalle)">{{detalle.articulo.nombre}}</a></td>
+					<td class="column-currency">{{detalle.cantidad}}</td>
+					<td class="column-currency">{{detalle.precioUnitario | currency:"$":2}}</td>
+					<td class="column-currency">{{detalle.precio | currency:"$":2}}</td>
+					<td class="column-currency" ng-show="!entrada.incluyeIva">{{detalle.valorIva | currency:"$":2}}</td>
+					<td class="column-currency" ng-show="!entrada.incluyeIva">{{detalle.valorConIva | currency:"$":2}}</td>
 				</tr>
 			</tbody>
 		</table>

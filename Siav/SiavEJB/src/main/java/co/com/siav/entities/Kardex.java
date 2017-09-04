@@ -55,9 +55,6 @@ public class Kardex implements Serializable{
 	@Column(name="nmarticulo")
 	private Long codArticulo;
 	
-	@Column(name="snvalorizado")
-	private String valorizado;
-	
 	public Long getCodigo() {
 		return codigo;
 	}
@@ -91,7 +88,7 @@ public class Kardex implements Serializable{
 	}
 
 	public Long getSaldoAnterior() {
-		return saldoAnterior;
+		return saldoAnterior == null ? 0L : saldoAnterior;
 	}
 
 	public void setSaldoAnterior(Long saldoAnterior) {
@@ -99,7 +96,7 @@ public class Kardex implements Serializable{
 	}
 
 	public Long getCantidadEntrada() {
-		return cantidadEntrada;
+		return cantidadEntrada == null ? 0L : cantidadEntrada;
 	}
 
 	public void setCantidadEntrada(Long cantidadEntrada) {
@@ -107,7 +104,7 @@ public class Kardex implements Serializable{
 	}
 
 	public Long getCantidadSalida() {
-		return cantidadSalida;
+		return cantidadSalida == null ? 0L: cantidadSalida;
 	}
 
 	public void setCantidadSalida(Long cantidadSalida) {
@@ -115,7 +112,7 @@ public class Kardex implements Serializable{
 	}
 
 	public Long getSaldoActual() {
-		return saldoActual;
+		return saldoActual == null ? 0L : saldoActual;
 	}
 
 	public void setSaldoActual(Long saldoActual) {
@@ -123,7 +120,7 @@ public class Kardex implements Serializable{
 	}
 
 	public Double getPrecioCompra() {
-		return precioCompra;
+		return precioCompra == null ? 0L : precioCompra;
 	}
 
 	public void setPrecioCompra(Double precioCompra) {
@@ -131,7 +128,7 @@ public class Kardex implements Serializable{
 	}
 
 	public Double getPrecioComercial() {
-		return precioComercial;
+		return precioComercial == null ? 0L : precioComercial;
 	}
 
 	public void setPrecioComercial(Double precioComercial) {
@@ -170,14 +167,6 @@ public class Kardex implements Serializable{
 		this.codEntrada = codEntrada;
 	}
 	
-	public Boolean getValorizado() {
-		return "S".equals(valorizado);
-	}
-
-	public void setValorizado(Boolean valorizado) {
-		this.valorizado = valorizado ? "S" : "N";
-	}
-
 	@PrePersist
 	@PreUpdate
 	private void ceroPorDefecto(){
@@ -190,7 +179,6 @@ public class Kardex implements Serializable{
 		precioUnitario = precioUnitario == null ? 0D : precioUnitario;
 		ivaPrecioUnitario = ivaPrecioUnitario == null ? 0D : ivaPrecioUnitario;
 		precioComercial = precioComercial == null ? 0D : precioComercial;
-		valorizado = valorizado == null ? "N" : valorizado;
 	}
 		
 }

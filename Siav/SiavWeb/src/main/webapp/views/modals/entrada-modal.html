@@ -1,0 +1,53 @@
+<div class="ngdialog-message">
+	<div class="modal-header titulo-modal">
+		<h3>Factura n&uacute;mero {{entrada.factura}}</h3>
+	</div>
+	<div class="modal-body">
+		<div class="mensaje-body">
+			<div class="icono-modal"><i class="{{clase}}" aria-hidden="true"></i></div>
+			<div class="mensaje-modal">Verifique los datos ingresados antes de continuar.</div>
+		</div>
+		<div class="mensaje-modal-entrada">
+			<ul class="flex">
+				<li><b>Proveedor:</b></li>
+				<li>{{entrada.proveedor.razonSocial}}</li>
+				<li><b>Fecha:</b></li>
+				<li>{{entrada.fecha | date:'yyyy-MM-dd'}}</li>
+			</ul>
+			<ul class="flex">
+				<li><b>Subtotal factura:</b></li>
+				<li>{{entrada.totalFactura - entrada.totalIva | currency:"$":2}}</li>
+				<li><b>Iva:</b></li>
+				<li>{{entrada.totalIva  | currency:"$":2}}</li>
+				<li><b>Total factura:</b></li>
+				<li>{{entrada.totalFactura | currency:"$":2}}</li>
+			</ul>
+		</div>
+		<table class="table table-responsive">
+			<thead>
+				<th>Art&iacute;culo</th>
+				<th class="column-numeric">Cantidad</th>
+				<th class="column-numeric">Precio unitario</th>
+				<th class="column-numeric">Precio compra</th>
+				<th class="column-numeric" ng-show="!entrada.incluyeIva">Iva</th>
+				<th class="column-numeric" ng-show="!entrada.incluyeIva">Total</th>
+			</thead>
+			<tbody>
+				<tr ng-repeat="detalle in entrada.detalles">
+					<td nowrap>{{detalle.articulo.nombre}}</td>
+					<td class="column-currency">{{detalle.cantidad}}</td>
+					<td class="column-currency">{{detalle.precioUnitario | currency:"$":2}}</td>
+					<td class="column-currency">{{detalle.precio | currency:"$":2}}</td>
+					<td class="column-currency" ng-show="!entrada.incluyeIva">{{detalle.valorIva | currency:"$":2}}</td>
+					<td class="column-currency" ng-show="!entrada.incluyeIva">{{detalle.valorConIva | currency:"$":2}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="modal-footer">
+		<ul class="flex alineacion-derecha" >
+			<li><button type="button" class="btn-siav btn-buscar" ng-click="continuar()">Aceptar</button></li>
+			<li><button type="button" class="btn-siav btn-cancelar" ng-click="cancelar()">Cancelar</button></li>
+		</ul>
+ 	</div>
+</div>

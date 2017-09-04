@@ -13,6 +13,7 @@ import javax.ws.rs.core.MediaType;
 
 import co.com.siav.bean.InstalacionBean;
 import co.com.siav.entities.Instalacion;
+import co.com.siav.request.DesactivacionRequest;
 import co.com.siav.response.CuentasVencidasResponse;
 import co.com.siav.response.InstalacionResponse;
 import co.com.siav.response.MensajeResponse;
@@ -32,6 +33,20 @@ public class InstalacionesServices {
 	@Produces(MediaType.APPLICATION_JSON)
 	public InstalacionResponse getInstalacion(@PathParam("numeroInstalacion") String numeroInstalacion){
 		return bean.consultarInstalacionPorNumero(numeroInstalacion);
+	}
+	
+	@GET
+	@Path("activar/{numeroInstalacion}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public MensajeResponse activar(@PathParam("numeroInstalacion") String numeroInstalacion){
+		return bean.activar(numeroInstalacion);
+	}
+	
+	@POST
+	@Path("desactivar")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public MensajeResponse desactivar(DesactivacionRequest request){
+		return bean.desactivar(request);
 	}
 	
 	@POST

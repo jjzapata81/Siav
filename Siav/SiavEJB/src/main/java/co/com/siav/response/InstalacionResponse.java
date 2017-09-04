@@ -7,6 +7,8 @@ public class InstalacionResponse extends MensajeResponse{
 
 	private Instalacion instalacion;
 	
+	private boolean activar;
+	
 	public InstalacionResponse() {
 	}
 	
@@ -29,4 +31,13 @@ public class InstalacionResponse extends MensajeResponse{
 	public Instalacion getInstalacion() {
 		return instalacion;
 	}
+
+	public boolean isActivar() {
+		return activar;
+	}
+
+	public void setActivar(boolean activar) {
+		this.activar = activar;
+	}
+	
 }

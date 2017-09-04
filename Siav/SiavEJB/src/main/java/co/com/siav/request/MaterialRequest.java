@@ -9,6 +9,8 @@ public class MaterialRequest {
 	
 	private Long factura;
 	
+	private Long instalacion;
+	
 	private Date fecha;
 	
 	private Proveedor proveedor;
@@ -21,6 +23,14 @@ public class MaterialRequest {
 
 	public void setFactura(Long factura) {
 		this.factura = factura;
+	}
+	
+	public Long getInstalacion() {
+		return instalacion;
+	}
+	
+	public void setInstalacion(Long instalacion) {
+		this.instalacion = instalacion;
 	}
 
 	public Date getFecha() {

@@ -2,6 +2,7 @@
 <menu></menu>
 <div  class="contenido">
 	<div  class="boton-fijo">
+		<a ng-click="onActivar()" uib-tooltip="Activar" tooltip-placement="left" ng-show="puedeActivar && !estaEditando"><i class="fa fa-power-off icon-float icon-print" aria-hidden="true"></i></a>	
 		<a ng-click="onGuardar()" uib-tooltip="Guardar" tooltip-placement="left" ng-show="estaEditando"><i class="fa fa-floppy-o icon-float icon-save" aria-hidden="true"></i></a>
 		<a ng-click="onBuscar()" uib-tooltip="Buscar" tooltip-placement="left" ng-show="!estaEditando"><i class="fa fa-search icon-float icon-search" aria-hidden="true"></i></a>
 		<a ng-click="onCrear()" uib-tooltip="Agregar" tooltip-placement="left" ng-show="!estaEditando"><i class="fa fa-plus icon-float icon-add" aria-hidden="true"></i></a>
@@ -74,8 +75,7 @@
 				</li>
 				<li>
 					<label>Tiene medidor:</label><br>
-					<label ng-if="instalacion.conMedidor">SI</label>
-					<label ng-if="!instalacion.conMedidor">NO</label>
+					<label>{{instalacion.conMedidor ? 'SI' : 'NO'}}</label>
 				</li>
 			</ul>
 			

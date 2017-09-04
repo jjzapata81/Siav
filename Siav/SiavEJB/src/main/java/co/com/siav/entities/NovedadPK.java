@@ -13,6 +13,12 @@ public class NovedadPK implements Serializable{
 	public NovedadPK() {
 	}
 	
+	public NovedadPK(Long instalacion, String codigoConcepto) {
+		super();
+		this.instalacion = instalacion;
+		this.codigoConcepto = codigoConcepto;
+	}
+	
 	public NovedadPK(Long ciclo, Long instalacion, String codigoConcepto) {
 		super();
 		this.ciclo = ciclo;

@@ -1,15 +1,17 @@
 /*global define*/
 'use strict';
 
-define(['siav-module', 'materiales-services', 'articulo-services', 'proveedor-services', 'modal-factory', 'constantes'], function (app) {
+define(['siav-module', 'materiales-services', 'articulo-services', 'proveedor-services', 'modal-factory', 'modal-entrada-factory', 'constantes'], function (app) {
 	
-    return app.controller('entradas-materiales-controller', ['$scope', 'articuloServices', 'proveedorServices', 'materialesServices', 'modalFactory', 'CONSTANTES', function($scope, articuloServices, proveedorServices, materialesServices, modalFactory, CONSTANTES){
+    return app.controller('entradas-materiales-controller', ['$scope', 'articuloServices', 'proveedorServices', 'materialesServices', 'modalFactory', 'modalEntrada', 'CONSTANTES', function($scope, articuloServices, proveedorServices, materialesServices, modalFactory, modalEntrada, CONSTANTES){
     	
     	$scope.init = function(){
     		$scope.entrada = {};
-    		$scope.incluyeIva = false;
+    		$scope.entrada.incluyeIva = false;
+    		$scope.entrada.totalFactura = 0;
+    		$scope.entrada.totalIva = 0;
     		$scope.mostrarTotal = false;
-    		$scope.totalFactura = 0;
+    		$scope.estaEditando = false;
     		$scope.entrada.detalles = [];
     		$scope.nuevaFactura = true;
     		$scope.consultarArticulos();
@@ -38,7 +40,7 @@ define(['siav-module', 'materiales-services', 'articulo-services', 'proveedor-se
     			modalFactory
         		.abrir(CONSTANTES.ESTADO.INFO, CONSTANTES.ENTRADA.INFO_CANCELAR)
         		.result
-        		.then(function(respuesta){
+        		.then(function(){
         			$scope.init();
         		});
     		}else{
@@ -51,22 +53,53 @@ define(['siav-module', 'materiales-services', 'articulo-services', 'proveedor-se
     			$scope.nuevaFactura = false;
         		$scope.mostrarTotal = true;
         		$scope.entrada.detalles.push(angular.copy($scope.detalle));
-        		$scope.totalFactura = $scope.totalFactura + $scope.detalle.valorConIva;
+        		$scope.entrada.totalFactura = $scope.entrada.totalFactura + $scope.detalle.valorConIva;
+        		$scope.entrada.totalIva = $scope.entrada.totalIva + $scope.detalle.valorIva;
         		$scope.articulos.splice($scope.articulos.indexOf($scope.detalle.articulo), 1);
         		$scope.detalle = null;
-        		
     		}
-    	} 
-    	  	
+    	}
+    	
+    	$scope.onEditarDetalle = function(detalle){
+    		$scope.articulosTemp = angular.copy($scope.articulos);
+    		$scope.articulosTemp.push(detalle.articulo);
+    		$scope.estaEditando = true;
+    		$scope.detalle = detalle;
+    		$scope.detallesTemp = angular.copy($scope.entrada.detalles);
+    	}
+    	
+    	$scope.onActualizar = function(){
+    		$scope.estaEditando = false;
+    		$scope.detalle = null;
+    	}
+    	
+    	$scope.onCancelarEditar = function(){
+    		$scope.estaEditando = false;
+    		$scope.detalle = null;
+    		$scope.entrada.detalles = $scope.detallesTemp;
+    	}
+    	
     	$scope.onGuardar = function(){
-    		if($scope.camposValidos()){
-    			materialesServices
-    			.crearEntrada($scope.entrada)
-    			.then(function(respuesta){
-    				modalFactory.abrirDialogo(respuesta);
-    				$scope.init();
-    			});
-    		}
+    		modalEntrada
+			.abrir($scope.entrada)
+			.result
+    		.then(function(){
+    			$scope.continuarGuardar();
+    		});
+    	}
+    	
+    	$scope.continuarGuardar = function(){
+    		delete($scope.entrada.incluyeIva);
+    		delete($scope.entrada.totalFactura);
+    		delete($scope.entrada.totalIva);
+    		materialesServices
+			.crearEntrada($scope.entrada)
+			.then(function(respuesta){
+				modalFactory.abrirDialogo(respuesta);
+				if(respuesta.estado!=CONSTANTES.ESTADO.ERROR){
+					$scope.init();
+				}
+			});
     	}
     	
     	$scope.onCalcularPrecio = function(){
@@ -74,12 +107,8 @@ define(['siav-module', 'materiales-services', 'articulo-services', 'proveedor-se
     			$scope.detalle.articulo = {};
     		}
     		$scope.detalle.precio = $scope.detalle.precioUnitario * $scope.detalle.cantidad;
-    		$scope.detalle.valorIva = $scope.incluyeIva ? 0 :$scope.detalle.articulo.porcentajeIva * $scope.detalle.precio;
+    		$scope.detalle.valorIva = $scope.entrada.incluyeIva ? 0 :$scope.detalle.articulo.porcentajeIva * $scope.detalle.precio;
     		$scope.detalle.valorConIva = $scope.detalle.valorIva + $scope.detalle.precio;
-    	}
-    	
-    	$scope.camposValidos = function(){
-    		return true;
     	}
     	
     	$scope.validarEncabezado = function(){
