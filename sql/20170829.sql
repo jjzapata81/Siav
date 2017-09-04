@@ -1,1 +1,0 @@
-﻿ALTER TABLE ta_kardex ADD COLUMN snvalorizado character varying(1);
