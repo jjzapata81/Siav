@@ -107,7 +107,7 @@ public final class Utilidades {
 	}
 
 	public static boolean validateDate(Date fecha) {
-		return fecha.before(new Date());
+		return fecha.after(new Date());
 	}
 }
 

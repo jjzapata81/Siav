@@ -43,8 +43,8 @@ public class InstalacionBean {
 	@Inject
 	private IRepositoryDesactivacion desactivacionRep;
 	
-	public InstalacionResponse consultarInstalacionPorNumero(String numeroInstalacion) {
-		Instalacion instalacion = instalacionRep.findOne(Long.valueOf(numeroInstalacion));
+	public InstalacionResponse consultarInstalacionPorNumero(Long numeroInstalacion) {
+		Instalacion instalacion = consultaPorNumero(numeroInstalacion);
 		if(instalacion == null){
 			return new InstalacionResponse(EstadoEnum.ERROR, Constantes.getMensaje(Constantes.INSTALACION_NO_EXISTE, numeroInstalacion));
 		}
@@ -52,6 +52,10 @@ public class InstalacionBean {
 		List<Consumo> consumos = consumosBean.porInstalacion(instalacion.getNumeroInstalacion());
 		response.setActivar(!instalacion.getActivo() && consumos.isEmpty());
 		return response;
+	}
+
+	public Instalacion consultaPorNumero(Long numeroInstalacion) {
+		return instalacionRep.findOne(numeroInstalacion);
 	}
 	
 	public MensajeResponse crear(Instalacion instalacion){
@@ -103,9 +107,9 @@ public class InstalacionBean {
 		return detalle.getValor() + detalle.getSaldo() - detalle.getCartera();
 	}
 
-	public MensajeResponse activar(String numeroInstalacion) {
+	public MensajeResponse activar(Long numeroInstalacion) {
 		try{
-			Instalacion instalacion = instalacionRep.findOne(Long.valueOf(numeroInstalacion));
+			Instalacion instalacion = consultaPorNumero(numeroInstalacion);
 			ciclosBean.actualizar(instalacion);
 			return new MensajeResponse(Constantes.ACTUALIZACION_EXITO);
 		}catch(Exception e){

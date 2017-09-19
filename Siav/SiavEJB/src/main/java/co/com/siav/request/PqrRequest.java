@@ -18,6 +18,8 @@ public class PqrRequest {
 	private String accion;
 	
 	private UsuarioSistema usuarioAsignar;
+	
+	private Long diasAtencion;
 
 	public Long getId() {
 		return id;
@@ -70,6 +72,14 @@ public class PqrRequest {
 
 	public void setUsuarioAsignar(UsuarioSistema usuarioAsignar) {
 		this.usuarioAsignar = usuarioAsignar;
+	}
+	
+	public Long getDiasAtencion() {
+		return diasAtencion;
+	}
+	
+	public void setDiasAtencion(Long diasAtencion) {
+		this.diasAtencion = diasAtencion;
 	}
 	
 }

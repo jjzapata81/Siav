@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.ejb.Asynchronous;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -110,6 +111,7 @@ public class PqrBean {
 		}
 	}
 	
+	@Asynchronous
 	private void notificar(Pqr pqr, PqrDetalle detalle) {
 		if(detalle.getUsuario().getEmail() != null && !detalle.getUsuario().getEmail().trim().equals("")){
 			String from = getParametro(Constantes.EMAIL_ENVIO_CORREO);

@@ -1,10 +1,10 @@
 package co.com.siav.response;
 
+import static java.time.temporal.ChronoUnit.DAYS;
+
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
-
-import static java.time.temporal.ChronoUnit.DAYS;
 
 public class PqrResponse {
 	

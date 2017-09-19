@@ -34,7 +34,7 @@ define(['siav-module', 'inconsistencias-services', 'causas-no-lectura-services',
     	
     	$scope.onCorregir = function(consumo){
     		$scope.estaEditando = true;
-    		$scope.esPromedio = true;
+    		$scope.esPromedio = false;
     		$scope.corregir = angular.copy(consumo);
     		$scope.corregir.lecturaFinal = $scope.corregir.lecturaAnterior;
     		$scope.onRecalcular();
@@ -86,7 +86,7 @@ define(['siav-module', 'inconsistencias-services', 'causas-no-lectura-services',
         		.result
         		.then(function(observacion){
         			if($scope.correccionLectura=='true'){
-        				$scope.continuarGuardarRiesgo(observacion);
+        				$scope.continuarGuardarRiesgoLectura(observacion);
         			}else{
         				$scope.continuarGuardarRiesgoConsumo(observacion);
         			}
@@ -94,15 +94,15 @@ define(['siav-module', 'inconsistencias-services', 'causas-no-lectura-services',
     		}
     	}
     	
-    	$scope.continuarGuardarRiesgo =function(observacion){
+    	$scope.continuarGuardarRiesgoLectura =function(observacion){
     		var request = {};
 			request.numeroInstalacion = $scope.corregirRiesgo.instalacion;
 			request.consumo = $scope.corregirRiesgo.consumoCorregido;
-			request.lecturaCorregida = $scope.corregirRiesgo.lecturaCorregida;
+			request.lecturaCorregida = $scope.corregirRiesgo.lecturaCorreccion;
 			request.antiguoMedidor = $scope.corregirRiesgo.serieMedidor;
 			request.observacion = observacion;
 			inconsistenciasServices
-			.guardarCorreccion(request)
+			.guardarCorreccionLectura(request)
 			.then(function(respuesta){
 				modalFactory.abrirDialogo(respuesta);
 				$scope.estaEditandoRiesgo = false;
@@ -142,6 +142,10 @@ define(['siav-module', 'inconsistencias-services', 'causas-no-lectura-services',
     	$scope.validarRiesgo = function(){
     		if($scope.correccionLectura=='true' && (!$scope.corregirRiesgo.lecturaCorreccion || $scope.corregirRiesgo.lecturaCorreccion < 0)){
     			modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.INCONSISTENCIA.ERR_LECTURA_CORRECCION);
+    			return false;
+    		}
+    		if($scope.correccionLectura=='true' && ($scope.corregirRiesgo.lecturaAnterior > $scope.corregirRiesgo.lecturaCorreccion)){
+    			modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.INCONSISTENCIA.ERR_LECTURA_CORRECCION_MENOR);
     			return false;
     		}
     		return true;

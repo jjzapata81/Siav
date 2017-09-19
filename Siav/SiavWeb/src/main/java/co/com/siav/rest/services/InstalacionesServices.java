@@ -31,14 +31,14 @@ public class InstalacionesServices {
 	@GET
 	@Path("buscar/{numeroInstalacion}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public InstalacionResponse getInstalacion(@PathParam("numeroInstalacion") String numeroInstalacion){
+	public InstalacionResponse getInstalacion(@PathParam("numeroInstalacion") Long numeroInstalacion){
 		return bean.consultarInstalacionPorNumero(numeroInstalacion);
 	}
 	
 	@GET
 	@Path("activar/{numeroInstalacion}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public MensajeResponse activar(@PathParam("numeroInstalacion") String numeroInstalacion){
+	public MensajeResponse activar(@PathParam("numeroInstalacion") Long numeroInstalacion){
 		return bean.activar(numeroInstalacion);
 	}
 	
