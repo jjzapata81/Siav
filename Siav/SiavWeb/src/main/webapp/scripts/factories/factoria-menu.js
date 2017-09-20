@@ -9,10 +9,13 @@ define(['siav-module'], function (app) {
 
 	  var contrato = {
 			  getMenu : getMenu,
-			  setMenu : setMenu
+			  setMenu : setMenu,
+			  getUsuario : getUsuario,
+			  setUsuario : setUsuario
 	  }
 	  
 	  var menu = [];
+	  var usuario = "";
 	  
 	  function getMenu(){
 		  return this.menu;
@@ -20,6 +23,14 @@ define(['siav-module'], function (app) {
 	
 	  function setMenu(menu){
 		  this.menu = menu;
+	  }
+	  
+	  function getUsuario(){
+		  return this.usuario;
+	  }
+	  
+	  function setUsuario(usuario){
+		  this.usuario = usuario;
 	  }
 	  
 	  return contrato;

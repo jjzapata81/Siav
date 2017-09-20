@@ -6,6 +6,8 @@ import java.util.List;
 
 
 public class LoginResponse extends MensajeResponse{
+	
+	private String nombreUsuario;
 
 	private List<MenuResponse> menu;
 	
@@ -26,6 +28,14 @@ public class LoginResponse extends MensajeResponse{
 	
 	public void setMenu(List<MenuResponse> menu) {
 		this.menu = menu;
+	}
+	
+	public String getNombreUsuario() {
+		return nombreUsuario;
+	}
+	
+	public void setNombreUsuario(String nombreUsuario) {
+		this.nombreUsuario = nombreUsuario;
 	}
 
 }

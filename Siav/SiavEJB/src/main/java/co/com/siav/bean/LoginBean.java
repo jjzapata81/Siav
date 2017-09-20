@@ -41,6 +41,7 @@ public class LoginBean {
 		}
 		LoginResponse response =  new LoginResponse(Constantes.getMensaje(Constantes.BIENVENIDO, usuarioSistema.getNombreCompleto()));
 		response.setMenu(crearMenu(usuarioSistema.getPerfil().getRecursoPerfil()));
+		response.setNombreUsuario(usuarioSistema.getNombreCompleto());
 		return response;
 	}
 

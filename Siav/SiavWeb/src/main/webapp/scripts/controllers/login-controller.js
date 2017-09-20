@@ -14,6 +14,7 @@ define(['siav-module', 'localstorage', 'login-services', 'modal-factory', 'facto
         			if(CONSTANTES.ESTADO.OK === respuesta.estado){
         				addData("user", $scope.login.user);
         				menuFactory.setMenu(respuesta.menu);
+        				menuFactory.setUsuario(respuesta.nombreUsuario);
                 		$location.path("/principal");
         			}
         			
