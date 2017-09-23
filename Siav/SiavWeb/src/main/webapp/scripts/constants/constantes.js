@@ -176,7 +176,8 @@ define(['siav-module'], function(app) {
     	},
     	"ARTICULO" : {
     		"INFO_MODIFICAR" : "Se procede a cambiar el estado de un artículo. ¿Desea continuar?",
-    		"ERR_NOMBRE" : "Debe ingresar un nombre para el artículo."
+    		"ERR_NOMBRE" : "Debe ingresar un nombre para el artículo.",
+    		"ERR_CODIGO" : "Debe ingresar un código para el artículo."
     	},
     	"BANCO" : {
     		"INFO_MODIFICAR_CUENTA" : "Se procede a modificar la cuenta. ¿Desea continuar?",
@@ -286,7 +287,7 @@ define(['siav-module'], function(app) {
     		"INFO_CANCELAR" : "La orden aún no se ha guardado, al cancelar perderá la información ya ingresada. ¿Desea continuar?",
     		"DEST_INSTALACION" : "INSTALACIÓN",
     		"ERR_INSTALACION" : "Debe ingresar un número de instalación.",
-    		"ERR_PRECIO_MENOR" : "El precio comercial del artículo no debe ser menor al precio unitario de compra más el IVA.",
+    		"ERR_PRECIO_MENOR" : "El precio comercial del artículo no debe ser menor que el precio unitario de compra más el IVA.",
     		"ERR_CANTIDAD_MAYOR" : "La cantidad indicada supera la cantidad de unidades disponibles."
     	},
     	"SEGURIDAD" : {

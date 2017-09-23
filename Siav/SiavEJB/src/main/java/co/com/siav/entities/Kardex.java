@@ -28,6 +28,8 @@ public class Kardex implements Serializable{
 	
 	private String tipo;
 	
+	private Long ciclo;
+	
 	private Long saldoAnterior;
 	
 	private Long cantidadEntrada;
@@ -85,6 +87,14 @@ public class Kardex implements Serializable{
 
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
+	}
+	
+	public Long getCiclo() {
+		return ciclo;
+	}
+	
+	public void setCiclo(Long ciclo) {
+		this.ciclo = ciclo;
 	}
 
 	public Long getSaldoAnterior() {

@@ -15,6 +15,14 @@
 		<div ng-show="esNuevo || estaEditando">
 			<ul class="flex">
 				<li>
+					<label>C&oacute;digo:</label><br>
+					<input type="number" ng-model="articuloNuevo.codigo"/>
+				</li>
+				<li>
+					<label>C&oacute;digo contable:</label><br>
+					<input type="number" ng-model="articuloNuevo.codigoContable"/>
+				</li>
+				<li>
 					<label>Nombre:</label><br>
 					<input type="text" ng-model="articuloNuevo.nombre"
 						uib-typeahead="item as item for item in nombresArticulo | filter:$viewValue | limitTo:5" 
@@ -59,6 +67,8 @@
 	<div class="tabla-siav"  ng-show="!esNuevo && !estaEditando">
 		<table class="table table-responsive">
 			<thead>
+				<th>C&oacute;digo</th>
+				<th>C&oacute;digo contable</th>
 				<th>Nombre</th>
 				<th>Unidad</th>
 				<th>Tiene IVA</th>
@@ -68,6 +78,8 @@
 			</thead>
 			<tbody>
 				<tr ng-repeat="articulo in articulos | filter:filtro | orderBy: 'nombre' | startFrom:(currentPage-1)*itemsPerPage | limitTo:itemsPerPage">
+					<td>{{articulo.codigo}}</td>
+					<td>{{articulo.codigoContable}}</td>
 					<td nowrap><a ng-click="onEditar(articulo)">{{articulo.nombre}}</a></td>
 					<td nowrap>{{articulo.unidad.valor}}</td>
 					<td>{{articulo.tieneIva ? 'SI' : 'NO'}}</td>

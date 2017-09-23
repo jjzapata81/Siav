@@ -90,6 +90,7 @@ public class ContabilidadBean {
 		compararValor(sistemaBD.getIdInteres(), request.getIdInteres());
 		compararValor(sistemaBD.getIdSaldoFavor(), request.getIdSaldoFavor());
 		compararValor(sistemaBD.getIdMatricula(), request.getIdMatricula());
+		compararValor(sistemaBD.getIdMateriales(), request.getIdMateriales());
 		
 	}
 

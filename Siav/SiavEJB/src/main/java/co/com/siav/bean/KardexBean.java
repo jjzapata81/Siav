@@ -5,8 +5,11 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
+import org.springframework.beans.BeanUtils;
+
 import co.com.siav.entities.Articulo;
 import co.com.siav.entities.Kardex;
+import co.com.siav.repositories.IRepositoryArticulo;
 import co.com.siav.repositories.IRepositoryKardex;
 import co.com.siav.repositories.IRepositoryMaestros;
 import co.com.siav.request.MaterialDetalleRequest;
@@ -22,12 +25,15 @@ public class KardexBean {
 	@Inject
 	private IRepositoryMaestros maestrosRep;
 	
-	public void grabarEntrada(List<MaterialDetalleRequest> detalles, Long codigo) {
-		detalles.stream().forEach(item-> crearEntrada(item, codigo));
+	@Inject
+	private IRepositoryArticulo articuloRep;
+	
+	public void grabarEntrada(List<MaterialDetalleRequest> detalles, Long codigo, Long ciclo) {
+		detalles.stream().forEach(item-> crearEntrada(item, codigo, ciclo));
 	}
 	
-	public void grabarSalida(List<MaterialDetalleRequest> detalles, Long codigo) {
-		detalles.stream().forEach(item-> crearSalida(item, codigo));
+	public void grabarSalida(List<MaterialDetalleRequest> detalles, Long codigo, Long ciclo) {
+		detalles.stream().forEach(item-> crearSalida(item, codigo, ciclo));
 	}
 	
 	public void grabarArticulo(Articulo articulo) {
@@ -37,11 +43,12 @@ public class KardexBean {
 		kardexRep.save(kardex);
 	}
 	
-	private void crearEntrada(MaterialDetalleRequest requestDetalle, Long codigo){
+	private void crearEntrada(MaterialDetalleRequest requestDetalle, Long codigo, Long ciclo){
+		Kardex kardexAnterior = getAnterior(requestDetalle.getArticulo().getCodigo());
 		Kardex kardex = new Kardex();
+		kardex.setCiclo(ciclo);
 		kardex.setTipo(getTipo(Constantes.ENTRADA));
 		kardex.setCodArticulo(requestDetalle.getArticulo().getCodigo());
-		Kardex kardexAnterior = getAnterior(requestDetalle.getArticulo().getCodigo());
 		kardex.setCodEntrada(codigo);
 		kardex.setCantidadEntrada(requestDetalle.getCantidad());
 		kardex.setSaldoAnterior(kardexAnterior.getSaldoActual());
@@ -54,9 +61,10 @@ public class KardexBean {
 		kardexRep.save(kardex);
 	}
 	
-	private void crearSalida(MaterialDetalleRequest requestDetalle, Long codigo){
+	private void crearSalida(MaterialDetalleRequest requestDetalle, Long codigo, Long ciclo){
 		Kardex kardexAnterior = getAnterior(requestDetalle.getArticulo().getCodigo());
 		Kardex kardex = new Kardex();
+		kardex.setCiclo(ciclo);
 		kardex.setTipo(getTipo(Constantes.SALIDA));
 		kardex.setCodArticulo(requestDetalle.getArticulo().getCodigo());
 		kardex.setCodSalida(codigo);
@@ -64,6 +72,8 @@ public class KardexBean {
 		kardex.setSaldoAnterior(kardexAnterior.getSaldoActual());
 		kardex.setSaldoActual(kardex.getSaldoAnterior() - kardex.getCantidadSalida());
 		kardex.setPrecioComercial(requestDetalle.getPrecio());
+		kardex.setPrecioUnitario(kardexAnterior.getPrecioUnitario());
+		kardex.setIvaPrecioUnitario(kardexAnterior.getIvaPrecioUnitario());
 		kardexRep.save(kardex);
 	}
 	
@@ -75,11 +85,29 @@ public class KardexBean {
 		return kardexRep.findFirstByCodArticuloOrderByCodigoDesc(codigo);
 	}
 	
-	private Kardex getAnterior(Long codigo) {
-		Kardex kardex = kardexRep.findFirstByCodArticuloOrderByCodigoDesc(codigo);
+	private Kardex getAnterior(Long codigoArticulo) {
+		Kardex kardex = getKardex(codigoArticulo);
 		if(kardex==null){
 			kardex = new Kardex();
 		}
 		return kardex;
+	}
+
+	public void cerrar(Long ciclo) {
+		articuloRep.findByActivo(Constantes.SI).stream().forEach(item -> buscarKardex(item, ciclo));
+	}
+	
+	private void buscarKardex(Articulo articulo, Long ciclo) {
+		Kardex kardex = getKardex(articulo.getCodigo());
+		duplicarRegistro(kardex, getTipo(Constantes.FINAL), ciclo);
+		duplicarRegistro(kardex, getTipo(Constantes.INICIAL), ciclo + 1L);
+	}
+
+	private void duplicarRegistro(Kardex kardex, String tipo, Long ciclo){
+		Kardex nuevoKardex = new Kardex();
+		BeanUtils.copyProperties(kardex, nuevoKardex, "codigo");
+		nuevoKardex.setTipo(tipo);
+		nuevoKardex.setCiclo(ciclo);
+		kardexRep.save(nuevoKardex);
 	}
 }

@@ -73,6 +73,10 @@
 				<label>Saldo a favor:</label><br>
 				<input type="text" ng-model="contabilidad.idSaldoFavor" ng-disabled="noEstaEditando"/>
 			</li>
+			<li>
+				<label>Materiales:</label><br>
+				<input type="text" ng-model="contabilidad.idMateriales" ng-disabled="noEstaEditando"/>
+			</li>
 		</ul>
 		<section class="sub-titulo">Configuraciones de sistema</section>
 		<div class="lbl-item">
@@ -98,6 +102,10 @@
 		<div class="lbl-item">
 			<div class="lbl-config">Cobro por estrato:</div>
 			<div><input type="checkbox" ng-model="contabilidad.esPorEstrato" class="chk-config" ng-true-value="'Si'" ng-false-value="'No'" ng-disabled="noEstaEditando"/> {{contabilidad.esPorEstrato}}</div>
-		</div>	
+		</div>
+		<div class="lbl-item">
+			<div class="lbl-config">Env&iacute;o factura por email:</div>
+			<div><input type="checkbox" ng-model="contabilidad.envioFactura" class="chk-config" ng-disabled="noEstaEditando"/> {{contabilidad.envioFactura ? 'Si' : 'No'}}</div>
+		</div>
 	</section>
 </div>

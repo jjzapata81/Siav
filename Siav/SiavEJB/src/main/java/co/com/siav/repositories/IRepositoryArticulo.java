@@ -16,4 +16,6 @@ public interface IRepositoryArticulo extends JpaRepository<Articulo, Long>{
 
 	List<Articulo> findByActivo(String activo);
 
+	Articulo findByCodigoContable(String codigoContable);
+
 }

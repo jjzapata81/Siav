@@ -7,8 +7,11 @@ import co.com.siav.entities.EntradaMaestro;
 import co.com.siav.entities.Novedad;
 import co.com.siav.entities.NovedadPK;
 import co.com.siav.entities.SalidaMaestro;
+import co.com.siav.entities.Sistema;
 import co.com.siav.repositories.IRepositoryEntradas;
+import co.com.siav.repositories.IRepositoryInstalaciones;
 import co.com.siav.repositories.IRepositorySalidas;
+import co.com.siav.repositories.IRepositorySistema;
 import co.com.siav.request.MaterialDetalleRequest;
 import co.com.siav.request.MaterialRequest;
 import co.com.siav.response.EntradaResponse;
@@ -20,8 +23,6 @@ import co.com.siav.utils.Utilidades;
 @Stateless
 public class MaterialesBean {
 	
-	private static final String MATERIALES = "420515";
-
 	@Inject
 	private IRepositoryEntradas entradasRep;
 	
@@ -36,6 +37,12 @@ public class MaterialesBean {
 	
 	@Inject
 	private CiclosBean ciclosBean;
+	
+	@Inject
+	private IRepositorySistema sistemaRep;
+	
+	@Inject
+	private IRepositoryInstalaciones instalacionesRep;
 
 	public EntradaResponse crearEntrada(MaterialRequest request) {
 		if(Utilidades.validateDate(request.getFecha())){
@@ -55,7 +62,7 @@ public class MaterialesBean {
 			entrada.setCodProveedor(request.getProveedor().getCodigo());
 			entrada.setFechaFacturaCompra(request.getFecha());
 			entradasRep.save(entrada);
-			kardexBean.grabarEntrada(request.getDetalles(), codigo);
+			kardexBean.grabarEntrada(request.getDetalles(), codigo, ciclo);
 			return new EntradaResponse(Constantes.ACTUALIZACION_EXITO, codigo);
 		}catch(Exception e){
 			return new EntradaResponse(EstadoEnum.ERROR, Constantes.ACTUALIZACION_FALLO);
@@ -63,8 +70,9 @@ public class MaterialesBean {
 	}
 
 	private Novedad getNovedad(MaterialRequest request) {
+		Sistema sistema = sistemaRep.findOne(1L);
 		Novedad novedad = new Novedad();
-		novedad.setId(new NovedadPK(request.getInstalacion(), MATERIALES));
+		novedad.setId(new NovedadPK(request.getInstalacion(), sistema.getIdMateriales()));
 		Double sum = request.getDetalles().stream().mapToDouble(MaterialDetalleRequest::getPrecio).sum();
 		novedad.setValor(sum.longValue());
 		return novedad;
@@ -72,6 +80,9 @@ public class MaterialesBean {
 
 	public MensajeResponse crearSalida(MaterialRequest request) {
 		try{
+			if(request.getInstalacion()!=null && !instalacionesRep.exists(request.getInstalacion())){
+				return new MensajeResponse(EstadoEnum.ERROR, Constantes.getMensaje(Constantes.INSTALACION_NO_EXISTE, request.getInstalacion()));
+			}
 			MensajeResponse guardarNovedad = novedadesBean.guardar(getNovedad(request));
 			if(guardarNovedad.getEstado().equals(EstadoEnum.ERROR)){
 				return guardarNovedad;
@@ -83,7 +94,7 @@ public class MaterialesBean {
 			salida.setCiclo(ciclo);
 			salida.setFechaOrdenSalida(request.getFecha());
 			salidasRep.save(salida);
-			kardexBean.grabarSalida(request.getDetalles(), codigo);
+			kardexBean.grabarSalida(request.getDetalles(), codigo, ciclo);
 			return new MensajeResponse(Constantes.getMensaje(Constantes.SALIDA_ORDEN_EXITO, codigo));
 		}catch(Exception e){
 			return new MensajeResponse(EstadoEnum.ERROR, Constantes.ACTUALIZACION_FALLO);

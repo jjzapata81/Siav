@@ -47,6 +47,9 @@ public class CiclosBean {
 	
 	@Inject
 	private IRepositoryConsumos consumosRep;
+	
+	@Inject
+	private KardexBean kardexBean;
 
 	public Ciclo consultar() {
 		return ciclosRep.findFirstByEstadoOrderByCicloDesc(Constantes.ABIERTO);
@@ -86,6 +89,7 @@ public class CiclosBean {
 			crearNuevoCiclo(cicloActual);
 			marcarCuentasVencidas(cicloActual.getCiclo());
 			actualizarInstalaciones(cicloActual);
+			kardexBean.cerrar(cicloActual.getCiclo());
 			return new MensajeResponse(Constantes.getMensaje(Constantes.CICLO_CERRADO, cicloActual.getCiclo()));
 		}catch (Exception e){
 			return new MensajeResponse(EstadoEnum.ERROR, e.getMessage());

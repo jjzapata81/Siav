@@ -132,11 +132,15 @@ public final class Constantes {
 	public static final String TIPO_KARDEX = "TIPO_KARDEX";
 	public static final String SALIDA = "SALIDA";
 	public static final String INICIAL = "INICIAL";
+	public static final String FINAL = "FINAL";
 	public static final String ERR_ENTRADA_EXISTE = "Ya existe una entrada con número de factura %s y fecha %s.";
 	public static final String MEDIDOR = "MEDIDOR";
 	public static final String ERR_ARTICULO_SIN_KARDEX = "No se encontró información en el Kardex para el artículo %s.";
 	public static final String SALIDA_ORDEN_EXITO = "Se generó la orden de salida número %s.";
 	public static final String ERR_FECHA_POSTERIOR = "La fecha ingresada no puede ser posterior a la fecha actual.";
+	public static final String ERR_ARTICULO_EXISTE = "Ya existe un artículo con el código ingresado.";
+	public static final String ERR_ARTICULO_CODIGO_CONTABLE = "Ya existe una tarifa con el código contable ingresado.";
+	public static final String ERR_ARTICULO_CODIGO_CONTABLE_DUPLICADO = "Ya existe un artículo con el código contable ingresado.";
 
 	
 	public static String getMensaje(String mensaje, Long codigo) {

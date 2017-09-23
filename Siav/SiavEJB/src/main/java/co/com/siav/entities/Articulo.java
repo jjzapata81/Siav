@@ -18,6 +18,8 @@ public class Articulo implements Serializable{
 	@Column(name="nmarticulo")
 	private Long codigo;
 	
+	private String codigoContable;
+	
 	private String nombre;
 	
 	private String unidad;
@@ -38,6 +40,14 @@ public class Articulo implements Serializable{
 
 	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
+	}
+	
+	public String getCodigoContable() {
+		return codigoContable;
+	}
+	
+	public void setCodigoContable(String codigoContable) {
+		this.codigoContable = codigoContable;
 	}
 
 	public String getNombre() {

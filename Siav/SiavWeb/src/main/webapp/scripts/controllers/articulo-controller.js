@@ -99,6 +99,10 @@ define(['siav-module', 'articulo-services', 'instalaciones-services', 'modal-fac
     			modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.ARTICULO.ERR_NOMBRE);
     			return false;
     		}
+    		if(!$scope.articuloNuevo.codigo){
+    			modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.ARTICULO.ERR_CODIGO);
+    			return false;
+    		}
     		return true;
     	}
     	

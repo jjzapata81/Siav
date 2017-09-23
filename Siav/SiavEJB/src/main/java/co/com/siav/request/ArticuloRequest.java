@@ -7,6 +7,8 @@ public class ArticuloRequest {
 	
 	private Long codigo;
 	
+	private String codigoContable;
+	
 	private String nombre;
 	
 	private Maestros unidad;
@@ -25,6 +27,14 @@ public class ArticuloRequest {
 
 	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
+	}
+	
+	public String getCodigoContable() {
+		return codigoContable;
+	}
+	
+	public void setCodigoContable(String codigoContable) {
+		this.codigoContable = codigoContable;
 	}
 
 	public String getNombre() {

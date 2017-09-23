@@ -54,6 +54,9 @@ public class Sistema implements Serializable{
 	@Column(name="idmatricula")
 	private String idMatricula;
 	
+	@Column(name="idmateriales")
+	private String idMateriales;
+	
 	@Column(name="snrecargofijo")
 	private String esRecargoFijo;
 	
@@ -77,6 +80,9 @@ public class Sistema implements Serializable{
 	
 	@Column(name="sntope")
 	private String tieneTope;
+	
+	@Column(name="snenviofactura")
+	private String envioFactura;
 	
 
 	public String getIdMatricula() {
@@ -158,6 +164,14 @@ public class Sistema implements Serializable{
 	public void setIdMoroso(String idMoroso) {
 		this.idMoroso = idMoroso;
 	}
+	
+	public String getIdMateriales() {
+		return idMateriales;
+	}
+	
+	public void setIdMateriales(String idMateriales) {
+		this.idMateriales = idMateriales;
+	}
 
 	public Boolean getEsRecargoFijo() {
 		return "S".equals(esRecargoFijo);
@@ -213,6 +227,14 @@ public class Sistema implements Serializable{
 	
 	public void setEsPorEstrato(boolean esPorEstrato) {
 		this.esPorEstrato = esPorEstrato ? "S" : "N";
+	}
+	
+	public Boolean getEnvioFactura() {
+		return "S".equals(envioFactura);
+	}
+	
+	public void setEnvioFactura(Boolean envioFactura) {
+		this.envioFactura = envioFactura ? "S" : "N";
 	}
 
 	public String getIdBasico() {
