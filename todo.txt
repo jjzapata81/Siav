@@ -1,0 +1,18 @@
+Cierre de Ciclo Kardex --OK
+TODO: crear columna de ciclo -- OK
+Busco el último movimiento por cada artículo, se duplica ese registro pero en tipo se pone FINAL -- OK
+Se crea un nuevo registro con tipo inicial y nuevo ciclo del que se está abriendo -- OK
+crear código contable para articulos (validar que no corresponda a un codigo de tarifa) -- OK
+
+OJO: QUÉ PASA CUANDO DESACTIVO UN ARTICULO? DEBE ESTAR EN CEROS LA CANT DISPONIBLE? QUE PASA EN EL KARDEX? EN  EL CIERRE SE TIENE EN CUENTA LOS ARTICULOS INACTIVOS?
+Revisar Materiales --OK
+
+Implementar el envío de factura por correo. 
+En sistema colocar bandera para prender y apagar el envio automático de factura por correo -- OK
+
+Reporte Kardex
+
+Falta macromedidores en el celular
+
+Manual de usuario
+

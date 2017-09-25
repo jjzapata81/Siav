@@ -288,6 +288,7 @@ define(['siav-module'], function(app) {
     		"DEST_INSTALACION" : "INSTALACIÓN",
     		"ERR_INSTALACION" : "Debe ingresar un número de instalación.",
     		"ERR_PRECIO_MENOR" : "El precio comercial del artículo no debe ser menor que el precio unitario de compra más el IVA.",
+    		"ERR_FECHA" : "Debe ingresar una fecha de salida.",
     		"ERR_CANTIDAD_MAYOR" : "La cantidad indicada supera la cantidad de unidades disponibles."
     	},
     	"SEGURIDAD" : {

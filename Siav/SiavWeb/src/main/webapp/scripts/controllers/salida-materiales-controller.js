@@ -62,6 +62,9 @@ define(['siav-module', 'materiales-services', 'articulo-services', 'proveedor-se
     	$scope.onAgregar = function(){
     		if($scope.validar()){
     			$scope.nuevaOrden = false;
+    			delete($scope.detalle.articulo.cantidadDisponible);
+    			delete($scope.detalle.articulo.precioUnitario);
+    			delete($scope.detalle.articulo.precioComercial);
         		$scope.salida.detalles.push(angular.copy($scope.detalle));
         		$scope.articulos.splice($scope.articulos.indexOf($scope.detalle.articulo), 1);
         		$scope.detalle = null;
