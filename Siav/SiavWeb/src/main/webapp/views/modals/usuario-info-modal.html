@@ -51,7 +51,9 @@
 						<td>{{consumo.consumoMes}}</td>
 						<td>{{consumo.consumoDefinitivo}}</td>
 						<td>{{consumo.consumoPromedio}}</td>
-						<td>{{consumo.causa.codigo == '0' ? '' : consumo.causa.descripcion}}</td>
+						<td>
+							<div class="div-info" ng-if="consumo.causa.codigo && consumo.causa.codigo!=0" uib-tooltip="{{consumo.causa.descripcion}}"><i class="fa fa-comment" aria-hidden="true"></i></div>
+						</td>
 					</tr>
 				</tbody>
 			</table>

@@ -5,6 +5,7 @@ define(['siav-module', 'constantes'], function (app) {
     app.service('ciclosServices', ['$http', '$q', 'CONSTANTES', function ($http, $q, CONSTANTES) {
     	 var contrato = {
     			 consultar : consultar,
+    			 consultarEstado : consultarEstado,
     			 consultarTodo : consultarTodo,
     			 editar : editar,
     			 cerrar : cerrar
@@ -26,6 +27,13 @@ define(['siav-module', 'constantes'], function (app) {
     	 
     	 function consultar(){
     		 var request = $http.get(CONSTANTES.SRV.CICLO_CONSULTAR, {isArray : true});
+    		 return (request.then(function(response) {
+ 	    		return response.data;
+	    	}));
+    	 }
+    	 
+    	 function consultarEstado(estado){
+    		 var request = $http.get(CONSTANTES.SRV.CICLO_CONSULTAR + estado, {isArray : false});
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));

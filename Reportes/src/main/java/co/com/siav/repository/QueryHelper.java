@@ -76,6 +76,7 @@ public class QueryHelper {
 		StringBuilder sb = new StringBuilder();
 		sb.append("SELECT ");
 		sb.append("fm.ciclo AS ciclo, ");
+		sb.append("fm.cedula AS cedula, ");
 		sb.append("fm.nombres AS nombre, ");
 		sb.append("fm.estrato AS estrato, ");
 		sb.append("fm.nminstalacion AS instalacion, ");
@@ -181,7 +182,8 @@ public class QueryHelper {
 		sb.append("SELECT idcargofijo AS cargoFijo, ");
 		sb.append("idbasico AS basico, ");
 		sb.append("idcomplementario AS complementario, ");
-		sb.append("idsuntuario AS suntuario ");
+		sb.append("idsuntuario AS suntuario, ");
+		sb.append("snenviofactura AS envioFactura ");
 		sb.append("FROM ta_sistema ");
 		return sb.toString();
 	}
@@ -624,6 +626,15 @@ public class QueryHelper {
 		sb.append("   AND i.cedula = u.cedula ");
 		sb.append("   AND cm.fechafinal IS NULL AND cm.saldo <> 0 ");
 		sb.append("ORDER BY 3, 1 ");
+		return sb.toString();
+	}
+
+	public static String getUsuariosMail() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("SELECT u.cedula, u.email ");
+		sb.append("  FROM ta_usuarios u ");
+		sb.append("WHERE u.snenvioemail = 'S'");
+		sb.append("AND u.cedula IN (SELECT i.cedula FROM ta_instalacion i)");
 		return sb.toString();
 	}
 

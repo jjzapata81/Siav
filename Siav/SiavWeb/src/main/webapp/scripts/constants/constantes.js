@@ -22,7 +22,7 @@ define(['siav-module'], function(app) {
     		"CAUSA_NO_LECTURA_CONSULTAR" : "rest/nolectura/consultar",
     		"CAUSA_NO_LECTURA_CONSULTAR_DESCRIPCIONES" : "rest/nolectura/consultar/descripciones",
 
-    		"CICLO_CONSULTAR" : "rest/ciclos/consultar",
+    		"CICLO_CONSULTAR" : "rest/ciclos/consultar/",
     		"CICLO_CONSULTAR_TODO" : "rest/ciclos/consultar/todo",
     		"CICLO_EDITAR" : "rest/ciclos/editar",
     		"CICLO_CERRAR" : "rest/ciclos/cerrar/",
@@ -47,6 +47,7 @@ define(['siav-module'], function(app) {
     		"EXCESO_CONSULTAR" : "rest/excesos/consultar",
     		
     		"FACTURACION_INICIAR" : "rest/facturacion/iniciar",
+    		"FACTURACION_CONSULTAR" : "rest/facturacion/consultar",
     		
     		"INSTALACION_BUSCAR" : "rest/instalacion/buscar/",
     		"INSTALACION_GUARDAR" : "rest/instalacion/guardar",
@@ -106,6 +107,7 @@ define(['siav-module'], function(app) {
     		"REPORTES_PDF" : "/Reportes/rest/reports/",
     		"REPORTES_BUSCAR" : "rest/reportes/buscar/",
     		"REPORTES_INSTALACIONES_USUARIO" : "/Reportes/rest/general/usuario/instalaciones",
+    		"REPORTES_SEND_MAIL" : "/Reportes/rest/reports/mail",
     		
     		"SISTEMA_CONSULTAR_IP":"rest/general/consultar/ip",
     		"SISTEMA_CONSULTAR_ESTRUCTURA" : "rest/general/consultar/estructura",
@@ -188,6 +190,7 @@ define(['siav-module'], function(app) {
     	},
     	"CICLO" : {
     		"ABIERTO" : "ABIERTO",
+    		"CERRADO" : "CERRADO",
     		"ERR_CICLO_CERRADO" : "No se puede editar un ciclo cerrado."
     	},
     	"CIERRE" : {

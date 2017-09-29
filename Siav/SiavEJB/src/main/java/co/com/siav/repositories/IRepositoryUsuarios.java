@@ -18,4 +18,6 @@ public interface IRepositoryUsuarios extends JpaRepository<Usuario, String>{
 
 	List<Usuario> findByNombresLikeAndApellidosLike(String nombres, String apellidos);
 
+	List<Usuario> findByEnvioMail(String envioMail);
+
 }

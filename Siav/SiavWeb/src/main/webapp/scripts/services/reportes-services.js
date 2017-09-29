@@ -6,6 +6,7 @@ define(['siav-module', 'constantes'], function (app) {
     	 var contrato = {
     			 buscar : buscar,
     			 getPDF : getPDF,
+    			 sendMail : sendMail,
     			 descargar : descargar,
     			 enviar : enviar,
     			 instalacionesUsuario : instalacionesUsuario
@@ -33,6 +34,13 @@ define(['siav-module', 'constantes'], function (app) {
     	 
     	 function getPDF(reporte, filtro){
     		 var request = $http.post(CONSTANTES.SRV.REPORTES_PDF + reporte + "/pdf", filtro, {responseType: 'arraybuffer'});
+    		 return(request.then(function(response){
+    			 return response.data;
+    		 }));
+    	 }
+    	 
+    	 function sendMail(){
+    		 var request = $http.get(CONSTANTES.SRV.REPORTES_SEND_MAIL, { silent : true, ignoreLoadingBar: true});
     		 return(request.then(function(response){
     			 return response.data;
     		 }));

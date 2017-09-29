@@ -6,6 +6,7 @@ import java.util.Date;
 public class FacturaBD {
 	
 	private String ciclo;
+	private String cedula;
 	private String nombre;
 	private String instalacion;
 	private String direccion;
@@ -184,6 +185,14 @@ public class FacturaBD {
 
 	public void setMedidor(String medidor) {
 		this.medidor = medidor;
+	}
+	
+	public String getCedula() {
+		return cedula;
+	}
+	
+	public void setCedula(String cedula) {
+		this.cedula = cedula;
 	}
 	
 }

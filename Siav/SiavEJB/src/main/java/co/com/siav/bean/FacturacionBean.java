@@ -15,6 +15,7 @@ import co.com.siav.entities.Exceso;
 import co.com.siav.entities.Factura;
 import co.com.siav.entities.Sistema;
 import co.com.siav.entities.Tarifa;
+import co.com.siav.entities.Usuario;
 import co.com.siav.exception.ExcepcionNegocio;
 import co.com.siav.facturacion.EstratoManager;
 import co.com.siav.facturacion.FacturadorManager;
@@ -27,6 +28,8 @@ import co.com.siav.repositories.IRepositoryFacturas;
 import co.com.siav.repositories.IRepositoryInstalaciones;
 import co.com.siav.repositories.IRepositorySistema;
 import co.com.siav.repositories.IRepositoryTarifas;
+import co.com.siav.repositories.IRepositoryUsuarios;
+import co.com.siav.response.ConsultaFacturasResponse;
 import co.com.siav.response.EstadoEnum;
 import co.com.siav.response.MensajeResponse;
 import co.com.siav.utils.Constantes;
@@ -60,6 +63,9 @@ public class FacturacionBean {
 	
 	@Inject
 	private IRepositoryConsumos consumosRep;
+	
+	@Inject
+	private IRepositoryUsuarios usuariosRep;
 	
 	@Inject
 	private Tarifador tarifador;
@@ -201,6 +207,20 @@ public class FacturacionBean {
 		instance.setTarifas(consumoBasico, consumoComplementario, consumoSuntuario);
 		instance.setConceptosFacturacion(cargoFijo, conceptoInteres, conceptoCuentasVencidas, tarifas.consultar());
 		return instance;
+	}
+
+	public ConsultaFacturasResponse consultar() {
+		Long ciclo = cicloRep.findMaximoCicloPorEstado(Constantes.CERRADO);
+		Sistema sistemaConsulta = sistemaRep.findAll().get(0);
+		List<Factura> facturas = facturasRep.findByCiclo(ciclo);
+		if(sistemaConsulta.getEnvioFactura()){
+			List<String> usuarios = usuariosRep.findByEnvioMail(Constantes.SI).stream().map(Usuario::getCedula).collect(Collectors.toList());
+			Long cantidadMail = facturas.stream().filter(item-> usuarios.contains(item.getCedula())).count();
+			Long cantidadFisico = facturas.size() - cantidadMail;
+			return new ConsultaFacturasResponse(ciclo, cantidadFisico, cantidadMail);
+		}else{
+			return new ConsultaFacturasResponse(facturas.size());
+		}
 	}
 	
 }

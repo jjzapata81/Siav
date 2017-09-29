@@ -3,6 +3,7 @@ package co.com.siav.utility;
 public class Constantes {
 
 	public static final String ABIERTO = "ABIERTO";
+	public static final String CERRADO = "CERRADO";
 	public static final String FACTURA_NO_EXISTE = "No existe información para el ciclo seleccionado.";
 	public static final String ERR_CICLO_ABIERTO = "No se puede consultar la información para un ciclo abierto.";
 	public static final String ERR_NO_DATA = "La búsqueda no arrojó resultados.";
@@ -18,6 +19,8 @@ public class Constantes {
 	public static final String SUBTITULO = "subtitulo";
 	public static final String RESUMEN = "resumen";
 	
+	public static final String PATTERN_EMAIL = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+	
 	public static final String CARTERA_JRXML = "cartera.jrxml";
 	public static final String RECAUDO_JRXML="recaudo.jrxml";
 	public static final String INSTALACIONES_RUTA_JRXML = "instalacionesRuta.jrxml";
@@ -31,5 +34,6 @@ public class Constantes {
 	public static final String ABONO_JRXML = "siavAbono.jrxml";
 	public static final String PREFACTURA_JRXML = "prefactura.jrxml";
 	public static final String MATRICULA_JRXML = "siavAbono.jrxml";
+	public static final String SI = "S";
 
 }

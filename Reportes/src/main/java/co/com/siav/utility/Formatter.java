@@ -16,5 +16,15 @@ public class Formatter {
 		DecimalFormat df = new DecimalFormat("#,###,###");
 		return String.format(symbol, df.format(number));
 	}
+	
+	public static String getNombreMes(Date fecha){
+		SimpleDateFormat formateador = new SimpleDateFormat("MMMMM 'de' yyyy");
+		return formateador.format(fecha);
+	}
+	
+	public static String getMes(Date fecha){
+		SimpleDateFormat formateador = new SimpleDateFormat("yyyyMMdd");
+		return formateador.format(fecha);
+	}
 
 }

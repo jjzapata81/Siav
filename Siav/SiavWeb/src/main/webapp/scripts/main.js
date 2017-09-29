@@ -122,6 +122,7 @@ require.config({
     	'articulo-controller' : 'controllers/articulo-controller',
     	'entradas-materiales-controller' : 'controllers/entradas-materiales-controller',
     	'salida-materiales-controller' : 'controllers/salida-materiales-controller',
+    	'factura-controller' : 'controllers/factura-controller',
     	
     	//Reportes
     	

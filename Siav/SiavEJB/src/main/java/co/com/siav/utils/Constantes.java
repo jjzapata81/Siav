@@ -141,7 +141,11 @@ public final class Constantes {
 	public static final String ERR_ARTICULO_EXISTE = "Ya existe un artículo con el código ingresado.";
 	public static final String ERR_ARTICULO_CODIGO_CONTABLE = "Ya existe una tarifa con el código contable ingresado.";
 	public static final String ERR_ARTICULO_CODIGO_CONTABLE_DUPLICADO = "Ya existe un artículo con el código contable ingresado.";
-
+	public static final String FACTURA_SOLO_FISICO = "Se procede a elaborar %d facturas.";
+	public static final String FACTURA_CONSULTA = "Se procede a realizar la facturación para el ciclo %d. "
+			+ "Total facturas: %d. "
+			+ "Total facturas impresas: %d. "
+			+ "Total enviadas por correo electrónico %d.";
 	
 	public static String getMensaje(String mensaje, Long codigo) {
 		return getMensaje(mensaje, String.valueOf(codigo));

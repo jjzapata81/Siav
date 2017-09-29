@@ -8,6 +8,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import co.com.siav.bean.FacturacionBean;
+import co.com.siav.response.ConsultaFacturasResponse;
 import co.com.siav.response.MensajeResponse;
 
 
@@ -23,6 +24,13 @@ public class FacturacionServices {
 	@Produces(MediaType.APPLICATION_JSON)
 	public MensajeResponse facturar(){
 		return bean.facturar();
+	}
+	
+	@GET
+	@Path("consultar")
+	@Produces(MediaType.APPLICATION_JSON)
+	public ConsultaFacturasResponse consultar(){
+		return bean.consultar();
 	}
 
 }

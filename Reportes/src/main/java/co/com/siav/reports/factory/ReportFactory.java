@@ -11,6 +11,7 @@ import co.com.siav.repository.report.ConsumosNoFacturadoRepository;
 import co.com.siav.repository.report.CuentasVencidasRepository;
 import co.com.siav.repository.report.DetalleRecaudoRepository;
 import co.com.siav.repository.report.EstadisticasRepository;
+import co.com.siav.repository.report.FacturaCicloRepository;
 import co.com.siav.repository.report.FacturaRepository;
 import co.com.siav.repository.report.InstalacionesRutaRepository;
 import co.com.siav.repository.report.LecturasConsumosRepository;
@@ -28,6 +29,9 @@ public class ReportFactory {
 	
 	@Inject
 	private FacturaRepository facturaRep;
+	
+	@Inject
+	private FacturaCicloRepository facturaCicloRep;
 	
 	@Inject
 	private UsuarioRepository usuarioRep;
@@ -77,6 +81,7 @@ public class ReportFactory {
 		typeReport.put("consolidado-concepto", consolidadoConceptoRep);
 		typeReport.put("detalle-recaudo", detalleRecaudoRep);
 		typeReport.put("cartera", carteraRep);
+		typeReport.put("factura-ciclo", facturaCicloRep);
 	}
 
 }

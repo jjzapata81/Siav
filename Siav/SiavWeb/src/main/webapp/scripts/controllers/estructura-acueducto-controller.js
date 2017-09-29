@@ -10,7 +10,7 @@ define(['siav-module', 'siav-services', 'usuarios-services', 'instalaciones-serv
     		$scope.estaEditando = false;
     		$scope.existeUsuario = false;
     		$scope.buscarCedula = null;
-    		$scope.deshabilitar = true;
+    		$scope.deshabilitar = false;
     		$scope.valoresIniciales();
     	}
     	
@@ -89,6 +89,7 @@ define(['siav-module', 'siav-services', 'usuarios-services', 'instalaciones-serv
     	
     	$scope.onDeshabilitar = function(){
     		$scope.usuarioEditar.activo = !$scope.usuarioEditar.activo;
+    		$scope.deshabilitar = !$scope.deshabilitar;
     	}
     	
     	$scope.onGuardar = function(){

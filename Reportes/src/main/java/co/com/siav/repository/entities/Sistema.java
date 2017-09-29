@@ -6,6 +6,7 @@ public class Sistema {
 	private String basico;
 	private String complementario;
 	private String suntuario;
+	private String envioFactura;
 	
 	public String getCargoFijo() {
 		return cargoFijo;
@@ -32,6 +33,12 @@ public class Sistema {
 		this.suntuario = suntuario;
 	}
 	
+	public String getEnvioFactura() {
+		return envioFactura;
+	}
 	
+	public void setEnvioFactura(String envioFactura) {
+		this.envioFactura = envioFactura;
+	}
 
 }

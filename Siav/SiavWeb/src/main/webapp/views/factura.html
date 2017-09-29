@@ -1,0 +1,16 @@
+<titulo/>
+<menu></menu>
+
+<div  class="contenido">
+	<div  class="boton-fijo">
+		<a ng-click="onFacturar()" uib-tooltip="Facturar" tooltip-placement="left"><i class="fa fa-print icon-float icon-print" aria-hidden="true"></i></a>
+	</div>
+	<section class="titulo-seccion">Facturaci&oacute;n</section>
+	<section class="formulario form-fijo">
+		<section class="sub-titulo">Ciclo n&uacute;mero {{ciclo.ciclo}}: {{ciclo.nombreMes}}</section>
+	</section>
+	
+	<div>
+		<object ng-show="isContent" data="{{content}}" type="application/pdf" style="width: 90%; height: 400px;"></object>
+	</div>
+</div>

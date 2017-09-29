@@ -158,6 +158,10 @@ define(['angularAMD', 'angular-route'], function (angularAMD) {
 	            templateUrl: 'views/prefacturacion.html', 
 	            controller: 'prefacturacion-controller'
 	        }))
+	        .when("/factura", angularAMD.route({
+	            templateUrl: 'views/factura.html', 
+	            controller: 'factura-controller'
+	        }))
 	        .when("/prefacturacion-impresion", angularAMD.route({
 	            templateUrl: 'views/prefacturacion-impresion.html', 
 	            controller: 'prefacturacion-impresion-controller'

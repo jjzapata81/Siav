@@ -1202,3 +1202,10 @@ a:hover {
 .detalle-salidas>ul>li>input{
 	width: 200px;
 }
+
+.div-info{
+	width: 100%;
+    cursor: pointer;
+    color: #344769;
+    height: 100%;
+}

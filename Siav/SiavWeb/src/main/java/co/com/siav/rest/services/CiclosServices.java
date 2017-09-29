@@ -46,6 +46,13 @@ public class CiclosServices {
 	}
 	
 	@GET
+	@Path("consultar/{estado}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Ciclo getCicloPorEstado(@PathParam(value="estado") String estado){
+		return bean.getPorEstado(estado);
+	}
+	
+	@GET
 	@Path("consultar/todo")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Ciclo> getTodosCiclos(){
