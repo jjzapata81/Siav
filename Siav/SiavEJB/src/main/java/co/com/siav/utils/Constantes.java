@@ -146,6 +146,7 @@ public final class Constantes {
 			+ "Total facturas: %d. "
 			+ "Total facturas impresas: %d. "
 			+ "Total enviadas por correo electrónico %d.";
+	public static final String ERR_CONSUMO_NEGATIVO = "Existen consumos negativos. Ingrese a la opción de inconsistencias para corregirlas.";
 	
 	public static String getMensaje(String mensaje, Long codigo) {
 		return getMensaje(mensaje, String.valueOf(codigo));
