@@ -2,10 +2,13 @@
 <menu></menu>
 <div  class="contenido">
 	<div  class="boton-fijo">
-		<a ng-click="onBuscar()" uib-tooltip="Buscar consumos" tooltip-placement="left" ng-show="!estaEditando && !estaEditandoRiesgo"><i class="fa fa-search icon-float icon-search" aria-hidden="true"></i></a>
+		<a ng-click="onBuscar()" uib-tooltip="Buscar consumos" tooltip-placement="left" ng-show="!estaEditando && !estaEditandoRiesgo && !esConsultaInstalacion"><i class="fa fa-search icon-float icon-search" aria-hidden="true"></i></a>
+		<a ng-click="onBuscarInstalacion()" uib-tooltip="Buscar instalaci&oacute;n" tooltip-placement="left" ng-show="esConsultaInstalacion"><i class="fa fa-search icon-float icon-search" aria-hidden="true"></i></a>
+		<a ng-click="onConsultaInstalacion()" uib-tooltip="Consulta por instalaci&oacute;n" tooltip-placement="left" ng-show="!estaEditando && !estaEditandoRiesgo && !esConsultaInstalacion"><i class="fa fa-users icon-float icon-print" aria-hidden="true"></i></a>
 		<a ng-click="onCancelarRiesgo()" uib-tooltip="Cancelar" tooltip-placement="left" ng-show="!estaEditando && !estaEditandoRiesgo && hayRiesgo"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
 		<a ng-click="onGuardar()" uib-tooltip="Guardar" tooltip-placement="left" ng-show="estaEditando"><i class="fa fa-floppy-o icon-float icon-save" aria-hidden="true"></i></a>
 		<a ng-click="onCancelar()" uib-tooltip="Cancelar" tooltip-placement="left" ng-show="estaEditando"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
+		<a ng-click="onCancelarConsulta()" uib-tooltip="Cancelar" tooltip-placement="left" ng-show="esConsultaInstalacion"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
 		<a ng-click="onGuardarRiesgo()" uib-tooltip="Guardar" tooltip-placement="left" ng-show="estaEditandoRiesgo"><i class="fa fa-floppy-o icon-float icon-save" aria-hidden="true"></i></a>
 		<a ng-click="onCancelarEdicionRiesgo()" uib-tooltip="Cancelar" tooltip-placement="left" ng-show="estaEditandoRiesgo"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
 	</div>
@@ -147,7 +150,7 @@
 			</div>
 		</div>
 	</section>
-	<div class="tabla-siav" ng-show="!estaEditando && hayCorreccion && !hayRiesgo">
+	<div class="tabla-siav" ng-show="!estaEditando && hayCorreccion && !hayRiesgo && !esConsultaInstalacion">
 		<table class="table table-responsive">
 			<thead>
 				<th>Instalaci&oacute;n</th>
@@ -173,10 +176,20 @@
 			</tbody>
 		</table>
 	</div>
+	
 	<section class="formulario form-fijo" ng-show="!hayCorreccion && !estaEditandoRiesgo">
 		<div>
 			<section class="sub-titulo">No hay lecturas negativas</section>
 		</div>
+	</section>
+	<section class="formulario form-fijo" ng-show="esConsultaInstalacion">
+		<section class="sub-titulo">Buscar instalaci&oacute;n</section>
+		<ul class="flex">
+			<li>
+				<label>N&uacute;mero:</label><br>
+				<input type="text" ng-model="buscarInstalacion"/>
+			</li>
+		</ul>
 	</section>
 	<div class="tabla-siav" ng-show="!estaEditando && hayRiesgo && !estaEditandoRiesgo">
 		<table class="table table-responsive">

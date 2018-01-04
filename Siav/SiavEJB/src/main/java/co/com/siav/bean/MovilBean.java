@@ -87,6 +87,8 @@ public class MovilBean {
 		if(!consumosRep.exists(consumoPk)){
 			Consumo consumoBD = new Consumo();
 			consumoBD.setId(consumoPk);
+			System.out.println("Sincronizando instalacion: " + consumoBD.getId().getInstalacion());
+			System.out.println("Serie medidor: " + consumoBD.getId().getSerieMedidor());
 			consumoBD.setAjustado(false);
 			consumoBD.setCodigoCausaNoLectura(consumo.getCodigoCausaNoLectura());
 			consumoBD.setLecturaActual(consumo.getLecturaActual());

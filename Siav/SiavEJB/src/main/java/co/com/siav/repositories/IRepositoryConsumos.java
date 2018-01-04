@@ -41,5 +41,5 @@ public interface IRepositoryConsumos extends JpaRepository<Consumo, ConsumoPK>{
 	void updateMedidor(@Param(value="ciclo") Long ciclo, @Param(value="instalacion") Long instalacion, @Param("nuevoMedidor")String nuevoMedidor);
 
 	List<Consumo> findByIdInstalacion(Long numeroInstalacion);
-
+	
 }

@@ -1,6 +1,7 @@
 package co.com.siav.bean;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -53,6 +54,9 @@ public class ConsumosBean {
 			pk.setInstalacion(request.getNumeroInstalacion());
 			pk.setSerieMedidor(request.getAntiguoMedidor());
 			Consumo consumoBD = consumosRep.findOne(pk);
+			if(null == consumoBD){
+				return new MensajeResponse(EstadoEnum.ERROR, Constantes.ERR_CONSUMO_NO_ENCONTRADO);
+			}
 			consumoBD.setConsumoDefinitivo(request.getConsumo());
 			consumoBD.setLecturaActualCorregido(request.getLecturaCorregida());
 			consumoBD.setAjustado(true);
@@ -65,7 +69,7 @@ public class ConsumosBean {
 					consumoBD.getConsumoMes(), request.getConsumo(), null, null, request.getObservacion());
 			return new MensajeResponse(Constantes.ACTUALIZACION_EXITO);
 		}catch(Exception e){
-			return new MensajeResponse(EstadoEnum.ERROR, Constantes.ACTUALIZACION_FALLO);
+			return new MensajeResponse(EstadoEnum.ERROR, e.getMessage());
 		}
 	}
 	
@@ -84,7 +88,7 @@ public class ConsumosBean {
 			consumosRep.save(consumoBD);
 			return new MensajeResponse(Constantes.ACTUALIZACION_EXITO);
 		}catch(Exception e){
-			return new MensajeResponse(EstadoEnum.ERROR, Constantes.ACTUALIZACION_FALLO);
+			return new MensajeResponse(EstadoEnum.ERROR, e.getMessage());
 		}
 	}
 	
@@ -148,6 +152,12 @@ public class ConsumosBean {
 	
 	public List<Consumo> porInstalacion(Long numeroInstalacion) {
 		return consumosRep.findByIdInstalacion(numeroInstalacion);
+	}
+
+	public List<ConsumoRiesgo> consultarInstalacion(Long instalacion) {
+		Ciclo ciclo = ciclosBean.getPorEstado(Constantes.ABIERTO);
+		cicloAnterior = ciclosBean.getPorEstado(Constantes.CERRADO);
+		return Arrays.asList(consumosRep.findByIdInstalacionAndIdCiclo(instalacion, ciclo.getCiclo())).stream().map(this::transform).collect(Collectors.toList());
 	}
 
 }

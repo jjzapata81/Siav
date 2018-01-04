@@ -9,6 +9,8 @@ define(['siav-module', 'inconsistencias-services', 'causas-no-lectura-services',
     		$scope.correccionLectura = 'true';
     		$scope.estaEditando = false;
     		$scope.estaEditandoRiesgo = false;
+    		$scope.esConsultaInstalacion = false;
+    		$scope.aux = false;
     		$scope.rango = {};
     		$scope.incompletos = [];
     		$scope.consumosRiesgo = [];
@@ -79,6 +81,18 @@ define(['siav-module', 'inconsistencias-services', 'causas-no-lectura-services',
     		
     	}
     	
+    	$scope.onConsultaInstalacion = function(){
+    		$scope.esConsultaInstalacion = true;
+    		$scope.hayRiesgo = false;
+    		$scope.buscarInstalacion = null;
+    	}
+    	
+    	$scope.onCancelarConsulta = function(){
+    		$scope.esConsultaInstalacion = false;
+    		$scope.hayRiesgo = false;
+    		$scope.buscarInstalacion = null;
+    	}
+    	
     	$scope.onGuardarRiesgo = function(){
     		if($scope.validarRiesgo()){
     			modalObservacion
@@ -104,10 +118,7 @@ define(['siav-module', 'inconsistencias-services', 'causas-no-lectura-services',
 			inconsistenciasServices
 			.guardarCorreccionLectura(request)
 			.then(function(respuesta){
-				modalFactory.abrirDialogo(respuesta);
-				$scope.estaEditandoRiesgo = false;
-				$scope.consultarRango();
-				$scope.correccionLectura = 'true';
+				$scope.terminar(respuesta);
 			});
     	}
     	
@@ -120,11 +131,22 @@ define(['siav-module', 'inconsistencias-services', 'causas-no-lectura-services',
 			inconsistenciasServices
 			.guardarCorreccionConsumo(request)
 			.then(function(respuesta){
-				modalFactory.abrirDialogo(respuesta);
+				$scope.terminar(respuesta);
+				
+			});
+    	}
+    	
+    	$scope.terminar = function(respuesta){
+    		modalFactory.abrirDialogo(respuesta);
+			if($scope.aux){
+				$scope.hayRiesgo = false;
+	    		$scope.init();
+			}else{
 				$scope.estaEditandoRiesgo = false;
 				$scope.consultarRango();
 				$scope.correccionLectura = 'true';
-			});
+			}
+			
     	}
     	
     	$scope.validar = function(){
@@ -188,9 +210,25 @@ define(['siav-module', 'inconsistencias-services', 'causas-no-lectura-services',
     			if(null!=consumo){
     				$scope.rango.consumo = consumo;
     				$scope.consultarRango();
+    				$scope.aux = false;
     			}
     		});
     		
+    	}
+    	
+    	$scope.onBuscarInstalacion = function(){
+    		if($scope.buscarInstalacion){
+    			inconsistenciasServices
+    			.consultarInstalacion($scope.buscarInstalacion)
+    			.then(function(consumosRiesgo){
+    				$scope.consumosRiesgo = consumosRiesgo;
+    				$scope.hayRiesgo = $scope.consumosRiesgo.length != 0;
+    				$scope.aux = true;
+    				$scope.esConsultaInstalacion = false;
+    			});
+    		}else{
+    			modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.INSTALACION.ERR_BUSQUEDA_OBLIGATORIO);
+    		}
     	}
     	
     	$scope.consultarRango = function(){

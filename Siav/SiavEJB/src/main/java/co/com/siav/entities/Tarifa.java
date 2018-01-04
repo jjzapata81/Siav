@@ -19,7 +19,7 @@ public class Tarifa implements Serializable, IEstrato{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="cdconcepto")
+	@Column(name="cdconcepto", updatable=true)
 	private String codigo;
 	
 	@Column(name="descripcion")

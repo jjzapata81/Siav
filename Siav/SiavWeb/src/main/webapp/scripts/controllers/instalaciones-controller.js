@@ -11,7 +11,6 @@ define(['siav-module', 'instalaciones-services', 'usuarios-services', 'veredas-s
     			
     	$scope.init = function(){
     		$scope.limpiar();
-    		$scope.puedeActivar = false;
     		veredasServices
     		.consultar()
     		.then(function(veredas){
@@ -157,6 +156,7 @@ define(['siav-module', 'instalaciones-services', 'usuarios-services', 'veredas-s
 			$scope.instalacion.usuario = null;
 			$scope.estaEditando = false;
     		$scope.existeInstalacion = false;
+    		$scope.puedeActivar = false;
     		$scope.buscarInstalacion = null;
     	}
     	

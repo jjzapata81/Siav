@@ -146,6 +146,9 @@ public final class Constantes {
 			+ "Total facturas: %d. "
 			+ "Total facturas impresas: %d. "
 			+ "Total enviadas por correo electrónico %d.";
+	public static final String ERR_CONSUMO_NO_ENCONTRADO = "No se encontró un registro de consumo para el ciclo, instalación y serie de medidor ingresados.";
+	public static final String OK = "OK";
+	public static final String ERR_ACTUALIZACION_TARIFAS = "Ocurrió un error al tratar de actualizar los códigos de las tarifas.";
 	
 	public static String getMensaje(String mensaje, Long codigo) {
 		return getMensaje(mensaje, String.valueOf(codigo));

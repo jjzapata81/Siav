@@ -7,6 +7,7 @@ define(['siav-module', 'constantes'], function (app) {
     			 consultar : consultar,
     			 consultarLog : consultarLog,
     			 consultarRango : consultarRango,
+    			 consultarInstalacion : consultarInstalacion,
     			 guardar : guardar,
     			 guardarCorreccionLectura : guardarCorreccionLectura,
     			 guardarCorreccionConsumo : guardarCorreccionConsumo
@@ -28,6 +29,13 @@ define(['siav-module', 'constantes'], function (app) {
     	 
     	 function consultarRango(consumo){
     		 var request = $http.post(CONSTANTES.SRV.CONSUMOS_RANGO, consumo, {isArray : true});
+    		 return(request.then(function(response){
+    			 return response.data;
+    		 }));
+    	 }
+    	 
+    	 function consultarInstalacion(instalacion){
+    		 var request = $http.get(CONSTANTES.SRV.CONSUMOS_RIESGO_BUSCAR_INSTALACION + instalacion, {isArray : true});
     		 return(request.then(function(response){
     			 return response.data;
     		 }));

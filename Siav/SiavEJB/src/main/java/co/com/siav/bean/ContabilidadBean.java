@@ -42,7 +42,10 @@ public class ContabilidadBean {
 				sb.append(Constantes.ACTUALIZACION_POR_ESTRATO);
 				eliminarValores();
 			}
-			actualizarCodigos(sistema, request);
+			MensajeResponse respuestaActualizarCodigos = actualizarCodigos(sistema, request);
+			if(respuestaActualizarCodigos.getEstado()==EstadoEnum.ERROR){
+				return respuestaActualizarCodigos;
+			}
 			BeanUtils.copyProperties(request, sistema);
 			sistemaRep.save(sistema);
 			sb.append(Constantes.ACTUALIZACION_EXITO);
@@ -78,19 +81,24 @@ public class ContabilidadBean {
 		return concepto;
 	}
 
-	private void actualizarCodigos(Sistema sistemaBD, Sistema request) {
-		compararValorExceso(sistemaBD.getIdBasico(), request.getIdBasico());
-		compararValorExceso(sistemaBD.getIdComplementario(), request.getIdComplementario());
-		compararValorExceso(sistemaBD.getIdSuntuario(), request.getIdSuntuario());
-		compararValor(sistemaBD.getIdCargoFijo(), request.getIdCargoFijo());
-		compararValor(sistemaBD.getIdReconexion(), request.getIdReconexion());
-		compararValor(sistemaBD.getIdRecargo(), request.getIdRecargo());
-		compararValor(sistemaBD.getIdMoroso(), request.getIdMoroso());
-		compararValor(sistemaBD.getIdDerecho(), request.getIdDerecho());
-		compararValor(sistemaBD.getIdInteres(), request.getIdInteres());
-		compararValor(sistemaBD.getIdSaldoFavor(), request.getIdSaldoFavor());
-		compararValor(sistemaBD.getIdMatricula(), request.getIdMatricula());
-		compararValor(sistemaBD.getIdMateriales(), request.getIdMateriales());
+	private MensajeResponse actualizarCodigos(Sistema sistemaBD, Sistema request) {
+		try{
+			compararValorExceso(sistemaBD.getIdBasico(), request.getIdBasico());
+			compararValorExceso(sistemaBD.getIdComplementario(), request.getIdComplementario());
+			compararValorExceso(sistemaBD.getIdSuntuario(), request.getIdSuntuario());
+			compararValor(sistemaBD.getIdCargoFijo(), request.getIdCargoFijo());
+			compararValor(sistemaBD.getIdReconexion(), request.getIdReconexion());
+			compararValor(sistemaBD.getIdRecargo(), request.getIdRecargo());
+			compararValor(sistemaBD.getIdMoroso(), request.getIdMoroso());
+			compararValor(sistemaBD.getIdDerecho(), request.getIdDerecho());
+			compararValor(sistemaBD.getIdInteres(), request.getIdInteres());
+			compararValor(sistemaBD.getIdSaldoFavor(), request.getIdSaldoFavor());
+			compararValor(sistemaBD.getIdMatricula(), request.getIdMatricula());
+			compararValor(sistemaBD.getIdMateriales(), request.getIdMateriales());
+			return new MensajeResponse(Constantes.OK);
+		}catch(Exception e){
+			return new MensajeResponse(EstadoEnum.ERROR, Constantes.ERR_ACTUALIZACION_TARIFAS);
+		}
 		
 	}
 

@@ -33,6 +33,7 @@ define(['siav-module'], function(app) {
     		"CONSUMOS_RANGO" : "rest/consumos/consultar/rango",
     		"CONSUMOS_RIESGO_GUARDAR_CORRECCION_LECTURA" : "rest/consumos/guardar/correccion/lectura",
     		"CONSUMOS_RIESGO_GUARDAR_CORRECCION_CONSUMO" : "rest/consumos/guardar/correccion/consumo",
+    		"CONSUMOS_RIESGO_BUSCAR_INSTALACION" : "rest/consumos/consultar/",
     		
     		"CONTABILIDAD_CONSULTAR" : "rest/contabilidad/consultar",
     		"CONTABILIDAD_GUARDAR" : "rest/contabilidad/guardar",

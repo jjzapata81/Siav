@@ -7,7 +7,7 @@ crear código contable para articulos (validar que no corresponda a un codigo de
 OJO: QUÉ PASA CUANDO DESACTIVO UN ARTICULO? DEBE ESTAR EN CEROS LA CANT DISPONIBLE? QUE PASA EN EL KARDEX? EN  EL CIERRE SE TIENE EN CUENTA LOS ARTICULOS INACTIVOS?
 Revisar Materiales --OK
 
-Implementar el envío de factura por correo. 
+Implementar el envío de factura por correo.  -- OK
 En sistema colocar bandera para prender y apagar el envio automático de factura por correo -- OK
 
 Reporte Kardex

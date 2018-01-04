@@ -10,12 +10,9 @@ dependencies {
 	deploy project(path:':SiavWeb', configuration:'archives')
 	earlib 'org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final'
 	earlib 'org.springframework.data:spring-data-jpa:1.11.3.RELEASE'
-	earlib 'org.springframework:spring-webmvc:4.2.0.RELEASE'
- 	earlib 'org.springframework:spring-core:4.2.0.RELEASE'
- 	earlib 'org.springframework:spring-web:4.2.0.RELEASE'
- 	earlib 'org.apache.httpcomponents:httpclient:4.5'
- 	earlib 'com.fasterxml.jackson.core:jackson-core:2.6.0'
- 	earlib 'com.fasterxml.jackson.core:jackson-databind:2.6.0'
+
+
+
  	
 }
 

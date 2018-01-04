@@ -134,7 +134,7 @@ public class FacturacionBean {
 			factura.setConsumo(consumo.getConsumoDefinitivo());
 			factura.setConsumoPromedio(consumo.getConsumoPromedio());
 			List<DetalleFactura> detalles = crearDetalle(consumo, numeroFactura, facturaAnterior);
-			if(sistema.getCuentasVencidas().equals(factura.getCuentasVencidas())){
+			if(sistema.getCuentasVencidas() > 0 && sistema.getCuentasVencidas().equals(factura.getCuentasVencidas())){
 				Optional<DetalleFactura> conceptoRCV = detalles.stream().filter(item -> sistema.getIdRecargo().equals(item.getCodigo())).findFirst();
 				if(conceptoRCV.isPresent()){
 					Tarifa tarifaRecargo = tarifasRep.findOne(sistema.getIdRecargo());
