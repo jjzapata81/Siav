@@ -2,6 +2,8 @@ package co.com.siav.bean;
 
 import java.util.List;
 
+import com.sun.mail.imap.protocol.Item;
+
 import co.com.siav.entities.Consumo;
 import co.com.siav.entities.Exceso;
 import co.com.siav.entities.IEstrato;
@@ -19,6 +21,9 @@ public class Validador {
 		}
 		if(consumos.size()!=instalacionesActivas.intValue()){
 			throw new ExcepcionNegocio(Constantes.ERR_LECTURAS_PENDIENTES);
+		}
+		if(consumos.stream().filter(item -> item.getConsumoDefinitivo() < 0L).findFirst().isPresent()){
+			throw new ExcepcionNegocio(Constantes.ERR_CONSUMO_NEGATIVO);
 		}
 		if(esPorEstrato){
 			tarifaNula = conEstrato(tarifas);
