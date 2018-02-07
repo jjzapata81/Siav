@@ -118,7 +118,7 @@ public class FacturaRepository implements IReportType{
 		facturaPDF.setCodigoBarras(Util.getCodigoBarras(facturaPDF.getReferente(), facturaPDF.getValorTotal(), facturaPDF.getFePagoRecargo() == null ? facturaPDF.getFePagoSinRecargo() : facturaPDF.getFePagoRecargo()));
 		facturaPDF.setResolucion(resolucion);
 		facturaPDF.setConsumoAnterior(facturaBD.getConsumoAnterior());
-		facturaPDF.setConsumos(getConsumos(facturaBD.getHistoricoConsumo()));
+		facturaPDF.setConsumos(getConsumos(facturaBD.getHistoricoConsumo(), facturaBD.getInstalacion()));
 		facturaPDF.setEstrato(facturaBD.getEstrato());
 		facturaPDF.setFechaFacturacion(ciclo.getFeFactura());
 		facturaPDF.setFechaActual(facturaBD.getFechaActual());
@@ -150,7 +150,7 @@ public class FacturaRepository implements IReportType{
 		return cobro;
 	}
 
-	private List<ConsumoPDF> getConsumos(String historicoConsumos) {
+	private List<ConsumoPDF> getConsumos(String historicoConsumos, String instalacion) {
 		try{
 			if(null != historicoConsumos){
 				List<String> historico = Arrays.asList(historicoConsumos.split(";"));
@@ -158,7 +158,7 @@ public class FacturaRepository implements IReportType{
 			}
 			return new ArrayList<ConsumoPDF>();
 		}catch(Exception e){
-			throw new TechnicalException(Constantes.ERR_HISTORICO_CONSUMOS + e.getMessage());
+			throw new TechnicalException(Constantes.ERR_HISTORICO_CONSUMOS + instalacion);
 		}
 	}
 	

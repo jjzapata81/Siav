@@ -74,7 +74,7 @@ public final class FacturaUtil {
 		return cobro;
 	}
 	
-	public static List<ConsumoPDF> getConsumos(String historicoConsumos) {
+	public static List<ConsumoPDF> getConsumos(String historicoConsumos, String instalacion) {
 		try{
 			if(null != historicoConsumos){
 				List<String> historico = Arrays.asList(historicoConsumos.split(";"));
@@ -82,7 +82,7 @@ public final class FacturaUtil {
 			}
 			return new ArrayList<ConsumoPDF>();
 		}catch(Exception e){
-			throw new TechnicalException(Constantes.ERR_HISTORICO_CONSUMOS + e.getMessage());
+			throw new TechnicalException(Constantes.ERR_HISTORICO_CONSUMOS + instalacion);
 		}
 	}
 }

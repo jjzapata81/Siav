@@ -126,7 +126,7 @@ public class EnvioFacturaRepository{
 		facturaPDF.setCodigoBarras(Util.getCodigoBarras(facturaPDF.getReferente(), facturaPDF.getValorTotal(), facturaPDF.getFePagoRecargo() == null ? facturaPDF.getFePagoSinRecargo() : facturaPDF.getFePagoRecargo()));
 		facturaPDF.setResolucion(resolucion);
 		facturaPDF.setConsumoAnterior(facturaBD.getConsumoAnterior());
-		facturaPDF.setConsumos(FacturaUtil.getConsumos(facturaBD.getHistoricoConsumo()));
+		facturaPDF.setConsumos(FacturaUtil.getConsumos(facturaBD.getHistoricoConsumo(), facturaBD.getInstalacion()));
 		facturaPDF.setEstrato(facturaBD.getEstrato());
 		facturaPDF.setFechaFacturacion(ciclo.getFeFactura());
 		facturaPDF.setFechaActual(facturaBD.getFechaActual());
