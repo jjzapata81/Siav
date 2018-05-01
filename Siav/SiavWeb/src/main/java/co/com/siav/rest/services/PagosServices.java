@@ -3,9 +3,7 @@ package co.com.siav.rest.services;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URISyntaxException;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;

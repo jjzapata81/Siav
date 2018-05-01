@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="siavFactura" pageWidth="572" pageHeight="752" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isFloatColumnFooter="true" uuid="f8b7ba61-4df3-4793-84d9-e02744758efd">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="945"/>
+	<property name="ireport.y" value="742"/>
 	<subDataset name="consumos" uuid="0792b2e7-8da7-484e-b138-ef3e41a04e2d">
 		<queryString language="JSON">
 			<![CDATA[]]>
@@ -49,6 +49,7 @@
 	<field name="medidor" class="java.lang.String"/>
 	<field name="fechaActual" class="java.util.Date"/>
 	<field name="fechaAnterior" class="java.util.Date"/>
+	<field name="mensajeCorte" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -575,19 +576,19 @@
 				<imageExpression><![CDATA[$P{SUBREPORT_DIR} + "corte.png"]]></imageExpression>
 			</image>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="Float" x="30" y="487" width="189" height="38" uuid="690958c1-fcf4-495e-9ac9-939a3dd62005"/>
+				<reportElement positionType="Float" x="30" y="473" width="189" height="38" uuid="690958c1-fcf4-495e-9ac9-939a3dd62005"/>
 				<textElement verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{mensajePuntoPago}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="Float" x="247" y="513" width="315" height="39" uuid="0e337e93-bc1b-4b0b-916c-20d29cf843e6"/>
+				<reportElement positionType="Float" x="247" y="499" width="315" height="39" uuid="0e337e93-bc1b-4b0b-916c-20d29cf843e6"/>
 				<textElement verticalAlignment="Bottom">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{mensajeReclamo}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="Float" x="30" y="532" width="189" height="20" uuid="b127a68a-a5b4-4a1e-9518-ffd72b464583"/>
+				<reportElement positionType="Float" x="30" y="518" width="189" height="20" uuid="b127a68a-a5b4-4a1e-9518-ffd72b464583"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
@@ -702,6 +703,13 @@
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{medidor}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="30" y="546" width="530" height="34" uuid="ecd2a85a-24b0-4852-ba04-53d10f330429"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mensajeCorte}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

@@ -158,7 +158,7 @@ public class QueryHelper {
 	public static String getCiclo(Filter filter) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("SELECT ciclo, fecha, felectura AS feFactura, fesinrecargo, feconrecargo, snestado, mensaje, ");
-		sb.append("mensajereclamo AS mensajeReclamo, mensajepuntopago AS mensajePuntoPago ");
+		sb.append("mensajereclamo AS mensajeReclamo, mensajepuntopago AS mensajePuntoPago, mensajecorte AS mensajeCorte ");
 		sb.append("FROM ta_ciclos ");
 		sb.append("WHERE ciclo =  ");
 		sb.append(filter.getCiclo());
@@ -168,7 +168,7 @@ public class QueryHelper {
 	public static String getCicloPorEstado(String estado) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("SELECT ciclo, fecha, felectura AS feFactura, fesinrecargo, feconrecargo, snestado, mensaje, ");
-		sb.append("mensajereclamo AS mensajeReclamo, mensajepuntopago AS mensajePuntoPago ");
+		sb.append("mensajereclamo AS mensajeReclamo, mensajepuntopago AS mensajePuntoPago, mensajecorte AS mensajeCorte ");
 		sb.append("FROM ta_ciclos ");
 		sb.append("WHERE ciclo =  ");
 		sb.append("(SELECT COALESCE(MAX(c.ciclo), '0') FROM ta_ciclos c WHERE c.snestado = '");
@@ -183,7 +183,8 @@ public class QueryHelper {
 		sb.append("idbasico AS basico, ");
 		sb.append("idcomplementario AS complementario, ");
 		sb.append("idsuntuario AS suntuario, ");
-		sb.append("snenviofactura AS envioFactura ");
+		sb.append("snenviofactura AS envioFactura, ");
+		sb.append("cuentasvencidas AS cuentasVencidas ");
 		sb.append("FROM ta_sistema ");
 		return sb.toString();
 	}

@@ -44,6 +44,9 @@ public class Ciclo implements Serializable{
 	@Column(name="mensajepuntopago")
 	private String mensajePuntoPago;
 	
+	@Column(name="mensajecorte")
+	private String mensajeCorte;
+	
 	public Long getCiclo() {
 		return ciclo;
 	}
@@ -106,6 +109,14 @@ public class Ciclo implements Serializable{
 	
 	public void setMensajeReclamo(String mensajeReclamo) {
 		this.mensajeReclamo = mensajeReclamo;
+	}
+	
+	public String getMensajeCorte() {
+		return mensajeCorte;
+	}
+	
+	public void setMensajeCorte(String mensajeCorte) {
+		this.mensajeCorte = mensajeCorte;
 	}
 	
 	public Date getFechaFacturacion() {

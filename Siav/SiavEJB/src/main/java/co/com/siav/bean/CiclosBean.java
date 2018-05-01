@@ -67,6 +67,7 @@ public class CiclosBean {
 			cicloBD.setMensaje(ciclo.getMensaje());
 			cicloBD.setMensajePuntoPago(ciclo.getMensajePuntoPago());
 			cicloBD.setMensajeReclamo(ciclo.getMensajeReclamo());
+			cicloBD.setMensajeCorte(ciclo.getMensajeCorte());
 			ciclosRep.save(cicloBD);
 			return new MensajeResponse(Constantes.ACTUALIZACION_EXITO);
 		}catch (Exception e){
@@ -127,6 +128,7 @@ public class CiclosBean {
 		nuevoCiclo.setMensaje(ciclo.getMensaje());
 		nuevoCiclo.setMensajePuntoPago(ciclo.getMensajePuntoPago());
 		nuevoCiclo.setMensajeReclamo(ciclo.getMensajeReclamo());
+		nuevoCiclo.setMensajeCorte(ciclo.getMensajeCorte());
 		ciclosRep.save(nuevoCiclo);
 	}
 

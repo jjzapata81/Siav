@@ -13,6 +13,7 @@ public class Ciclo {
 	private String mensaje;
 	private String mensajeReclamo;
 	private String mensajePuntoPago;
+	private String mensajeCorte;
 	
 	public Long getCiclo() {
 		return ciclo;
@@ -70,5 +71,13 @@ public class Ciclo {
 	}
 	public void setMensajePuntoPago(String mensajePuntoPago) {
 		this.mensajePuntoPago = mensajePuntoPago;
+	}
+	
+	public String getMensajeCorte() {
+		return mensajeCorte;
+	}
+	
+	public void setMensajeCorte(String mensajeCorte) {
+		this.mensajeCorte = mensajeCorte;
 	}
 }

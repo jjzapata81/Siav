@@ -22,6 +22,7 @@ public class FacturaPDF {
 	private Date fePagoRecargo;
 	private Long valorTotal;
 	private String mensajeReclamo;
+	private String mensajeCorte;
 	private Long consumoAnterior;
 	private Long consumoActual;
 	private Long valorMesAnterior;
@@ -107,6 +108,14 @@ public class FacturaPDF {
 
 	public void setMensajePrincipal(String mensajePrincipal) {
 		this.mensajePrincipal = mensajePrincipal;
+	}
+	
+	public String getMensajeCorte() {
+		return mensajeCorte;
+	}
+	
+	public void setMensajeCorte(String mensajeCorte) {
+		this.mensajeCorte = mensajeCorte;
 	}
 
 	public String getInstalacion() {

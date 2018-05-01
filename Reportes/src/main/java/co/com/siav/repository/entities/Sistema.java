@@ -7,6 +7,7 @@ public class Sistema {
 	private String complementario;
 	private String suntuario;
 	private String envioFactura;
+	private Long cuentasVencidas;
 	
 	public String getCargoFijo() {
 		return cargoFijo;
@@ -39,6 +40,14 @@ public class Sistema {
 	
 	public void setEnvioFactura(String envioFactura) {
 		this.envioFactura = envioFactura;
+	}
+	
+	public Long getCuentasVencidas() {
+		return null == cuentasVencidas ? 0L: cuentasVencidas;
+	}
+	
+	public void setCuentasVencidas(Long cuentasVencidas) {
+		this.cuentasVencidas = cuentasVencidas;
 	}
 
 }

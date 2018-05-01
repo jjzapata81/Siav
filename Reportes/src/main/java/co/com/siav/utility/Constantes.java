@@ -4,6 +4,7 @@ public class Constantes {
 
 	public static final String ABIERTO = "ABIERTO";
 	public static final String CERRADO = "CERRADO";
+	public static final String EMPTY = "";
 	public static final String FACTURA_NO_EXISTE = "No existe información para el ciclo seleccionado.";
 	public static final String ERR_CICLO_ABIERTO = "No se puede consultar la información para un ciclo abierto.";
 	public static final String ERR_NO_DATA = "La búsqueda no arrojó resultados.";
