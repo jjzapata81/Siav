@@ -72,7 +72,7 @@ public class UsuarioSistemaBean {
 	}
 	
 	public MensajeResponse cambiarClave(CambioClaveRequest request) {
-		UsuarioSistema usuarioBD = usuarioRep.findByNombreUsuario(request.getUsuario());
+		UsuarioSistema usuarioBD = usuarioRep.findByNombreUsuario(request.getUsuario().toLowerCase());
 		if(null == usuarioBD || !usuarioBD.getPassword().equals(request.getPassword())){
 			return new MensajeResponse(EstadoEnum.ERROR, Constantes.CAMBIO_CLAVE_ERR);
 		}

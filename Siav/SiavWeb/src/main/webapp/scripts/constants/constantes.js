@@ -74,7 +74,7 @@ define(['siav-module'], function(app) {
     		"NOVEDAD_CONSULTAR_NOTA_CREDITO" : "rest/novedades/consultar/nota-credito/",
     		"NOVEDAD_GUARDAR_NOTA_CREDITO" : "rest/novedades/guardar/nota-credito",
     		
-    		"ORDEN_RUTASCONSULTAR" : "rest/ruta/consultar",
+    		"ORDEN_RUTAS_CONSULTAR" : "rest/ruta/consultar",
     		"ORDEN_RUTAS_GUARDAR" : "rest/ruta/guardar",
     		
     		"PAGO_GUARDAR" : "rest/pagos/guardar",
