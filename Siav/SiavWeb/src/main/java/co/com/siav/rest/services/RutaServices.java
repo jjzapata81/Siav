@@ -14,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 
 import co.com.siav.bean.RutaBean;
 import co.com.siav.dto.ConfiguracionRuta;
+import co.com.siav.entities.UsuarioRamal;
 import co.com.siav.response.MensajeResponse;
 
 
@@ -32,6 +33,13 @@ public class RutaServices {
 	}
 	
 	@GET
+	@Path("consultar/usuario/sistema")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<UsuarioRamal> consultarUsuarioSistema(){
+		return bean.consultarUsuarioSistema();
+	}
+	
+	@GET
 	@Path("consultar/{numeroInstalacion}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public ConfiguracionRuta consultarPorNumero(@PathParam(value="numeroInstalacion") Long numeroInstalacion){
@@ -45,5 +53,14 @@ public class RutaServices {
 	public MensajeResponse guardar(ConfiguracionRuta request){
 		return bean.guardar(request);
 	}
+	
+	@POST
+	@Path("actualizar/usuario/sistema")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public MensajeResponse actualizarUsuarioSistema(UsuarioRamal request){
+		return bean.actualizarUsuarioSistema(request);
+	}
+	
 
 }

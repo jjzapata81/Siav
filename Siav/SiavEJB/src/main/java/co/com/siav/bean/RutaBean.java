@@ -1,5 +1,6 @@
 package co.com.siav.bean;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -9,8 +10,10 @@ import javax.inject.Inject;
 
 import co.com.siav.dto.ConfiguracionRuta;
 import co.com.siav.entities.Instalacion;
+import co.com.siav.entities.UsuarioRamal;
 import co.com.siav.exception.ExcepcionNegocio;
 import co.com.siav.repositories.IRepositoryInstalaciones;
+import co.com.siav.repositories.IRepositoryUsuarioRamal;
 import co.com.siav.response.EstadoEnum;
 import co.com.siav.response.MensajeResponse;
 import co.com.siav.utils.Constantes;
@@ -21,10 +24,17 @@ public class RutaBean {
 	private final static Long SIN_ORDEN = 99999L;
 	
 	@Inject
-	private IRepositoryInstalaciones instalacionesRep;	
+	private IRepositoryInstalaciones instalacionesRep;
+	
+	@Inject
+	private IRepositoryUsuarioRamal usuarioRamalRep;
 
 	public List<ConfiguracionRuta> consultar() {
-		return instalacionesRep.findByOrden(SIN_ORDEN).stream().map(this::transform).collect(Collectors.toList());
+		List<Instalacion> rutas = instalacionesRep.findByOrden(SIN_ORDEN);
+		if(rutas.isEmpty()){
+			return new ArrayList<ConfiguracionRuta>();
+		}
+		return rutas.stream().map(this::transform).collect(Collectors.toList());
 	}
 	
 	public ConfiguracionRuta consultarPorNumero(Long numeroInstalacion) {
@@ -81,6 +91,15 @@ public class RutaBean {
 			return instalacionAnterior.getOrden() + 100L;
 		}
 		return Long.valueOf(Math.round((instalacionSiguiente.getOrden() - instalacionAnterior.getOrden())/ 2) + instalacionAnterior.getOrden());
+	}
+
+	public List<UsuarioRamal> consultarUsuarioSistema() {
+		return usuarioRamalRep.findAll();
+	}
+
+	public MensajeResponse actualizarUsuarioSistema(UsuarioRamal request) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

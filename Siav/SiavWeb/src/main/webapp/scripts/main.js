@@ -56,6 +56,7 @@ require.config({
     	"proveedor-services" : "services/proveedor-services",
     	"articulo-services" : "services/articulo-services",
     	"materiales-services" : "services/materiales-services",
+    	"asignacion-recorridos-services" : "services/asignacion-recorridos-services",
     	
     	// constantes
     	'constantes' :  'constants/constantes',
@@ -123,6 +124,7 @@ require.config({
     	'entradas-materiales-controller' : 'controllers/entradas-materiales-controller',
     	'salida-materiales-controller' : 'controllers/salida-materiales-controller',
     	'factura-controller' : 'controllers/factura-controller',
+    	'asignacion-recorridos-controller' : 'controllers/asignacion-recorridos-controller',
     	
     	//Reportes
     	

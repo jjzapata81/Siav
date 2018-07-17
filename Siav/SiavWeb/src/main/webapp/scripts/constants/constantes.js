@@ -11,6 +11,9 @@ define(['siav-module'], function(app) {
     		"ARTICULO_CONSULTAR" : "rest/articulo/consultar",
     		"ARTICULO_CONSULTAR_NOMBRES" : "rest/articulo/consultar/nombres",
     		"ARTICULO_CONSULTAR_SALIDAS" : "rest/articulo/consultar/salidas",
+    		
+    		"ASIGNACION_CONSULTAR" : "rest/ruta/consultar/usuario/sistema",
+    		"ASIGNACION_ACTUALIZAR" : "rest/ruta/actualizar/usuario/sistema",
 
     		"BANCO_CREAR" : "rest/bancos/crear",
     		"BANCO_EDITAR" : "rest/bancos/editar",
@@ -118,7 +121,7 @@ define(['siav-module'], function(app) {
     		"SISTEMA_ACTUALIZAR_JUNTA" : "rest/general/actualizar/junta",
     		
     		"SEGURIDAD_CLAVE_CAMBIAR" : "rest/seguridad/clave/cambiar",
-    		"SEGURIDAD_USUARIO_CONSULTAR" : "rest/seguridad/usuario/consultar",
+    		"SEGURIDAD_USUARIO_CONSULTAR" : "rest/seguridad/usuario/consultar/",
     		"SEGURIDAD_USUARIO_ESTADO" : "rest/seguridad/estado",
     		"SEGURIDAD_USUARIO_ACTUALIZAR" : "rest/seguridad/usuario/actualizar",
     		"SEGURIDAD_USUARIO_CREAR" : "rest/seguridad/usuario/crear",
@@ -286,6 +289,9 @@ define(['siav-module'], function(app) {
     		"ARCHIVO_ENVIADO" : "El archivo se ha enviado de manera exitosa.",
     		"ERR_LIMITE" : "El límite superior no debe ser mayor al límite inferior",
     		"ERR_VARIACION_NEGATIVO" : "El porcentaje de variación debe ser mayor que cero."
+    	},
+    	"RUTA" : {
+    		"COD_OPERADOR" : 3
     	},
     	"SALIDA" : {
     		"INFO_CANCELAR" : "La orden aún no se ha guardado, al cancelar perderá la información ya ingresada. ¿Desea continuar?",

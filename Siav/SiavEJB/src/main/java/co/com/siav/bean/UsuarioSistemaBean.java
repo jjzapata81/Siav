@@ -60,6 +60,7 @@ public class UsuarioSistemaBean {
 		return new MensajeResponse(Constantes.ACTUALIZACION_EXITO);
 	}
 	
+	
 	public List<UsuarioSistemaResponse> consultarUsuarios() {
 		return usuarioRep.findAll().stream().map(this::transform).collect(Collectors.toList());
 	}
@@ -115,6 +116,11 @@ public class UsuarioSistemaBean {
 		response.setCodigoPerfil(perfilBD.getCodigoPerfil());
 		response.setNombrePerfil(perfilBD.getNombrePerfil());
 		return response;
+	}
+
+	public List<UsuarioSistemaResponse> consultarUsuariosPorPerfil(Long perfil) {
+		return usuarioRep.findByPerfilCodigoPerfilAndActivo(perfil, Constantes.SI).stream()
+				.map(this::transform).collect(Collectors.toList());
 	}
 
 }

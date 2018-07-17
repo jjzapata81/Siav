@@ -8,7 +8,8 @@ define(['siav-module', 'constantes'], function (app) {
     			 crear : crear,
     			 actualizar : actualizar,
     			 cambioEstado : cambioEstado,
-    			 consultarPerfiles : consultarPerfiles
+    			 consultarPerfiles : consultarPerfiles,
+    			 consultaPerfil : consultaPerfil
     	 };
     	 
     	 function crear(usuario){
@@ -41,6 +42,13 @@ define(['siav-module', 'constantes'], function (app) {
     	 
     	 function consultarPerfiles(){
     		 var request = $http.get(CONSTANTES.SRV.LOGIN_PERFIL_CONSULTAR, {isArray : true});
+    		 return (request.then(function(response) {
+ 	    		return response.data;
+	    	}));
+    	 }
+    	 
+    	 function consultaPerfil(perfil){
+    		 var request = $http.get(CONSTANTES.SRV.SEGURIDAD_USUARIO_CONSULTAR + perfil, {isArray : true});
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));
