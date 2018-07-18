@@ -11,9 +11,11 @@ import javax.inject.Inject;
 import co.com.siav.dto.ConfiguracionRuta;
 import co.com.siav.entities.Instalacion;
 import co.com.siav.entities.UsuarioRamal;
+import co.com.siav.entities.UsuarioRamalPK;
 import co.com.siav.exception.ExcepcionNegocio;
 import co.com.siav.repositories.IRepositoryInstalaciones;
 import co.com.siav.repositories.IRepositoryUsuarioRamal;
+import co.com.siav.request.UsuarioRamalRequest;
 import co.com.siav.response.EstadoEnum;
 import co.com.siav.response.MensajeResponse;
 import co.com.siav.utils.Constantes;
@@ -97,9 +99,18 @@ public class RutaBean {
 		return usuarioRamalRep.findAll();
 	}
 
-	public MensajeResponse actualizarUsuarioSistema(UsuarioRamal request) {
-		// TODO Auto-generated method stub
-		return null;
+	public MensajeResponse actualizarUsuarioSistema(UsuarioRamalRequest request) {
+		UsuarioRamalPK usuarioPK = new UsuarioRamalPK(request.getUsuarioActual(), request.getCodigoRamal(), request.getFechaInicial());
+		UsuarioRamal usuarioActual = usuarioRamalRep.findOne(usuarioPK);
+		if(null == usuarioActual){
+			return new MensajeResponse(EstadoEnum.ERROR, Constantes.USUARIO_OPERACION_NO_ENCONTRADO);
+		}
+		usuarioActual.setFechaFinal(new Date());
+		usuarioRamalRep.save(usuarioActual);
+		UsuarioRamal usuarioNuevo = new UsuarioRamal();
+		usuarioNuevo.setUsuarioRamalPK(new UsuarioRamalPK(request.getUsuarioNuevo(), request.getCodigoRamal(), new Date()));
+		usuarioRamalRep.save(usuarioNuevo);
+		return new MensajeResponse(Constantes.ACTUALIZACION_EXITO);
 	}
 
 

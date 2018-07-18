@@ -7,7 +7,9 @@ define(['siav-module', 'asignacion-recorridos-services', 'usuario-sistema-servic
     	
     	$scope.init = function(){
     		$scope.asignaciones = [];
-    		$scope.usuarios = [];
+			$scope.usuarios = [];
+			$scope.estaEditando = false;
+			$scope.asignacionEditar ={};
     		$scope.consultarUsuarios();
     	}
     	
@@ -35,15 +37,20 @@ define(['siav-module', 'asignacion-recorridos-services', 'usuario-sistema-servic
     	
     	$scope.onCancelar = function(){
     		$scope.init();
-    	}
+		}
+		
+		$scope.onEditar = function(asignacion){
+			$scope.estaEditando = false;
+			
+		}
     	
     	$scope.onGuardar = function(){
     		if($scope.validar()){
-    			var request = angular.copy($scope.instalacionCorregir);
+    			var request = angular.copy($scope.asignacionEditar);
     			request.instalacionAnterior = $scope.instalacionAnterior;
     			request.ramal = $scope.instalacionCorregir.ramal.codigoRamal;
-    			rutaServices
-        		.guardar(request)
+    			asignacionServices
+        		.actualizar(request)
         		.then(function(respuesta){
         			modalFactory.abrirDialogo(respuesta);
         			$scope.init();
@@ -53,22 +60,15 @@ define(['siav-module', 'asignacion-recorridos-services', 'usuario-sistema-servic
     	
     	
     	$scope.validar = function(){
-    		if($scope.mostrarInstalacion && !$scope.instalacionAnterior){
+    		/**if($scope.mostrarInstalacion && !$scope.instalacionAnterior){
     			modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.CONFIGURACION_RUTA.ERR_INSTALACION_OBLIGATORIO);
     			return false;
     		}
     		if($scope.ramalTemp && $scope.ramalTemp != $scope.instalacionCorregir.ramal.codigoRamal && !$scope.instalacionCorregir.cambiarOrden){
     			modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.CONFIGURACION_RUTA.ERR_CAMBIO_RAMAL);
     			return false;
-    		}
+    		}**/
     		return true;
-    	}
-    	
-    	$scope.onCambiarOrden = function(instalacion){
-    		$scope.estaEditando = true;
-    		$scope.cambiarOrden = 'No';
-    		$scope.instalacionCorregir = angular.copy(instalacion);
-    		$scope.ramalTemp = angular.copy(instalacion.ramal.codigoRamal);
     	}
     	
     	$scope.itemsPerPage = 15;

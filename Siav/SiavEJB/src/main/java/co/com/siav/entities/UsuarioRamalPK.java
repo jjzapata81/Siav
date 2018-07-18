@@ -20,6 +20,20 @@ public class UsuarioRamalPK implements Serializable{
 	@Column(name="fechainicial",nullable=false)
 	private Date fechaInicial;
 
+	public UsuarioRamalPK() {
+		super();
+	}
+	
+
+	public UsuarioRamalPK(String usuario, String codigoRamal, Date fechaInicial) {
+		super();
+		this.usuario = usuario;
+		this.codigoRamal = codigoRamal;
+		this.fechaInicial = fechaInicial;
+	}
+
+
+
 	public String getUsuario() {
 		return usuario;
 	}
