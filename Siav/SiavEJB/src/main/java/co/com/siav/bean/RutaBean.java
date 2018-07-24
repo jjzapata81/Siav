@@ -94,7 +94,7 @@ public class RutaBean {
 	}
 
 	public List<UsuarioRamal> consultarUsuarioSistema() {
-		return usuarioRamalRep.findAll();
+		return usuarioRamalRep.findAll().stream().filter(item-> null == item.getFechaFinal()).collect(Collectors.toList());
 	}
 
 	public MensajeResponse actualizarUsuarioSistema(UsuarioRamal request) {
