@@ -2,58 +2,27 @@
 <menu></menu>
 <div  class="contenido">
 	<div  class="boton-fijo">
-		<a ng-click="onGuardar()" uib-tooltip="Guardar" tooltip-placement="left"><i class="fa fa-floppy-o icon-float icon-save" aria-hidden="true"></i></a>
-		<a ng-click="onCancelar()" uib-tooltip="Cancelar" tooltip-placement="left"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
+		<a ng-click="onGuardar()" uib-tooltip="Guardar" ng-show="estaEditando" tooltip-placement="left"><i class="fa fa-floppy-o icon-float icon-save" aria-hidden="true"></i></a>
+		<a ng-click="onCancelar()" uib-tooltip="Cancelar" ng-shoe="estaEditando" tooltip-placement="left"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
 	</div>
 	<section class="titulo-seccion">Asignaci&oacute;n de recorridos</section>
-	<!-- <section class="formulario form-fijo">
+	<section class="formulario form-fijo" ng-show="estaEditando">
 		<div>
 			<ul class="flex">
 				<li>
-					<label>Instalaci&oacute;n:</label><br>
-					<input type="text" ng-model="instalacionCorregir.instalacion" ng-disabled="true"/>
-				</li>
-				<li>
-					<label>Nombre:</label><br>
-					<input type="text" ng-model="instalacionCorregir.nombre" ng-disabled="true"/>
-				</li>
-				<li>
-					<label>Apellido:</label><br>
-					<input type="text" ng-model="instalacionCorregir.apellido" ng-disabled="true"/>
+					<label>Ruta:</label><br>
+					<input type="text" ng-model="asignacionEditar.codigoRuta" ng-disabled="true"/>
 				</li>
 				<li>
 					<label>Ramal:</label><br>
 					<select
 						ng-model="instalacionCorregir.ramal"
-				    	ng-options="ramal as ramal.nombre for ramal in ramales track by ramal.codigoRamal"
-				    	ng-disabled="!estaEditando">
+				    	ng-options="ramal as ramal.nombre for ramal in ramales track by ramal.codigoRamal">
       				</select>
-				</li>
-				<li>
-					<label>Serie medidor:</label><br>
-					<input type="text" ng-model="instalacionCorregir.serieMedidor" />
-				</li>
-				<li>
-					<label>Cambiar orden:</label><br>
-					<input type="checkbox" ng-model="cambiarOrden" class="chk-config" ng-true-value="'Si'" ng-false-value="'No'" ng-change="esCambioOrden()"/> {{cambiarOrden}}
-				</li>
-			</ul>
-			<ul class="flex" ng-show="instalacionCorregir.cambiarOrden">
-				<li>
-					<label>Establecer orden:</label><br>
-					<input type="radio" class="rbt-config" ng-model="esPrimer" value=true ng-change="seleccionOrden()"/> Primer lugar
-				</li>
-				<li class="ancho-133">
-					<label>&nbsp;</label><br>
-					<input type="radio" class="rbt-config" ng-model="esPrimer" value=false ng-change="seleccionOrden()"/> Despu&eacute;s de...
-				</li>
-				<li ng-show="mostrarInstalacion">
-					<label>Instalaci&oacute;n:</label><br>
-					<input type="text" ng-model="instalacionAnterior"/>	
 				</li>
 			</ul>
 		</div>
-	</section>-->
+	</section>
 
 	<div class="tabla-siav">
 		<table class="table table-responsive">
@@ -63,7 +32,7 @@
 			</thead>
 			<tbody>
 				<tr ng-repeat="asignacion in asignaciones | orderBy:'usuarioRamalPK.codigoRamal' | startFrom:(currentPage-1)*itemsPerPage | limitTo:itemsPerPage">
-					<td>{{asignacion.usuario.nombreCompleto}}</td>
+					<td><a ng-click="onEditar(asignacion)">{{asignacion.usuario.nombreCompleto}}</a></td>
 					<td>{{asignacion.usuarioRamalPK.codigoRamal}}</td>
 				</tr>
 			</tbody>

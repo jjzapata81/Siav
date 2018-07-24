@@ -1,5 +1,6 @@
 package co.com.siav.rest.services;
 
+import java.awt.PageAttributes.MediaType;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
@@ -10,11 +11,11 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 
 import co.com.siav.bean.RutaBean;
 import co.com.siav.dto.ConfiguracionRuta;
 import co.com.siav.entities.UsuarioRamal;
+import co.com.siav.request.UsuarioRamalRequest;
 import co.com.siav.response.MensajeResponse;
 
 
@@ -58,7 +59,7 @@ public class RutaServices {
 	@Path("actualizar/usuario/sistema")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public MensajeResponse actualizarUsuarioSistema(UsuarioRamal request){
+	public MensajeResponse actualizarUsuarioSistema(UsuarioRamalRequest request){
 		return bean.actualizarUsuarioSistema(request);
 	}
 	
