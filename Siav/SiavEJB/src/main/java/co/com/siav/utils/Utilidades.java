@@ -47,20 +47,6 @@ public final class Utilidades {
 		return actual - anterior;
 	}
 	
-//	public static Long extract(Long lecturaActual, Long lecturaAnterior, Long digitosMedidor, Long epsilon) {
-//		Long anterior = null == lecturaAnterior ? 0L : lecturaAnterior;
-//		Long actual = null == lecturaActual ? lecturaAnterior : lecturaActual;
-//		Long consumo =  actual - anterior;
-//		if(consumo < 0L){
-//			if(Math.abs(consumo) > epsilon){
-//				Double limiteD = Math.pow(10, digitosMedidor);
-//				Long limiteMedidor = limiteD.longValue() - 1L;
-//				consumo = limiteMedidor - lecturaAnterior + lecturaActual;
-//			}
-//		}
-//		return consumo;
-//	}
-	
 	public static Date fechaMasDias(Date fecha, int dias) {
 		Calendar c = Calendar.getInstance();
 		c.setTime(fecha);
@@ -85,6 +71,15 @@ public final class Utilidades {
 		Pattern pattern = Pattern.compile(Constantes.PATTERN_EMAIL);
         Matcher matcher = pattern.matcher(email);
         return !matcher.matches();	
+	}
+	
+	public static Date setFechaPago(String fecha, String formato) {
+		SimpleDateFormat formatter = new SimpleDateFormat(formato);
+		try {
+			return formatter.parse(fecha);
+		} catch (ParseException e) {
+			return new Date();
+		}
 	}
 
 	public static String getMensajePQR(Long id, String descripcion, String info, String estado, String mensaje) {
