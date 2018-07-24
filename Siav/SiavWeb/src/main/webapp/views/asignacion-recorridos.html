@@ -11,20 +11,21 @@
 			<ul class="flex">
 				<li>
 					<label>Ruta:</label><br>
-					<input type="text" ng-model="asignacionEditar.codigoRuta" ng-disabled="true"/>
+					<input type="text" ng-model="asignacionEditar.usuarioRamalPK.codigoRamal" ng-disabled="true"/>
 				</li>
 				<li>
 					<label>Ramal:</label><br>
 					<select
-						ng-model="instalacionCorregir.ramal"
-				    	ng-options="ramal as ramal.nombre for ramal in ramales track by ramal.codigoRamal">
+						ng-model="asignacionEditar.usuario"
+				    	ng-options="usuario as usuario.nombreCompleto for usuario in usuarios track by usuario.nombreUsuario"
+				    	class="select-ramal">
       				</select>
 				</li>
 			</ul>
 		</div>
 	</section>
 
-	<div class="tabla-siav">
+	<div class="tabla-siav" ng-show="!estaEditando">
 		<table class="table table-responsive">
 			<thead class="column-center">
 				<th>Usuario</th>
