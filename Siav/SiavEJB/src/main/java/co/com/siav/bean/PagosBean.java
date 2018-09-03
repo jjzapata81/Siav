@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,7 +15,6 @@ import javax.inject.Inject;
 
 import co.com.siav.entities.Ciclo;
 import co.com.siav.entities.Comprobante;
-import co.com.siav.entities.DetalleFactura;
 import co.com.siav.entities.Factura;
 import co.com.siav.entities.FormatoRecaudo;
 import co.com.siav.entities.Pago;
@@ -34,7 +31,9 @@ import co.com.siav.response.FacturaResponse;
 import co.com.siav.response.MensajeResponse;
 import co.com.siav.response.PagoResponse;
 import co.com.siav.utils.Constantes;
-import co.com.siav.utils.Filtro;
+import co.com.siav.utils.FacturaUtil;
+import co.com.siav.utils.FileUtil;
+import co.com.siav.utils.Utilidades;
 
 @Stateless
 public class PagosBean {
@@ -68,6 +67,18 @@ public class PagosBean {
 	
 	private Long numeroCiclo;
 	
+	public List<PagoResponse> consultar(FiltroRequest request) {
+		List<Pago> pagos = pagosRep.findByFechaBetween(
+				request.getFechaDesde() == null ? new Date() : request.getFechaDesde(),
+						request.getFechaHasta() == null ? new Date() : request.getFechaHasta());
+		if(pagos.isEmpty()){
+			throw new ExcepcionNegocio(Constantes.ERR_CONSULTA);
+		}
+		List<PagoResponse> response = new ArrayList<PagoResponse>();
+		pagos.stream().collect(Collectors.groupingBy(Pago::getFecha)).forEach((key, value) -> response.add(new PagoResponse(key, value)));
+		return response;
+	}
+	
 	public FacturaResponse buscar(Long numeroInstalacion){
 		Factura factura = buscarFactura(numeroInstalacion);
 		if(null == factura){
@@ -81,7 +92,7 @@ public class PagosBean {
 		response.setNumeroFactura(factura.getNumeroFactura());
 		response.setNumeroInstalacion(factura.getNumeroInstalacion());
 		response.setCedula(factura.getCedula());
-		response.setValor(getValorTotalFactura(factura));
+		response.setValor(FacturaUtil.getValorTotalFactura(factura));
 		return response;
 	}
 
@@ -104,8 +115,7 @@ public class PagosBean {
 			String rutaArchivo = parametrosRep.findByCdParametro(Constantes.RUTA_ARCHIVO_PAGO).getDsValor();
 			List<String> lines = Files.readAllLines(Paths.get(archivoPagos.getAbsolutePath()), Charset.defaultCharset());
 			List<Pago> pagos = lines.stream().skip(3L).map(this::convert).collect(Collectors.toList());
-			String directorio = null == numeroCiclo ? "SIN_FECHA" : String.valueOf(numeroCiclo);
-			String rutaFinal = moverArchivo(archivoPagos.getAbsolutePath(), rutaArchivo + directorio + "\\", nombreArchivo);
+			String rutaFinal = FileUtil.moverArchivo(archivoPagos.getAbsolutePath(), rutaArchivo, numeroCiclo, nombreArchivo);
 			pagos.stream().forEach(
 					pago-> {
 						pago.setCodigoCuenta(codigoCuenta);
@@ -120,19 +130,10 @@ public class PagosBean {
 		
 	}
 	
-	private Long getValorTotalFactura(Factura factura) {
-		Long totalValor = factura.getDetalles().stream().mapToLong(DetalleFactura::getValor).sum();
-		Long totalSaldo = factura.getDetalles().stream().mapToLong(DetalleFactura::getSaldo).sum();
-		Long totalCartera = factura.getDetalles().stream().mapToLong(DetalleFactura::getCartera).sum();
-		return totalValor + totalSaldo - totalCartera;
-	}
-
 	private Factura buscarFactura(Long numeroInstalacion){
 		Ciclo cicloAnterior = ciclosRep.findFirstByEstadoOrderByCicloDesc(Constantes.CERRADO);
 		return facturasRep.findByNumeroInstalacionAndCiclo(numeroInstalacion, cicloAnterior.getCiclo());
 	}
-
-	
 
 	private Factura getFactura(Pago pago){
 		Factura factura = find(pago);
@@ -173,7 +174,7 @@ public class PagosBean {
 		try{
 			String[] atributos = linea.split(formatoRecaudo.getSeparador());
 			Pago pago = new Pago();
-			pago.setFecha(setFecha(atributos[formatoRecaudo.getFecha()].trim(), formatoRecaudo.getFormatoFecha()));
+			pago.setFecha(Utilidades.setFechaPago(atributos[formatoRecaudo.getFecha()].trim(), formatoRecaudo.getFormatoFecha()));
 			pago.setValor(getValor(atributos));
 			pago.setNumeroFactura(getValorAuxiliar(atributos[formatoRecaudo.getReferencia()], formatoRecaudo.getSeparadorAux(), formatoRecaudo.getPosicionAux()));
 			return pago;
@@ -186,14 +187,6 @@ public class PagosBean {
 		return Long.valueOf(atributos[formatoRecaudo.getValor()].trim());
 	}
 	
-	public Date setFecha(String fecha, String formato) {
-		SimpleDateFormat formatter = new SimpleDateFormat(formato);
-		try {
-			return formatter.parse(fecha);
-		} catch (ParseException e) {
-			return new Date();
-		}
-	}
 
 	private String getValorAuxiliar(String valor, String separador, int posicion) {
 		String referencia = valor.split(separador)[posicion].trim();
@@ -203,50 +196,12 @@ public class PagosBean {
 		return referencia.substring(formatoRecaudo.getPosicionInicialFactura(), formatoRecaudo.getPosicionFinalFactura());
 	}
 	
-	private String moverArchivo(String rutaArchivo, String rutaDestino, String nombreArchivo) {
-		File origen = new File(rutaArchivo);
-		File destino = new File(rutaDestino);
-		int items= 0;
-		if (destino.exists()) {
-			items = destino.list(new Filtro(nombreArchivo)).length;
-		}else{
-			destino.mkdir();
-		}
-		destino = new File(crearPathDestino(destino.getAbsolutePath(), nombreArchivo, items));
-		try {
-			Files.copy(Paths.get(origen.getAbsolutePath()), Paths.get(destino.getAbsolutePath()));
-		} catch (IOException ioe) {
-			ioe.printStackTrace();
-		}
-		return destino.getAbsolutePath();
-
-	}
-	
-	private String crearPathDestino(String path, String nombre, int numeroCopia) {
-		if (numeroCopia == 0) {
-			return path + "/" + nombre;
-		}
-		return path + "/" + nombre.substring(0, nombre.length() - 4) + "(" + numeroCopia + ").csv";
-	}
-	
 	private void validar(String codigoCuenta) {
 		if(codigoCuenta == null || codigoCuenta.trim() == ""){
 			throw new ExcepcionNegocio(Constantes.ERR_SIN_CODIGO_CUENTA);
 		}
 	}
 
-	public List<PagoResponse> consultar(FiltroRequest request) {
-		if(request.getFechaDesde() == null)
-			request.setFechaDesde(new Date());
-		if(request.getFechaHasta() == null)
-			request.setFechaHasta(new Date());
-		List<Pago> pagos = pagosRep.findByFechaBetween(request.getFechaDesde(), request.getFechaHasta());
-		if(pagos.isEmpty()){
-			throw new ExcepcionNegocio(Constantes.ERR_CONSULTA);
-		}
-		List<PagoResponse> response = new ArrayList<PagoResponse>();
-		pagos.stream().collect(Collectors.groupingBy(Pago::getFecha)).forEach((key, value) -> response.add(new PagoResponse(key, value)));
-		return response;
-	}
+	
 
 }

@@ -1,6 +1,7 @@
 package co.com.siav.bean;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -96,7 +97,7 @@ public class RutaBean {
 	}
 
 	public List<UsuarioRamal> consultarUsuarioSistema() {
-		return usuarioRamalRep.findAll();
+		return usuarioRamalRep.findAll().stream().filter(item-> null == item.getFechaFinal()).collect(Collectors.toList());
 	}
 
 	public MensajeResponse actualizarUsuarioSistema(UsuarioRamalRequest request) {

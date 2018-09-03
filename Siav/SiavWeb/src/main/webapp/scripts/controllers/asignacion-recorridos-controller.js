@@ -10,6 +10,7 @@ define(['siav-module', 'asignacion-recorridos-services', 'usuario-sistema-servic
 			$scope.usuarios = [];
 			$scope.estaEditando = false;
 			$scope.asignacionEditar ={};
+			$scope.asignacionTemp = {};
     		$scope.consultarUsuarios();
     	}
     	
@@ -18,7 +19,6 @@ define(['siav-module', 'asignacion-recorridos-services', 'usuario-sistema-servic
     		.consultaPerfil(CONSTANTES.RUTA.COD_OPERADOR)
     		.then(function(usuarios){
     			$scope.usuarios = usuarios;
-    			console.log(usuarios);
     			$scope.consultarAsignaciones();
     		});
     	}
@@ -31,7 +31,6 @@ define(['siav-module', 'asignacion-recorridos-services', 'usuario-sistema-servic
     			angular.forEach($scope.asignaciones, function(asignacion, asignacionKey) {
     				asignacion.usuario = $filter('filter')($scope.usuarios, {nombreUsuario : asignacion.usuarioRamalPK.usuario }, true)[0];
     			});
-    			console.log($scope.asignaciones);
     		});
     	}
     	
@@ -40,35 +39,23 @@ define(['siav-module', 'asignacion-recorridos-services', 'usuario-sistema-servic
 		}
 		
 		$scope.onEditar = function(asignacion){
-			$scope.estaEditando = false;
-			
+			$scope.estaEditando = true;
+			$scope.asignacionEditar = asignacion;
+			$scope.asignacionTemp = angular.copy($scope.asignacionEditar);
 		}
     	
     	$scope.onGuardar = function(){
-    		if($scope.validar()){
-    			var request = angular.copy($scope.asignacionEditar);
-    			request.instalacionAnterior = $scope.instalacionAnterior;
-    			request.ramal = $scope.instalacionCorregir.ramal.codigoRamal;
-    			asignacionServices
-        		.actualizar(request)
-        		.then(function(respuesta){
-        			modalFactory.abrirDialogo(respuesta);
-        			$scope.init();
-        		});
-    		}
-    	}
-    	
-    	
-    	$scope.validar = function(){
-    		/**if($scope.mostrarInstalacion && !$scope.instalacionAnterior){
-    			modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.CONFIGURACION_RUTA.ERR_INSTALACION_OBLIGATORIO);
-    			return false;
-    		}
-    		if($scope.ramalTemp && $scope.ramalTemp != $scope.instalacionCorregir.ramal.codigoRamal && !$scope.instalacionCorregir.cambiarOrden){
-    			modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.CONFIGURACION_RUTA.ERR_CAMBIO_RAMAL);
-    			return false;
-    		}**/
-    		return true;
+    		var request = {};
+    		request.usuarioNuevo = $scope.asignacionEditar.usuario.nombreUsuario;
+    		request.usuarioActual = $scope.asignacionTemp.usuario.nombreUsuario;
+    		request.fechaInicial = $scope.asignacionEditar.usuarioRamalPK.fechaInicial;
+    		request.codigoRamal = $scope.asignacionEditar.usuarioRamalPK.codigoRamal;
+			asignacionServices
+    		.actualizar(request)
+    		.then(function(respuesta){
+    			modalFactory.abrirDialogo(respuesta);
+    			$scope.init();
+    		});
     	}
     	
     	$scope.itemsPerPage = 15;
