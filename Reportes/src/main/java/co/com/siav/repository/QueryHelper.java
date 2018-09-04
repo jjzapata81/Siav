@@ -184,7 +184,7 @@ public class QueryHelper {
 		sb.append("idcomplementario AS complementario, ");
 		sb.append("idsuntuario AS suntuario, ");
 		sb.append("snenviofactura AS envioFactura, ");
-		sb.append("cuentasvencidas AS cuentasVencidas ");
+		sb.append("cuentasvencidas AS cuentasVencidas, ");
 		sb.append("cuentascorte AS cuentasCorte ");
 		sb.append("FROM ta_sistema ");
 		return sb.toString();

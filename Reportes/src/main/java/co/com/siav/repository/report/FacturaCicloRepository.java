@@ -31,9 +31,6 @@ public class FacturaCicloRepository implements IReportType{
 	private Ciclo ciclo;
 	private Sistema sistema;
 	private String resolucion;
-//	
-//	@Inject
-//	private SendMail notifier;
 
 	@Override
 	public byte[] getPDF(Filter filter) {
@@ -51,13 +48,6 @@ public class FacturaCicloRepository implements IReportType{
 //		notifier.send(filter.getEmail(),Reporte.FACTURACION_ASUNTO, getTextoMensaje(filter.getCiclo()), getFile(filter));
 	}
 	
-//	private String getTextoMensaje(Long ciclo) {
-//		return String.format(Reporte.FACTURACION_CUERPO, ciclo);
-//	}
-//	
-//	private Attachment getFile(Filter filter){
-//		return new Attachment(String.format(Reporte.FACTURACION, filter.getCiclo()), getPDF(filter));
-//	}
 	
 	private void getValoresGenerales() {
 		empresa = Util.getEmpresa();
@@ -83,41 +73,16 @@ public class FacturaCicloRepository implements IReportType{
 		}
 		if(Constantes.SI.equals(sistema.getEnvioFactura())){
 			List<UsuarioMail> usuarios = getUsuarios();
-//			usuarios.stream().forEach(usuario -> get(usuario, getFiltro(instalaciones, usuarios)));
 			return instalaciones.stream().filter(item -> !contains(usuarios, item)).map(this::transform).collect(Collectors.toList());
 		}else{
 			return instalaciones.stream().map(this::transform).collect(Collectors.toList());
 		}
 	}
 
-//	private List<FacturaBD> getFiltro(List<FacturaBD> instalaciones, List<UsuarioMail> usuarios) {
-//		return instalaciones.stream().filter(item -> contains(usuarios, item)).collect(Collectors.toList());
-//	}
 
 	private boolean contains(List<UsuarioMail> usuarios, FacturaBD factura) {
 		return usuarios.stream().filter(item -> item.getCedula().equals(factura.getCedula()) && Utilidades.emailValido(item.getEmail())).findFirst().isPresent();
 	}
-
-//	private void sendMail(UsuarioMail usuario, List<FacturaPDF> facturasPDF) {
-//		notifier.send(usuario.getEmail(),String.format(Reporte.FACTURA_EMAIL_ASUNTO, Formatter.getNombreMes(ciclo.getFecha())), 
-//				String.format(Reporte.FACTURA_EMAIL_CUERPO, 
-//						Formatter.getNombreMes(ciclo.getFecha()), empresa.getTelefono(), empresa.getDireccion(), empresa.getCiudad()), getFile(usuario.getCedula(), facturasPDF));
-//	}
-	
-//	private Attachment getFile(String cedula, List<FacturaPDF> facturasPDF){
-//		return new Attachment(String.format(Reporte.FACTURA_EMAIL_ATACH, cedula, Formatter.getMes(ciclo.getFecha())), new GeneradorPDF(getFactura(facturasPDF), Constantes.FACTURA_JRXML).getStream());
-//	}
-	
-//	private List<FacturacionPDF> getFactura(List<FacturaPDF> facturasPDF) {
-//		FacturacionPDF factura = new FacturacionPDF();
-//		factura.setFacturas(facturasPDF);
-//		return Arrays.asList(factura);
-//	}
-
-//	private void get(UsuarioMail usuario, List<FacturaBD> facturas){
-//		List<FacturaPDF> facturasPDF = facturas.stream().filter(factura -> usuario.getCedula().equals(factura.getCedula())).map(this::transform).collect(Collectors.toList());
-//		sendMail(usuario, facturasPDF);
-//	}
 
 	private List<UsuarioMail> getUsuarios() {
 		String query = QueryHelper.getUsuariosMail();

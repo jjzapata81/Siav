@@ -121,10 +121,11 @@ define(['siav-module', 'contabilidad-services', 'modal-factory', 'constantes'], 
     			modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.ERR.EPSILON_NEGATIVO);
     			return false;
     		}
-//    		if(!$scope.contabilidad.cuentasVencidas){
-//    			modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.ERR.CUENTAS_VENCIDAS_OBLIGATORIO);
-//    			return false;
-//    		}
+    		if($scope.contabilidad.cuentasCorte <0){
+    			modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.ERR.CUENTAS_CORTE_NEGATIVO);
+    			return false;
+    		}
+
     		if($scope.contabilidad.cuentasVencidas <0){
     			modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.ERR.CUENTAS_VENCIDAS_NEGATIVO);
     			return false;

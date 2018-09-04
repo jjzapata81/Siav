@@ -66,6 +66,9 @@ public class Sistema implements Serializable{
 	@Column(name="cuentasvencidas")
 	private Long cuentasVencidas;
 	
+	@Column(name="cuentascorte")
+	private Long cuentasCorte;
+	
 	@Column(name="snrango")
 	private String esPorRango;
 	
@@ -195,6 +198,14 @@ public class Sistema implements Serializable{
 
 	public void setCuentasVencidas(Long cuentasVencidas) {
 		this.cuentasVencidas = cuentasVencidas;
+	}
+	
+	public Long getCuentasCorte() {
+		return cuentasCorte != null ? cuentasCorte : 0L;
+	}
+	
+	public void setCuentasCorte(Long cuentasCorte) {
+		this.cuentasCorte = cuentasCorte;
 	}
 	
 	public Long getEpsilon() {

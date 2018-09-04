@@ -165,6 +165,7 @@ define(['siav-module'], function(app) {
     		"EPSILON_NEGATIVO" : "El valor del margen de error para rotación completa de medidor debe ser positivo.",
     		"CUENTAS_VENCIDAS_OBLIGATORIO" : "Ingrese un valor para el número de cuentas vencidas.",
     		"CUENTAS_VENCIDAS_NEGATIVO" : "El valor del número de cuentas vencidas debe ser positivo.",
+    		"CUENTAS_CORTE_NEGATIVO" : "El valor del número de cuentas vencidas para le mensaje de corte del servicio, debe ser positivo.",
     		"TOPE_OBLIGATORIO" : "Ingrese un valor para el techo.",
     		"TOPE_NEGATIVO" : "El valor del techo debe ser positivo.",
     		"OBLIGATORIO" : "Todos los campos son obligatorios.",
