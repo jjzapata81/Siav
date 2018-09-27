@@ -80,12 +80,14 @@ public class MaterialesBean {
 
 	public MensajeResponse crearSalida(MaterialRequest request) {
 		try{
-			if(request.getInstalacion()!=null && !instalacionesRep.exists(request.getInstalacion())){
-				return new MensajeResponse(EstadoEnum.ERROR, Constantes.getMensaje(Constantes.INSTALACION_NO_EXISTE, request.getInstalacion()));
-			}
-			MensajeResponse guardarNovedad = novedadesBean.guardar(getNovedad(request));
-			if(guardarNovedad.getEstado().equals(EstadoEnum.ERROR)){
-				return guardarNovedad;
+			if(Constantes.DESTINO_INSTALACION.equals(request.getDestinoSeleccionado())){
+				if(request.getInstalacion()!=null && !instalacionesRep.exists(request.getInstalacion())){
+					return new MensajeResponse(EstadoEnum.ERROR, Constantes.getMensaje(Constantes.INSTALACION_NO_EXISTE, request.getInstalacion()));
+				}
+				MensajeResponse guardarNovedad = novedadesBean.guardar(getNovedad(request));
+				if(guardarNovedad.getEstado().equals(EstadoEnum.ERROR)){
+					return guardarNovedad;
+				}
 			}
 			Long codigo = salidasRep.findMaxSalida() + 1L;
 			Long ciclo = ciclosBean.getPorEstado(Constantes.ABIERTO).getCiclo();

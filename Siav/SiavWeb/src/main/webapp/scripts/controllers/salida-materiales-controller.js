@@ -8,6 +8,7 @@ define(['siav-module', 'materiales-services', 'articulo-services', 'proveedor-se
     	$scope.init = function(){
     		$scope.detalle = null;
     		$scope.salida = {};
+    		$scope.detalle = {};
     		$scope.salida.detalles = [];
     		$scope.nuevaOrden = true;
     		$scope.mostrarInstalacion = true;
@@ -64,7 +65,7 @@ define(['siav-module', 'materiales-services', 'articulo-services', 'proveedor-se
     			$scope.nuevaOrden = false;
     			delete($scope.detalle.articulo.cantidadDisponible);
     			delete($scope.detalle.articulo.precioUnitario);
-    			delete($scope.detalle.articulo.precioComercial);
+    			delete($scope.detalle.articulo.ivaUnitario);
         		$scope.salida.detalles.push(angular.copy($scope.detalle));
         		$scope.articulos.splice($scope.articulos.indexOf($scope.detalle.articulo), 1);
         		$scope.detalle = null;
@@ -72,6 +73,10 @@ define(['siav-module', 'materiales-services', 'articulo-services', 'proveedor-se
     	} 
     	  	
     	$scope.onGuardar = function(){
+    		$scope.salida.destinoSeleccionado = $scope.destinoSeleccionado.codigo;
+    		angular.forEach($scope.salida.detalles, function(detalle, key) {
+    			delete(detalle.articulo.precioComercial);
+			});
     		materialesServices
 			.crearSalida($scope.salida)
 			.then(function(respuesta){

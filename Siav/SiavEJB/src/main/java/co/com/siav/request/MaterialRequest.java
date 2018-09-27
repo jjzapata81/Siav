@@ -13,6 +13,8 @@ public class MaterialRequest {
 	
 	private Date fecha;
 	
+	private String destinoSeleccionado;
+	
 	private Proveedor proveedor;
 	
 	private List<MaterialDetalleRequest> detalles;
@@ -55,6 +57,14 @@ public class MaterialRequest {
 
 	public void setDetalles(List<MaterialDetalleRequest> detalles) {
 		this.detalles = detalles;
+	}
+	
+	public String getDestinoSeleccionado() {
+		return destinoSeleccionado;
+	}
+	
+	public void setDestinoSeleccionado(String destinoSeleccionado) {
+		this.destinoSeleccionado = destinoSeleccionado;
 	}
 	
 }

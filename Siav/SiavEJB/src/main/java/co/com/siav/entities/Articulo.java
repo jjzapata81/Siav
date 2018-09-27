@@ -33,7 +33,7 @@ public class Articulo implements Serializable{
 	
 	@Column(name="snactivo")
 	private String activo;
-	
+
 	public Long getCodigo() {
 		return codigo;
 	}

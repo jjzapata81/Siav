@@ -153,6 +153,7 @@ public final class Constantes {
 
 	public static final String ERR_CONSUMO_NEGATIVO = "Existen consumos negativos. Ingrese a la opción de inconsistencias para corregirlas.";
 	public static final String USUARIO_OPERACION_NO_ENCONTRADO = "No ha sido posible encontrar el usuario de la operación con los datos indicados.";
+	public static final String DESTINO_INSTALACION = "1";
 	
 
 	
