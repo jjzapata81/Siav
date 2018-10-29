@@ -150,8 +150,9 @@ public class Pago implements Serializable{
 	
 	@PrePersist
 	private void onPrePersist(){
-		if (error == null)
+		if (error == null){
 			error = "N";
+		}
 		if(esCredito == null){
 			esCredito = "N";
 		}

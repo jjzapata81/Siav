@@ -9,14 +9,17 @@ define(['siav-module', 'reportes-services', 'modal-email', 'modal-factory', 'con
     	
     	var REPORTE = "usuarios-instalaciones";
     	
+    	$scope.init = function(){
+    		$scope.filtro = {};
+    	}
+    	
     	$scope.onBuscar = function(){
     		reportesServices
     		.instalacionesUsuario($scope.filtro)
     		.then(function(usuarios){
     			$scope.usuarios = usuarios;
     		});
-    	}
-    	
+    	}    	
     	
     	$scope.onDescargar = function(){
     		reportesServices
@@ -28,7 +31,6 @@ define(['siav-module', 'reportes-services', 'modal-email', 'modal-factory', 'con
     		.abrir()
     		.result
     		.then(function(email){
-    			console.log(email);
     			$scope.filtro.email = email;
         		reportesServices
         		.enviar(REPORTE, $scope.filtro)
@@ -44,6 +46,8 @@ define(['siav-module', 'reportes-services', 'modal-email', 'modal-factory', 'con
         $scope.setPage = function (pageNo) {
           $scope.currentPage = pageNo;
         };
+        
+        $scope.init();
 
     }])
 

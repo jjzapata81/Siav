@@ -68,8 +68,8 @@ public class ArticuloBean {
 		return null;
 	}
 
-	public List<Articulo> consultar() {
-		return articuloRep.findAll();
+	public List<ArticuloResponse> consultar() {
+		return articuloRep.findByActivo(Constantes.SI).stream().map(this::convert).collect(Collectors.toList());
 	}
 
 	public List<String> consultarNombres() {
@@ -119,6 +119,25 @@ public class ArticuloBean {
 		response.setPrecioUnitario(kardex.getPrecioUnitario());
 		response.setIvaUnitario(kardex.getIvaPrecioUnitario());
 		response.setPrecioComercial(kardex.getPrecioComercial());
+		return response;
+	}
+	
+	private ArticuloResponse convert(Articulo articulo){
+		Kardex kardex = kardexBean.getKardex(articulo.getCodigo());
+		if(kardex == null){
+			throw new ExcepcionNegocio(Constantes.getMensaje(Constantes.ERR_ARTICULO_SIN_KARDEX, articulo.getNombre()));
+		}
+		ArticuloResponse response = new ArticuloResponse();
+		response.setCodigo(articulo.getCodigo());
+		response.setCodigoContable(articulo.getCodigoContable());
+		response.setNombre(articulo.getNombre());
+		response.setUnidad(articulo.getUnidad());
+		response.setPorcentajeIva(articulo.getPorcentajeIva());
+		response.setTieneIva(articulo.getTieneIva());
+		response.setObservacion(articulo.getObservacion());
+		response.setUnidad(articulo.getUnidad());
+		response.setActivo(articulo.getActivo());
+		response.setCantidadDisponible(kardex.getSaldoActual());
 		return response;
 	}
 }

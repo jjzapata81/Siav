@@ -43,7 +43,7 @@ public class ArticuloServices {
 	@GET
 	@Path("consultar")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Articulo> consultar(){
+	public List<ArticuloResponse> consultar(){
 		return bean.consultar();
 	}
 	

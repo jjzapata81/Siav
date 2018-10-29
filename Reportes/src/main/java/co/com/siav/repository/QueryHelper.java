@@ -391,7 +391,7 @@ public class QueryHelper {
 	public static String saveComprobante(Comprobante filter){
 		StringBuilder sb = new StringBuilder();
 		sb.append("INSERT INTO ta_comprobante_pago ");
-		sb.append("(nmcomprobante, nminstalacion, cedula, valor, usuario, fecha, nmcredito, snmatricula, sncancelado) ");
+		sb.append("(nmcomprobante, nminstalacion, cedula, valor, usuario, fecha, nmcredito, snmatricula, snabono, sncancelado) ");
 		sb.append("VALUES (");
 		sb.append(filter.getComprobante());
 		sb.append(", ");
@@ -408,6 +408,8 @@ public class QueryHelper {
 		sb.append(filter.getCredito());
 		sb.append(", '");
 		sb.append(null == filter.getEsMatricula() ? "N" : filter.getEsMatricula());
+		sb.append("', '");
+		sb.append(null == filter.getEsAbono() ? "N" : filter.getEsAbono());
 		sb.append("', 'N')");
 		return sb.toString();
 	}

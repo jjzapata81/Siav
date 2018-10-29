@@ -127,7 +127,7 @@ public class FacturaRepository implements IReportType{
 		facturaPDF.setFechaUltimoPago(facturaBD.getFechaUltimoPago());
 		facturaPDF.setMensajePuntoPago(ciclo.getMensajePuntoPago());
 		facturaPDF.setMensajeReclamo(ciclo.getMensajeReclamo());
-		facturaPDF.setMensajeCorte(sistema.getCuentasCorte().equals(facturaBD.getCuentasVencidas()) ? ciclo.getMensajeCorte() : Constantes.EMPTY);
+		facturaPDF.setMensajeCorte(sistema.getCuentasCorte() <= facturaBD.getCuentasVencidas() ? ciclo.getMensajeCorte() : Constantes.EMPTY);
 		facturaPDF.setOtrosCobros(getOtrosCobros(detalles));
 		facturaPDF.setValorMesAnterior(facturaBD.getValorMesAnterior());
 		facturaPDF.setCreditos(getCreditos(facturaBD.getInstalacion()));

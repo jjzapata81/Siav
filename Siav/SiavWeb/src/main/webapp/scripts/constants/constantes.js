@@ -289,7 +289,11 @@ define(['siav-module'], function(app) {
     	"REPORTES" : {
     		"ARCHIVO_ENVIADO" : "El archivo se ha enviado de manera exitosa.",
     		"ERR_LIMITE" : "El límite superior no debe ser mayor al límite inferior",
-    		"ERR_VARIACION_NEGATIVO" : "El porcentaje de variación debe ser mayor que cero."
+    		"ERR_VARIACION_NEGATIVO" : "El porcentaje de variación debe ser mayor que cero.",
+    		"ERR_VARIACION" : "Debe ingresar un porcentaje de variación.",
+    		"ERR_FILTRO" : "Debe ingresar al menos un criterio de búsqueda",
+    		"ERR_CICLO_OBLIGATORIO" : "El ciclo es obligatorio.",
+    		"ERR_NEGATIVO" : "Los valores ingresados no deben ser negativos."
     	},
     	"RUTA" : {
     		"COD_OPERADOR" : 3

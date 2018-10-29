@@ -14,6 +14,7 @@ import co.com.siav.entities.ConsumoAuditoria;
 import co.com.siav.entities.ConsumoPK;
 import co.com.siav.entities.Instalacion;
 import co.com.siav.exception.ExcepcionNegocio;
+import co.com.siav.exception.ExcepcionTecnica;
 import co.com.siav.repositories.IRepositoryConsumos;
 import co.com.siav.repositories.IRepositoryInstalaciones;
 import co.com.siav.request.CorreccionConsumoRequest;
@@ -157,7 +158,12 @@ public class ConsumosBean {
 	public List<ConsumoRiesgo> consultarInstalacion(Long instalacion) {
 		Ciclo ciclo = ciclosBean.getPorEstado(Constantes.ABIERTO);
 		cicloAnterior = ciclosBean.getPorEstado(Constantes.CERRADO);
-		return Arrays.asList(consumosRep.findByIdInstalacionAndIdCiclo(instalacion, ciclo.getCiclo())).stream().map(this::transform).collect(Collectors.toList());
+		Consumo consumo = consumosRep.findByIdInstalacionAndIdCiclo(instalacion, ciclo.getCiclo());
+		if(consumo != null){
+			return Arrays.asList(transform(consumo));
+		}else{
+			throw new ExcepcionTecnica(Constantes.ERR_INSTALACION_NO_INFO);
+		}
 	}
 
 }

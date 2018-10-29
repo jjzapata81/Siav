@@ -2,8 +2,12 @@ package co.com.siav.utils;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
+
+import co.com.siav.exception.ExcepcionNegocio;
 
 public final class FileUtil {
 	
@@ -45,6 +49,14 @@ public final class FileUtil {
 
 	public static String moverArchivo(String absolutePath, String rutaArchivo, Long numeroCiclo, String nombreArchivo) {
 		return moverArchivo(absolutePath, rutaArchivo + getDirectorio(numeroCiclo) + "\\", nombreArchivo);
+	}
+
+	public static List<String> readFile(File archivoPagos) {
+		try {
+			return Files.readAllLines(Paths.get(archivoPagos.getAbsolutePath()), Charset.defaultCharset());
+		} catch (IOException e) {
+			throw new ExcepcionNegocio(Constantes.ERR_LECTURA_ARCHIVO);
+		}
 	}
 
 }

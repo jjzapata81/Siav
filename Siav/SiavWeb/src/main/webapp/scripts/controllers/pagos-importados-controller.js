@@ -1,9 +1,9 @@
 /*global define*/
 'use strict';
 
-define(['siav-module', 'modal-factory', 'constantes', 'pagos-services', 'bancos-services'], function (app) {
+define(['siav-module', 'pagos-services', 'modal-pagos', 'bancos-services', 'modal-factory', 'constantes'], function (app) {
 	
-    return app.controller('pagos-importados-controller', ['$scope', 'pagosServices', 'bancosServices', 'modalFactory', 'CONSTANTES', function($scope, pagosServices, bancosServices, modalFactory, CONSTANTES){
+    return app.controller('pagos-importados-controller', ['$scope', 'pagosServices', 'modalPagos', 'bancosServices', 'modalFactory', 'CONSTANTES', function($scope, pagosServices, modalPagos, bancosServices, modalFactory, CONSTANTES){
     	
     	var file = "";
     	var fileInput = angular.element('#txtFile');
@@ -47,7 +47,8 @@ define(['siav-module', 'modal-factory', 'constantes', 'pagos-services', 'bancos-
             	.then(function(data){
             		$scope.files = null;
             		modalFactory.abrir(CONSTANTES.ESTADO.OK, "La carga del archivo " + file.name + " terminó exitosamente.");
-        			$scope.mensaje = "Seleccione un archivo...";
+            		modalPagos.abrir(data);
+            		$scope.mensaje = "Seleccione un archivo...";
             	});
         		$scope.$apply();
         		$('#txtFile').replaceWith( $("#txtFile").val('').clone(true));

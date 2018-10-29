@@ -22,7 +22,6 @@ define(['siav-module', 'reportes-services', 'modal-email', 'modal-factory', 'con
     		.abrir()
     		.result
     		.then(function(email){
-    			console.log(email);
     			$scope.filtro.email = email;
         		reportesServices
         		.enviar(REPORTE, $scope.filtro)

@@ -1,49 +1,58 @@
 package co.com.siav.utils;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public final class Constantes {
-	
-	private Constantes(){}
-	
-//	public static final Long REGISTRO_NUMERO_FACTURA = 1L;
+
+	private Constantes() {
+	}
+
+	// public static final Long REGISTRO_NUMERO_FACTURA = 1L;
 
 	public static final String INSTALACION_NO_EXISTE = "La instalación %s no existe.";
 	public static final String INSTALACION_EXISTE = "La instalación %s ya existe.";
 	public static final String INSTALACION_CREADA = "Se ha creado la instalación %s.";
-	
+
 	public static final String VEREDA_INSTALACION_NO_EXISTE = "No se encontró una vereda para la instalación %s.";
 	public static final String CODIGO_TARIFA_NO_EXISTE = "La tarifa con código %s no existe.";
-	
-	//Sirve para los estados de pago de las facturas
+
+	// Sirve para los estados de pago de las facturas
 	public static final String PENDIENTE = "P";
 	public static final String CANCELADO = "C";
-	
+
 	public static final String SI = "S";
 	public static final String NO = "N";
 	public static final String FIJO = "1";
 	public static final String VARIABLE = "2";
-	
+
 	public static final String ABIERTO = "ABIERTO";
 	public static final String CERRADO = "CERRADO";
 	public static final String VENCIDO = "VENCIDO";
-	
-	//Estados en los rangos de la facturación
-	public static final String DISPONIBLE = "DISPONIBLE"; //Rango que se encuentra disponible para su uso
-	public static final String EMITIDO = "EMITIDO"; // Rango que se ha utilizado por completo
+
+	// Estados en los rangos de la facturación
+	public static final String DISPONIBLE = "DISPONIBLE"; // Rango que se
+															// encuentra
+															// disponible para
+															// su uso
+	public static final String EMITIDO = "EMITIDO"; // Rango que se ha utilizado
+													// por completo
 	public static final String VIGENTE = "VIGENTE"; // Rango empleado acualmente
 	public static final String ESPACIO = " ";
-	
+
 	public static final String USUARIO_ACTIVO = "ACTIVO";
 	public static final String USUARIO_EXISTE = "Ya existe un usuario con la cédula %s.";
 	public static final String USUARIO_NO_EXISTE = "No existen usuarios con la cédula %s.";
-	
-	//Prefacturacion
+
+	// Prefacturacion
 	public static final String ERR_FALTA_VALOR_ESTRATOS = "Debe ingresar los valores de tarifas de tipo FIJO y consumos por estratos.";
 	public static final String ERR_FALTA_VALOR_TARIFAS = "Debe ingresar los valores de tarifas de tipo FIJO y consumos.";
 	public static final String ERR_SIN_INSTALACION_ACTIVA = "No existen instalaciones ACTIVAS para el presente ciclo y no se puede proceder con la prefacturación.";
 	public static final String ERR_SIN_CICLO_ABIERTO = "No existen ciclos ABIERTOS para proceder con la prefacturación.";
 	public static final String ERR_SIN_RANGO = "No hay números de facturación disponibles para proceder con la prefacturación.";
 	public static final String ERR_LECTURAS_PENDIENTES = "Existen lecturas pendientes por ingresar. No se puede continuar con la prefacturación.";
-	
+
 	public static final String CAMBIO_CLAVE_ERR = "Nombre de usuario o contraseña no son correctos.";
 	public static final String CAMBIO_CLAVE_OK = "La contraseña ha sido modificada de manera satisfactoria.";
 	public static final String ACTUALIZACION_EXITO = "Los cambios se han almacenado con éxito.";
@@ -61,7 +70,8 @@ public final class Constantes {
 
 	public static final String FACTURA_NO_EXISTE = "No existe la factura %s.";
 
-	public static final String FACTURA_YA_CANCELADA = "La factura número %s se encuentra en estado CANCELADO.";
+	public static final String FACTURA_YA_CANCELADA = "La factura número %s, fue cancelada en la fecha %s.";
+	public static final String ABONO_CANCELADO = "El abono número %s, fue cancelado en la fecha %s.";
 	public static final String USUARIO_INCORRECTO = "El usuario o la contraseña no son correctos.";
 	public static final String BIENVENIDO = "Bienvenido %s.";
 	public static final String PREFACTURACION_EXITO = "El proceso de prefacturación ha finalizado de manera correcta. Se generaron %s registros.";
@@ -78,8 +88,8 @@ public final class Constantes {
 	public static final String NUMERACION_CREDITO = "NUMERACION_CRED";
 	public static final String SIN_FECHA = "SIN_FECHA";
 	public static final String CREDITO_NO_EXISTE = "No existe el crédito %s.";
-	public static final String CREDITO_CANCELADO = "El crédito %s se encuentra cancelado.";
-	public static final String COMPROBANTE_CANCELADO = "El comprobante %s ha sido previamente registrado.";
+	public static final String CREDITO_CANCELADO = "El crédito %s fue cancelado en la fecha %s.";
+	public static final String COMPROBANTE_CANCELADO = "El comprobante %s, fue cancelado en la fecha %s.";
 	public static final String ERR_FALTA_COMPROBANTE = "No existe el comprobante número %s.";
 	public static final String ERR_COMPROBANTE_NO_MATRICULA = "El comprobante número %s no corresponde a una matrícula.";
 	public static final String ERR_COMPROBANTE_VALOR = "El valor del comprobante de pago (%s) es diferente al valor ingresado (%s).";
@@ -87,7 +97,7 @@ public final class Constantes {
 	public static final String ERR_GENERACION_CREDITO = "ERROR buscando credito instalación %s.";
 	public static final String ERR_CREAR_BANCO = "Ocurrió un error al guardar el banco.";
 	public static final String ERR_MIEMBRO_JUNTA_EXISTE = "El usuario que está tratando de ingresar ya existe.";
-	
+
 	public static final Long ID_EMPRESA = 1L;
 	public static final Long SIN_ORDEN = 99999L;
 	public static final String ERR_CUENTA_EXISTE = "Ya existe una cuenta con el nombre %s.";
@@ -154,17 +164,26 @@ public final class Constantes {
 	public static final String ERR_CONSUMO_NEGATIVO = "Existen consumos negativos. Ingrese a la opción de inconsistencias para corregirlas.";
 	public static final String USUARIO_OPERACION_NO_ENCONTRADO = "No ha sido posible encontrar el usuario de la operación con los datos indicados.";
 	public static final String DESTINO_INSTALACION = "1";
-	
+	public static final String ERR_INSTALACION_NO_INFO = "No se encontró información para la instalación seleccionada";
+	public static final String TIPO_FACTURA = "FACTURA";
+	public static final String TIPO_CREDITO = "CREDITO";
+	public static final String TIPO_MATRICULA = "MATRICULA";
+	public static final String TIPO_ABONO = "ABONO";
+	public static final String TIPO_EXCEDENTE = "EXCEDENTE";
+	public static final String OPCION_NO_DISPONIBLE = "Esta opción ha sido deshabilitada.";
+	public static final String COMPROBANTE_NO_EXISTE = "Comprobante no existe.";
+	public static final String PAGO_ERROR = "Ocurrió un error registrando el pago %s.";
+	public static final String ERROR_VENCIDA = "================= ERROR =================  Se produjo un error al tratar de marcar una cuenta vencida para la instalacion ";
 
-	
 	public static String getMensaje(String mensaje, Long codigo) {
 		return getMensaje(mensaje, String.valueOf(codigo));
 	}
-	
+
 	public static String getMensaje(String mensaje, Long param1, Long param2) {
-		return getMensaje(mensaje, String.valueOf(param1), String.valueOf(param2));
+		return getMensaje(mensaje, String.valueOf(param1),
+				String.valueOf(param2));
 	}
-	
+
 	public static String getMensaje(String mensaje, String codigo) {
 		return String.format(mensaje, codigo);
 	}
@@ -177,9 +196,10 @@ public final class Constantes {
 		return getMensaje(mensaje, param1, String.valueOf(param2));
 	}
 
+	public static String getMensaje(String mensaje, Long param1, Date param2) {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String strDate = dateFormat.format(param2);
+		return getMensaje(mensaje, String.valueOf(param1), strDate);
+	}
 
-
-
-
-	
 }

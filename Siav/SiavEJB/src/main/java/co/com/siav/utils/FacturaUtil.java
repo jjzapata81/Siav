@@ -9,10 +9,14 @@ public final class FacturaUtil {
 		super();
 	}
 	
-	public static Long getValorTotalFactura(Factura factura) {
+	public static Long getNeto(Factura factura) {
 		Long totalValor = factura.getDetalles().stream().mapToLong(DetalleFactura::getValor).sum();
 		Long totalSaldo = factura.getDetalles().stream().mapToLong(DetalleFactura::getSaldo).sum();
 		Long totalCartera = factura.getDetalles().stream().mapToLong(DetalleFactura::getCartera).sum();
 		return totalValor + totalSaldo - totalCartera;
+	}
+	
+	public static Long getValor(Factura factura) {
+		return factura.getDetalles().stream().mapToLong(DetalleFactura::getValor).sum();
 	}
 }

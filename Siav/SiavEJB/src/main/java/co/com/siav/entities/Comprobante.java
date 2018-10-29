@@ -29,6 +29,9 @@ public class Comprobante implements Serializable {
 	
 	private Date fecha;
 	
+	@Column(name="fepago")
+	private Date fechaPago;
+	
 	@Column(name="nmcredito")
 	private Long idCredito;
 	
@@ -37,6 +40,9 @@ public class Comprobante implements Serializable {
 	
 	@Column(name="sncancelado")
 	private String cancelado;
+	
+	@Column(name="snabono")
+	private String abono;
 
 	public Long getIdComprobante() {
 		return null == idComprobante ? 0L : idComprobante;
@@ -77,6 +83,14 @@ public class Comprobante implements Serializable {
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
 	}
+	
+	public Date getFechaPago() {
+		return fechaPago;
+	}
+	
+	public void setFechaPago(Date fechaPago) {
+		this.fechaPago = fechaPago;
+	}
 
 	public Date getFecha() {
 		return fecha;
@@ -108,6 +122,18 @@ public class Comprobante implements Serializable {
 
 	public void setCancelado(Boolean cancelado) {
 		this.cancelado = cancelado ? "S" : "N";
+	}
+	
+	public Boolean getAbono() {
+		return "S".equals(abono);
+	}
+
+	public void setAbono(Boolean abono) {
+		this.abono = abono ? "S" : "N";
+	}
+	
+	public boolean esCredito(){
+		return null != idCredito;
 	}
 	
 }

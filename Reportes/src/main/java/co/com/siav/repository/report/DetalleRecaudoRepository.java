@@ -73,6 +73,9 @@ public class DetalleRecaudoRepository implements IReportType{
 	}
 	
 	private List<DetalleRecaudo> getData(Filter filter) {
+		if(filter.getFechaHasta().before(filter.getFechaDesde())){
+			throw new TechnicalException(Constantes.ERR_DATE);
+		}
 		String query = QueryHelper.getDetalleRecaudo(filter);
 		ReportBDFactory<DetalleRecaudo> factory = new ReportBDFactory<>();
 		List<DetalleRecaudo> data = factory.getReportResult(DetalleRecaudo.class, query);

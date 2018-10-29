@@ -48,8 +48,12 @@ define(['siav-module', 'reportes-services', 'modal-email', 'modal-factory', 'con
     	}
         
         $scope.validar = function(){
-        	if(!$scope.filtro || $scope.filtro.ciclo < 1 || $scope.filtro.valorDesde < 0){
-        		modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.ERR.OBLIGATORIO);
+        	if(!$scope.filtro || !$scope.filtro.ciclo || $scope.filtro.ciclo < 1){
+        		modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.REPORTES.ERR_CICLO_OBLIGATORIO);
+        		return false;
+        	}
+        	if(($scope.filtro.valorDesde && $scope.filtro.valorDesde < 0)||($scope.filtro.valorHasta && $scope.filtro.valorHasta < 0)){
+        		modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.REPORTES.ERR_NEGATIVO);
         		return false;
         	}
         	if($scope.filtro.valorHasta && $scope.filtro.valorHasta < $scope.filtro.valorDesde){

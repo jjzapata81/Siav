@@ -1,0 +1,33 @@
+<div class="ngdialog-message">
+	<div class="modal-header titulo-modal">
+		<h3>Resultado del cargue del archivo</h3>
+	</div>
+	<div class="modal-body">
+		<table class="table table-responsive table-modal">
+			<thead>
+				<th>N&uacute;mero</th>
+				<th>Valor</th>
+				<th>Fecha de pago</th>
+				<th>Mensaje</th>
+				<th>Error</th>
+			</thead>
+			<tbody>
+				<tr ng-repeat="pago in pagos">
+					<td>{{pago.numeroFactura}}</td>
+					<td>{{pago.valor | currency:"$":0}}</td>
+					<td>{{pago.fecha | date:'yyyy-MM-dd'}}</td>
+					<td>{{pago.mensaje}}</td>
+					<td>
+						<i ng-show="!pago.error" class="fa fa-check pago-ok" aria-hidden="true"></i>
+						<i ng-show="pago.error" class="fa fa-times pago-err" aria-hidden="true"></i>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="modal-footer">
+		<ul class="flex alineacion-derecha" >
+			<li><button type="button" class="btn-siav btn-cancelar" ng-click="cancelar()">Cancelar</button></li>
+		</ul>
+ 	</div>
+</div>

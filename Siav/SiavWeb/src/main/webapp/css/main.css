@@ -522,6 +522,16 @@ a:hover {
 	border-radius: 15px;
 }
 
+.pago-ok {
+	background: #FFF;
+	color: #47b754;
+}
+
+.pago-err {
+	background: #FFF;
+	color: #da1703;
+}
+
 .activo {
 	color: #00ff80;
 	font-weight: 700;
@@ -1208,4 +1218,8 @@ a:hover {
     cursor: pointer;
     color: #344769;
     height: 100%;
+}
+
+.table-header{
+	vertical-align: middle !important;
 }

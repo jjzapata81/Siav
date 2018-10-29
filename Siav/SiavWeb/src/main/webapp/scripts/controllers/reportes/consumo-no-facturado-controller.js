@@ -23,7 +23,6 @@ define(['siav-module', 'reportes-services', 'modal-email', 'modal-factory', 'con
         		.abrir()
         		.result
         		.then(function(email){
-        			console.log(email);
         			$scope.filtro.email = email;
             		reportesServices
             		.enviar(REPORTE, $scope.filtro)
@@ -47,8 +46,8 @@ define(['siav-module', 'reportes-services', 'modal-email', 'modal-factory', 'con
     	}
         
         $scope.validar = function(){
-        	if(!$scope.filtro || $scope.filtro.ciclo < 1){
-        		modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.ERR.OBLIGATORIO);
+        	if(!$scope.filtro || !$scope.filtro.ciclo ||$scope.filtro.ciclo < 1){
+        		modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.REPORTES.ERR_CICLO_OBLIGATORIO);
         		return false;
         	}
 

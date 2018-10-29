@@ -15,7 +15,6 @@ define(['siav-module', 'reportes-services', 'modal-email', 'modal-factory', 'con
         		.abrir()
         		.result
         		.then(function(email){
-        			console.log(email);
         			$scope.filtro.email = email;
             		reportesServices
             		.enviar(REPORTE, $scope.filtro)
@@ -56,7 +55,11 @@ define(['siav-module', 'reportes-services', 'modal-email', 'modal-factory', 'con
         		modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.ERR.OBLIGATORIO);
         		return false;
         	}
-        	if($scope.filtro.variacionHasta < 1){
+        	if($scope.filtro && !$scope.filtro.valorHasta){
+        		modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.REPORTES.ERR_VARIACION);
+        		return false;
+        	}
+        	if($scope.filtro.valorHasta < 1){
         		modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.REPORTES.ERR_VARIACION_NEGATIVO);
         		return false;
         	}

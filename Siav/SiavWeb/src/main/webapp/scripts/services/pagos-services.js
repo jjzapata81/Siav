@@ -56,7 +56,7 @@ define(['siav-module', 'constantes'], function (app) {
  								'codigoBanco' : codigoBanco
  							}
     		 			}
-    		 var request = $http.put(CONSTANTES.SRV.PAGO_CARGAR, formData, config);
+    		 var request = $http.post(CONSTANTES.SRV.PAGO_CARGAR, formData, config);
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));

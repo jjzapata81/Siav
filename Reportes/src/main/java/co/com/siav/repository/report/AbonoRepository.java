@@ -76,6 +76,7 @@ public class AbonoRepository {
 		comprobante.setUsuario(request.getUsuario());
 		comprobante.setCredito(request.getNumeroCredito());
 		comprobante.setEsMatricula(request.getEsMatricula());
+		comprobante.setEsAbono(request.getEsAbono());
 		guardarBD(comprobante);
 		return comprobante;
 	}

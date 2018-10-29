@@ -18,6 +18,7 @@ import co.com.siav.entities.DetalleFactura;
 import co.com.siav.entities.Factura;
 import co.com.siav.entities.Instalacion;
 import co.com.siav.exception.ExcepcionNegocio;
+import co.com.siav.pagos.Vencidas;
 import co.com.siav.repositories.IRepositoryCiclos;
 import co.com.siav.repositories.IRepositoryConsumos;
 import co.com.siav.repositories.IRepositoryCreditoMaestro;
@@ -32,6 +33,7 @@ import co.com.siav.utils.Utilidades;
 public class CiclosBean {
 	
 	private static final String SEPARADOR = ";";
+
 
 	@Inject
 	private IRepositoryCiclos ciclosRep;
@@ -50,6 +52,9 @@ public class CiclosBean {
 	
 	@Inject
 	private KardexBean kardexBean;
+	
+	@Inject
+	private Vencidas vencidas;
 
 	public Ciclo consultar() {
 		return ciclosRep.findFirstByEstadoOrderByCicloDesc(Constantes.ABIERTO);
@@ -141,6 +146,10 @@ public class CiclosBean {
 		Instalacion instalacion = instalacionesRep.findOne(factura.getNumeroInstalacion());
 		instalacion.setCuentasVencidas(factura.getCuentasVencidas());
 		instalacionesRep.save(instalacion);
+		if(factura.getCuentasVencidas()>0){
+			vencidas.calcular(factura);
+		}
+		
 	}
 	
 	private void completarHistorico(Long cicloActual) {

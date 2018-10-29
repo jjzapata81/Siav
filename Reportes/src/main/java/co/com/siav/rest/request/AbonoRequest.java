@@ -8,6 +8,7 @@ public class AbonoRequest {
 	private Long valor;
 	private String cedula;
 	private String esMatricula;
+	private String esAbono;
 
 	public Long getNumeroInstalacion() {
 		return numeroInstalacion;
@@ -47,6 +48,14 @@ public class AbonoRequest {
 	
 	public void setEsMatricula(String esMatricula) {
 		this.esMatricula = esMatricula;
+	}
+	
+	public String getEsAbono() {
+		return esAbono;
+	}
+	
+	public void setEsAbono(String esAbono) {
+		this.esAbono = esAbono;
 	}
 	
 	public String getUsuario() {

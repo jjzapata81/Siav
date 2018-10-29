@@ -65,6 +65,7 @@ require.config({
     	//Factories
     	'modal-factory' : 'factories/modal-factory',
     	'modal-email' : 'factories/modal-email',
+    	'modal-pagos' : 'factories/modal-pagos',
     	'modal-usuario-factory' : 'factories/modal-usuario-factory',
     	'modal-resultados-factory' : 'factories/modal-resultados-factory',
     	'reportes-factory' : 'factories/reportes-factory',

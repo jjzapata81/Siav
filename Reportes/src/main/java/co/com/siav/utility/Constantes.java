@@ -8,6 +8,7 @@ public class Constantes {
 	public static final String FACTURA_NO_EXISTE = "No existe información para el ciclo seleccionado.";
 	public static final String ERR_CICLO_ABIERTO = "No se puede consultar la información para un ciclo abierto.";
 	public static final String ERR_NO_DATA = "La búsqueda no arrojó resultados.";
+	public static final String ERR_DATE = "La fecha hasta no puede ser anterior a la fecha desde.";
 	public static final String CICLO_NO_EXISTE = "El ciclo solicitado no existe.";
 	public static final String ESTADO_VIGENTE = "VIGENTE";
 	public static final String ATT_RESOLUCION = "resolucion";
@@ -36,5 +37,6 @@ public class Constantes {
 	public static final String PREFACTURA_JRXML = "prefactura.jrxml";
 	public static final String MATRICULA_JRXML = "siavAbono.jrxml";
 	public static final String SI = "S";
+	
 
 }
