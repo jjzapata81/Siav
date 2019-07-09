@@ -6,11 +6,16 @@ import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
+import org.apache.commons.beanutils.BeanUtils;
+
+import co.com.siav.exception.TechnicalException;
 import co.com.siav.file.excel.ExcelReportGeneratorXLSX;
 import co.com.siav.file.excel.descriptor.PrefacturaExcelDescriptor;
 import co.com.siav.notifier.SendMail;
 import co.com.siav.notifier.config.Attachment;
 import co.com.siav.notifier.reports.name.Reporte;
+import co.com.siav.pdf.dto.Articulo;
+import co.com.siav.pdf.dto.DetalleInstalacion;
 import co.com.siav.pdf.dto.DetalleInstalacionPDF;
 import co.com.siav.pdf.dto.InstalacionPDF;
 import co.com.siav.pdf.dto.InstalacionPDFBase;
@@ -21,13 +26,19 @@ import co.com.siav.reports.filters.Filter;
 import co.com.siav.reports.response.PrefacturaExcel;
 import co.com.siav.repository.QueryHelper;
 import co.com.siav.repository.ReportBDFactory;
+import co.com.siav.repository.entities.Sistema;
 import co.com.siav.repository.utility.Util;
 import co.com.siav.utility.Constantes;
+import co.com.siav.utility.FacturaUtil;
 
 public class PrefacturaRepository implements IReportType{
 
 	@Inject
 	private SendMail notifier;
+	
+	private List<Articulo> articulos;
+	
+	protected Sistema sistema;
 		
 	@Override
 	public byte[] getPDF(Filter filter) {
@@ -54,6 +65,8 @@ public class PrefacturaRepository implements IReportType{
 	}
 	
 	private List<PrefacturaPDF> getPrefactura(Filter filter){
+		articulos = getArticulos();
+		sistema = Util.getSistema();
 		PrefacturaPDF prefacturacion = new PrefacturaPDF();
 		prefacturacion.setNombreAcueducto(Util.getEmpresa().getNombreCorto());
 		prefacturacion.setNombreReporte(Reporte.PREFACTURACION_SUBTITULO + filter.getCiclo());
@@ -79,14 +92,37 @@ public class PrefacturaRepository implements IReportType{
 		instalacionPDF.setLecturaActual(instalacionBase.getLecturaActual());
 		instalacionPDF.setLecturaAnterior(instalacionBase.getLecturaAnterior());
 		instalacionPDF.setConsumo(instalacionBase.getConsumo());
-		instalacionPDF.setDetalles(getDetalleInstalacion(instalacionBase));
+		List<DetalleInstalacionPDF> detalles = getDetalleInstalacion(instalacionBase).stream().map(this::setIva).collect(Collectors.toList());
+		instalacionPDF.setDetalles(detalles);
 		return instalacionPDF;
 	}
+	
+	
+	//TODO: quitar esto
+	private DetalleInstalacionPDF setIva(DetalleInstalacion detalle){
+		try{
+			DetalleInstalacionPDF detallePDF = new DetalleInstalacionPDF();
+			BeanUtils.copyProperties(detallePDF, detalle);
+			if(FacturaUtil.contains(detalle.getCodigo(), articulos)){
+				Double valorIva = detalle.getValor() * sistema.getIva();
+				detallePDF.setIva(0L);
+			}
+			return detallePDF;
+		}catch(Exception e){
+			throw new TechnicalException(Constantes.ERR_DETALLE_PREFACTURA);
+		}
+	}
 
-	private List<DetalleInstalacionPDF> getDetalleInstalacion(InstalacionPDFBase instalacion) {
+	private List<DetalleInstalacion> getDetalleInstalacion(InstalacionPDFBase instalacion) {
 		String query = QueryHelper.getPrefacturaDetalle(instalacion);
-		ReportBDFactory<DetalleInstalacionPDF> factory = new ReportBDFactory<>();
-		return factory.getReportResult(DetalleInstalacionPDF.class, query);
+		ReportBDFactory<DetalleInstalacion> factory = new ReportBDFactory<>();
+		return factory.getReportResult(DetalleInstalacion.class, query);
+	}
+	
+	private List<Articulo> getArticulos() {
+		String query = QueryHelper.getArticulos();
+		ReportBDFactory<Articulo> factory = new ReportBDFactory<>();
+		return factory.getReportResult(Articulo.class, query);
 	}
 	
 	private List<PrefacturaExcel> getPrefacturaExcel(Filter filter) {

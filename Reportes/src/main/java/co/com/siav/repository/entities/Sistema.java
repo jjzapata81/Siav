@@ -9,6 +9,7 @@ public class Sistema {
 	private String envioFactura;
 	private Long cuentasVencidas;
 	private Long cuentasCorte;
+	private Double iva;
 	
 	public String getCargoFijo() {
 		return cargoFijo;
@@ -57,6 +58,14 @@ public class Sistema {
 	
 	public void setCuentasCorte(Long cuentasCorte) {
 		this.cuentasCorte = cuentasCorte;
+	}
+	
+	public Double getIva() {
+		return iva;
+	}
+	
+	public void setIva(Double iva) {
+		this.iva = iva;
 	}
 
 }

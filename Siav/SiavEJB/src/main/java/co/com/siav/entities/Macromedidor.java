@@ -1,14 +1,7 @@
 package co.com.siav.entities;
 
+import javax.persistence.*;
 import java.io.Serializable;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 
 
 @Entity
@@ -24,11 +17,14 @@ public class Macromedidor implements Serializable{
 	@Id
 	@Column(name="nmmacro")
 	private Long macro;
-	
+
+	@Column(name="nombre")
 	private String nombre;
-	
+
+	@Column(name="marca")
 	private String marca;
-	
+
+	@Column(name="direccion")
 	private String direccion;
 
 	public Long getMacro() {

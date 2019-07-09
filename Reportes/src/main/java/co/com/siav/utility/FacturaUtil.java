@@ -6,10 +6,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import co.com.siav.exception.TechnicalException;
+import co.com.siav.pdf.dto.Articulo;
 import co.com.siav.pdf.dto.CobroPDF;
 import co.com.siav.pdf.dto.ConsumoPDF;
+import co.com.siav.pdf.dto.CreditoPDF;
 import co.com.siav.pdf.dto.FacturaDetalleBD;
+import co.com.siav.pdf.dto.MaterialesPDF;
 import co.com.siav.pdf.dto.ValoresFacturados;
+import co.com.siav.repository.QueryHelper;
+import co.com.siav.repository.ReportBDFactory;
 import co.com.siav.repository.entities.Sistema;
 
 public final class FacturaUtil {
@@ -57,16 +62,37 @@ public final class FacturaUtil {
 		return total.longValue();
 	}
 	
-	public static List<CobroPDF> getOtrosCobros(List<FacturaDetalleBD> detalles, Sistema sistema) {
+	public static List<CobroPDF> getOtrosCobros(List<FacturaDetalleBD> detalles, Sistema sistema, List<Articulo> articulos) {
 		return detalles.stream().filter(detalle -> 
 			!sistema.getCargoFijo().equals(detalle.getCodigoConcepto()) &&
 			!sistema.getBasico().equals(detalle.getCodigoConcepto()) &&
 			!sistema.getComplementario().equals(detalle.getCodigoConcepto()) &&
 			!sistema.getSuntuario().equals(detalle.getCodigoConcepto()) &&
+			!Constantes.CONCEPTO_IVA_VENTAS.equals(detalle.getCodigoConcepto()) &&
+			!contains(detalle.getCodigoConcepto(), articulos) &&
 			detalle.getCodigoCredito() == null &&
 			detalle.getValor() != 0L).map(FacturaUtil::getCobro).collect(Collectors.toList());
 	}
 	
+	public static List<MaterialesPDF> getMateriales(List<FacturaDetalleBD> detalles, Sistema sistema, List<Articulo> articulos) {
+		return detalles.stream()
+				.filter(detalle -> contains(detalle.getCodigoConcepto(), articulos))
+				.filter(detalle -> detalle.getValor()!=0)
+				.map(item -> getMaterial(item, sistema)).collect(Collectors.toList());
+	}
+	
+	private static MaterialesPDF getMaterial(FacturaDetalleBD detalle, Sistema sistema){
+		MaterialesPDF material = new MaterialesPDF();
+		material.setDetalle(detalle.getNombreConcepto());
+		material.setValor(detalle.getValor());
+		material.setIva(sistema.getIva());
+		return material;
+	}
+	
+	public static boolean contains(String codigoConcepto, List<Articulo> articulos) {
+		return articulos.stream().anyMatch(item-> item.getCodigoContable().equals(codigoConcepto));
+	}
+
 	private static CobroPDF getCobro(FacturaDetalleBD detalle){
 		CobroPDF cobro = new CobroPDF();
 		cobro.setDetalle(detalle.getNombreConcepto());
@@ -85,4 +111,16 @@ public final class FacturaUtil {
 			throw new TechnicalException(Constantes.ERR_HISTORICO_CONSUMOS + instalacion);
 		}
 	}
+	
+	public static List<CreditoPDF> getCreditos(String numeroInstalacion) {
+		String query = QueryHelper.getCreditos(numeroInstalacion);
+		ReportBDFactory<CreditoPDF> factory = new ReportBDFactory<>();
+		return factory.getReportResult(CreditoPDF.class, query);
+	}
+
+	public static double getIva(List<FacturaDetalleBD> detalles, Sistema sistema, List<Articulo> articulos) {
+		return detalles.stream().filter(detalle -> contains(detalle.getCodigoConcepto(), articulos)).mapToLong(FacturaDetalleBD::getValor).sum() * sistema.getIva();
+	}
+	
+	
 }

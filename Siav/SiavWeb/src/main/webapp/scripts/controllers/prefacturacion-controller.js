@@ -11,6 +11,7 @@ define(['siav-module', 'factura-services', 'ciclos-services', 'reportes-services
     	$scope.content = {};
     	
     	$scope.init = function(){
+    		$scope.isContent = false;
     		$scope.sinPDF = true;
     		ciclosServices
     		.consultar()
@@ -38,6 +39,7 @@ define(['siav-module', 'factura-services', 'ciclos-services', 'reportes-services
 	                var file = new Blob([ data ], {type : 'application/pdf'});
 	                var fileURL = URL.createObjectURL(file);
 	                $scope.content = $sce.trustAsResourceUrl(fileURL);
+	                $scope.isContent = true;
 	                $scope.sinPDF = false;
     			});
     		}

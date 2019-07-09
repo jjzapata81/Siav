@@ -45,6 +45,8 @@ public class FacturaPDF {
 	private List<ValoresFacturados> valoresFacturados;
 	private List<CobroPDF> otrosCobros;
 	
+	private List<MaterialesPDF> materiales;
+	
 	
 	public String getCiclo() {
 		return ciclo;
@@ -348,6 +350,14 @@ public class FacturaPDF {
 
 	public void setMedidor(String medidor) {
 		this.medidor = medidor;
+	}
+	
+	public List<MaterialesPDF> getMateriales() {
+		return materiales;
+	}
+	
+	public void setMateriales(List<MaterialesPDF> materiales) {
+		this.materiales = materiales;
 	}
 	
 }

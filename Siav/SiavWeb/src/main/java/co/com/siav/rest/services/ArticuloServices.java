@@ -48,6 +48,13 @@ public class ArticuloServices {
 	}
 	
 	@GET
+	@Path("consultar/entradas")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<ArticuloResponse> consultarEntradas(){
+		return bean.consultarEntradas();
+	}
+	
+	@GET
 	@Path("consultar/salidas")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<ArticuloResponse> consultarSalidas(){

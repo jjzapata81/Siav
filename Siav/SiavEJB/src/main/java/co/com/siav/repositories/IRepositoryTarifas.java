@@ -22,4 +22,6 @@ public interface IRepositoryTarifas extends JpaRepository<Tarifa, String>{
 
 	List<Tarifa> findByOrdenGreaterThan(Long orden);
 
+	List<Tarifa> findByActivo(String activo);
+
 }

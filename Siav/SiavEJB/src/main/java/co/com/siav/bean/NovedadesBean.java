@@ -19,6 +19,7 @@ import co.com.siav.utils.Constantes;
 @Stateless
 public class NovedadesBean {
 	
+
 	@Inject
 	private IRepositoryNovedades novedadesRep;
 	
@@ -55,10 +56,10 @@ public class NovedadesBean {
 	public MensajeResponse guardarNotaCredito(NotaCreditoRequest request, String usuario) {
 		try{
 			Long ciclo = ciclosRep.findMaximoCicloPorEstado(Constantes.ABIERTO);
-			Novedad notaCredito = novedadesRep.findOne(new NovedadPK(ciclo, request.getNumeroInstalacion(), "888888"));
+			Novedad notaCredito = novedadesRep.findOne(new NovedadPK(ciclo, request.getNumeroInstalacion(), Constantes.COD_NOTA_CREDITO));
 			if(notaCredito==null){
 				notaCredito = new Novedad();
-				notaCredito.setId(new NovedadPK(ciclo, request.getNumeroInstalacion(), "888888"));
+				notaCredito.setId(new NovedadPK(ciclo, request.getNumeroInstalacion(), Constantes.COD_NOTA_CREDITO));
 			}
 			notaCredito.setValor(notaCredito.getValor()-request.getValor());
 			novedadesRep.save(notaCredito);

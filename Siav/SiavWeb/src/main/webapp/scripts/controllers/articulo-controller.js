@@ -7,7 +7,10 @@ define(['siav-module', 'articulo-services', 'instalaciones-services', 'modal-fac
     	
     	$scope.init = function(){
     		$scope.articuloNuevo = {};
+    		$scope.articuloNuevo.tieneIva = true;
+    		$scope.articuloNuevo.porcentajeIva = 19;
     		$scope.filtro = {};
+    		$scope.filtro.activo = true;
     		$scope.esNuevo = false;
     		$scope.estaEditando = false;
     		$scope.articulos = [];
@@ -21,6 +24,9 @@ define(['siav-module', 'articulo-services', 'instalaciones-services', 'modal-fac
     		.consultar()
     		.then(function(articulos){
     			$scope.articulos = articulos;
+    			angular.forEach($scope.articulos, function(articulo, key) {
+    				articulo.porcentajeIva = articulo.porcentajeIva * 100;
+    			});
     			$scope.cargarTiposUnidad();
     		});
     	}
@@ -44,8 +50,7 @@ define(['siav-module', 'articulo-services', 'instalaciones-services', 'modal-fac
     		});
     	}
     	
-    	$scope.onAgregar = function(){
-    		$scope.articuloNuevo.tieneIva = false;
+    	$scope.onAgregar = function(){	
     		$scope.esNuevo = true;
     	}
     	$scope.onCancelar= function(){
@@ -54,8 +59,21 @@ define(['siav-module', 'articulo-services', 'instalaciones-services', 'modal-fac
     	
     	$scope.onActualizar = function(){
     		if($scope.validar()){
+    			$scope.articuloNuevo.porcentajeIva = $scope.articuloNuevo.tieneIva ? $scope.articuloNuevo.porcentajeIva : 0;
     			articuloServices
-        		.actualizar($scope.articuloNuevo)
+        		.actualizar($scope.getRequest($scope.articuloNuevo))
+        		.then(function(respuesta){
+        			modalFactory.abrirDialogo(respuesta);
+        			$scope.init();
+        		});
+    		}
+    	}
+    	
+    	$scope.onCrear = function(){
+    		if($scope.validar()){
+    			$scope.articuloNuevo.porcentajeIva = $scope.articuloNuevo.tieneIva ? $scope.articuloNuevo.porcentajeIva : 0;
+    			articuloServices
+        		.crear($scope.getRequest($scope.articuloNuevo))
         		.then(function(respuesta){
         			modalFactory.abrirDialogo(respuesta);
         			$scope.init();
@@ -70,7 +88,7 @@ define(['siav-module', 'articulo-services', 'instalaciones-services', 'modal-fac
     		.then(function(respuesta){
     			articulo.activo = !articulo.activo;
     			articuloServices
-        		.actualizar(articulo)
+        		.actualizar($scope.getRequest(articulo))
         		.then(function(respuesta){
         			modalFactory.abrirDialogo(respuesta);
         			$scope.init();
@@ -78,15 +96,19 @@ define(['siav-module', 'articulo-services', 'instalaciones-services', 'modal-fac
     		});
     	}
     	
-    	$scope.onCrear = function(){
-    		if($scope.validar()){
-    			articuloServices
-        		.crear($scope.articuloNuevo)
-        		.then(function(respuesta){
-        			modalFactory.abrirDialogo(respuesta);
-        			$scope.init();
-        		});
-    		}
+    	
+    	
+    	$scope.getRequest = function(articulo){
+    		return {
+	    			codigo:articulo.codigo,
+	    			codigoContable:articulo.codigoContable,
+	    			nombre:articulo.nombre,
+	    			unidad:articulo.unidad,
+	    			observacion:articulo.observacion,
+	    			porcentajeIva:articulo.porcentajeIva,
+	    			tieneIva:articulo.tieneIva,
+	    			activo:articulo.activo
+    			}; 
     	}
     	
     	$scope.onEditar = function(articulo){

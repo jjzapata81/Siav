@@ -1,14 +1,7 @@
 package co.com.siav.entities;
 
+import javax.persistence.*;
 import java.io.Serializable;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 
 @Entity
 @Table(name="ta_proveedor")
@@ -23,17 +16,23 @@ public class Proveedor implements Serializable{
 	@GeneratedValue(generator = Proveedor.NOMBRE_SECUENCIA, strategy = GenerationType.SEQUENCE)
 	@Column(name="nmproveedor")
 	private Long codigo;
-	
+
+	@Column(name="nit")
 	private Long nit;
-	
+
+	@Column(name="razonsocial")
 	private String razonSocial;
-	
+
+	@Column(name="direccion")
 	private String direccion;
-	
+
+	@Column(name="telefono")
 	private String telefono;
-	
+
+	@Column(name="correo")
 	private String correo;
-	
+
+	@Column(name="observacion")
 	private String observacion;
 	
 	public Long getCodigo() {

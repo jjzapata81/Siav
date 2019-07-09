@@ -5,6 +5,7 @@ define(['siav-module', 'constantes'], function (app) {
     app.service('tarifasServices', ['$http', '$q', 'CONSTANTES', function ($http, $q, CONSTANTES) {
     	 var contrato = {
     			 consultar : consultar,
+    			 consultarActivas : consultarActivas,
     			 consultarTarifaCredito : consultarTarifaCredito,
     			 consultarPorCodigo : consultarPorCodigo,
     			 crear : crear,
@@ -28,6 +29,13 @@ define(['siav-module', 'constantes'], function (app) {
     	 
     	 function consultar(){
     		 var request = $http.get(CONSTANTES.SRV.TARIFA_CONSULTAR, {isArray : true});
+    		 return (request.then(function(response) {
+ 	    		return response.data;
+	    	}));
+    	 }
+    	 
+    	 function consultarActivas(){
+    		 var request = $http.get(CONSTANTES.SRV.TARIFA_CONSULTAR_ACTIVAS, {isArray : true});
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));

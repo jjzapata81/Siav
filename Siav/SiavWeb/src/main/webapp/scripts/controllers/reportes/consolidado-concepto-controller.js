@@ -10,6 +10,8 @@ define(['siav-module', 'reportes-services', 'modal-email', 'modal-factory', 'con
     	
     	var REPORTE = "consolidado-concepto";
     	
+    	$scope.isContent = false;
+    	
     	$scope.onDescargar = function(){
     		if($scope.validar()){
     			reportesServices
@@ -41,6 +43,7 @@ define(['siav-module', 'reportes-services', 'modal-email', 'modal-factory', 'con
 	                var file = new Blob([ data ], {type : 'application/pdf'});
 	                var fileURL = URL.createObjectURL(file);
 	                $scope.content = $sce.trustAsResourceUrl(fileURL);
+	                $scope.isContent = true;
     			});
     		}
     	}

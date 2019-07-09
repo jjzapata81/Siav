@@ -12,10 +12,10 @@ public interface IRepositoryCreditoMaestro extends JpaRepository<CreditoMaestro,
 
 	List<CreditoMaestro> findByInstalacion(Long instalacion);
 
-	@Query("select c from CreditoMaestro c where c.instalacion = :instalacion AND c.saldo > 0")
+	@Query("select c from CreditoMaestro c where c.instalacion = :instalacion AND c.actual < c.numeroCuotas and c.fechaFinal = null")
 	List<CreditoMaestro> findByInstalacionSinCancelar(@Param(value="instalacion")Long instalacion);
 	
-	@Query("select c from CreditoMaestro c where c.saldo > 0")
+	@Query("select c from CreditoMaestro c where c.actual < c.numeroCuotas and c.fechaFinal = null")
 	List<CreditoMaestro> findAllSinCancelar();
 
 }

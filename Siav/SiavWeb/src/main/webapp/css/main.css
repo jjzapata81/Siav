@@ -204,6 +204,14 @@ a:hover {
 	width: 100px !important;
 }
 
+.ancho-150 {
+	width: 150px !important;
+}
+
+.ancho-250 {
+	width: 250px !important;
+}
+
 .ancho-300 {
 	width: 300px !important;
 }

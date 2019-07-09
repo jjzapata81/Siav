@@ -24,6 +24,7 @@ import co.com.siav.repositories.IRepositoryCiclos;
 import co.com.siav.repositories.IRepositoryConsumos;
 import co.com.siav.repositories.IRepositoryCreditoDetalle;
 import co.com.siav.repositories.IRepositoryExcesos;
+import co.com.siav.repositories.IRepositoryFacturaVencida;
 import co.com.siav.repositories.IRepositoryFacturas;
 import co.com.siav.repositories.IRepositoryInstalaciones;
 import co.com.siav.repositories.IRepositorySistema;
@@ -71,6 +72,9 @@ public class FacturacionBean {
 	private Tarifador tarifador;
 	
 	@Inject
+	private IRepositoryFacturaVencida vencidasRep;
+	
+	@Inject
 	private Validador validador;
 	
 	@Inject
@@ -115,7 +119,7 @@ public class FacturacionBean {
 			verificarNegativo(facturaAnterior);
 			factura.setCedula(consumo.getInstalacion().getUsuario().getCedula());
 			factura.setCiclo(cicloActual);
-			factura.setCuentasVencidas(facturaAnterior == null ? 0L : facturaAnterior.getCancelado() ? 0L : facturaAnterior.getCuentasVencidas() + 1L);
+			factura.setCuentasVencidas(vencidasRep.countByNumeroInstalacion(consumo.getInstalacion().getNumeroInstalacion()));
 			factura.setDireccion(consumo.getInstalacion().getDireccion());
 			factura.setCancelado(false);
 			factura.setAbono(false);

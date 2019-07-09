@@ -40,6 +40,8 @@ public final class Constantes {
 													// por completo
 	public static final String VIGENTE = "VIGENTE"; // Rango empleado acualmente
 	public static final String ESPACIO = " ";
+	
+	public static final String COD_NOTA_CREDITO = "888888";
 
 	public static final String USUARIO_ACTIVO = "ACTIVO";
 	public static final String USUARIO_EXISTE = "Ya existe un usuario con la cédula %s.";
@@ -174,6 +176,7 @@ public final class Constantes {
 	public static final String COMPROBANTE_NO_EXISTE = "Comprobante no existe.";
 	public static final String PAGO_ERROR = "Ocurrió un error registrando el pago %s.";
 	public static final String ERROR_VENCIDA = "================= ERROR =================  Se produjo un error al tratar de marcar una cuenta vencida para la instalacion ";
+	public static final String CODIGO_CONCEPTO_IVA_VENTAS = "23450101";
 
 	public static String getMensaje(String mensaje, Long codigo) {
 		return getMensaje(mensaje, String.valueOf(codigo));

@@ -7,6 +7,7 @@ define(['siav-module', 'constantes'], function (app) {
     			 consultar : consultar,
     			 consultarNombres : consultarNombres,
     			 consultarSalidas : consultarSalidas,
+    			 consultarEntradas : consultarEntradas,
     			 crear : crear,
     			 actualizar : actualizar
     	 };
@@ -27,6 +28,13 @@ define(['siav-module', 'constantes'], function (app) {
     	 
     	 function consultar(){
     		 var request = $http.get(CONSTANTES.SRV.ARTICULO_CONSULTAR, {isArray : true});
+    		 return (request.then(function(response) {
+ 	    		return response.data;
+	    	}));
+    	 }
+    	 
+    	 function consultarEntradas(){
+    		 var request = $http.get(CONSTANTES.SRV.ARTICULO_CONSULTAR_ENTRADAS, {isArray : true});
     		 return (request.then(function(response) {
  	    		return response.data;
 	    	}));

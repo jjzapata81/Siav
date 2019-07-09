@@ -9,6 +9,7 @@ import co.com.siav.entities.DetalleFactura;
 import co.com.siav.entities.Exceso;
 import co.com.siav.entities.Factura;
 import co.com.siav.entities.IEstrato;
+import co.com.siav.entities.Material;
 import co.com.siav.entities.Novedad;
 import co.com.siav.entities.Tarifa;
 import co.com.siav.utils.Constantes;
@@ -105,6 +106,11 @@ public class FacturadorBase {
 			return new Concepto(tarifaNovedad.getCodigo(), tarifaNovedad.getDescripcion(), "", 0L, valor, vencido);
 		}
 		return null;
+	}
+	
+	public Concepto getMateriales(Material material){
+		Long vencido = getVencido(material.getCodigo());
+		return new Concepto(material.getCodigo(), material.getDescripcion(), "", 0L, material.getValorSinIva().longValue(), vencido);
 	}
 	
 	private Tarifa buscarTarifa(String concepto){

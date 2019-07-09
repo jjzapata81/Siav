@@ -1,18 +1,8 @@
 package co.com.siav.entities;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 
 @Entity
 @Table(name="ta_pqr_detalle")
@@ -34,6 +24,7 @@ public class PqrDetalle implements Serializable{
 	@ManyToOne
 	private Pqr pqr;
 
+	@Column(name="fechaaccion")
 	private Date fechaAccion;
 	
 	@Column(name="usuario")
@@ -42,7 +33,8 @@ public class PqrDetalle implements Serializable{
 	@OneToOne
 	@JoinColumn(name="usuario",referencedColumnName="nombreusuario", updatable=false, insertable=false)
 	private UsuarioSistema usuario;
-	
+
+	@Column(name="accion")
 	private String accion;
 	
 	public Long getId() {

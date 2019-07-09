@@ -1,11 +1,10 @@
 package co.com.siav.entities;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 
 @Entity
@@ -86,6 +85,9 @@ public class Sistema implements Serializable{
 	
 	@Column(name="snenviofactura")
 	private String envioFactura;
+
+	@Column(name="iva")
+	private Double iva;
 	
 
 	public String getIdMatricula() {
@@ -278,6 +280,14 @@ public class Sistema implements Serializable{
 	
 	public void setTope(Long tope) {
 		this.tope = tope;
+	}
+	
+	public Double getIva() {
+		return null == iva ? 0.0 : iva;
+	}
+	
+	public void setIva(Double iva) {
+		this.iva = iva;
 	}
 	
 }

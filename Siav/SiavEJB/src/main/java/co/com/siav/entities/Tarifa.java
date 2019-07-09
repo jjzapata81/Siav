@@ -1,15 +1,9 @@
 package co.com.siav.entities;
 
-import java.io.Serializable;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
-import javax.persistence.Table;
-
 import co.com.siav.utils.Constantes;
+
+import javax.persistence.*;
+import java.io.Serializable;
 
 
 @Entity
@@ -57,6 +51,10 @@ public class Tarifa implements Serializable, IEstrato{
 	
 	@Column(name="sncredito")
 	private String esCredito;
+	
+	@Column(name="snactivo")
+	private String activo;
+	
 	
 	public String getCodigo() {
 		return codigo;
@@ -167,6 +165,14 @@ public class Tarifa implements Serializable, IEstrato{
 	
 	public void setEsCredito(Boolean esCredito) {
 		this.esCredito = esCredito ? "S" : "N";
+	}
+	
+	public Boolean getActivo() {
+		return "S".equals(activo);
+	}
+	
+	public void setActivo(Boolean activo) {
+		this.activo = activo ? "S" : "N";
 	}
 	
 	@PrePersist

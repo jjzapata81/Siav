@@ -37,6 +37,8 @@ public class Constantes {
 	public static final String PREFACTURA_JRXML = "prefactura.jrxml";
 	public static final String MATRICULA_JRXML = "siavAbono.jrxml";
 	public static final String SI = "S";
+	public static final String ERR_DETALLE_PREFACTURA = "Error convirtiendo los articulos";
+	public static final String CONCEPTO_IVA_VENTAS = "23450101";
 	
 
 }

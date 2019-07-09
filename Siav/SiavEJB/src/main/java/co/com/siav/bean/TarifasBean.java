@@ -55,4 +55,8 @@ public class TarifasBean {
 		return tarifasRep.findByEsCredito(Constantes.SI);
 	}
 
+	public List<Tarifa> consultarActivas() {
+		return tarifasRep.findByActivo(Constantes.SI);
+	}
+
 }

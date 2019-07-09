@@ -1,12 +1,11 @@
 package co.com.siav.entities;
 
-import java.io.Serializable;
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Table(name="ta_comprobante_pago")
@@ -20,13 +19,17 @@ public class Comprobante implements Serializable {
 	
 	@Column(name="nminstalacion")
 	private Long instalacion;
-	
+
+	@Column(name="cedula")
 	private String cedula;
-	
+
+	@Column(name="valor")
 	private Long valor;
-	
+
+	@Column(name="usuario")
 	private String usuario;
-	
+
+	@Column(name="fecha")
 	private Date fecha;
 	
 	@Column(name="fepago")

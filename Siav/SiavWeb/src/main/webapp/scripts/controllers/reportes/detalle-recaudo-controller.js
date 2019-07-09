@@ -8,6 +8,8 @@ define(['siav-module', 'reportes-services', 'modal-email', 'modal-factory', 'con
 
     	$scope.content = {};
     	
+    	$scope.isContent = false;
+    	
     	var REPORTE = "detalle-recaudo";
     	
     	$scope.onDescargar = function(){
@@ -41,6 +43,7 @@ define(['siav-module', 'reportes-services', 'modal-email', 'modal-factory', 'con
 	                var file = new Blob([ data ], {type : 'application/pdf'});
 	                var fileURL = URL.createObjectURL(file);
 	                $scope.content = $sce.trustAsResourceUrl(fileURL);
+	                $scope.isContent = true;
     			});
     		}
     	}

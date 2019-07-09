@@ -146,9 +146,7 @@ public class CiclosBean {
 		Instalacion instalacion = instalacionesRep.findOne(factura.getNumeroInstalacion());
 		instalacion.setCuentasVencidas(factura.getCuentasVencidas());
 		instalacionesRep.save(instalacion);
-		if(factura.getCuentasVencidas()>0){
-			vencidas.calcular(factura);
-		}
+		vencidas.calcular(factura);
 		
 	}
 	

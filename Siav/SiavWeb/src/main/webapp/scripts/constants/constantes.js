@@ -11,6 +11,7 @@ define(['siav-module'], function(app) {
     		"ARTICULO_CONSULTAR" : "rest/articulo/consultar",
     		"ARTICULO_CONSULTAR_NOMBRES" : "rest/articulo/consultar/nombres",
     		"ARTICULO_CONSULTAR_SALIDAS" : "rest/articulo/consultar/salidas",
+    		"ARTICULO_CONSULTAR_ENTRADAS" : "rest/articulo/consultar/entradas",
     		
     		"ASIGNACION_CONSULTAR" : "rest/ruta/consultar/usuario/sistema",
     		"ASIGNACION_ACTUALIZAR" : "rest/ruta/actualizar/usuario/sistema",
@@ -129,6 +130,7 @@ define(['siav-module'], function(app) {
     		"TARIFA_CREAR" : "rest/tarifas/crear",
     		"TARIFA_EDITAR" : "rest/tarifas/editar",
     		"TARIFA_CONSULTAR" : "rest/tarifas/consultar",
+    		"TARIFA_CONSULTAR_ACTIVAS" : "rest/tarifas/consultar/activas",
     		"TARIFA_CONSULTAR_CREDITO" : "rest/tarifas/consultar/credito",
     		"TARIFA_CONSULTAR_DESCRIPCION" : "rest/tarifas/consultar/descripciones",
     		"TARIFA_BUSCAR" : "rest/tarifas/buscar/",
@@ -252,6 +254,7 @@ define(['siav-module'], function(app) {
     	},
     	"INSTALACION" : {
     		"ERR_BUSQUEDA_OBLIGATORIO" : "Ingrese un número de instalación.",
+    		"ERR_DESACTIVAR" : "La instalación ya se encuentra inactiva.",
     		"ERR_USUARIO_NO_EXISTE" : "No existen usuarios con la cédula ingresada."
     	},
     	"LOGIN" : {
@@ -302,7 +305,7 @@ define(['siav-module'], function(app) {
     		"INFO_CANCELAR" : "La orden aún no se ha guardado, al cancelar perderá la información ya ingresada. ¿Desea continuar?",
     		"DEST_INSTALACION" : "INSTALACIÓN",
     		"ERR_INSTALACION" : "Debe ingresar un número de instalación.",
-    		"ERR_PRECIO_MENOR" : "El precio comercial del artículo no debe ser menor que el precio unitario de compra más el IVA.",
+    		"ERR_PRECIO_MENOR" : "El precio comercial del artículo no debe ser menor que el precio unitario de compra.",
     		"ERR_FECHA" : "Debe ingresar una fecha de salida.",
     		"ERR_CANTIDAD_MAYOR" : "La cantidad indicada supera la cantidad de unidades disponibles."
     	},

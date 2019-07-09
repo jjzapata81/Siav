@@ -1,5 +1,6 @@
 package co.com.siav.bean;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -68,8 +69,12 @@ public class ArticuloBean {
 		return null;
 	}
 
-	public List<ArticuloResponse> consultar() {
+	public List<ArticuloResponse> consultarEntradas() {
 		return articuloRep.findByActivo(Constantes.SI).stream().map(this::convert).collect(Collectors.toList());
+	}
+	
+	public List<ArticuloResponse> consultar() {
+		return articuloRep.findAll().stream().map(this::convert).collect(Collectors.toList());
 	}
 
 	public List<String> consultarNombres() {
@@ -81,14 +86,10 @@ public class ArticuloBean {
 		if(articuloBD == null){
 			return new MensajeResponse(EstadoEnum.ERROR, Constantes.ERR_ARTICULO_NO_EXISTE);
 		}
-		MensajeResponse validar = validar(request);
-		if(validar!=null){
-			return validar;
-		}
 		try{
 			articuloBD.setNombre(request.getNombre());
 			articuloBD.setCodigoContable(request.getCodigoContable().trim());
-			articuloBD.setPorcentajeIva(request.getPorcentajeIva());
+			articuloBD.setPorcentajeIva(request.getPorcentajeIva()/100);
 			articuloBD.setTieneIva(request.getTieneIva());
 			articuloBD.setObservacion(request.getObservacion());
 			articuloBD.setUnidad(request.getUnidad().getCodigo());
@@ -118,7 +119,8 @@ public class ArticuloBean {
 		response.setCantidadDisponible(kardex.getSaldoActual());
 		response.setPrecioUnitario(kardex.getPrecioUnitario());
 		response.setIvaUnitario(kardex.getIvaPrecioUnitario());
-		response.setPrecioComercial(kardex.getPrecioComercial());
+		response.setTieneIva(articulo.getTieneIva());
+		response.setPorcentajeIva(articulo.getPorcentajeIva());
 		return response;
 	}
 	

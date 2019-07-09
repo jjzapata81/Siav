@@ -38,6 +38,8 @@ public class PagoAbono extends PagoBase implements IPago{
 	
 	private Long saldo;
 	
+	private Long saldoVencido;
+	
 	private boolean go;
 
 	@Override
@@ -48,6 +50,7 @@ public class PagoAbono extends PagoBase implements IPago{
 		}else{
 			ordenador.prepare();
 			saldo = pago.getValor();
+			saldoVencido = pago.getValor();
 			Ciclo cicloAnterior = ciclosRep.findFirstByEstadoOrderByCicloDesc(Constantes.CERRADO);
 			Factura factura = facturasRep.findByNumeroInstalacionAndCiclo(comprobante.getInstalacion(), cicloAnterior.getCiclo());
 			Long neto = FacturaUtil.getNeto(factura);
@@ -57,7 +60,7 @@ public class PagoAbono extends PagoBase implements IPago{
 			factura.setFechaConsignacion(pago.getFecha());
 			factura.setFechaPagoReal(pago.getFecha());
 			factura.setAbono(true);
-			factura.setCuentasVencidas(getVencidas(factura.getNumeroInstalacion()));
+			actualizarVencidas(factura.getNumeroInstalacion());
 			pago.setError(false);
 			pago.setEsCredito(false);
 			ordenador.get().stream().forEachOrdered(o -> partialPay(o, factura));
@@ -68,20 +71,19 @@ public class PagoAbono extends PagoBase implements IPago{
 		return pago;
 	}
 	
-	private Long getVencidas(Long instalacion){
+	private void actualizarVencidas(Long instalacion){
 		List<FacturaVencida> vencidas = vencidasRep.findByNumeroInstalacionOrderByCicloAsc(instalacion);
 		go = true;
 		vencidas.stream().forEach(this::checkValue);
-		return vencidasRep.countByNumeroInstalacion(instalacion);
 	}
 
 	private void checkValue(FacturaVencida vencida) {
 		if(go){
-			if(vencida.getValor() <= saldo){
-				saldo = saldo - vencida.getValor();
+			if(vencida.getValor() <= saldoVencido){
+				saldoVencido = saldoVencido - vencida.getValor();
 				vencidasRep.delete(vencida);
-			}else if(saldo > 0){
-				vencida.setValor(vencida.getValor() - saldo);
+			}else{
+				vencida.setValor(vencida.getValor() - saldoVencido);
 				vencidasRep.save(vencida);
 				go = false;
 			}

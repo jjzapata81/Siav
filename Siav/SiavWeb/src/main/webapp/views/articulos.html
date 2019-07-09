@@ -15,14 +15,6 @@
 		<div ng-show="esNuevo || estaEditando">
 			<ul class="flex">
 				<li>
-					<label>C&oacute;digo:</label><br>
-					<input type="number" ng-model="articuloNuevo.codigo"/>
-				</li>
-				<li>
-					<label>C&oacute;digo contable:</label><br>
-					<input type="number" ng-model="articuloNuevo.codigoContable"/>
-				</li>
-				<li>
 					<label>Nombre:</label><br>
 					<input type="text" ng-model="articuloNuevo.nombre"
 						uib-typeahead="item as item for item in nombresArticulo | filter:$viewValue | limitTo:5" 
@@ -30,21 +22,32 @@
 						uib-typeahead-wait-ms="1"/>
 				</li>
 				<li>
+					<label>C&oacute;digo:</label><br>
+					<input type="number" class="ancho-100" ng-model="articuloNuevo.codigo"/>
+				</li>
+				<li>
+					<label>C&oacute;digo contable:</label><br>
+					<input type="text" class="ancho-100" ng-model="articuloNuevo.codigoContable"/>
+				</li>
+				
+				<li>
 					<label>Unidad:</label><br>
 					<select ng-model="articuloNuevo.unidad"
-				    	ng-options="unidad as unidad.valor for unidad in unidades track by unidad.codigo">
+				    	ng-options="unidad as unidad.valor for unidad in unidades track by unidad.codigo"
+				    	class="ancho-100">
       				</select>
-				</li>
-			</ul>
-			<ul class="flex">
-				<li>
-					<label>Porcentaje IVA:</label><br>
-					<input type="number" ng-model="articuloNuevo.porcentajeIva"/>
 				</li>
 				<li>
 					<label>¿Tiene IVA?:</label><br>
 					<input type="checkbox" class="chk-config" ng-model="articuloNuevo.tieneIva"/>{{articuloNuevo.tieneIva ? 'SI' : 'NO'}}
 				</li>
+				<li ng-show="articuloNuevo.tieneIva">
+					<label>Porcentaje IVA:</label><br>
+					<input type="number" min="1" step="1" class="ancho-100" ng-model="articuloNuevo.porcentajeIva"/>
+				</li>
+			</ul>
+			<ul class="flex">
+				
 				<li>
 					<label>Observaci&oacute;n</label><br>
 					<textarea class="mensaje-institucional" rows="3" ng-model="articuloNuevo.observacion" maxlength="200"></textarea>
@@ -85,7 +88,7 @@
 					<td nowrap>{{articulo.unidad.valor}}</td>
 					<td>{{articulo.cantidadDisponible}}</td>
 					<td>{{articulo.tieneIva ? 'SI' : 'NO'}}</td>
-					<td>{{articulo.porcentajeIva | currency:"%":2}}</td>
+					<td>{{articulo.porcentajeIva | currency:"%":0}}</td>
 					<td>{{articulo.observacion}}</td>
 					<td><a ng-click="onDesactivar(articulo)">{{articulo.activo ? 'ACTIVO':'INACTIVO'}}</a></td>
 				</tr>

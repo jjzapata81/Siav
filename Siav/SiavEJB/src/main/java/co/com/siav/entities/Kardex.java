@@ -1,16 +1,8 @@
 package co.com.siav.entities;
 
+import javax.persistence.*;
 import java.io.Serializable;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import java.util.Date;
 
 @Entity
 @Table(name="ta_kardex")
@@ -25,28 +17,42 @@ public class Kardex implements Serializable{
 	@GeneratedValue(generator = Kardex.NOMBRE_SECUENCIA, strategy = GenerationType.SEQUENCE)
 	@Column(name="nmkardex")
 	private Long codigo;
-	
+
+	@Column(name="tipo")
 	private String tipo;
-	
+
+	@Column(name="ciclo")
 	private Long ciclo;
-	
+
+	@Column(name="saldoanterior")
 	private Long saldoAnterior;
-	
+
+	@Column(name="cantidadentrada")
 	private Long cantidadEntrada;
-	
+
+	@Column(name="cantidadsalida")
 	private Long cantidadSalida;
-	
+
+	@Column(name="saldoactual")
 	private Long saldoActual;
-	
+
+	@Column(name="preciocompra")
 	private Double precioCompra;
-	
+
+	@Column(name="ivapreciocompra")
 	private Double ivaPrecioCompra;
-	
+
+	@Column(name="preciounitario")
 	private Double precioUnitario;
-	
+
+	@Column(name="ivapreciounitario")
 	private Double ivaPrecioUnitario;
-	
+
+	@Column(name="preciocomercial")
 	private Double precioComercial;
+
+	@Column(name="feingreso")
+	private Date fechaIngreso;
 	
 	@Column(name="nmentrada")
 	private Long codEntrada;
@@ -176,8 +182,15 @@ public class Kardex implements Serializable{
 	public void setCodEntrada(Long codEntrada) {
 		this.codEntrada = codEntrada;
 	}
-	
-	@PrePersist
+
+	public Date getFechaIngreso() {
+		return fechaIngreso;
+	}
+
+	public void setFechaIngreso(Date fechaIngreso) {
+		this.fechaIngreso = fechaIngreso;
+	}
+
 	@PreUpdate
 	private void ceroPorDefecto(){
 		saldoAnterior = saldoAnterior == null ? 0L : saldoAnterior;
@@ -189,6 +202,12 @@ public class Kardex implements Serializable{
 		precioUnitario = precioUnitario == null ? 0D : precioUnitario;
 		ivaPrecioUnitario = ivaPrecioUnitario == null ? 0D : ivaPrecioUnitario;
 		precioComercial = precioComercial == null ? 0D : precioComercial;
+	}
+
+	@PrePersist
+	private void presist(){
+		ceroPorDefecto();
+		fechaIngreso = new Date();
 	}
 		
 }

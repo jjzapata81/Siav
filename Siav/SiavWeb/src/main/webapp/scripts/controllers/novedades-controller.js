@@ -102,7 +102,7 @@ define(['siav-module', 'instalaciones-services', 'tarifas-services', 'novedades-
     	
     	$scope.consultarTarifas = function(){
     		tarifasServices
-    		.consultar()
+    		.consultarActivas()
     		.then(function(tarifas){
     			$scope.tarifas = tarifas;
     		});

@@ -39,30 +39,19 @@
 			<li>
 				<label>Art&iacute;culo:</label><br>
 				<select
-					class="ancho-220"
+					class="ancho-250"
 					ng-model="detalle.articulo"
 			    	ng-options="articulo as articulo.nombre for articulo in articulos"
 			    	ng-change="calcularPrecio()">
       			</select>
 			</li>
+
 			<li>
-				<label>Cantidad:</label><br>
-				<input type="number" ng-model="detalle.cantidad" ng-change="calcularPrecio()"/>
-			</li>
-			<li>
-				<label>Precio</label><br>
-				<input type="number" ng-model="detalle.articulo.precioComercial" ng-change="calcularPrecio()"/>
-			</li>
-			<li>
-				<label>Precio total:</label><br>
-				<input type="number" ng-model="detalle.precio" ng-disabled="true"/>
-			</li>
-			<li>
-				<label>Dsiponibles:</label><br>
+				<label>Disponibles:</label><br>
 				<input type="number" ng-model="detalle.articulo.cantidadDisponible" ng-disabled="true"/>
 			</li>
 			<li>
-				<label>Precio unitario:</label><br>
+				<label>Precio compra:</label><br>
 				<input type="number" ng-model="detalle.articulo.precioUnitario" ng-disabled="true"/>
 			</li>
 			<li>
@@ -70,21 +59,48 @@
 				<input type="number" ng-model="detalle.articulo.ivaUnitario" ng-disabled="true"/>
 			</li>
 		</ul>
+		<ul class="flex">
+			<li>
+				<label>Cantidad:</label><br>
+				<input type="number" ng-model="detalle.cantidad" ng-change="calcularPrecio()"/>
+			</li>
+			<li>
+				<label>Precio para usuario</label><br>
+				<input type="number" ng-model="detalle.articulo.precioComercial" ng-change="calcularPrecio()"/>
+			</li>
+			<li>
+				<label>Subtotal:</label><br>
+				<input type="number" ng-model="detalle.precio" ng-disabled="true"/>
+			</li>
+			<li>
+				<label>Iva</label><br>
+				<input type="number" ng-model="detalle.ivaTotal" ng-disabled="true"/>
+			</li>
+			<li>
+				<label>Precio total:</label><br>
+				<input type="number" ng-model="detalle.precioTotal" ng-disabled="true"/>
+			</li>
+		
+		</ul>
 	</section>
 	<div class="tabla-siav">
 		<table class="table table-responsive">
 			<thead>
 				<th>Art&iacute;culo</th>
 				<th class="column-numeric">Cantidad</th>
-				<th class="column-numeric">Precio</th>
+				<th class="column-numeric">Precio para usuario</th>
+				<th class="column-numeric">Subtotal</th>
+				<th class="column-numeric">Iva</th>
 				<th class="column-numeric">Precio total</th>
 			</thead>
 			<tbody>
 				<tr ng-repeat="detalle in salida.detalles">
 					<td nowrap>{{detalle.articulo.nombre}}</td>
 					<td class="column-currency">{{detalle.cantidad}}</td>
-					<td class="column-currency">{{detalle.articulo.precioComercial | currency:"$":2}}</td>
-					<td class="column-currency">{{detalle.precio | currency:"$":2}}</td>
+					<td class="column-currency">{{detalle.articulo.precioComercial | currency:"$":0}}</td>
+					<td class="column-currency">{{detalle.precio | currency:"$":0}}</td>
+					<td class="column-currency">{{detalle.ivaTotal | currency:"$":0}}</td>
+					<td class="column-currency">{{detalle.precioTotal | currency:"$":0}}</td>
 				</tr>
 			</tbody>
 		</table>

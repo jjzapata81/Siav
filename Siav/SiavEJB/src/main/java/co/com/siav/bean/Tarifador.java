@@ -12,6 +12,7 @@ import co.com.siav.entities.CreditoDetallePK;
 import co.com.siav.entities.CreditoMaestro;
 import co.com.siav.entities.DetalleFactura;
 import co.com.siav.entities.Factura;
+import co.com.siav.entities.Material;
 import co.com.siav.entities.Novedad;
 import co.com.siav.entities.Sistema;
 import co.com.siav.exception.ExcepcionNegocio;
@@ -19,6 +20,7 @@ import co.com.siav.facturacion.Concepto;
 import co.com.siav.facturacion.ConceptoCredito;
 import co.com.siav.facturacion.IFacturador;
 import co.com.siav.repositories.IRepositoryCreditoMaestro;
+import co.com.siav.repositories.IRepositoryMaterial;
 import co.com.siav.repositories.IRepositoryNovedades;
 import co.com.siav.utils.Constantes;
 
@@ -27,6 +29,9 @@ public class Tarifador {
 	
 	@Inject
 	private IRepositoryNovedades novedadesRep;
+	
+	@Inject
+	private IRepositoryMaterial materialesRep;
 	
 	@Inject
 	private IRepositoryCreditoMaestro creditoMaestroRep;
@@ -63,10 +68,9 @@ public class Tarifador {
 		}
 		generarCreditos(consumo.getInstalacion().getNumeroInstalacion());
 		generarNovedades(consumo.getInstalacion().getNumeroInstalacion(), consumo.getId().getCiclo(), consumo.getInstalacion().getEstrato());
+		generarMateriales(consumo.getInstalacion().getNumeroInstalacion(), consumo.getId().getCiclo());
 		if(facturaAnterior!=null){
 			generarOtrosVencidos();
-			//TODO: Calcular recagro
-//			generarConceptoRegargo(facturaAnterior);
 		}
 		return conceptos;
 	}
@@ -141,6 +145,19 @@ public class Tarifador {
 		agregarConcepto(conceptoNovedad);
 	}
 	
+	private void generarMateriales(Long instalacion, Long ciclo){
+		List<Material> materiales = materialesRep.findByInstalacionAndCiclo(instalacion, ciclo);
+		if(!materiales.isEmpty()){
+			materiales.stream().forEach(this::generarDetalleMaterial);
+		}
+	}
+	
+	private void generarDetalleMaterial(Material material) {
+		Concepto conceptoMaterial = facturador.getMateriales(material);
+		agregarConcepto(conceptoMaterial);
+		
+	}
+	
 //Este metodo
 	private void generarConTope() {
 		long sumaItems = conceptosAux.stream().mapToLong(DetalleFactura::getValor).sum();
@@ -172,7 +189,7 @@ public class Tarifador {
 	}
 	
 
-	private void generarConceptoRegargo(Factura facturaAnterior) {
+	private void generarConceptoRecargo(Factura facturaAnterior) {
 		Long totalVencido = facturaAnterior.getDetalles().stream().mapToLong(this::getValorTotalVencido).sum();
 		if(sistema.getEsRecargoFijo()){
 			//TODO: Ojo, aca va el valor del cargo fijo
@@ -200,8 +217,8 @@ public class Tarifador {
 			conceptoFactura.setCodigo(concepto.getCodigo());
 			conceptoFactura.setDetalle(concepto.getDetalle());
 			conceptoFactura.setValor(concepto.getValor());
-			conceptoFactura.setNombre(concepto.getNombre());
 			conceptoFactura.setSaldo(concepto.getVencido());
+			conceptoFactura.setNombre(concepto.getNombre());
 			conceptoFactura.setMetros(concepto.getMetros());
 			conceptoFactura.setInstalacion(instalacion);
 			if(isAux){

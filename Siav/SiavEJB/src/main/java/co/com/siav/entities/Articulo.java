@@ -1,12 +1,7 @@
 package co.com.siav.entities;
 
+import javax.persistence.*;
 import java.io.Serializable;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.PrePersist;
-import javax.persistence.Table;
 
 @Entity
 @Table(name="ta_articulo")
@@ -17,15 +12,20 @@ public class Articulo implements Serializable{
 	@Id
 	@Column(name="nmarticulo")
 	private Long codigo;
-	
+
+	@Column(name="codigocontable")
 	private String codigoContable;
-	
+
+	@Column(name="nombre")
 	private String nombre;
-	
+
+	@Column(name="unidad")
 	private String unidad;
-	
+
+	@Column(name="observacion")
 	private String observacion;
-	
+
+	@Column(name="porcentajeiva")
 	private Double porcentajeIva;
 	
 	@Column(name="sniva")
@@ -55,7 +55,7 @@ public class Articulo implements Serializable{
 	}
 
 	public void setNombre(String nombre) {
-		this.nombre = nombre == null ? "" : nombre.trim();
+		this.nombre = nombre == null ? "" : nombre.trim().toUpperCase();
 	}
 	
 	public String getUnidad() {
@@ -71,7 +71,7 @@ public class Articulo implements Serializable{
 	}
 
 	public void setObservacion(String observacion) {
-		this.observacion = observacion;
+		this.observacion = observacion == null ? "" : observacion.trim().toUpperCase();
 	}
 
 	public Boolean getActivo() {

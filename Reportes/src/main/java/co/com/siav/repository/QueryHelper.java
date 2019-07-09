@@ -185,7 +185,8 @@ public class QueryHelper {
 		sb.append("idsuntuario AS suntuario, ");
 		sb.append("snenviofactura AS envioFactura, ");
 		sb.append("cuentasvencidas AS cuentasVencidas, ");
-		sb.append("cuentascorte AS cuentasCorte ");
+		sb.append("cuentascorte AS cuentasCorte, ");
+		sb.append("iva AS iva ");
 		sb.append("FROM ta_sistema ");
 		return sb.toString();
 	}
@@ -639,6 +640,13 @@ public class QueryHelper {
 		sb.append("  FROM ta_usuarios u ");
 		sb.append("WHERE u.snenvioemail = 'S'");
 		sb.append("AND u.cedula IN (SELECT i.cedula FROM ta_instalacion i)");
+		return sb.toString();
+	}
+
+	public static String getArticulos() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("SELECT a.codigocontable ");
+		sb.append("  FROM ta_articulo a ");
 		return sb.toString();
 	}
 

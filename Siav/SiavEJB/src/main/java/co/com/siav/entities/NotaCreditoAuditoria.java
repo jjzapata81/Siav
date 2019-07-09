@@ -1,16 +1,8 @@
 package co.com.siav.entities;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.PrePersist;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 
 
 
@@ -37,11 +29,14 @@ public class NotaCreditoAuditoria implements Serializable{
 	
 	@Column(name="nmvalor")
 	private Long valor;
-	
+
+	@Column(name="usuario")
 	private String usuario;
-	
+
+	@Column(name="observacion")
 	private String observacion;
-	
+
+	@Column(name="fecha")
 	private Date fecha;
 	
 	public NotaCreditoAuditoria(){

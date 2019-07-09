@@ -1,14 +1,8 @@
 package co.com.siav.entities;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 
 @Entity
@@ -64,13 +58,15 @@ public class Instalacion implements Serializable{
 	
 	@Column(name="digitosmedidor")
 	private Long digitosMedidor;
-	
-	
+
 	@Column(name="numero_catastro")
 	private String numeroCatastro;
 	
 	@Column(name="nmorden")
 	private Long orden;
+	
+	@Column(name="fedesactivacion")
+	private Date fechaDesactivacion;
 	
 	public Long getNumeroInstalacion() {
 		return numeroInstalacion;
@@ -207,6 +203,14 @@ public class Instalacion implements Serializable{
 	
 	public void setOrden(Long orden) {
 		this.orden = orden;
+	}
+	
+	public Date getFechaDesactivacion() {
+		return fechaDesactivacion;
+	}
+	
+	public void setFechaDesactivacion(Date fechaDesactivacion) {
+		this.fechaDesactivacion = fechaDesactivacion;
 	}
 	
 }

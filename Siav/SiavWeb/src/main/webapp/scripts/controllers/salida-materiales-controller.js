@@ -35,6 +35,8 @@ define(['siav-module', 'materiales-services', 'articulo-services', 'proveedor-se
     	
     	$scope.calcularPrecio = function(){
     		$scope.detalle.precio = $scope.detalle.articulo.precioComercial * $scope.detalle.cantidad;
+    		$scope.detalle.ivaTotal = $scope.detalle.precio * $scope.detalle.articulo.porcentajeIva;
+    		$scope.detalle.precioTotal = $scope.detalle.ivaTotal + $scope.detalle.precio;
     	}
     	
     	$scope.cambiarDestino = function(){
@@ -76,6 +78,8 @@ define(['siav-module', 'materiales-services', 'articulo-services', 'proveedor-se
     		$scope.salida.destinoSeleccionado = $scope.destinoSeleccionado.codigo;
     		angular.forEach($scope.salida.detalles, function(detalle, key) {
     			delete(detalle.articulo.precioComercial);
+    			delete(detalle.ivaTotal);
+    			delete(detalle.precioTotal);
 			});
     		materialesServices
 			.crearSalida($scope.salida)
@@ -110,7 +114,7 @@ define(['siav-module', 'materiales-services', 'articulo-services', 'proveedor-se
     			modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.ENTRADA.ERR_DETALLE_PRECIO_UNITARIO);
     			return false;
     		}
-    		if($scope.detalle.articulo.precioComercial < ($scope.detalle.articulo.precioUnitario + $scope.detalle.articulo.ivaUnitario)){
+    		if($scope.detalle.articulo.precioComercial < $scope.detalle.articulo.precioUnitario){
     			modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.SALIDA.ERR_PRECIO_MENOR);
     			return false;
     		}

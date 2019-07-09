@@ -9,6 +9,7 @@
 		<a ng-click="onEditar()" uib-tooltip="Editar" tooltip-placement="left"  ng-show="!estaEditando && existeInstalacion"><i class="fa fa-pencil icon-float icon-add" aria-hidden="true"></i></a>
 		<a ng-click="onEditarPropietario()" uib-tooltip="{{accionPropietario}}" tooltip-placement="left"  ng-show="estaEditando && autorizado"><i class="fa fa-user icon-float icon-print" aria-hidden="true"></i></a>
 		<a ng-click="onCancelar()" uib-tooltip="Cancelar" tooltip-placement="left" ng-show="existeInstalacion && !estaEditando"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
+		<a ng-click="onDesactivar()" uib-tooltip="Desactivar" tooltip-placement="left" ng-show="estaEditando"><i class="fa fa-power-off icon-float icon-save" aria-hidden="true"></i></a>
 		<a ng-click="onCancelarEditar()" uib-tooltip="Cancelar" tooltip-placement="left" ng-show="estaEditando"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
 	</div>
 	
@@ -89,6 +90,10 @@
 				    	ng-disabled="!esNueva">
 				    	<option value=''>Seleccione...</option>
       				</select>
+				</li>
+				<li>
+					<label>Activa:</label><br>
+					<label>{{instalacion.activo ? 'SI' : 'NO'}}</label>
 				</li>
 			</ul>
 		</div>

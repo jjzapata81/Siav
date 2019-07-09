@@ -1,11 +1,10 @@
 package co.com.siav.entities;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Entity
 @Table(name="ta_empresa")
@@ -16,11 +15,23 @@ public class Empresa implements Serializable{
 	@Id
 	@Column(name="nmempresa")
 	private Long id;
+
+	@Column(name="nit")
 	private String nit;
+
+	@Column(name="nombrecorto")
 	private String nombreCorto;
+
+	@Column(name="nombrelargo")
 	private String nombreLargo;
+
+	@Column(name="direccion")
 	private String direccion;
+
+	@Column(name="telefono")
 	private String telefono;
+
+	@Column(name="ciudad")
 	private String ciudad;
 	
 	public Long getId() {

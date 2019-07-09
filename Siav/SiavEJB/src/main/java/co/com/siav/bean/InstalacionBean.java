@@ -121,6 +121,7 @@ public class InstalacionBean {
 		try{
 			Instalacion instalacion = instalacionRep.findOne(request.getInstalacion());
 			instalacion.setActivo(false);
+			instalacion.setFechaDesactivacion(new Date());
 			instalacionRep.save(instalacion);
 			Desactivacion desactivacion = new Desactivacion();
 			desactivacion.setInstalacion(request.getInstalacion());

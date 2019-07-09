@@ -1,11 +1,10 @@
 package co.com.siav.entities;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Entity
 @Table(name="ta_formato_recaudo")
@@ -16,16 +15,20 @@ public class FormatoRecaudo implements Serializable{
 	@Id
 	@Column(name="idformato")
 	private String id;
-	
+
+	@Column(name="fecha")
 	private Long fecha;
-	
+
+	@Column(name="valor")
 	private Long valor;
-	
+
+	@Column(name="referencia")
 	private Long referencia;
 	
 	@Column(name="formato_fecha")
 	private String formatoFecha;
-	
+
+	@Column(name="separador")
 	private String separador;
 	
 	@Column(name="separador_aux")

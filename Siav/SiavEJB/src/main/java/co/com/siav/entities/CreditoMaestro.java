@@ -127,7 +127,7 @@ public class CreditoMaestro implements Serializable{
 	}
 
 	public Long getInicial() {
-		return inicial;
+		return null == inicial ? 0L : inicial;
 	}
 
 	public void setInicial(Long inicial) {

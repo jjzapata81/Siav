@@ -1,14 +1,13 @@
 package co.com.siav.entities;
 
-import java.io.Serializable;
-import java.util.Date;
+import co.com.siav.utils.Constantes;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import co.com.siav.utils.Constantes;
+import java.io.Serializable;
+import java.util.Date;
 
 
 @Entity
@@ -29,8 +28,7 @@ public class Exceso implements Serializable, IEstrato{
 	
 	@Column(name="limfinal")
 	private Long limFinal;
-	
-	
+
 	@Column(name="estrato0")
 	private Long estrato0;
 	

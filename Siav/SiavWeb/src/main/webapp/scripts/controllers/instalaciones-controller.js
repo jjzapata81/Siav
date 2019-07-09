@@ -97,21 +97,26 @@ define(['siav-module', 'instalaciones-services', 'usuarios-services', 'veredas-s
     	}
     	
     	$scope.onDesactivar = function(){
-    		modalObservacion
-			.abrir()
-    		.result
-    		.then(function(observacion){
-    			var request = {};
-        		request.usuario = getData("user");
-        		request.observacion = observacion;
-        		request.instalacion = $scope.instalacion.numeroInstalacion;
-        		instalacionesServices
-        		.desactivar(request)
-        		.then(function(respuesta){
-        			modalFactory.abrirDialogo(respuesta);
-        			$scope.init();
+    		
+    		if(!$scope.instalacion.activo){
+    			modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.INSTALACION.ERR_DESACTIVAR);
+    		}else{
+    			modalObservacion
+    			.abrir()
+        		.result
+        		.then(function(observacion){
+        			var request = {};
+            		request.usuario = getData("user");
+            		request.observacion = observacion;
+            		request.instalacion = $scope.instalacion.numeroInstalacion;
+            		instalacionesServices
+            		.desactivar(request)
+            		.then(function(respuesta){
+            			modalFactory.abrirDialogo(respuesta);
+            			$scope.init();
+            		});
         		});
-    		});
+    		}
     		
     	}
     	
