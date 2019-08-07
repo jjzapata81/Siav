@@ -11,7 +11,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import co.com.siav.reports.filters.Filter;
-import co.com.siav.reports.response.UsuariosInstalaciones;
+import co.com.siav.repository.entities.UsuariosInstalaciones;
 import co.com.siav.repository.report.AbonoRepository;
 import co.com.siav.repository.report.UsuarioRepository;
 import co.com.siav.rest.request.AbonoRequest;

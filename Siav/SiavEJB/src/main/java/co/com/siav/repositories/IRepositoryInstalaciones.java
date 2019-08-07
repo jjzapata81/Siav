@@ -47,8 +47,8 @@ public interface IRepositoryInstalaciones extends JpaRepository<Instalacion, Lon
 	@Query("SELECT i FROM Instalacion i WHERE i.orden < 99999 ORDER BY i.orden DESC")
 	List<Instalacion> findLastByOrden();
 
-	@Query("SELECT i FROM Instalacion i WHERE i.activo = 'N' AND i.fechaInstalacion < :fechaInstalacion AND fechaDesactivacion <> null")
-	List<Instalacion> findToActivate(@Param("fechaInstalacion") Date fecha);
+	@Query("SELECT i FROM Instalacion i WHERE i.activo = 'N' AND i.fechaDesactivacion = null")
+	List<Instalacion> findToActivate();
 
 	Long countByRamal(String codigoRamal);
 

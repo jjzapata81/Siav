@@ -1,0 +1,27 @@
+<titulo/>
+<menu></menu>
+
+<div  class="contenido">
+	<div  class="boton-fijo">
+		<a ng-click="onBuscarPDF()" uib-tooltip="Buscar" tooltip-placement="left"><i class="fa fa-search icon-float icon-search" aria-hidden="true"></i></a>
+		<a ng-click="onEnviar()" uib-tooltip="Enviar e-mail" tooltip-placement="left"><i class="fa fa-envelope icon-float icon-add"></i></a>
+		<a ng-click="onDescargar()" uib-tooltip="Descargar Excel" tooltip-placement="left"><i class="fa fa-file-excel-o icon-float icon-save"></i></a>
+	</div>
+	<section class="titulo-seccion">
+		Venta de Matr&iacute;culas
+	</section>
+	<section class="formulario form-fijo">
+		<div>
+			<ul class="flex">
+				<li>
+					<label>Ciclo:</label><br>
+					<input type="number" ng-model="filtro.ciclo"/>
+				</li>
+			</ul>
+		</div>
+	</section>
+	
+	<div>
+		<object ng-show="isContent" data="{{content}}" type="application/pdf" style="width: 90%; height: 400px;"></object>
+	</div>
+</div>

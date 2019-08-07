@@ -3,7 +3,7 @@
 <div  class="contenido">
 	<div  class="boton-fijo">
 		<a ng-click="onGuardar()" uib-tooltip="Guardar" ng-show="estaEditando" tooltip-placement="left"><i class="fa fa-floppy-o icon-float icon-save" aria-hidden="true"></i></a>
-		<a ng-click="onCancelar()" uib-tooltip="Cancelar" ng-shoe="estaEditando" tooltip-placement="left"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
+		<a ng-click="onCancelar()" uib-tooltip="Cancelar" ng-show="estaEditando" tooltip-placement="left"><i class="fa fa-times icon-float icon-cancel" aria-hidden="true"></i></a>
 	</div>
 	<section class="titulo-seccion">Asignaci&oacute;n de recorridos</section>
 	<section class="formulario form-fijo" ng-show="estaEditando">
@@ -34,7 +34,7 @@
 			<tbody>
 				<tr ng-repeat="asignacion in asignaciones | orderBy:'usuarioRamalPK.codigoRamal' | startFrom:(currentPage-1)*itemsPerPage | limitTo:itemsPerPage">
 					<td><a ng-click="onEditar(asignacion)">{{asignacion.usuario.nombreCompleto}}</a></td>
-					<td>{{asignacion.usuarioRamalPK.codigoRamal}}</td>
+					<td><a ng-click="onEditar(asignacion)">{{asignacion.usuarioRamalPK.codigoRamal}}</a></td>
 				</tr>
 			</tbody>
 		</table>

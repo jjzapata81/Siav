@@ -32,6 +32,8 @@ public class Constantes {
 	public static final String VARIACION_CONSUMO_JRXML = "variacionConsumo.jrxml";
 	public static final String CONSUMO_NO_FACTURADO_JRXML = "consumoNoFacturado.jrxml";
 	public static final String CONSOLIDADO_CONCEPTO_JRXML = "consolidadoConcepto.jrxml";
+	public static final String KARDEX_JRXML = "kardex.jrxml";
+	public static final String VENTAS_JRXML = "ventas.jrxml";
 	public static final String FACTURA_JRXML = "siav.jrxml";
 	public static final String ABONO_JRXML = "siavAbono.jrxml";
 	public static final String PREFACTURA_JRXML = "prefactura.jrxml";

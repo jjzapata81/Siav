@@ -17,6 +17,7 @@ define(['siav-module', 'materiales-services', 'articulo-services', 'proveedor-se
     		$scope.consultarArticulos();
     		$scope.consultarProveedores();
     		$scope.detalle = null;
+    		$scope.excel = {};
     	}
     	
     	$scope.consultarArticulos = function(){
@@ -89,6 +90,7 @@ define(['siav-module', 'materiales-services', 'articulo-services', 'proveedor-se
     	}
     	
     	$scope.continuarGuardar = function(){
+    		$scope.excel = angular.copy($scope.entrada.detalles);
     		delete($scope.entrada.incluyeIva);
     		delete($scope.entrada.totalFactura);
     		delete($scope.entrada.totalIva);
@@ -98,6 +100,7 @@ define(['siav-module', 'materiales-services', 'articulo-services', 'proveedor-se
     			delete(detalle.articulo.precioComercial);
     			delete(detalle.articulo.ivaUnitario);
 			});
+    		materialesServices.crearExcel($scope.excel, $scope.entrada.factura);
     		materialesServices
 			.crearEntrada($scope.entrada)
 			.then(function(respuesta){

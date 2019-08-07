@@ -1,17 +1,15 @@
-package co.com.siav.reports.response;
+package co.com.siav.repository.entities;
 
+import java.util.List;
 
-public class UsuariosExcel {
+public class UsuariosInstalaciones {
 	private String cedula;
 	private String nombres;
 	private String apellidos;
 	private String telefono;
 	private String celular;
 	private String email;
-	private Long instalacion;
-	private Long cuentasVencidas;
-	private String ramal;
-	private String medidor;
+	private List<Instalacion> instalaciones;
 	
 	public String getCedula() {
 		return cedula;
@@ -49,29 +47,11 @@ public class UsuariosExcel {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public Long getInstalacion() {
-		return instalacion;
+	public List<Instalacion> getInstalaciones() {
+		return instalaciones;
 	}
-	public void setInstalacion(Long instalacion) {
-		this.instalacion = instalacion;
+	public void setInstalaciones(List<Instalacion> instalaciones) {
+		this.instalaciones = instalaciones;
 	}
-	public Long getCuentasVencidas() {
-		return cuentasVencidas;
-	}
-	public void setCuentasVencidas(Long cuentasVencidas) {
-		this.cuentasVencidas = cuentasVencidas;
-	}
-	public String getRamal() {
-		return ramal;
-	}
-	public void setRamal(String ramal) {
-		this.ramal = ramal;
-	}
-	public String getMedidor() {
-		return medidor;
-	}
-	public void setMedidor(String medidor) {
-		this.medidor = medidor;
-	}
-	
+
 }

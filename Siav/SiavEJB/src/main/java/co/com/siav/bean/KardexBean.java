@@ -9,6 +9,7 @@ import org.springframework.beans.BeanUtils;
 
 import co.com.siav.entities.Articulo;
 import co.com.siav.entities.Kardex;
+import co.com.siav.exception.ExcepcionNegocio;
 import co.com.siav.repositories.IRepositoryArticulo;
 import co.com.siav.repositories.IRepositoryKardex;
 import co.com.siav.repositories.IRepositoryMaestros;
@@ -82,7 +83,11 @@ public class KardexBean {
 	}
 
 	public Kardex getKardex(Long codigo) {
-		return kardexRep.findFirstByCodArticuloOrderByCodigoDesc(codigo);
+		Kardex kardex = kardexRep.findFirstByCodArticuloOrderByCodigoDesc(codigo);
+		if(kardex == null){
+			throw new ExcepcionNegocio(Constantes.getMensaje(Constantes.ERR_ARTICULO_SIN_KARDEX, codigo));
+		}
+		return kardex;
 	}
 	
 	private Kardex getAnterior(Long codigoArticulo) {

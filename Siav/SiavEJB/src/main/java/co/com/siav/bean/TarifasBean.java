@@ -28,6 +28,7 @@ public class TarifasBean {
 		if(tarifasRep.exists(tarifa.getCodigo())){
 			return new MensajeResponse(EstadoEnum.ERROR, Constantes.getMensaje(Constantes.CODIGO_TARIFA_EXISTE, tarifa.getCodigo()));
 		}
+		tarifa.setOrden(99L);
 		tarifasRep.save(tarifa);
 		return new MensajeResponse(Constantes.ACTUALIZACION_EXITO);
 	}

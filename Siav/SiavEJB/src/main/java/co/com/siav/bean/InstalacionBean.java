@@ -120,6 +120,9 @@ public class InstalacionBean {
 	public MensajeResponse desactivar(DesactivacionRequest request){
 		try{
 			Instalacion instalacion = instalacionRep.findOne(request.getInstalacion());
+			if(!instalacion.getActivo()){
+				return new MensajeResponse(EstadoEnum.ERROR, Constantes.DESACTIVACION_FALLO);
+			}
 			instalacion.setActivo(false);
 			instalacion.setFechaDesactivacion(new Date());
 			instalacionRep.save(instalacion);

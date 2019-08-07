@@ -3,7 +3,11 @@ package co.com.siav.bean.builders;
 import co.com.siav.entities.Novedad;
 import co.com.siav.entities.NovedadPK;
 
-public class NovedadBuilder {
+public final class NovedadBuilder {
+	
+	private NovedadBuilder() {
+		super();
+	}
 	
 	public static NovedadPK crearPK(Long ciclo, Long instalacion, String codigoConcepto){
 		NovedadPK pk = new NovedadPK();

@@ -8,6 +8,7 @@ define(['siav-module', 'instalaciones-services', 'usuarios-services', 'veredas-s
     		 function($scope, $location, $filter, instalacionesServices, usuariosServices, veredasServices, ramalServices, modalFactory, modalUsuario, modalObservacion, CONSTANTES){
 
     	$scope.estratos = [1, 2, 3, 4, 5, 6];
+    	
     			
     	$scope.init = function(){
     		$scope.limpiar();
@@ -53,6 +54,7 @@ define(['siav-module', 'instalaciones-services', 'usuarios-services', 'veredas-s
         				$scope.instalacion.facturacion = tipoFacturacion;
         				$scope.existeInstalacion = true;
         				$scope.puedeActivar = respuesta.activar;
+        				$scope.esActiva = respuesta.instalacion.activo;
         				instalacionesServices
     					.consultaVencido($scope.instalacion.numeroInstalacion)
     					.then(function(respuesta){
@@ -156,6 +158,7 @@ define(['siav-module', 'instalaciones-services', 'usuarios-services', 'veredas-s
     	
     	$scope.limpiar = function (){
     		$scope.esNueva = false;
+    		$scope.esActiva = true;
     		$scope.autorizado = true;
     		$scope.instalacion = {};
 			$scope.instalacion.usuario = null;

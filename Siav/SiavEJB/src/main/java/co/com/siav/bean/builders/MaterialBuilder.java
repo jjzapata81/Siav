@@ -3,7 +3,11 @@ package co.com.siav.bean.builders;
 import co.com.siav.entities.Material;
 import co.com.siav.request.MaterialDetalleRequest;
 
-public class MaterialBuilder {
+public final class MaterialBuilder {
+	
+	private MaterialBuilder(){
+		super();
+	}
 	
 	public static Material crear(MaterialDetalleRequest item, Long ciclo, Long idSalida, Long instalacion) {
 		Material material = new Material();

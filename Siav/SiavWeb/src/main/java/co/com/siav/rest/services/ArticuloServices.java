@@ -12,7 +12,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import co.com.siav.bean.ArticuloBean;
-import co.com.siav.entities.Articulo;
 import co.com.siav.request.ArticuloRequest;
 import co.com.siav.response.ArticuloResponse;
 import co.com.siav.response.MensajeResponse;

@@ -101,7 +101,7 @@ define(['siav-module', 'instalaciones-services', 'tarifas-services', 'creditos-s
        			modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.CREDITO.ERR_TARIFA_OBLIGATORIO);
     			return false;
     		}
-    		if(!$scope.credito || $scope.credito.inicial < 0 || $scope.credito.interes < 0){
+    		if(!$scope.credito || $scope.credito.inicial < 0 || ($scope.credito.interes && $scope.credito.interes < 0)){
        			modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.CREDITO.ERR_NEGATIVO);
     			return false;
     		}

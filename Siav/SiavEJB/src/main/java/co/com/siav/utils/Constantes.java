@@ -177,6 +177,8 @@ public final class Constantes {
 	public static final String PAGO_ERROR = "Ocurrió un error registrando el pago %s.";
 	public static final String ERROR_VENCIDA = "================= ERROR =================  Se produjo un error al tratar de marcar una cuenta vencida para la instalacion ";
 	public static final String CODIGO_CONCEPTO_IVA_VENTAS = "23450101";
+	public static final String DESACTIVACION_FALLO = "No se puede desactivar una instalación inactiva.";
+	public static final String CODIGO_CIERRE_SALDO_FAVOR = "3";
 
 	public static String getMensaje(String mensaje, Long codigo) {
 		return getMensaje(mensaje, String.valueOf(codigo));

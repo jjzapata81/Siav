@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="consolidadoConcepto" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="05b47be7-4e67-47e8-840d-c5995343b69f">
+	<property name="ireport.zoom" value="2.9282000000000012"/>
+	<property name="ireport.x" value="106"/>
+	<property name="ireport.y" value="2"/>
+	<parameter name="titulo" class="java.lang.String"/>
+	<parameter name="subtitulo" class="java.lang.String"/>
+	<field name="ciclo" class="java.lang.Long"/>
+	<field name="fecha" class="java.lang.String"/>
+	<field name="codigo" class="java.lang.String"/>
+	<field name="articulo" class="java.lang.String"/>
+	<field name="saldoInicial" class="java.lang.Long"/>
+	<field name="entrada" class="java.lang.String"/>
+	<field name="precioEntrada" class="java.lang.Long"/>
+	<field name="salida" class="java.lang.String"/>
+	<field name="precioSalida" class="java.lang.String"/>
+	<field name="saldoFinal" class="java.lang.String"/>
+	<field name="valorSaldo" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="55" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="30" y="7" width="453" height="20" uuid="46e8848c-acb6-48a4-82d0-462f6b4b5b64"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{titulo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="yyyy-MM-dd">
+				<reportElement x="483" y="7" width="60" height="14" uuid="b2da9591-278e-4d4b-b9ef-2a3bc0efa4c1"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="30" y="27" width="453" height="21" uuid="7b22eb48-1b4d-4fd3-a678-94da0166898d"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{subtitulo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="15" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="2" width="30" height="10" uuid="39dbf9ed-796b-443b-85cd-4a7b2e2c6a6a"/>
+				<textElement textAlignment="Center">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CICLO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="2" width="36" height="10" uuid="52d39e50-12fb-465e-a6af-d57e6c2d1934"/>
+				<textElement textAlignment="Center">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="66" y="2" width="33" height="10" uuid="245678e6-2c8c-4dfd-b2e9-5d872e2b669f"/>
+				<textElement textAlignment="Center">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CÓDIGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="99" y="2" width="110" height="10" uuid="d5296f8d-766d-4bb7-a9cd-3fd9bac395dc"/>
+				<textElement textAlignment="Center">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ARTÍCULO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="209" y="2" width="52" height="10" uuid="e055b264-b346-40d3-a8b8-9c0a7e4402ae"/>
+				<textElement textAlignment="Center">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SALDO INICIAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="261" y="2" width="32" height="10" uuid="5c47851a-70ce-4aa2-8cdc-4709a0f70d01"/>
+				<textElement textAlignment="Center">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ENTRADA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="293" y="2" width="65" height="10" uuid="4f34e4de-e140-44dd-9a3c-04be282a619f"/>
+				<textElement textAlignment="Center">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PRECIO ENTRADA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="358" y="2" width="23" height="10" uuid="2d84f68d-7746-497d-a38d-abd5d4e28f9a"/>
+				<textElement textAlignment="Center">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SALIDA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="381" y="2" width="53" height="10" uuid="44d9c3f6-53b5-419c-b4cf-5796923b2aa9"/>
+				<textElement textAlignment="Center">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PRECIO SALIDA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="441" y="2" width="41" height="10" uuid="736a9c15-a2f3-47de-9149-99ea5a68b798"/>
+				<textElement textAlignment="Center">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SALDO FINAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="483" y="2" width="71" height="10" uuid="594a60fe-4316-448a-972b-1fbe7436c9ca"/>
+				<textElement textAlignment="Center">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[VALOR SALDO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="12" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="30" height="10" uuid="3ab3e2bf-cd26-4a07-a075-2aa619e6f02b"/>
+				<textElement textAlignment="Center">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ciclo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MM/dd/yyyy" isBlankWhenNull="true">
+				<reportElement x="30" y="0" width="36" height="10" uuid="028597b7-b40d-4537-a05f-fec13f369774"/>
+				<textElement textAlignment="Center">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="66" y="0" width="33" height="10" uuid="c392c092-eb1e-4c36-8d08-d9472c83a50f"/>
+				<textElement textAlignment="Center">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="99" y="0" width="110" height="10" uuid="2195420c-00d4-4e5e-b261-8a88399ebdff"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{articulo}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="209" y="0" width="52" height="10" uuid="f5bd84cd-4626-419c-b058-baf96e8447e2"/>
+				<textElement textAlignment="Center">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{saldoInicial}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="261" y="0" width="32" height="10" uuid="11839749-4a4e-40b1-a034-300193dd5aec"/>
+				<textElement textAlignment="Center">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{entrada}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0" isBlankWhenNull="true">
+				<reportElement x="293" y="0" width="65" height="10" uuid="5f8cd621-6bd7-41a3-b134-89d06e479880"/>
+				<textElement textAlignment="Right">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{precioEntrada}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="358" y="0" width="23" height="10" uuid="84956a96-9a21-45f8-80e1-7282c9378af4"/>
+				<textElement textAlignment="Center">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{salida}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0" isBlankWhenNull="true">
+				<reportElement x="381" y="0" width="53" height="10" uuid="cfc2f0dc-6881-483d-8a91-4d19ea1bf2b5"/>
+				<textElement textAlignment="Right">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{precioSalida}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="442" y="0" width="40" height="10" uuid="596f9cb2-fba4-48b0-a685-f77481c10277"/>
+				<textElement textAlignment="Center">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{saldoFinal}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0" isBlankWhenNull="true">
+				<reportElement x="483" y="0" width="71" height="10" uuid="3b0e2e5e-3ca9-4dbc-bdb9-5aa9565a9380"/>
+				<textElement textAlignment="Right">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valorSaldo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="43" splitType="Stretch">
+			<textField>
+				<reportElement x="381" y="22" width="128" height="10" uuid="b9edc8df-cb6c-435d-98d4-344a5ef6cb79"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="509" y="22" width="33" height="10" uuid="3c25d4ad-a30c-4b21-8be7-f4d1b4411c81"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

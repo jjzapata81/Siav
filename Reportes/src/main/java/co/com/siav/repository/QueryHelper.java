@@ -1,5 +1,4 @@
 package co.com.siav.repository;
-
 import co.com.siav.pdf.dto.InstalacionPDFBase;
 import co.com.siav.reports.filters.Comprobante;
 import co.com.siav.reports.filters.Filter;
@@ -30,17 +29,17 @@ public class QueryHelper {
 		return sb.toString();
 	}
 
-	public static String getVentas(Filter filter) {
-		StringBuilder sb = new StringBuilder();
-		sb.append("SELECT cdconcepto concepto, nombre, sum(valor) venta, sum(saldo) cartera ");
-		sb.append("FROM ta_factura_maestro fe, ta_factura_detalle fd ");
-		sb.append("where fe.nmfactura = fd.nmfactura and ");
-		sb.append("ciclo =  ");
-		sb.append(filter.getCiclo());
-		sb.append(" and cdconcepto in ('412515', '412520', '402514', '431001','431002','431003') ");
-		sb.append("group by cdconcepto, nombre; ");
-		return sb.toString();
-	}
+//	public static String getVentas(Filter filter) {
+//		StringBuilder sb = new StringBuilder();
+//		sb.append("SELECT cdconcepto concepto, nombre, sum(valor) venta, sum(saldo) cartera ");
+//		sb.append("FROM ta_factura_maestro fe, ta_factura_detalle fd ");
+//		sb.append("where fe.nmfactura = fd.nmfactura and ");
+//		sb.append("ciclo =  ");
+//		sb.append(filter.getCiclo());
+//		sb.append(" and cdconcepto in ('412515', '412520', '402514', '431001','431002','431003') ");
+//		sb.append("group by cdconcepto, nombre; ");
+//		return sb.toString();
+//	}
 
 	public static String getPrefacturaEncabezado(Filter filter) {
 		StringBuilder sb = new StringBuilder();
@@ -647,6 +646,63 @@ public class QueryHelper {
 		StringBuilder sb = new StringBuilder();
 		sb.append("SELECT a.codigocontable ");
 		sb.append("  FROM ta_articulo a ");
+		return sb.toString();
+	}
+	
+	public static String getKardex(Long ciclo){
+		StringBuilder sb = new StringBuilder();
+		sb.append("SELECT kx.ciclo, kx.feingreso fecha, kx.nmarticulo codigo, a.nombre articulo, kx.saldoanterior saldoInicial, ");
+		sb.append("cantidadentrada entrada, ");
+		sb.append("CASE cantidadentrada WHEN 0 then 0 ELSE preciounitario END precioEntrada, ");
+		sb.append("cantidadsalida salida, ");
+		sb.append("CASE cantidadsalida WHEN 0 then 0 ELSE preciounitario END precioSalida, ");
+		sb.append("saldoactual saldoFinal, saldoactual*preciounitario valorSaldo ");
+		sb.append("FROM ta_kardex kx, ta_articulo a ");
+		sb.append("WHERE kx.nmarticulo = a.nmarticulo AND kx.ciclo = ");
+		sb.append(ciclo);
+		sb.append(" AND tipo in ('2','3') ");
+		sb.append("ORDER BY kx.nmarticulo, kx.nmkardex;");
+		return sb.toString();
+	}
+	
+	public static String getVentasMatricula(Long ciclo) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("select c.ciclo, lp.fehasta fechapago, cp.cedula, trim(u.nombres) || ' ' || trim(u.apellidos) nombre, trim(t.descripcion) || ' VENTA DE CONTADO' concepto, lp.valor, 0 inicial ");  
+		sb.append("from ta_comprobante_pago cp, ta_log_pagos lp, ta_usuarios u, ta_ciclos c, ta_tarifas t, ta_sistema s ");
+		sb.append("where cp.cedula = u.cedula ");
+		sb.append("and cp.nmcomprobante = lp.nmfactura ");
+		sb.append("and t.cdconcepto = s.idderecho ");
+		sb.append("and lp.fehasta between c.fecha and c.fecha+30 ");
+		sb.append("and snmatricula = 'S' and sncancelado = 'S' ");
+		sb.append("and lp.valor = t.estrato0 ");
+		sb.append("and c.ciclo = ");
+		sb.append(ciclo);
+		sb.append(" UNION ");
+		sb.append("SELECT c.ciclo, lp.fehasta fechapago, u.cedula, trim(u.nombres) || ' ' || trim(u.apellidos) nombre, trim(t.descripcion) || ' VENTA A CRÉDITO' concepto, cr.valor, cr.inicial ");
+		sb.append("  FROM ta_comprobante_pago cp, ta_log_pagos lp, ta_credito_maestro cr, ta_instalacion i, ta_usuarios u, ta_ciclos c, ta_tarifas t, ta_sistema s ");
+		sb.append("  where cp.cedula = u.cedula ");
+		sb.append("  and cr.nminstalacion = i.nminstalacion ");
+		sb.append("  and i.cedula = u.cedula ");
+		sb.append("  and cp.nmcomprobante = lp.nmfactura ");
+		sb.append("  and t.cdconcepto = s.idderecho ");
+		sb.append("  and cr.cdconcepto = s.idderecho ");
+		sb.append("  and c.ciclo = cr.ciclo ");
+		sb.append("  and snmatricula = 'S' and sncancelado = 'S' ");
+		sb.append("  and cr.fecha between c.fecha and c.fecha+30 ");
+		sb.append("  and lp.valor <> t.estrato0 ");
+		sb.append("  and lp.valor = cr.inicial ");
+		sb.append("  and c.ciclo = ");
+		sb.append(ciclo);
+		sb.append(" UNION ");
+		sb.append("SELECT c.ciclo, cr.fecha fechapago, u.cedula, trim(u.nombres) || ' ' || trim(u.apellidos) nombre, trim(t.descripcion) || ' VENTA A CRÉDITO' concepto, cr.valor, cr.inicial ");
+		sb.append("  FROM  ta_credito_maestro cr, ta_instalacion i, ta_usuarios u, ta_ciclos c, ta_tarifas t, ta_sistema s ");
+		sb.append("  where cr.nminstalacion = i.nminstalacion ");
+		sb.append("  and i.cedula = u.cedula ");
+		sb.append("  and t.cdconcepto = s.idderecho ");
+		sb.append("  and cr.cdconcepto = s.idderecho ");
+		sb.append("  and c.ciclo = cr.ciclo ");
+		sb.append("  and cr.inicial = 0 ");
+		sb.append(" order by 1, 2, 3, 4;");
 		return sb.toString();
 	}
 

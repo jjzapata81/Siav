@@ -64,6 +64,7 @@ public class PagoAbono extends PagoBase implements IPago{
 			pago.setError(false);
 			pago.setEsCredito(false);
 			ordenador.get().stream().forEachOrdered(o -> partialPay(o, factura));
+			factura.getDetalles().stream().filter(item-> !item.isUsed()).forEach(this::pay);
 			facturasRep.save(factura);
 			save(pago);
 		}
@@ -104,6 +105,7 @@ public class PagoAbono extends PagoBase implements IPago{
 				detalleFactura.setCartera(detalleFactura.getValor() + detalleFactura.getSaldo());
 				saldo = saldo - netoRegistro;
 			}
+			detalleFactura.setUsed(true);
 			detalleFactura.setCancelado(detalleFactura.getValor() + detalleFactura.getSaldo() == detalleFactura.getCartera());
 		}
 	}

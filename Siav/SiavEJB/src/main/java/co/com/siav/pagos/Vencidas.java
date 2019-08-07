@@ -19,10 +19,12 @@ public class Vencidas {
 		vencida.setNumeroInstalacion(factura.getNumeroInstalacion());
 		vencida.setCiclo(factura.getCiclo());
 		vencida.setValor(FacturaUtil.getValor(factura));
-		try{
-			vencidasRep.save(vencida);
-		}catch(Exception e){
-			System.out.println(Constantes.ERROR_VENCIDA + factura.getNumeroInstalacion());
-		}		
+		if(vencida.getValor()>0){
+			try{
+				vencidasRep.save(vencida);
+			}catch(Exception e){
+				System.out.println(Constantes.ERROR_VENCIDA + factura.getNumeroInstalacion());
+			}
+		}
 	}
 }

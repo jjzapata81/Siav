@@ -13,12 +13,12 @@ import co.com.siav.notifier.config.Attachment;
 import co.com.siav.notifier.reports.name.Reporte;
 import co.com.siav.reports.factory.IReportType;
 import co.com.siav.reports.filters.Filter;
-import co.com.siav.reports.response.UsuariosExcel;
-import co.com.siav.reports.response.UsuariosInstalaciones;
 import co.com.siav.repository.QueryHelper;
 import co.com.siav.repository.ReportBDFactory;
 import co.com.siav.repository.entities.Instalacion;
 import co.com.siav.repository.entities.UsuariosBD;
+import co.com.siav.repository.entities.UsuariosExcel;
+import co.com.siav.repository.entities.UsuariosInstalaciones;
 
 public class UsuarioRepository implements IReportType{
 	

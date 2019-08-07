@@ -50,6 +50,16 @@ public class Reporte {
 	public static final String CONSOLIDADO_CONCEPTO = "facturacion_consolidada_conceptos_ciclo_%d.xlsx";
 	public static final String CONSOLIDADO_CONCEPTO_SUBTITULO = "Facturación consolidada por conceptos  -  Ciclo: ";
 	
+	public static final String KARDEX_SUBTITULO = "Kardex  -  Ciclo: ";
+	public static final String KARDEX_ASUNTO = "Informe de Kardex";
+	public static final String KARDEX_CUERPO = "<h3><b>Informe de Kardex</b></h3><br><h4>Adjunto se encuentra el informe de kardex correspondiente al ciclo %d.</h4>";
+	public static final String KARDEX = "kardex_ciclo_%d.xlsx";
+	
+	public static final String VENTAS_SUBTITULO = "Ventas matrícula  -  Ciclo: ";
+	public static final String VENTAS_ASUNTO = "Informe de Ventas de matrículas";
+	public static final String VENTAS_CUERPO = "<h3><b>Informe de Ventas de matr&iacute;culas</b></h3><br><h4>Adjunto se encuentra el informe de ventas de matr&iacute;culas correspondiente al ciclo %d.</h4>";
+	public static final String VENTAS = "ventas_ciclo_%d.xlsx";
+	
 	public static final String DETALLE_RECAUDO_ASUNTO = "Informe de Recaudo detallado por pagos";
 	public static final String DETALLE_RECAUDO_CUERPO = "<h3><b>Informe de Recaudo detallado por pagos</b></h3><br><h4>Adjunto se encuentra el informe de recaudo detallado por pagos correspondientes al ciclo %d.</h4>";
 	public static final String DETALLE_RECAUDO = "recaudo_detallado_pagos_ciclo_%d.xlsx";

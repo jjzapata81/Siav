@@ -71,6 +71,7 @@ define(['siav-module'], function(app) {
     		
     		"MATERIAL_ENTRADA_CREAR" : "rest/material/entrada/crear",
     		"MATERIAL_SALIDA_CREAR" : "rest/material/salida/crear",
+    		"MATERIAL_EXCEL" : "/Reportes/rest/material/excel",
     		
     		"NOVEDAD_GUARDAR" : "rest/novedades/guardar",
     		"NOVEDAD_CONSULTAR" : "rest/novedades/consultar/",

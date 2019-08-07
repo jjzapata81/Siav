@@ -43,11 +43,11 @@ define(['siav-module', 'creditos-services', 'modal-factory', 'constantes'], func
     	}
     	
     	$scope.formularioValido = function(){
-    		if(!$scope.credito || !$scope.credito.interes || !$scope.credito.numeroCuotas){
-    			modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.CREDITO.ERR_OBLIGATORIO);
+    		if(!$scope.credito || !$scope.credito.numeroCuotas){
+    			modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.CREDITO.ERR_NUMERO_CUOTAS_OBLIGATORIO);
     			return false;
     		}
-    		if($scope.credito.interes < 0 ||  $scope.credito.numeroCuotas < 0 || ($scope.credito.inicial && $scope.credito.inicial < 0)){
+    		if(($scope.credito.interes && $scope.credito.interes < 0) ||  $scope.credito.numeroCuotas < 0 || ($scope.credito.inicial && $scope.credito.inicial < 0)){
     			modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.CREDITO.ERR_NEGATIVO);
     			return false;
     		}

@@ -95,6 +95,8 @@ define(['siav-module', 'tarifas-services', 'contabilidad-services', 'instalacion
     	
     	$scope.onCrear = function(){
     		$scope.tarifaNueva.tipo = $scope.tarifaNueva.tipo.codigo;
+    		$scope.tarifaNueva.esCredito = $scope.tarifaNueva.esCredito ? true : false;
+    		$scope.tarifaNueva.activo = $scope.tarifaNueva.activo ? true : false;
     		tarifasServices
     		.crear($scope.tarifaNueva)
     		.then(function(respuesta){
@@ -122,7 +124,7 @@ define(['siav-module', 'tarifas-services', 'contabilidad-services', 'instalacion
     	
     	
     	$scope.validarSinEstrato = function(){
-    		if($scope.tarifaNueva.tipo === 'FIJO' && (!$scope.tarifaNueva.estrato0 || $scope.tarifaNueva.estrato0 <= 0)){
+    		if($scope.tarifaNueva.tipo.valor === 'FIJO' && (!$scope.tarifaNueva.estrato0 || $scope.tarifaNueva.estrato0 <= 0)){
     			modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.TARIFA.ERR_FALTA_VALOR);
     			return false;
     		}

@@ -3,7 +3,11 @@ package co.com.siav.bean.builders;
 import co.com.siav.entities.EntradaMaestro;
 import co.com.siav.request.MaterialRequest;
 
-public class EntradaBuilder {
+public final class EntradaBuilder {
+	
+	private EntradaBuilder(){
+		super();
+	}
 
 	public static EntradaMaestro crear(MaterialRequest request, Long codigo, Long ciclo) {
 		EntradaMaestro entrada = new EntradaMaestro();

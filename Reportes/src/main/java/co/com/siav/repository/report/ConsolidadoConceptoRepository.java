@@ -17,9 +17,9 @@ import co.com.siav.notifier.reports.name.Reporte;
 import co.com.siav.pdf.generador.GeneradorPDF;
 import co.com.siav.reports.factory.IReportType;
 import co.com.siav.reports.filters.Filter;
-import co.com.siav.reports.response.ConsolidadoConcepto;
 import co.com.siav.repository.QueryHelper;
 import co.com.siav.repository.ReportBDFactory;
+import co.com.siav.repository.entities.ConsolidadoConcepto;
 import co.com.siav.repository.utility.Util;
 import co.com.siav.utility.Constantes;
 

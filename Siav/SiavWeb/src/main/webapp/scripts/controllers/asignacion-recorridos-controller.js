@@ -47,7 +47,7 @@ define(['siav-module', 'asignacion-recorridos-services', 'usuario-sistema-servic
     	$scope.onGuardar = function(){
     		var request = {};
     		request.usuarioNuevo = $scope.asignacionEditar.usuario.nombreUsuario;
-    		request.usuarioActual = $scope.asignacionTemp.usuario.nombreUsuario;
+    		request.usuarioActual = $scope.asignacionTemp.usuarioRamalPK.usuario;
     		request.fechaInicial = $scope.asignacionEditar.usuarioRamalPK.fechaInicial;
     		request.codigoRamal = $scope.asignacionEditar.usuarioRamalPK.codigoRamal;
 			asignacionServices

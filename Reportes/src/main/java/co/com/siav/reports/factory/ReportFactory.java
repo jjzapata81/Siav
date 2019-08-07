@@ -14,10 +14,12 @@ import co.com.siav.repository.report.EstadisticasRepository;
 import co.com.siav.repository.report.FacturaCicloRepository;
 import co.com.siav.repository.report.FacturaRepository;
 import co.com.siav.repository.report.InstalacionesRutaRepository;
+import co.com.siav.repository.report.KardexRepository;
 import co.com.siav.repository.report.LecturasConsumosRepository;
 import co.com.siav.repository.report.PrefacturaRepository;
 import co.com.siav.repository.report.UsuarioRepository;
 import co.com.siav.repository.report.VariacionConsumoRepository;
+import co.com.siav.repository.report.VentasRepository;
 
 public class ReportFactory {
 	
@@ -60,6 +62,12 @@ public class ReportFactory {
 	@Inject
 	private InstalacionesRutaRepository instalacionesRutaRep;
 	
+	@Inject
+	private KardexRepository kardexRep;
+	
+	@Inject
+	private VentasRepository ventasRep;
+	
 	private Map<String, IReportType> typeReport;
 
 	public IReportType getInstance(String reporte) {
@@ -82,6 +90,8 @@ public class ReportFactory {
 		typeReport.put("detalle-recaudo", detalleRecaudoRep);
 		typeReport.put("cartera", carteraRep);
 		typeReport.put("factura-ciclo", facturaCicloRep);
+		typeReport.put("kardex", kardexRep);
+		typeReport.put("ventas", ventasRep);
 	}
 
 }

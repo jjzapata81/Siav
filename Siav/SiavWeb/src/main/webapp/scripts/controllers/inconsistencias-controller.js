@@ -150,10 +150,6 @@ define(['siav-module', 'inconsistencias-services', 'causas-no-lectura-services',
     	}
     	
     	$scope.validar = function(){
-    		if($scope.corregir.lecturaFinal < $scope.corregir.lecturaAnterior){
-    			modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.INCONSISTENCIA.ERR_LECTURA_FINAL_MENOR);
-    			return false;
-    		}
     		if(!$scope.corregir.serieNueva){
     			modalFactory.abrir(CONSTANTES.ESTADO.ERROR, CONSTANTES.INCONSISTENCIA.ERR_SERIAL_OBLIGATORIO);
     			return false;

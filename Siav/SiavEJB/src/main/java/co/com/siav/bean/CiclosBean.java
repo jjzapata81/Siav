@@ -27,6 +27,7 @@ import co.com.siav.repositories.IRepositoryInstalaciones;
 import co.com.siav.response.EstadoEnum;
 import co.com.siav.response.MensajeResponse;
 import co.com.siav.utils.Constantes;
+import co.com.siav.utils.FacturaUtil;
 import co.com.siav.utils.Utilidades;
 
 @Stateless
@@ -94,6 +95,7 @@ public class CiclosBean {
 			ciclosRep.save(cicloActual);
 			crearNuevoCiclo(cicloActual);
 			marcarCuentasVencidas(cicloActual.getCiclo());
+			cancelarFacturasSaldoAFavor(cicloActual.getCiclo()-1L);
 			actualizarInstalaciones(cicloActual);
 			kardexBean.cerrar(cicloActual.getCiclo());
 			return new MensajeResponse(Constantes.getMensaje(Constantes.CICLO_CERRADO, cicloActual.getCiclo()));
@@ -103,7 +105,7 @@ public class CiclosBean {
 	}
 
 	private void actualizarInstalaciones(Ciclo cicloActual) {
-		List<Instalacion> inactivas = instalacionesRep.findToActivate(cicloActual.getFecha());
+		List<Instalacion> inactivas = instalacionesRep.findToActivate();
 		inactivas.stream().forEach(instalacion -> actualizar(instalacion));
 	}
 
@@ -139,6 +141,22 @@ public class CiclosBean {
 
 	private void marcarCuentasVencidas(Long numeroCiclo) {
 		facturasRep.findByCiclo(numeroCiclo).stream().forEach(this::actualizarCuentasVencidas);
+	}
+	
+	private void cancelarFacturasSaldoAFavor(Long numeroCiclo) {
+		facturasRep.findByCiclo(numeroCiclo).stream().filter(item->FacturaUtil.getValor(item)<0L).forEach(this::cancelarFacturasSaldoAFavor);
+	}
+	@Asynchronous
+	private void cancelarFacturasSaldoAFavor(Factura factura){
+		factura.setCancelado(true);
+		factura.setCodigoPuntoPago(Constantes.CODIGO_CIERRE_SALDO_FAVOR);
+		factura.setFechaConsignacion(new Date());
+		factura.setFechaPagoReal(new Date());
+		factura.getDetalles().stream().forEach(item -> item.setCancelado(true));
+		factura.setAbono(false);
+		instalacionesRep.updateCuentasVencidasInstalacion(factura.getNumeroInstalacion());
+		facturasRep.save(factura);
+		
 	}
 	
 	@Asynchronous

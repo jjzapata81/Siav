@@ -1,4 +1,4 @@
-package co.com.siav.reports.response;
+package co.com.siav.repository.entities;
 
 public class PrefacturaTitulo {
 	
