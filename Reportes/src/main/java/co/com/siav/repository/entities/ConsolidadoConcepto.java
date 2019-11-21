@@ -6,9 +6,8 @@ public class ConsolidadoConcepto {
 	private Long ciclo;
 	private String codigo;
 	private String nombreConcepto;
-	private Long valor;
+	private Long venta;
 	private Long cartera;
-	private Long total;
 	
 	public Long getOrden() {
 		return orden;
@@ -34,23 +33,18 @@ public class ConsolidadoConcepto {
 	public void setNombreConcepto(String nombreConcepto) {
 		this.nombreConcepto = nombreConcepto;
 	}
-	public Long getValor() {
-		return valor;
-	}
-	public void setValor(Long valor) {
-		this.valor = valor;
-	}
+
 	public Long getCartera() {
 		return cartera;
 	}
 	public void setCartera(Long cartera) {
 		this.cartera = cartera;
 	}
-	public Long getTotal() {
-		return total;
+	public Long getVenta() {
+		return venta;
 	}
-	public void setTotal(Long total) {
-		this.total = total;
+	public void setVenta(Long venta) {
+		this.venta = venta;
 	}
-	
+
 }

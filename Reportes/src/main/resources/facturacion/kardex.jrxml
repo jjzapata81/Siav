@@ -6,16 +6,16 @@
 	<parameter name="titulo" class="java.lang.String"/>
 	<parameter name="subtitulo" class="java.lang.String"/>
 	<field name="ciclo" class="java.lang.Long"/>
-	<field name="fecha" class="java.lang.String"/>
+	<field name="fecha" class="java.util.Date"/>
 	<field name="codigo" class="java.lang.String"/>
 	<field name="articulo" class="java.lang.String"/>
 	<field name="saldoInicial" class="java.lang.Long"/>
-	<field name="entrada" class="java.lang.String"/>
-	<field name="precioEntrada" class="java.lang.Long"/>
-	<field name="salida" class="java.lang.String"/>
-	<field name="precioSalida" class="java.lang.String"/>
-	<field name="saldoFinal" class="java.lang.String"/>
-	<field name="valorSaldo" class="java.lang.String"/>
+	<field name="entrada" class="java.lang.Long"/>
+	<field name="precioEntrada" class="java.lang.Double"/>
+	<field name="salida" class="java.lang.Long"/>
+	<field name="precioSalida" class="java.lang.Double"/>
+	<field name="saldoFinal" class="java.lang.Long"/>
+	<field name="valorSaldo" class="java.lang.Double"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
