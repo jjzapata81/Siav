@@ -9,6 +9,7 @@ define(['siav-module', 'constantes'], function (app) {
     			 sendMail : sendMail,
     			 descargar : descargar,
     			 enviar : enviar,
+    			 descargarPDF : descargarPDF,
     			 instalacionesUsuario : instalacionesUsuario
     	 };
     	 
@@ -16,6 +17,19 @@ define(['siav-module', 'constantes'], function (app) {
     		 $http.post(CONSTANTES.SRV.REPORTES_DESCARGAR + reporte + "/download", filtro, {responseType: 'arraybuffer'})
     		 	.success(function (data, status, headers, config) {
     		 		var blob = new Blob([data], {type : 'application/vnd.ms-excel'});
+    		 		var a = document.createElement('a');
+    		 		a.href = (window.URL || window.webkitURL).createObjectURL(blob); 
+	                a.target = '_blank';
+	                a.download = nombreArchivo;
+	                document.body.appendChild(a);
+	                a.click();
+    		 });
+    	 }
+    	 
+    	 function descargarPDF(reporte, nombreArchivo, filtro){
+    		 $http.post(CONSTANTES.SRV.REPORTES_PDF + reporte + "/pdf", filtro, {responseType: 'arraybuffer'})
+    		 	.success(function (data, status, headers, config) {
+    		 		var blob = new Blob([data], {type : 'application/pdf'});
     		 		var a = document.createElement('a');
     		 		a.href = (window.URL || window.webkitURL).createObjectURL(blob); 
 	                a.target = '_blank';

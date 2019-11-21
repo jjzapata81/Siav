@@ -27,20 +27,27 @@ define(['siav-module', 'reportes-services', 'modal-email', 'modal-factory', 'con
         		});
     		}
     	}
-        
-        $scope.onBuscarPDF = function(){
+    	
+    	$scope.onBuscarPDF = function(){
     		if($scope.validar()){
     			reportesServices
-    			.getPDF(REPORTE, $scope.filtro)
-    			.then(function(data){
-	                var file = new Blob([ data ], {type : 'application/pdf'});
-	                var fileURL = URL.createObjectURL(file);
-	                $scope.isContent = true;
-	                $scope.content = $sce.trustAsResourceUrl(fileURL);
-	                $scope.limpiar();
-    			});
+        		.descargarPDF(REPORTE, "facturacion_ciclo" + $scope.filtro.ciclo + ".pdf", $scope.filtro);
     		}
     	}
+        
+//        $scope.onBuscarPDF = function(){
+//    		if($scope.validar()){
+//    			reportesServices
+//    			.getPDF(REPORTE, $scope.filtro)
+//    			.then(function(data){
+//	                var file = new Blob([ data ], {type : 'application/pdf'});
+//	                var fileURL = URL.createObjectURL(file);
+//	                $scope.isContent = true;
+//	                $scope.content = $sce.trustAsResourceUrl(fileURL);
+//	                $scope.limpiar();
+//    			});
+//    		}
+//    	}
         
         $scope.limpiar = function(){
         	$scope.filtro = null;

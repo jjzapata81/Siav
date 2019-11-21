@@ -19,6 +19,13 @@ define(['siav-module', 'reportes-services', 'modal-email', 'modal-factory', 'con
     		}
     	}
     	
+    	$scope.onBuscarPDF = function(){
+    		if($scope.validar()){
+    			reportesServices
+        		.descargarPDF(REPORTE, "estadisticas_ciclo" + $scope.filtro.ciclo + ".pdf", $scope.filtro);
+    		}
+    	}
+    	
     	$scope.onEnviar = function(){
     		if($scope.validar()){
     			modalEmail
@@ -35,18 +42,18 @@ define(['siav-module', 'reportes-services', 'modal-email', 'modal-factory', 'con
     		}
     	}
         
-        $scope.onBuscarPDF = function(){
-        	if($scope.validar()){
-    			reportesServices
-    			.getPDF(REPORTE, $scope.filtro)
-    			.then(function(data){
-	                var file = new Blob([ data ], {type : 'application/pdf'});
-	                var fileURL = URL.createObjectURL(file);
-	                $scope.content = $sce.trustAsResourceUrl(fileURL);
-	                $scope.isContent = true;
-    			});
-    		}
-    	}
+//        $scope.onBuscarPDF = function(){
+//        	if($scope.validar()){
+//    			reportesServices
+//    			.getPDF(REPORTE, $scope.filtro)
+//    			.then(function(data){
+//	                var file = new Blob([ data ], {type : 'application/pdf'});
+//	                var fileURL = URL.createObjectURL(file);
+//	                $scope.content = $sce.trustAsResourceUrl(fileURL);
+//	                $scope.isContent = true;
+//    			});
+//    		}
+//    	}
         
         $scope.validar = function(){
         	if(!$scope.filtro || $scope.filtro.ciclo < 1){

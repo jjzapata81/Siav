@@ -112,6 +112,9 @@ public class KardexBean {
 		Kardex nuevoKardex = new Kardex();
 		BeanUtils.copyProperties(kardex, nuevoKardex, "codigo");
 		nuevoKardex.setTipo(tipo);
+		nuevoKardex.setCantidadEntrada(0L);
+		nuevoKardex.setCantidadSalida(0L);
+		nuevoKardex.setSaldoAnterior(kardex.getSaldoActual());
 		nuevoKardex.setCiclo(ciclo);
 		kardexRep.save(nuevoKardex);
 	}

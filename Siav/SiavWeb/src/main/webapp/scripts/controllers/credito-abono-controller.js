@@ -43,9 +43,17 @@ define(['siav-module', 'creditos-services', 'pagos-services', 'modal-factory', '
     			pagosServices
     			.abonar($scope.abono)
     			.then(function(data){
-	                var file = new Blob([ data ], {type : 'application/pdf'});
-	                var fileURL = URL.createObjectURL(file);
-	                $scope.content = $sce.trustAsResourceUrl(fileURL);
+    				var blob = new Blob([data], {type : 'application/pdf'});
+    		 		var a = document.createElement('a');
+    		 		a.href = (window.URL || window.webkitURL).createObjectURL(blob); 
+	                a.target = '_blank';
+	                a.download = 'abono.pdf';
+	                document.body.appendChild(a);
+	                a.click();
+	                
+//	                var file = new Blob([ data ], {type : 'application/pdf'});
+//	                var fileURL = URL.createObjectURL(file);
+//	                $scope.content = $sce.trustAsResourceUrl(fileURL);
 	                $scope.limpiar();
     			});
     		}

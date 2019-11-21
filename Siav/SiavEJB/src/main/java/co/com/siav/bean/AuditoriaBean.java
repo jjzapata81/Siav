@@ -1,11 +1,11 @@
 package co.com.siav.bean;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
+import co.com.siav.bean.builders.AuditoriaBuilder;
 import co.com.siav.entities.ConsumoAuditoria;
 import co.com.siav.repositories.IRepositoryConsumoAuditoria;
 
@@ -17,16 +17,7 @@ public class AuditoriaBean {
 
 	
 	public void guardar(Long ciclo, Long instalacion, String usuario, Long consumo, Long consumoCorregido, Long lectura, Long lecturaCorregida, String observacion){
-		ConsumoAuditoria auditoria = new ConsumoAuditoria();
-		auditoria.setCiclo(ciclo);
-		auditoria.setConsumo(consumo);
-		auditoria.setConsumoCorregido(consumoCorregido);
-		auditoria.setFecha(new Date());
-		auditoria.setInstalacion(instalacion);
-		auditoria.setLectura(lectura);
-		auditoria.setLecturaCorregida(lecturaCorregida);
-		auditoria.setObservacion(observacion);
-		auditoria.setUsuario(usuario);
+		ConsumoAuditoria auditoria = AuditoriaBuilder.create(ciclo, instalacion, usuario, consumo, consumoCorregido, lectura, lecturaCorregida, observacion);
 		audiRep.save(auditoria);
 	}
 

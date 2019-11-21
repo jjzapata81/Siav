@@ -19,6 +19,11 @@ define(['siav-module', 'reportes-services', 'modal-email', 'modal-factory', 'con
     		.descargar(REPORTE, "instalaciones_ruta.xlsx", $scope.filtro);
     	}
     	
+    	$scope.onBuscarPDF = function(){
+    		reportesServices
+    		.descargarPDF(REPORTE, "instalaciones_ruta.pdf", $scope.filtro);
+    	}
+    	
     	$scope.onEnviar = function(){
     		modalEmail
     		.abrir()
@@ -33,16 +38,16 @@ define(['siav-module', 'reportes-services', 'modal-email', 'modal-factory', 'con
     		});
     	}
         
-        $scope.onBuscarPDF = function(){
-        	reportesServices
-			.getPDF(REPORTE, $scope.filtro)
-			.then(function(data){
-                var file = new Blob([ data ], {type : 'application/pdf'});
-                var fileURL = URL.createObjectURL(file);
-                $scope.content = $sce.trustAsResourceUrl(fileURL);
-                $scope.isContent = true;
-			});
-    	}
+//        $scope.onBuscarPDF = function(){
+//        	reportesServices
+//			.getPDF(REPORTE, $scope.filtro)
+//			.then(function(data){
+//                var file = new Blob([ data ], {type : 'application/pdf'});
+//                var fileURL = URL.createObjectURL(file);
+//                $scope.content = $sce.trustAsResourceUrl(fileURL);
+//                $scope.isContent = true;
+//			});
+//    	}
         
         
     }])
