@@ -6,9 +6,8 @@ public enum ConsolidadoConceptoExcelDescriptor implements IExcelDescriptor{
 	
 	CODIGO("CÓDIGO","getCodigo"),
 	NOMBRE_CONCEPTO("CONCEPTO","getNombreConcepto"),
-	VALOR("VALOR","getValor"),
-	CARTERA("CARTERA","getCartera"),
-	TOTAL("TOTAL","getTotal"),
+	VENTA("VENTA","getVenta"),
+	CARTERA("CARTERA","getCartera")
 	;
 	
 	private String header;

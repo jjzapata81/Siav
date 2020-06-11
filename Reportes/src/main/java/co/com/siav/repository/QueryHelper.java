@@ -164,6 +164,17 @@ public class QueryHelper {
 		return sb.toString();
 	}
 	
+	public static String getCicloPorFecha(Filter filter) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("SELECT ciclo, fecha, felectura AS feFactura, fesinrecargo, feconrecargo, snestado, mensaje, ");
+		sb.append("mensajereclamo AS mensajeReclamo, mensajepuntopago AS mensajePuntoPago, mensajecorte AS mensajeCorte ");
+		sb.append("FROM ta_ciclos ");
+		sb.append("WHERE fecha =  '");
+		sb.append(Formatter.createStringFromDate(filter.getFechaDesde(), Constantes.YYYY_MM_DD));
+		sb.append("'");
+		return sb.toString();
+	}
+	
 	public static String getCicloPorEstado(String estado) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("SELECT ciclo, fecha, felectura AS feFactura, fesinrecargo, feconrecargo, snestado, mensaje, ");
@@ -499,8 +510,163 @@ public class QueryHelper {
 		return sb.toString();
 	}
 	
+	public static String getCarteraTotal(Long ciclo){
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("select '10' orden, u.cedula, trim(u.nombres) || ' ' || trim(u.apellidos) nombre, fm.nminstalacion instalacion, c.fecha, fm.nmfactura comprobante, sum(fd.valor+fd.saldo) valor,  "); 
+		sb.append("    fm.sncancelado cancelado, fm.cuentasvencidas ");
+		sb.append("from ta_factura_maestro fm, ta_factura_detalle fd, ta_usuarios u, ta_ciclos c ");
+		sb.append("where fm.nmfactura = fd.nmfactura  ");
+		sb.append("and fm.cedula = u.cedula ");
+		sb.append("and fm.ciclo = c.ciclo ");
+		sb.append("and fd.ciclo = c.ciclo ");
+		sb.append("and c.ciclo = ");
+		sb.append(ciclo);
+		sb.append(" and fm.sncancelado = 'N' ");
+		sb.append("and c.snestado = 'CERRADO' ");
+		sb.append("GROUP BY c.ciclo, u.cedula, fm.nminstalacion, fm.nmfactura ");
+		sb.append("UNION ALL  ");
+		sb.append("SELECT '20', u.cedula, trim(u.nombres) || ' ' || trim(u.apellidos) nombre, cr.nminstalacion, cr.fecha, cr.nmcredito, ");
+		sb.append("   (cr.valor-cr.inicial)- ((cr.valor-cr.inicial)/cr.cuotas) * (c.ciclo-cr.ciclo+1),  'N' Cancelado, 0 CV ");
+		sb.append("FROM ta_credito_maestro cr, ta_instalacion i, ta_usuarios u, ta_ciclos c, ta_sistema s ");
+		sb.append("where cr.nminstalacion = i.nminstalacion ");
+		sb.append("and i.cedula = u.cedula  ");
+		sb.append("and cr.ciclo is not null ");
+		sb.append("and c.ciclo = ");
+		sb.append(ciclo);
+		sb.append(" and cr.snfinanciado = 'N'  ");
+		sb.append("and c.snestado = 'CERRADO' ");
+		sb.append("and cr.fechafinal is null  ");
+		sb.append("and ((cr.valor-cr.inicial) - ((cr.valor-cr.inicial)/cr.cuotas)*(c.ciclo-cr.ciclo+1)) >0 ");
+		sb.append("order by 2, 4, 1; ");
+		return sb.toString();
+	}
+	
 	public static String getConsolidadoConcepto(Filter filter){
 		StringBuilder sb = new StringBuilder();
+		sb.append(" SELECT 10 as orden, fd.ciclo, fd.cdconcepto codigo, fd.nombreconcepto, sum(valor) venta, sum(saldo) cartera");
+		sb.append("   FROM ta_factura_detalle fd");
+		sb.append("  WHERE fd.cdconcepto IN (SELECT idcargofijo FROM ta_sistema)");
+		sb.append("   AND fd.ciclo = ");
+		sb.append(filter.getCiclo());
+		sb.append(" GROUP BY fd.ciclo, fd.cdconcepto, fd.nombreconcepto");
+		sb.append(" UNION ALL");
+		sb.append(" SELECT 20, fd.ciclo, fd.cdconcepto, fd.nombreconcepto, sum(valor) venta, sum(saldo) cartera");
+		sb.append("   FROM ta_factura_detalle fd");
+		sb.append("  WHERE fd.cdconcepto IN (SELECT idbasico FROM ta_sistema)");
+		sb.append("   AND fd.ciclo = ");
+		sb.append(filter.getCiclo());
+		sb.append(" GROUP BY fd.ciclo, fd.cdconcepto, fd.nombreconcepto");
+		sb.append(" UNION ALL");
+		sb.append(" SELECT 30, fd.ciclo, fd.cdconcepto, fd.nombreconcepto, sum(valor) venta, sum(saldo) cartera");
+		sb.append("   FROM ta_factura_detalle fd");
+		sb.append("  WHERE fd.cdconcepto IN (SELECT idcomplementario FROM ta_sistema)");
+		sb.append("   AND fd.ciclo = ");
+		sb.append(filter.getCiclo());
+		sb.append(" GROUP BY fd.ciclo, fd.cdconcepto, fd.nombreconcepto");
+		sb.append(" UNION ALL");
+		sb.append(" SELECT 40, fd.ciclo, fd.cdconcepto, fd.nombreconcepto, sum(valor) venta, sum(saldo) cartera");
+		sb.append("   FROM ta_factura_detalle fd");
+		sb.append("  WHERE fd.cdconcepto IN (SELECT idsuntuario FROM ta_sistema)");
+		sb.append("   AND fd.ciclo = ");
+		sb.append(filter.getCiclo());
+		sb.append(" GROUP BY fd.ciclo, fd.cdconcepto, fd.nombreconcepto");
+		sb.append(" UNION ALL");
+		sb.append(" SELECT 50, fd.ciclo, fd.cdconcepto, fd.nombreconcepto, sum(valor) venta, sum(saldo) cartera");
+		sb.append("   FROM ta_factura_detalle fd");
+		sb.append("  WHERE fd.cdconcepto IN (SELECT idexceso FROM ta_sistema)");
+		sb.append("   AND fd.ciclo = ");
+		sb.append(filter.getCiclo());
+		sb.append(" GROUP BY fd.ciclo, fd.cdconcepto, fd.nombreconcepto");
+		sb.append(" UNION ALL");
+		sb.append(" select 60, c.ciclo, t.cdconcepto, t.descripcion || ' VENTA DE CONTADO', sum(lp.valor) venta, 0 cartera");
+		sb.append(" from ta_comprobante_pago cp, ta_log_pagos lp, ta_usuarios u, ta_ciclos c, ta_tarifas t, ta_sistema s");
+		sb.append(" where cp.cedula = u.cedula");
+		sb.append(" and cp.nmcomprobante = lp.nmfactura");
+		sb.append(" and t.cdconcepto = s.idderecho");
+		sb.append(" and lp.fehasta between c.fecha and c.fecha+30");
+		sb.append(" and snmatricula = 'S' and sncancelado = 'S'");
+		sb.append(" and lp.valor = t.estrato0");
+		sb.append(" and lp.snerror = 'N'");
+		sb.append("   AND c.ciclo = ");
+		sb.append(filter.getCiclo());
+		sb.append(" GROUP BY c.ciclo, t.cdconcepto, t.descripcion");
+		sb.append(" UNION ALL");
+		sb.append(" SELECT 60, c.ciclo, t.cdconcepto, t.descripcion || ' VENTA A CRÉDITO CON INICIAL', sum(cr.valor) venta, 0 cartera ");
+		sb.append("   FROM ta_comprobante_pago cp, ta_log_pagos lp, ta_credito_maestro cr, ta_instalacion i, ta_usuarios u, ta_ciclos c, ta_tarifas t, ta_sistema s");
+		sb.append("   where cp.cedula = u.cedula");
+		sb.append("   and cr.nminstalacion = i.nminstalacion");
+		sb.append("   and i.cedula = u.cedula");
+		sb.append("   and cp.nmcomprobante = lp.nmfactura");
+		sb.append("   and t.cdconcepto = s.idderecho");
+		sb.append("   and cr.cdconcepto = s.idderecho");
+		sb.append("   and c.ciclo = cr.ciclo");
+		sb.append("   and snmatricula = 'S' and sncancelado = 'S'");
+		sb.append("   and cr.fecha between c.fecha and c.fecha+30");
+		sb.append("   and lp.valor <> t.estrato0");
+		sb.append("   and lp.valor = cr.inicial ");
+		sb.append("   and lp.snerror = 'N'");
+		sb.append("   AND c.ciclo = ");
+		sb.append(filter.getCiclo());
+		sb.append(" group by c.ciclo, t.cdconcepto, t.descripcion");
+		sb.append(" UNION ALL");
+		sb.append(" SELECT 60, c.ciclo, t.cdconcepto, t.descripcion || ' VENTA A CRÉDITO SIN INICIAL', sum(cr.valor) venta, 0 cartera ");
+		sb.append("   FROM  ta_credito_maestro cr, ta_instalacion i, ta_usuarios u, ta_ciclos c, ta_tarifas t, ta_sistema s");
+		sb.append("   where cr.nminstalacion = i.nminstalacion");
+		sb.append("   and i.cedula = u.cedula");
+		sb.append("   and t.cdconcepto = s.idderecho");
+		sb.append("   and cr.cdconcepto = s.idderecho");
+		sb.append("   and c.ciclo = cr.ciclo");
+		sb.append("   AND c.ciclo = ");
+		sb.append(filter.getCiclo());
+		sb.append("   and cr.inicial = 0");
+		sb.append("   group by c.ciclo, t.cdconcepto, t.descripcion");
+		sb.append(" UNION ALL");
+		sb.append(" SELECT 65, fd.ciclo, fd.cdconcepto, fd.nombreconcepto || ' RECUPERADA EN LAS CUOTAS', sum(valor) venta, sum(saldo) cartera");
+		sb.append("   FROM ta_factura_detalle fd");
+		sb.append("  WHERE fd.cdconcepto IN (SELECT idderecho FROM ta_sistema) ");
+		sb.append("   AND fd.ciclo = ");
+		sb.append(filter.getCiclo());
+		sb.append(" GROUP BY fd.ciclo, fd.cdconcepto, fd.nombreconcepto");
+		sb.append(" UNION ALL");
+		sb.append(" SELECT 70, fd.ciclo, fd.cdconcepto, fd.nombreconcepto, sum(valor) venta, sum(saldo) cartera");
+		sb.append("   FROM ta_factura_detalle fd");
+		sb.append("  WHERE fd.cdconcepto IN (SELECT idinteres FROM ta_sistema) ");
+		sb.append("   AND fd.ciclo = ");
+		sb.append(filter.getCiclo());
+		sb.append(" GROUP BY fd.ciclo, fd.cdconcepto, fd.nombreconcepto");
+		sb.append(" UNION ALL");
+		sb.append(" SELECT 80, fd.ciclo, fd.cdconcepto, fd.nombreconcepto, sum(valor) venta, sum(saldo) cartera");
+		sb.append("   FROM ta_factura_detalle fd");
+		sb.append("  WHERE fd.cdconcepto IN (SELECT idrecargo FROM ta_sistema) ");
+		sb.append("   AND fd.ciclo = ");
+		sb.append(filter.getCiclo());
+		sb.append(" GROUP BY fd.ciclo, fd.cdconcepto, fd.nombreconcepto");
+		sb.append(" UNION ALL");
+		sb.append(" SELECT 90, fd.ciclo, fd.cdconcepto, fd.nombreconcepto, sum(valor) venta, sum(saldo) cartera");
+		sb.append("   FROM ta_factura_detalle fd");
+		sb.append("  WHERE fd.cdconcepto IN (SELECT idreconexion FROM ta_sistema)");
+		sb.append("   AND fd.ciclo = ");
+		sb.append(filter.getCiclo());
+		sb.append(" GROUP BY fd.ciclo, fd.cdconcepto, fd.nombreconcepto");
+		sb.append(" UNION ALL");
+		sb.append(" SELECT 150, fd.ciclo, fd.cdconcepto, fd.nombreconcepto, sum(valor) venta, sum(saldo) cartera");
+		sb.append("   FROM ta_factura_detalle fd");
+		sb.append("  WHERE fd.cdconcepto NOT IN (SELECT idcargofijo FROM ta_sistema)");
+		sb.append("    AND fd.cdconcepto NOT IN (SELECT idbasico FROM ta_sistema)");
+		sb.append("    AND fd.cdconcepto NOT IN (SELECT idcomplementario FROM ta_sistema)");
+		sb.append("    AND fd.cdconcepto NOT IN (SELECT idsuntuario FROM ta_sistema)");
+		sb.append("    AND fd.cdconcepto NOT IN (SELECT idexceso FROM ta_sistema)");
+		sb.append("    AND fd.cdconcepto NOT IN (SELECT idderecho FROM ta_sistema)");
+		sb.append("    AND fd.cdconcepto NOT IN (SELECT idinteres FROM ta_sistema)");
+		sb.append("    AND fd.cdconcepto NOT IN (SELECT idrecargo FROM ta_sistema)");
+		sb.append("    AND fd.cdconcepto NOT IN (SELECT idreconexion FROM ta_sistema)");
+		sb.append("   AND fd.ciclo = ");
+		sb.append(filter.getCiclo());
+		sb.append(" GROUP BY fd.ciclo, fd.cdconcepto, fd.nombreconcepto");
+		sb.append(" ORDER BY 1, 2, 3, 4;");
+		
+		/*
 		sb.append("SELECT 10 orden, fd.ciclo, fd.cdconcepto codigo, fd.nombreconcepto, sum(valor) venta, sum(saldo) cartera ");
 		sb.append("  FROM ta_factura_detalle fd ");
 		sb.append(" WHERE fd.cdconcepto IN (SELECT idcargofijo FROM ta_sistema) ");
@@ -544,6 +710,7 @@ public class QueryHelper {
 		sb.append("and lp.fehasta between c.fecha and c.fecha+30 ");
 		sb.append("and snmatricula = 'S' and sncancelado = 'S' ");
 		sb.append("and lp.valor = t.estrato0 ");
+		sb.append("and lp.snerror = 'N' ");
 		sb.append("and c.ciclo = ");
 		sb.append(filter.getCiclo());
 		sb.append(" GROUP BY c.ciclo, t.cdconcepto, t.descripcion ");
@@ -561,6 +728,7 @@ public class QueryHelper {
 		sb.append("  and cr.fecha between c.fecha and c.fecha+30 ");
 		sb.append("  and lp.valor <> t.estrato0 ");
 		sb.append("  and lp.valor = cr.inicial ");
+		sb.append("and lp.snerror = 'N' ");
 		sb.append("  and c.ciclo = ");
 		sb.append(filter.getCiclo());
 		sb.append(" group by c.ciclo, t.cdconcepto, t.descripcion ");
@@ -612,7 +780,7 @@ public class QueryHelper {
 		sb.append("   AND fd.ciclo = ");
 		sb.append(filter.getCiclo());
 		sb.append(" GROUP BY fd.ciclo, fd.cdconcepto, fd.nombreconcepto ");
-		sb.append("ORDER BY 1, 2, 3, 4; ");
+		sb.append("ORDER BY 1, 2, 3, 4; ");*/
 		return sb.toString();
 	}
 	

@@ -207,8 +207,8 @@ define(['angularAMD', 'angular-route'], function (angularAMD) {
 	            controller: 'estadisticas-controller'
 	        }))
 	        .when("/cartera", angularAMD.route({
-	            templateUrl: 'views/reportes/cartera.html', 
-	            controller: 'cartera-controller'
+	            templateUrl: 'views/reportes/cartera-total.html', 
+	            controller: 'cartera-total-controller'
 	        }))
 	        .when("/consolidado-concepto", angularAMD.route({
 	            templateUrl: 'views/reportes/consolidado-concepto.html', 

@@ -70,6 +70,8 @@ public class Reporte {
 	public static final String CARTERA = "cartera.xlsx";
 	public static final String CARTERA_SUBTITULO = "Reporte de cartera";
 	
+	public static final String INGRESO_COMPRA = "INGRESO DE COMPRA";
+	
 	public static final String FACTURA_EMAIL_ASUNTO = "Factura %s";
 	public static final String FACTURA_EMAIL_ATACH = "Factura_%s%s";
 	public static final String FACTURA_EMAIL_CUERPO = "<div style='margin:20px; font-weight: 700;'><section style='color: #ff8000; text-shadow: 1px 1px 1px #423816; font-size: 25px; margin-bottom: 15px;'>Tu factura de %s ya fue generada</section>"

@@ -19,9 +19,9 @@ public class Validador {
 		if(consumos.isEmpty()){
 			throw new ExcepcionNegocio(Constantes.ERR_SIN_INSTALACION_ACTIVA);
 		}
-		if(consumos.size()!=instalacionesActivas.intValue()){
-			throw new ExcepcionNegocio(Constantes.ERR_LECTURAS_PENDIENTES);
-		}
+//		if(consumos.size()!=instalacionesActivas.intValue()){
+//			throw new ExcepcionNegocio(Constantes.ERR_LECTURAS_PENDIENTES);
+//		}
 		if(consumos.stream().filter(item -> item.getConsumoDefinitivo() < 0L).findFirst().isPresent()){
 			throw new ExcepcionNegocio(Constantes.ERR_CONSUMO_NEGATIVO);
 		}

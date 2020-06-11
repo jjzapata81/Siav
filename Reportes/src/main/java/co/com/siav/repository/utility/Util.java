@@ -25,7 +25,12 @@ public class Util {
 	public static Empresa getEmpresa() {
 		String query = QueryHelper.getEmpresa();
 		ReportBDFactory<Empresa> factory = new ReportBDFactory<>();
-		return factory.getReportResult(Empresa.class, query).get(0);
+		List<Empresa> reportResult = factory.getReportResult(Empresa.class, query);
+		if(!reportResult.isEmpty()){
+			return reportResult.get(0);
+		}else{
+			throw new TechnicalException(Constantes.ERR_NO_DATA);
+		}
 	}
 
 	public static Ciclo getCiclo(Filter filter) {
@@ -41,19 +46,47 @@ public class Util {
 	public static Ciclo getCicloPorEstado(String estado) {
 		String query = QueryHelper.getCicloPorEstado(estado);
 		ReportBDFactory<Ciclo> factory = new ReportBDFactory<>();
-		return factory.getReportResult(Ciclo.class, query).get(0);
+		List<Ciclo> reportResult = factory.getReportResult(Ciclo.class, query);
+		if(!reportResult.isEmpty()){
+			return reportResult.get(0);
+		}else{
+			throw new TechnicalException(Constantes.ERR_NO_DATA);
+		}
+		
+	}
+	
+	public static Ciclo getCicloPorFecha(Filter filter) {
+		String query = QueryHelper.getCicloPorFecha(filter);
+		ReportBDFactory<Ciclo> factory = new ReportBDFactory<>();
+		List<Ciclo> reportResult = factory.getReportResult(Ciclo.class, query);
+		if(!reportResult.isEmpty()){
+			return reportResult.get(0);
+		}else{
+			throw new TechnicalException(Constantes.ERR_NO_DATA);
+		}
+		
 	}
 
 	public static Sistema getSistema() {
 		String query = QueryHelper.getSistema();
 		ReportBDFactory<Sistema> factory = new ReportBDFactory<>();
-		return factory.getReportResult(Sistema.class, query).get(0);
+		List<Sistema> reportResult = factory.getReportResult(Sistema.class, query);
+		if(!reportResult.isEmpty()){
+			return reportResult.get(0);
+		}else{
+			throw new TechnicalException(Constantes.ERR_NO_DATA);
+		}
 	}
 	
 	public static String getParametro(IConsultaParametro parametro) {
 		String query = QueryHelper.getParametro(parametro);
 		ReportBDFactory<Parametro> factory = new ReportBDFactory<>();
-		return factory.getReportResult(Parametro.class, query).get(0).getParametro();
+		List<Parametro> reportResult = factory.getReportResult(Parametro.class, query);
+		if(!reportResult.isEmpty()){
+			return reportResult.get(0).getParametro();
+		}else{
+			throw new TechnicalException(Constantes.ERR_NO_DATA);
+		}
 	}
 	
 	public static String getCodigoBarras(String referencia, Long valorTotal, Date fecha) {

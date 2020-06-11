@@ -141,6 +141,7 @@ require.config({
     	'consolidado-concepto-controller' : 'controllers/reportes/consolidado-concepto-controller',
     	'detalle-recaudo-controller' : 'controllers/reportes/detalle-recaudo-controller',
     	'cartera-controller' : 'controllers/reportes/cartera-controller',
+    	'cartera-total-controller' : 'controllers/reportes/cartera-total-controller',
     	'kardex-controller' : 'controllers/reportes/kardex-controller',
     	"ventas-matricula-controller" : "controllers/reportes/ventas-matricula-controller",
     	

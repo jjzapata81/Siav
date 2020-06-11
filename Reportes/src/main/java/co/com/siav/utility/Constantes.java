@@ -18,11 +18,12 @@ public class Constantes {
 	public static final String YYYY_MM_DD = "yyyy-MM-dd";
 	
 	public static final String TITULO = "titulo";
+	public static final String NIT = "nit";
 	public static final String SUBTITULO = "subtitulo";
 	public static final String RESUMEN = "resumen";
 	
 	public static final String PATTERN_EMAIL = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-	
+	public static final String CARTERA_FINAL_JRXML = "carteraFinal.jrxml";
 	public static final String CARTERA_JRXML = "cartera.jrxml";
 	public static final String RECAUDO_JRXML="recaudo.jrxml";
 	public static final String INSTALACIONES_RUTA_JRXML = "instalacionesRuta.jrxml";
@@ -33,6 +34,7 @@ public class Constantes {
 	public static final String CONSUMO_NO_FACTURADO_JRXML = "consumoNoFacturado.jrxml";
 	public static final String CONSOLIDADO_CONCEPTO_JRXML = "consolidadoConcepto.jrxml";
 	public static final String KARDEX_JRXML = "kardex.jrxml";
+	public static final String COMPROBANTE_MATERIALES = "comprobantemateriales.jrxml";
 	public static final String VENTAS_JRXML = "ventas.jrxml";
 	public static final String FACTURA_JRXML = "siav.jrxml";
 	public static final String ABONO_JRXML = "siavAbono.jrxml";
@@ -41,6 +43,8 @@ public class Constantes {
 	public static final String SI = "S";
 	public static final String ERR_DETALLE_PREFACTURA = "Error convirtiendo los articulos";
 	public static final String CONCEPTO_IVA_VENTAS = "23450101";
+	public static final String ERR_MONTH_DATE = "El rango de fechas seleccionadas es incorrecto.";
+	public static final String ERR_FINAL_DATE = "La fecha inicial no puede ser mayor que la fecha final.";
 	
 
 }

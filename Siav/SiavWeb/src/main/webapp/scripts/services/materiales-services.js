@@ -26,11 +26,11 @@ define(['siav-module', 'constantes'], function (app) {
     	 function crearExcel(detalles, factura){
     		 $http.post(CONSTANTES.SRV.MATERIAL_EXCEL, detalles, {responseType: 'arraybuffer'})
     		 	.success(function (data, status, headers, config) {
-    		 		var blob = new Blob([data], {type : 'application/vnd.ms-excel'});
+    		 		var blob = new Blob([data], {type : 'application/pdf'});
     		 		var a = document.createElement('a');
     		 		a.href = (window.URL || window.webkitURL).createObjectURL(blob); 
 	                a.target = '_blank';
-	                a.download = 'entradas_' + factura + '.xlsx';
+	                a.download = 'comprobante_ingreso_' + factura + '.pdf';
 	                document.body.appendChild(a);
 	                a.click();
     		 });

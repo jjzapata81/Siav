@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import co.com.siav.repository.report.CarteraRepository;
+import co.com.siav.repository.report.CarteraTotalRepository;
 import co.com.siav.repository.report.ConsolidadoConceptoRepository;
 import co.com.siav.repository.report.ConsumosNoFacturadoRepository;
 import co.com.siav.repository.report.CuentasVencidasRepository;
@@ -54,6 +55,9 @@ public class ReportFactory {
 	private CarteraRepository carteraRep;
 	
 	@Inject
+	private CarteraTotalRepository carteraTotalRep;
+	
+	@Inject
 	private ConsolidadoConceptoRepository consolidadoConceptoRep;
 	
 	@Inject
@@ -89,6 +93,7 @@ public class ReportFactory {
 		typeReport.put("consolidado-concepto", consolidadoConceptoRep);
 		typeReport.put("detalle-recaudo", detalleRecaudoRep);
 		typeReport.put("cartera", carteraRep);
+		typeReport.put("cartera-total", carteraTotalRep);
 		typeReport.put("factura-ciclo", facturaCicloRep);
 		typeReport.put("kardex", kardexRep);
 		typeReport.put("ventas", ventasRep);
